@@ -1,0 +1,44 @@
+.celebrateImg{
+    background-image: url(../assets/celebrate-img.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    top: 0;
+    z-index: 0;
+ 
+} 
+.check-mark{
+    z-index: 10;
+    position: absolute;
+    top: 100px;
+}
+/* body{
+    overflow: hidden;
+} */
+
+    @keyframes scaleUp {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+      .footer{
+        position: absolute;
+        bottom: 100px;
+       left: 450px;
+      }
+
+  .animate-ping {
+    animation: ping 1s none;
+    animation-delay: 0.3s;
+  }
+
+  
+
+  

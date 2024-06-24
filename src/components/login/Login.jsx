@@ -16,6 +16,8 @@ import "react-toastify/dist/ReactToastify.min.css";
 import { BiChevronDown } from "react-icons/bi";
 import Done from "../assets/Done.png";
 import DoneBackground from "../assets/DoneBackground.png";
+import CreateSuccessfull from "./Successpage";
+
 
 const Login = () => {
   const [validotp, setOtp] = useState(["", "", "", ""]);
@@ -120,12 +122,13 @@ const Login = () => {
       user?.message === "verifiedExitingEmployer" &&
       user?.data?.existEmployer?.role === "employer"
     ) {
-      toast.success(user?.data?.existEmployer?.role, {
-        style: { backgroundColor: "#4CAF90", color: "#ffffff" },
-      });
+      // toast.success(user?.data?.existEmployer?.role, {
+      //   style: { backgroundColor: "#4CAF90", color: "#ffffff" },
+      // });
       Cookies.set("token", user?.data?.token);
       localStorage.setItem("role", user?.data?.existEmployer?.role);
-      navigate("/employerDashboard/postarequirements/post-training"); // Navigate to the next page
+      <CreateSuccessfull role={user?.data?.existEmployer?.role} />
+      // navigate("/employerDashboard/postarequirements/post-training"); // Navigate to the next page
     }
     else if (
       user?.message === "verifiedExitingEmployer" &&
@@ -136,7 +139,9 @@ const Login = () => {
       });
       Cookies.set("token", user?.data?.token);
       localStorage.setItem("role", user?.data?.existEmployer2?.role);
-      navigate("/employerDashboard/postarequirements/post-training"); // Navigate to the next page
+      <CreateSuccessfull role={user?.data?.existEmployer?.role} />
+
+      // navigate("/employerDashboard/postarequirements/post-training"); // Navigate to the next page
     }
     if (user?.message === "Invalid OTP") {
       // Handle invalid OTP case if needed
@@ -151,7 +156,9 @@ const Login = () => {
       });
       Cookies.set("token", user?.data?.token);
       localStorage.setItem("role", user?.data?.existTrainer?.role);
-      navigate("/trainerDashboard/feed"); // Navigate to the next page
+      <CreateSuccessfull role={user?.data?.existTrainer?.role} />
+
+      // navigate("/trainerDashboard/feed"); // Navigate to the next page
     }
     else if (
       user?.message === "verifiedExitingTrainer" &&
@@ -162,7 +169,9 @@ const Login = () => {
       });
       Cookies.set("token", user?.data?.token);
       localStorage.setItem("role", user?.data?.existTrainer2?.role);
-      navigate("/trainerDashboard/feed"); // Navigate to the next page
+      // navigate("/trainerDashboard/feed"); // Navigate to the next page
+      <CreateSuccessfull role={user?.data?.existTrainer?.role} />
+
     }
     if (user?.message === "newUser") {
       toast.success(user?.message, {
