@@ -9,6 +9,7 @@ import Bird from "../components/assets/bird.png";
 import EmployerProfile from "../components/pages/employerprofile/EmployerProfile.jsx";
 import EmployerProfileEdit from "../components/pages/employerprofile/EmployerProfileEdit.jsx";
 import UnAuthorizedError from '../components/utils/UnAuthorizedError.jsx'
+import CreatedSuccessFull from '../components/login/Successpage.jsx'
 const Signup = lazy(() => import("./../components/login/Signup"));
 const TrainerSiginUp = lazy(() => import("../components/login/TrainerSiginUp"));
 const Employee = lazy(() => import("../components/login/EmployerSiginUp.jsx"));
@@ -60,7 +61,7 @@ function RouteCompo() {
           <Route path="/" element={<Signup />} />
 
           <Route path="/otpverify" element={<Login />} />
-
+          <Route path='/createsucess' element={<CreatedSuccessFull/>}/>
           <Route path='/unautherror' element={<UnAuthorizedError/>}/>
         </Routes>
       </Suspense>
