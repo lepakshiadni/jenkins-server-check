@@ -127,7 +127,8 @@ const Login = () => {
       // });
       Cookies.set("token", user?.data?.token);
       localStorage.setItem("role", user?.data?.existEmployer?.role);
-      <CreateSuccessfull role={user?.data?.existEmployer?.role} />
+      navigate('/createsucess')
+      // <CreateSuccessfull role={user?.data?.existEmployer?.role} />
       // navigate("/employerDashboard/postarequirements/post-training"); // Navigate to the next page
     }
     else if (
@@ -139,7 +140,8 @@ const Login = () => {
       });
       Cookies.set("token", user?.data?.token);
       localStorage.setItem("role", user?.data?.existEmployer2?.role);
-      <CreateSuccessfull role={user?.data?.existEmployer?.role} />
+      // <CreateSuccessfull role={user?.data?.existEmployer?.role} />
+      navigate('/createsucess')
 
       // navigate("/employerDashboard/postarequirements/post-training"); // Navigate to the next page
     }
@@ -156,7 +158,8 @@ const Login = () => {
       });
       Cookies.set("token", user?.data?.token);
       localStorage.setItem("role", user?.data?.existTrainer?.role);
-      <CreateSuccessfull role={user?.data?.existTrainer?.role} />
+      // <CreateSuccessfull role={user?.data?.existTrainer?.role} />
+      navigate('/createsucess')
 
       // navigate("/trainerDashboard/feed"); // Navigate to the next page
     }
@@ -170,7 +173,8 @@ const Login = () => {
       Cookies.set("token", user?.data?.token);
       localStorage.setItem("role", user?.data?.existTrainer2?.role);
       // navigate("/trainerDashboard/feed"); // Navigate to the next page
-      <CreateSuccessfull role={user?.data?.existTrainer?.role} />
+      // <CreateSuccessfull role={user?.data?.existTrainer?.role} />
+      navigate('/createsucess')
 
     }
     if (user?.message === "newUser") {
