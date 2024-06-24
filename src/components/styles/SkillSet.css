@@ -1,0 +1,39 @@
+input::placeholder {
+  opacity: 0.3;
+  font-style: italic;
+  font-size: 16px;
+}
+.css-tj5bde-Svg {
+  display: none;
+}
+
+.trainer-form-details {
+  height: 251px;
+  overflow-y: scroll;
+}
+.trainer-form-details::-webkit-scrollbar {
+  width: 0px;
+}
+.trainer-form-label input {
+  height: 3rem;
+  border-radius: 0.125rem;
+  width: 100%;
+  height: 46px;
+  flex-shrink: 0;
+  border: none;
+  font-family: Poppins;
+  color: #fff;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0 15px;
+  outline: none;
+}
+.selectinput-skills .css-tj5bde-Svg {
+  color: white;
+}
+.selectinput-skills .css-wsp0cs-MultiValueGeneric {
+  color: white;
+}

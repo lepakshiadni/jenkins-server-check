@@ -1,0 +1,130 @@
+  
+  .feedcontentRight {
+    height: calc(50vh - 1px);
+    overflow-y: scroll;
+    scrollbar-color: #bfbfbf;
+
+  }
+  .feedcontentRight::-webkit-scrollbar {
+    border-radius: 8px;
+    width: 2px;
+  }
+  .feedcontentRight::-webkit-scrollbar-track {
+    /* background-color: #f1f1f1; */
+    border-radius: 8px;
+  }
+  .feedcontentRight::-webkit-scrollbar-thumb {
+    background-color: #bfbfbf;
+    border-radius: 8px;
+  }
+  
+  .centered-section2 {
+    /* width: 70%; */
+    padding: 20px;
+    width:100%;
+    border: 1px solid #eeeeee;
+  }
+  
+  .img2 {
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+  }
+  
+  .skillfooter2 {
+    display: flex;
+    align-items: center;
+  }
+  
+  .skillfooter2 svg {
+    margin-left: 30px;
+  }
+  
+  .scroll {
+    height: 400px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    scrollbar-color: #bfbfbf;
+  }
+  .scroll::-webkit-scrollbar {
+    width: 0.5em;
+    border-radius: 8px;
+  }
+  .scroll::-webkit-scrollbar-track {
+    border-radius: 8px;
+  }
+  .scroll::-webkit-scrollbar-thumb {
+    background-color: #bfbfbf;
+    border-radius: 8px;
+  }
+  
+  .messageContent {
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .messageFooter {
+    padding: 10px;
+    border: 1px solid #eeeeee;
+  }
+  
+  .scroll {
+    height: 600px;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    scrollbar-color: #bfbfbf;
+  }
+  .scroll::-webkit-scrollbar {
+    width: 5px;
+    border-radius: 8px;
+  }
+  .scroll::-webkit-scrollbar-track {
+    border-radius: 8px;
+  }
+  .scroll::-webkit-scrollbar-thumb {
+    background-color: #bfbfbf;
+    border-radius: 8px;
+  }
+  .messageContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .messageChild {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+  }
+  
+  .messageFooter {
+    padding: 10px;
+    border: 1px solid #eeeeee;
+  }
+  
+  .messageContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .messageFooter {
+    padding: 10px;
+    border: 1px solid #eeeeee;
+  }
+  
+  .no-transition {
+    transition: none !important;
+    transform: none !important;
+  }
+
+
+  
+
+  
+  
+  
+
+  

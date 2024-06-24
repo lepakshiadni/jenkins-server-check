@@ -1,0 +1,59 @@
+/* *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+} */
+.main{
+    margin: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+   
+}
+.head{
+  
+    display: flex;
+    flex-direction: column;
+   margin-right: 280px;
+  
+}
+.icn-top{
+    color: #2676c2;
+  
+  
+}
+
+/* .content{
+
+margin-top: 20px;
+
+
+} */
+.para{
+    color: #2676c2;
+    font-size: 28px;
+     
+}
+.message{
+     margin-top: 22px;
+    font-family: sans-serif;
+}
+.status-code{
+    font-size: 40px;
+    letter-spacing: 2px;
+    color: #2676c2;
+    margin-right: 35px;
+  
+
+}
+.status-code::first-letter{
+font-size: 60px;
+}
+.err-msg{
+  
+    color: #2676c2;
+    margin-left: 5px;
+    line-height: 30px;
+
+}

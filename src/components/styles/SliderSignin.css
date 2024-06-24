@@ -1,0 +1,92 @@
+/* SliderSignin.css */
+.slider-container {
+  width: 100%;
+  /* margin: 20px 0px; */
+  height: 100%;
+  background-color: #2676c2;
+}
+
+/* Styling for each slide */
+.slick-slide {
+  transition: transform 1s ease-in-out;
+}
+.slider-parent {
+  margin: 40px 20px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  /* height: 50%; */
+  /* background-color: #2676C2; */
+}
+/* Styling for the image */
+/* .slider-image{
+    width: 244px;
+    height: 164px;
+} */
+/* Styling for the text */
+.slider-content {
+  /* display: flex; */
+  /* justify-content: space-between; */
+  /* flex-direction: column; */
+  background-color: #2676c2;
+  /* flex-wrap: wrap; */
+  /* gap: 20px; */
+  /* display: -webkit-box; */
+  /* -webkit-line-clamp: 3; Limit the paragraph to 3 lines */
+  /* -webkit-box-orient: vertical; */
+  /* overflow: hidden; */
+}
+.slider-content h2,
+.slider-content p {
+  background-color: #2676c2;
+  color: #fff;
+  padding: 0px 20px;
+  font-family: "Poppins";
+}
+.slick-dots {
+  background-color: #2676c2;
+  position: absolute;
+  /* bottom: -20px; */
+  /* top: 0; */
+  display: block;
+  width: 100%;
+  /* padding: 0 !important;
+  margin: 0 !important; */
+  list-style: none;
+  text-align: center;
+  color: #fff;
+  /* height: 0px; */
+}
+.slick-dots li {
+  background: none;
+  width: 2px;
+  height: 2px;
+  color: #fff;
+  /* margin: 0 !important;
+  padding: 0 !important; */
+}
+.slick-dots li button::before {
+  background: none;
+  color: #fff;
+  content: "■";
+}
+.slick-dots li.slick-active button::before {
+  color: #fff !important;
+  opacity: 1;
+  list-style: square;
+  content: "■";
+  font-size: 10px;
+  /* padding: -20px; */
+}
+/* .slick-dots li.slick-active button:before{
+    color: #fff !important;
+} */
+.slick-dots li button:before {
+  color: #fff !important;
+}
+.rotate-dots .slick-dots {
+  transform: rotate(-360deg);
+  transition: transform 1s ease-out;
+  /* margin-top: 20px; */
+  background: none;
+}

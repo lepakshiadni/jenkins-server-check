@@ -1,0 +1,186 @@
+.trainer-settings {
+  width: 100%;
+  /* height: auto; */
+}
+
+.main-setting {
+  width: 100%;
+  display: flex;
+}
+
+.settings {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 25%;
+  position: fixed;
+  border-width: 0px;
+  border: 1px solid #eeeeee;
+}
+
+.content-settings {
+  position: absolute;
+  right: 20px;
+  width: 50%;
+  font-family: Poppins;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 27px;
+  letter-spacing: 0em;
+  text-align: left;
+  padding-left: 10px;
+  clear: both;
+}
+
+.settings button {
+  /* width: 410px; */
+  width: 100%;
+  margin: auto;
+  height: 60px;
+  color: #535353;
+  background: #ffffff;
+  text-align: left;
+  padding-left: 20px;
+  font-family: Poppins;
+  font-size: 18px;
+  line-height: 27px;
+  letter-spacing: 0em;
+  transition: all 0.3s ease;
+  border-radius: 2px, 0px, 0px, 0px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.settings button:hover {
+  width: 100%;
+  background-color: rgba(227, 227, 227, 0.2);
+}
+
+.settings-para {
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: 0em;
+  text-align: left;
+  cursor: pointer;
+  color: #535353;
+}
+
+.border1 {
+  border: 0.5px solid #eeeeee;
+
+  /* padding: 10px; */
+  /* height: 90px; */
+}
+
+.border2 {
+  border: 0.5px solid #eeeeee;
+}
+
+.trainer-settings-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  /* Some browsers will not display the caret when using calc, so we put the fallback first */
+  background: url("http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png")
+    white no-repeat 98.5% !important;
+  /* background: url("http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png") white no-repeat calc(100% - 10px) !important; */
+  /* Better placement regardless of input width */
+}
+
+/*For IE*/
+.trainer-settings-select::-ms-expand {
+  display: none;
+}
+
+.settings button.active {
+  width: 100%;
+  background-color: rgb(38, 118, 194, 0.1);
+  border-left: 8px solid #2676c2;
+  border-bottom: 0px;
+  transition: all 0.3s ease;
+  color: #2676c2;
+}
+
+/* sshfahflahfal */
+
+/* display: block; */
+.right-settings {
+  clear: both;
+  position: absolute;
+  width: 50%;
+  right: 20px;
+  /* height: auto; */
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 27px;
+  letter-spacing: 0em;
+  text-align: left;
+  padding-left: 20px;
+  /* border-radius:  10px; */
+  /* border-top: none; */
+  border: 1px solid #eeeeee;
+  background-color: #ffffff;
+
+  /* padding: 10px; */
+}
+
+.radios {
+  color: #888888;
+  font-size: 14px;
+  /* display: flex; */
+  /* gap: 10px; */
+  /* margin-bottom: 10px; */
+}
+
+.settings-para:hover {
+  border-radius: 5px;
+  background-color: rgba(227, 227, 227, 0.2);
+}
+
+label.radios {
+  display: inline-flex;
+  gap: 10px;
+}
+
+.radios.selected {
+  color: #2676c2;
+  font-weight: 600;
+}
+
+.radios input[type="radio"] {
+  color: #2676c2;
+  /* Change the text color to #2676c2 when selected */
+  font-weight: 600;
+}
+
+.hovering:hover {
+  text-decoration: underline;
+  text-decoration-color: #2676c2;
+  text-decoration-style: solid;
+  transition: text-decoration-color 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.button1 {
+  width: 163px;
+  height: 31px;
+  border: 1px solid #2676c2;
+  color: #2676c2;
+  border-radius: 2px;
+}
+
+.button2 {
+  width: 163px;
+  height: 31px;
+  border: 1px solid #2676c2;
+  background-color: #2676c2;
+  border-radius: 2px;
+  color: #eeeeee;
+}
+
+.button1:hover {
+  background-color: #2676c2;
+  color: #eeeeee;
+}

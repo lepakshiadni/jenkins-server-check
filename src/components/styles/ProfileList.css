@@ -1,0 +1,77 @@
+.User {
+  color: #535353;
+  font-family: Poppins;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.Role {
+  color: #333;
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.Mes,
+.Dis,
+.pagination {
+  height: 16.333px;
+  flex-shrink: 0;
+  color: #2676c2;
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.pagination.numbers.numbers:hover {
+  background-color: #2676c2;
+  color: #333;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+}
+.MesDis {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 2rem;
+}
+.name {
+  color: #263238;
+  font-family: Poppins;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.desi {
+  color: #6a6a6a;
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.skills-list {
+  color: #6a6a6a;
+  text-align: center;
+  font-family: Poppins;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.extra-things {
+  color: #b8b8b8;
+  text-align: center;
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}

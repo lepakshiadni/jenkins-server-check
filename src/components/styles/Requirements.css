@@ -1,0 +1,896 @@
+.Requirement {
+  width: 100%;
+  background: #fff;
+}
+
+.Dashboard {
+  color: #888;
+  font-family: Poppins;
+  font-size: 1.2rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.TOC p {
+  margin-top: 15px;
+}
+
+.Require {
+  color: #2676c2;
+  font-family: Poppins;
+  font-size: 1.2rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.Post_TJ {
+  color: #2676c2;
+  font-family: Poppins;
+  font-size: 1.2rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+/*
+  .BreadCrumbs {
+    margin: auto;
+    width: 95%;
+    padding: 1rem;
+  } */
+
+.Post_Buttons button {
+  border-radius: 2.5rem;
+  border: 1px solid #b6adad;
+  background: rgba(220, 220, 220, 0.1);
+  /* for text */
+  color: #888;
+  font-family: Poppins;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  cursor: pointer;
+  width: 8rem;
+  height: 2rem;
+}
+
+/* .Post_Buttons button:hover,
+.Post_Buttons button:active,
+.Post_Buttons button:focus {
+  color: #2676c2;
+  font-family: Poppins;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  border-radius: 2.5rem;
+  border: 1px solid #2676C2;
+  background: rgba(38, 118, 194, 0.1);
+} */
+
+.Post_Buttons button.active {
+  color: #2676c2;
+  font-family: Poppins;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  border-radius: 2.5rem;
+  border: 1px solid #2676c2;
+  background: rgba(38, 118, 194, 0.1);
+}
+
+.Post_Training_content {
+  margin: auto;
+}
+
+.Company,
+.Technology,
+.Type_Of_Training,
+.Mode_Of_Training,
+.Select_Experience,
+.Duration_Of_Time,
+.Budgets,
+.TOC,
+.Training_Dates,
+.Content_Title,
+.Training_Description,
+.Training_Description1,
+.Training_Description2 {
+  color: #333;
+  font-family: Poppins;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-top: 10px;
+}
+
+.css-1ki4tl6-MuiSlider-root .MuiSlider-valueLabel {
+  /* background: #FFF; */
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #2676c2;
+  /* font-family: Poppins; */
+  /* font-size: 0.855rem; */
+  /* font-style: normal; */
+  /* font-weight: 400; */
+  line-height: normal;
+  border: none;
+}
+
+.Technology {
+  width: 41.3rem;
+  padding-left: 1px;
+}
+
+.css-1p3m7a8-multiValue {
+  /* display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox; */
+  /* display: flex; */
+  min-width: 0;
+  background-color: #2676c2;
+  /* border-radius: 2px; */
+  margin: 2px;
+  box-sizing: border-box;
+  border-radius: 15px;
+}
+
+.Company input,
+.Training_Description input {
+  border-radius: 0.125rem;
+  border: 1px solid #dadada;
+  background: #fff;
+  display: flex;
+  padding: 0.5625rem 0.625rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  width: 40rem;
+  height: 3rem;
+  color: #333;
+  font-family: Poppins;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  outline: none;
+  margin-top: 1rem;
+  border-radius: 0.4rem;
+}
+
+.Content_Title input {
+  border-radius: 0.125rem;
+  border: 1px solid #dadada;
+  background: #fff;
+  display: flex;
+  padding: 0 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  width: 41.325rem;
+  height: 2.5rem;
+  color: #333;
+  font-family: Poppins;
+  font-size: 0.975rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  outline: none;
+  border-radius: 0.4rem;
+}
+
+.Content_Title span {
+  display: flex;
+  /* justify-content: space-evenly; */
+  gap: 2rem;
+}
+
+.css-1ogdfkg-MuiAutocomplete-root,
+.MuiOutlinedInput-root,
+.MuiAutocomplete-input {
+  padding: 0%;
+}
+
+.Multi_S_I {
+  width: 41.3rem;
+  height: auto;
+}
+
+.css-1fdsijx-ValueContainer {
+  border-radius: 0.125rem;
+  /* border: 1px solid #dadada; */
+  background: #fff;
+  color: #333;
+  font-family: Poppins;
+  font-size: 15.5px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  outline: none;
+  /* margin-top: 1rem; */
+  border-radius: 0.4rem;
+}
+
+.RadioTOT {
+  align-items: center;
+  justify-content: flex-start;
+  display: flex;
+  gap: 3rem;
+  color: #535353;
+  font-family: Poppins;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+/* .BreadCrumbs{
+    display: none;
+  } */
+
+.Type_Of_Training input[type="radio"],
+.Mode_Of_Training input[type="radio"],
+.Duration_Of_Time input[type="radio"],
+.TOC input[type="radio"] {
+  width: 1rem;
+  height: 1rem;
+  position: relative;
+  top: 0.2rem;
+  cursor: pointer;
+}
+
+.css-1p3m7a8-multiValue {
+  border-radius: 20px;
+}
+
+.ParticipantCount h5,
+.SelectLocation h5,
+.Select_Experience h5,
+.DurationCount h5 {
+  color: #2676c2;
+  font-family: Poppins;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin-bottom: 0.3rem;
+}
+
+.ParticipantCount span,
+.SelectLocation span,
+.DurationCount span {
+  color: #2676c2;
+  font-family: Poppins;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  /* margin-bottom: 0.3rem; */
+}
+
+.DurationCount span {
+  color: #2676c2;
+  font-family: Poppins;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  /* margin-bottom: 0.3rem; */
+}
+
+.Radio_Duration_Count {
+  display: flex;
+  align-items: center;
+  border: #2676c2 1px solid;
+  height: 2rem;
+  border-radius: 0.3rem;
+  margin-top: 10px;
+  color: #2676c2;
+  font-family: Poppins;
+  font-size: 0.8rem;
+  font-style: normal;
+  font-weight: bold;
+  line-height: normal;
+  /* gap: 5px; */
+  /* justify-content: space-evenly; */
+  width: 8%;
+  /* justify-content: space-evenly; */
+}
+
+.TOT_Input,
+.Duration_Input {
+  color: #2676c2;
+  font-family: Poppins;
+  font-size: 0.8rem;
+  font-style: normal;
+  font-weight: bold;
+  line-height: normal;
+  border: none;
+  outline: none;
+}
+
+.TOT_Input:focus,
+.Duration_Input:focus {
+  outline: none;
+  border: none;
+}
+
+.RadioTOT_Count button,
+.Radio_Duration_Count button {
+  border: none;
+  color: #2676c2;
+  font-family: Poppins;
+  font-size: 1.2rem;
+  font-style: normal;
+  font-weight: bold;
+  line-height: normal;
+  background: #fff;
+}
+
+.Radio_Duration_Count {
+  /* width: 10%; */
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.RadioTOT_Count {
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  color: #2676c2;
+  font-family: Poppins;
+  font-size: 0.8rem;
+  font-style: normal;
+  font-weight: bold;
+  line-height: normal;
+  border: #2676c2 1px solid;
+  border-radius: 0.3rem;
+  margin-top: 10px;
+  width: 12%;
+}
+
+.Radio_MOT,
+.Radio_Duration,
+.TOC_Radio {
+  align-items: center;
+  justify-content: flex-start;
+  display: flex;
+  gap: 3rem;
+  color: #535353;
+  font-family: Poppins;
+  font-size: 1.1rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-top: 1rem;
+}
+
+.SelectLocation select,
+.Budgets select {
+  width: fit-content;
+  height: 2rem;
+  border-radius: 0.4rem;
+  border: 1px solid #dadada;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  color: #2676c2;
+  font-family: Poppins;
+  font-size: 0.855rem;
+  font-style: normal;
+  font-weight: bold;
+  line-height: normal;
+  outline: none;
+}
+
+.Budgets select {
+  width: 4rem;
+  height: 2rem;
+  border-radius: 0.4rem;
+  border: 1px solid #dadada;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  color: #c7c7c7;
+  font-family: Poppins;
+  font-size: 0.855rem;
+  font-style: normal;
+  font-weight: bold;
+  line-height: normal;
+  outline: none;
+}
+
+.Budget_MM input {
+  border: 2px #2676c2 solid;
+  color: #2676c2;
+  font-family: Poppins;
+  font-size: 0.8rem;
+  font-style: normal;
+  font-weight: bold;
+  line-height: normal;
+  outline: none;
+  height: 2rem;
+  width: 8rem;
+  border-radius: 0.3rem;
+  padding: 0 10px;
+}
+
+.Budget_MM input::placeholder {
+  color: #2676c2;
+  font-family: Poppins;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.TOC_Radio {
+  margin-bottom: 1rem;
+}
+
+.UPLOADFILE {
+  width: 14rem;
+  height: 2.1rem;
+  border: 2px solid #dadada;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  /* display: flex; */
+  align-items: center;
+  justify-content: center;
+}
+
+.UPLOADFILE input {
+  /* border: 2px solid #DADADA; */
+  border-radius: 0.3rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  width: 14rem;
+  height: 2.1rem;
+  bottom: 3rem;
+  position: relative;
+  color: #b8b8b8;
+}
+
+.For_Align_Upload {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  height: 100%;
+}
+
+.For_Align_Upload h4 {
+  white-space: nowrap;
+  font-size: medium;
+}
+
+/* .BreadCrumbs {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 0%;
+    padding-left: 2rem;
+    padding-top: 1.1rem;
+    background: #fff;
+    z-index: 101;
+  } */
+
+.Post_Buttons {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background: #fff;
+  z-index: 100;
+}
+
+#description,
+#description1,
+#description2 {
+  border: 1px solid #dadada;
+  border-radius: 2px;
+  background: #fff;
+  padding: 9px 10px;
+}
+
+.Content_Wrapper {
+  /* margin-top: 40px; */
+  /* Adjust this margin to provide enough space for fixed elements */
+  z-index: 50;
+  /* Ensure content appears above fixed elements */
+}
+
+.css-1h51icj-MuiAutocomplete-root .MuiAutocomplete-tag {
+  margin: 3px;
+  max-width: calc(100% - 6px);
+  width: 109px;
+  height: 24px;
+  border-radius: 12px;
+  background: rgba(138, 138, 138, 0.2);
+  color: #bababa;
+}
+
+.css-eg0mwd-MuiSlider-thumb::after {
+  width: 5px;
+  height: 5px;
+}
+
+/* .css-14pt78w-MuiSlider-rail{
+    color:#C7C7C7 ;
+  } */
+/* .Post_Training_Content,
+.Post_Job_Content {
+  width: 50%;
+  /* padding: 0 25px; */
+/* } */
+
+.Post_Button {
+  display: flex;
+  gap: 2rem;
+}
+
+.Reset_Btn,
+.Submit_Btn {
+  width: 15rem;
+  height: 2.5rem;
+  /* border: 1px solid #535353; */
+  font-family: Poppins;
+  font-size: 1.2rem;
+  font-style: normal;
+  font-weight: 500;
+  /* line-height:; */
+  cursor: pointer;
+  border-radius: 2px;
+  border: none;
+  /* padding-top: 1rem; */
+}
+
+/* .Company input {
+    height: 2rem;
+    width: 30rem;
+  }
+    */
+.Reset_Btn {
+  color: #2676c2;
+  border: 1px solid #2676c2;
+  background: #fff;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  border-radius: 0.4rem;
+}
+
+.Submit_Btn {
+  color: #fff;
+  background: #2676c2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.4rem;
+}
+
+.Reset_Btn:hover {
+  background: #2676c2;
+  color: #fff;
+}
+
+/* General styles for all screen sizes */
+.Requirement {
+  width: 100%;
+  background: #fff;
+}
+
+.Training_Description {
+  display: flex;
+  flex-direction: column;
+}
+
+.LLLabel {
+  width: auto;
+  display: flex;
+  /* justify-content: space-evenly; */
+  gap: 0.5rem;
+}
+
+.LLLabel input {
+  margin-top: 0.1rem;
+}
+
+/* Styles for screens larger than 768px */
+/* @media only screen and (min-width: 768px) {
+    .Post_Buttons {
+      padding: 2rem;
+      padding-bottom: 0.7rem;
+    }
+   
+    .Content_Wrapper {
+      margin-top: 120px;
+    }
+   
+    .Post_Training_Content,
+    .Post_Job_Content {
+      width: 50%;
+      padding: 0 25px;
+    }
+  }
+   
+  @media only screen and (min-width: 1024px) {
+    .BreadCrumbs {
+      padding-left: 2rem;
+      padding-top: 1.1rem;
+    }
+   
+    .Post_Buttons {
+      top: 40px;
+    }
+  } */
+
+.ChatInput {
+  display: flex;
+  flex-direction: column;
+}
+
+.ChatInput__textarea {
+  border: 1px solid #ccc;
+  padding: 10px;
+  min-height: 40px;
+  max-height: 100px;
+  overflow-y: auto;
+  outline: none;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.end {
+  outline: none;
+  height: 2.5rem;
+  width: 12rem;
+  padding-left: 0.8rem;
+  border: #c7c7c7 1px solid;
+  border-radius: 5px 0 0 5px;
+  color: #333;
+  font-family: Poppins;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  border-right: none;
+}
+
+.Training_Dates {
+  display: flex;
+  gap: 0.6rem;
+  white-space: nowrap;
+}
+
+.date-picker p {
+  color: #434343;
+  font-family: Poppins;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-bottom: 5px;
+}
+
+.TOC_Radio label {
+  color: #535353;
+  font-family: Poppins;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  gap: 0.5rem;
+  display: inline-flex;
+}
+
+.Radio_Duration label {
+  color: #535353;
+  font-family: Poppins;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.RadioTOT {
+  margin-top: 0.8rem;
+}
+
+.Budget_MM {
+  display: flex;
+  gap: 2rem;
+  margin-top: 0.4rem;
+}
+
+.Radio_MOT label {
+  color: #535353;
+  font-family: Poppins;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.css-j204z7-MuiFormControlLabel-root .MuiFormControlLabel-label {
+  color: #535353;
+  font-family: Poppins;
+  font-size: 1.1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.date-picker p {
+  color: #535353;
+  font-family: Poppins;
+  font-size: 1.1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.react-datepicker__close-icon::after {
+  cursor: pointer;
+  background-color: #216ba5;
+  color: #fff;
+  border-radius: 50%;
+  height: 16px;
+  width: 16px;
+  padding: 2px;
+  font-size: 12px;
+  line-height: 1;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+  content: "×";
+  display: none;
+}
+
+.CalenderIcon {
+  width: 3rem;
+  height: 2.5rem;
+  border: #c7c7c7 1px solid;
+  border-radius: 0px 5px 5px 0px;
+  color: #c7c7c7;
+  font-family: Poppins;
+  border-left: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.section {
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+.Company input {
+  border-radius: 0.125rem;
+  border: 1px solid #dadada;
+  background: #fff;
+  display: flex;
+  padding: 0 25px;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  width: 41.325rem;
+  height: 2.4rem;
+  color: #888;
+  font-family: Poppins;
+  font-size: 0.975rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  outline: none;
+  border-radius: 0.4rem;
+}
+
+.RadioTOT label.active {
+  color: #2676c2;
+}
+
+.Multiselector {
+  padding-left: 1px;
+  width: 41.3rem;
+  height: auto;
+  min-height: 2.5rem;
+}
+
+.Multiselector::placeholder {
+  color: #888;
+  font-family: Poppins;
+  font-size: 0.975rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.Radio_MOT label.active,
+.Radio_Duration label.active,
+.TOC label.active {
+  color: #216bc2;
+}
+
+.Training_Description textarea {
+  padding-left: 10px;
+  padding-top: 10px;
+  width: 41.3rem;
+  height: 16px;
+  font-size: 16px;
+  color: #333;
+  font-weight: 400;
+  border-radius: 0.5rem;
+  resize: none;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  outline: none;
+}
+
+.Training_Description1 textarea,
+.Training_Description2 textarea {
+  width: 41.3rem;
+  height: 46px;
+  font-size: 15.5px;
+  color: #333;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  resize: none;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  outline: none;
+}
+
+.css-154xyx0-MuiInputBase-root-MuiOutlinedInput-root {
+  height: 38px;
+  outline: none;
+}
+
+.Select_Experience .MuiSlider-track {
+  background-color: #216bc2;
+  /* Transparent before drag */
+}
+
+.css-7d61z1-MuiSlider-valueLabel.MuiSlider-valueLabelOpen {
+  width: 5rem;
+  height: 1.5rem;
+  padding: 12px;
+}
+
+#fixed-tags-demo {
+  padding: 0px;
+}
+
+.css-qbdosj-Input {
+  margin: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}

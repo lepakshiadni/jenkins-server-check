@@ -1,0 +1,142 @@
+.requestContainer {
+  width: 750px;
+  border-radius: 20px;
+  border: 1px solid rgba(83, 83, 83, 1);
+  padding: 10px;
+  background-color: #fff;
+  height: 520px;
+}
+.requestPopUp {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.name2 {
+  width: 277px;
+  height: 120px;
+  border: 1px solid rgba(238, 238, 238, 1);
+  display: flex;
+  gap: 10px;
+  position: relative;
+  bottom: 5px;
+  border-radius: 2px;
+}
+.name-details2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.downbox2 {
+  width: 277px;
+  height: 120px;
+  border: 1px solid rgba(238, 238, 238, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
+}
+
+.sidebox2 {
+  width: 434px;
+  height: 240px;
+  top: 60px;
+  border: 1px solid rgba(238, 238, 238, 1);
+  position: relative;
+  left: 10px;
+  border-radius: 2px;
+  padding: 1px;
+}
+
+
+
+
+
+
+
+
+.bottom-boxes2 {
+  display: flex;
+  gap: 5px;
+  position: relative;
+  bottom: 6px;
+}
+
+.box12 {
+  width: 319px;
+  height: 160px;
+  border: 1px solid rgba(238, 238, 238, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 2px;
+}
+
+.box22 {
+  width: 401px;
+  height: 160px;
+  border: 1px solid rgba(238, 238, 238, 1);
+  padding-left: 15px;
+  padding-top: 10px;
+  padding-right: 20px;
+  border-radius: 2px;
+}
+
+#foricon22 {
+  transform: rotate(180deg);
+  color: rgba(83, 83, 83, 1);
+}
+
+#foricon12 {
+  color: rgba(83, 83, 83, 1);
+}
+
+.radios2 {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+label input[type="radio"] {
+  width: 16px;
+  height: 16px;
+}
+.radios2 label {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(83, 83, 83, 1);
+}
+.buttonn2 {
+  height: 30px;
+  width: 134px;
+  font-size: 14px;
+  font-weight: 400;
+  border: 1px solid whitesmoke;
+  background-color: #2676c2;
+  border-radius: 10px;
+  font-family: "Poppins";
+  color: whitesmoke;
+}
+.buttonn2:hover {
+  height: 30px;
+  width: 134px;
+  font-size: 14px;
+  font-weight: 400;
+  border: 1px solid whitesmoke;
+  background-color: rgb(38, 118, 194, 0.4);
+  border-radius: 10px;
+  color: antiquewhite;
+  font-family: "Poppins";
+}

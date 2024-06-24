@@ -1,0 +1,150 @@
+.TrainingResources {
+  width: 100%;
+}
+
+.TrainingResources-main_Content {
+  width: 95%;
+  height: 100%;
+  margin: auto;
+  border-radius: 0.5rem 0rem 0rem 0.5rem;
+  border: 1px solid #eee;
+  background: var(--icon-color, #fff);
+  display: flex;
+}
+.TrainingResources-main_Content_details {
+  width: 25%;
+  /* background: #2676c2; */
+  height: 100%;
+  /* height: 16rem; */
+  height: 90%;
+  margin: auto;
+  border-right: 2px solid #eee;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: center;
+  text-align: left;
+}
+
+.TrainingResources-child_Content {
+  width: 70%;
+  height: 15rem;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.TrainingResources-child_Content p,
+.TrainingResources-main_Content_details p {
+  color: #333;
+  font-family: Poppins;
+  font-size: 16px;
+  font-style:normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-top: 0.3rem;
+}
+.TrainingResources-child_Content_details h2,
+.TrainingResources-main_Content_details h2 {
+  color: #535353;
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.TrainingResources-main_Content_details h3 {
+  color: #2676c2;
+  font-family: Poppins;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+.TrainingResources-main_Content_details button {
+  width: 4.25rem;
+  height: 0.875rem;
+  flex-shrink: 0;
+  border-radius: 0.25rem;
+  border: 0.2px dashed #2676c2;
+  background: rgba(38, 118, 194, 0.2);
+  color: #2676c2;
+  font-family: Poppins;
+  font-size: 0.5rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.TrainingResources-child_Content_details {
+  width: 98%;
+  margin: auto;
+  height: 200px;
+  /* border: #EEE 1px solid; */
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  direction: rtl;
+  gap: 1rem;
+  padding-top: 0.5rem;
+  align-items: flex-end;
+  padding-left: 30px;
+}
+
+.TrainingResources-child_Content_details::-webkit-scrollbar {
+  width: 5px;
+}
+.TrainingResources-child_Content_details::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+  border-radius: 5px;
+}
+.TrainingResources-child_Content_details::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 6px;
+}
+
+.TrainingResources-child_Content_details h2 {
+  width: auto;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Responsive styles */
+
+@media only screen and (max-width: 768px) {
+  .Main_Content {
+    flex-direction: column;
+  }
+
+  .TrainingResources-main_Content_details,
+  .TrainingResources-main_Content {
+    width: 100%;
+    border-right: none; /* Remove border on smaller screens */
+  }
+
+  .TrainingResources-main_Content_details,
+  .TrainingResources-main_Content p,
+  .TrainingResources-child_Content_details h2,
+  .TrainingResources-main_Content_details h2,
+  .TrainingResources-main_Content_details h3,
+  .TrainingResources-main_Content_details button {
+    text-align: center; /* Center text on smaller screens */
+  }
+
+  .TrainingResources-child_Content_details {
+    padding-left: 0;
+    align-items: center;
+  }
+}
+
+.hoverr {
+  color: #2676c2;
+  font-size: 1.5rem;
+}
+
+.hoverr:hover {
+  background-color: rgb(38, 118, 194, 10%);
+  border-radius: 50%;
+}

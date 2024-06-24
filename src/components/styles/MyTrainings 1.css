@@ -1,0 +1,781 @@
+.PBB {
+  background: #2676c233;
+  /* width: 10rem; */
+  min-width: 190px;
+  max-width: 80%;
+  height: 4.5rem;
+  border-radius: 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding-left: 0.3rem;
+}
+
+.PBB h2 {
+  color: #333;
+  font-family: Poppins;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.PBB p {
+  color: #535353;
+  font-family: Poppins;
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.Total_Parttt {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.Total_Parttt h2 {
+  color: #535353;
+  font-family: Poppins;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  /* margin-top: 2%; */
+}
+
+.Total_Parttt p {
+  color: #333;
+  font-family: Poppins;
+  font-size: 1.1rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0.5px;
+  /* margin-bottom: 0%; */
+}
+
+.TOBH5 {
+  font-family: Poppins;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 27px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #333333;
+  white-space: nowrap;
+}
+
+/* .steps.circle .denied.active {
+    transition-delay: 100ms;
+    background: #c22626;
+    color: #fff;
+} */
+
+.Step1PS {
+  position: relative;
+  right: 15rem;
+  margin-top: 0rem;
+}
+
+.Step3PS {
+  position: relative;
+  left: 17rem;
+  margin-top: 0rem;
+}
+
+.Step1PS h4,
+.Step2PS h4,
+.Step3PS h4,
+.Step4PS h4 {
+  color: #535353;
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.Step1PS p,
+.Step2PS p,
+.Step3PS p {
+  color: #2676c2;
+  background: #2676c233;
+  border: 0.2px solid #2676c233;
+  border-radius: 0.3rem;
+  font-family: Poppins;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: left;
+  display: flex;
+  justify-content: center;
+}
+
+.Step4PS p {
+  color: #c22626;
+  background: #c2262633;
+  border: 0.2px solid #c2262633;
+  border-radius: 0.3rem;
+  font-family: Poppins;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: left;
+  display: flex;
+  justify-content: center;
+}
+
+.Step1content p {
+  color: #2676c2;
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.Step1content {
+  display: flex;
+}
+
+.Step3content,
+.Step4content {
+  width: 12rem;
+}
+
+.Step2content p {
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #bababa;
+}
+
+.R_Content {
+  /* display: flex; */
+  /* justify-content: flex-start; */
+  /* flex-direction: column; */
+  /* align-items: center; */
+  /* justify-content: center; */
+  color: #2676c2;
+  font-weight: 500;
+  font-size: 14px;
+  /* gap: 1rem; */
+}
+
+.pendust {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: flex-end;
+  width: 10%;
+  padding-top: 1rem;
+}
+
+.R_Content h2 {
+  display: flex;
+  /* justify-content: space-evenly; */
+  gap: 0.8rem;
+  margin-bottom: 0.3rem;
+  white-space: nowrap;
+  /* text-align: left; */
+}
+
+.R_Content::-webkit-scrollbar {
+  width: 5px;
+}
+
+.R_Content::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+  border-radius: 5px;
+}
+
+.R_Content::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 6px;
+  /* Set border-radius for the thumb */
+}
+
+.R_Content {
+  width: 90%;
+  /* margin: auto; */
+  height: 100%;
+  /* border: #EEE 1px solid; */
+  display: flex;
+  /* white-space: nowrap; */
+  flex-direction: column;
+  overflow-y: auto;
+  direction: rtl;
+  gap: 1rem;
+  padding-top: 0.5rem;
+  align-items: flex-end;
+  padding-left: 20px;
+  /* border: 2px solid #eee; */
+}
+
+.Notesss {
+  width: 75%;
+  height: 100%;
+  display: flex;
+  /* flex-direction: column; */
+  overflow-y: hidden;
+  max-height: 250px;
+  border-radius: 0.5rem;
+  border: 1px solid #eee;
+  padding: 20px;
+}
+
+/* External css for resources popup */
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #0a0a0a33;
+  z-index: 9998;
+}
+
+.modalContainer {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 425px;
+  width: 742px;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.modalContainer-header {
+  width: 94%;
+  display: flex;
+  justify-content: space-between;
+  height: 10%;
+}
+
+.modalContainer-header h3 {
+  font-family: "Poppins";
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 25px;
+  letter-spacing: 0;
+  text-align: left;
+  color: #263238;
+}
+
+.svg-container {
+  cursor: pointer;
+  position: relative;
+  left: 10px;
+}
+
+.background-circle {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+}
+
+.addFileContainer {
+  display: flex;
+  width: 95%;
+  height: 85%;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #cecece;
+  border-radius: 10px;
+}
+
+.nameAttachContainer {
+  background: "";
+  width: 40%;
+  height: 90%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.nameContainer {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  justify-content: space-around;
+  height: 98%;
+  margin: auto;
+}
+
+.nameContainer h1 {
+  font-family: "Poppins";
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: left;
+  padding: 0 5px;
+  color: #535353;
+}
+
+.nameInput {
+  font-family: "Poppins";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: left;
+  padding: 0 10px;
+  height: 10%;
+  border: 1px #cecece solid;
+  border-radius: 2px;
+  width: 90%;
+  outline: none;
+}
+
+.attachmentContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #cecece;
+  height: 46%;
+  width: 90%;
+}
+
+.attachmentText {
+  position: relative;
+  height: 60px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.attachmentCircle {
+  width: 60px;
+  height: 60px;
+}
+
+.attachmentIcon {
+  position: absolute;
+  z-index: 1;
+  margin-left: 16px;
+}
+
+.clickToAddFile h1 {
+  font-family: Poppins;
+  color: #bababa;
+  font-weight: 400;
+  font-size: 16px;
+  /* margin-left: px; */
+}
+
+.saveButtonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 90%;
+  height: 9%;
+  text-align: right;
+}
+
+.saveButton {
+  width: 30%;
+  height: 100%;
+  background: #2676c2;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-family: "Poppins";
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.fileListContainer {
+  border-left: 2px solid #cecece;
+  width: 53%;
+  height: 90%;
+  margin: auto;
+}
+
+.fileList {
+  height: 90%;
+  width: 90%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fileName {
+  width: 100%;
+  height: 25px;
+  color: #2676c2;
+  background: #2676c233;
+  padding: 0 10px;
+  font-family: "Poppins";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  justify-content: space-between;
+}
+
+.removeFileIcon {
+  cursor: pointer;
+}
+
+.uploadButtonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 96%;
+  text-align: right;
+  height: 10%;
+}
+
+.uploadButton {
+  width: 30%;
+  height: 85%;
+  background: #2676c2;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  padding-bottom: 0px;
+  font-family: "Poppins";
+  font-weight: 400;
+  font-size: 14px;
+}
+
+/* YourComponent.css */
+
+.Name-AttachContainer {
+  background: "";
+  width: 46%;
+  height: 90%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.Name {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  justify-content: space-around;
+  height: 98%;
+  margin: auto;
+}
+
+.fileNameTitle {
+  font-family: "Poppins";
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: left;
+  padding: 0 5px;
+  color: #535353;
+}
+
+.nameInput {
+  font-family: "Poppins";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: left;
+  padding: 0 10px;
+  height: 10%;
+  border: 1px #cecece solid;
+  border-radius: 2px;
+  width: 90%;
+  outline: none;
+}
+
+.attachmentTitle {
+  font-family: "Poppins";
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: left;
+  padding: 0 5px;
+  color: #535353;
+}
+
+.attachmentContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #cecece;
+  height: 46%;
+  width: 90%;
+}
+
+.attachmentText {
+  position: relative;
+  height: 60px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.attachmentIcon {
+  z-index: 1;
+  position: absolute;
+  margin-left: 16px;
+}
+
+.clickToAddFile {
+  color: #bababa;
+  font-weight: 400;
+  font-size: 14px;
+  margin-left: 10px;
+}
+
+.saveButtonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 90%;
+  height: 9%;
+  text-align: right;
+}
+
+.saveButton {
+  width: 30%;
+  height: 100%;
+  background: #2676c2;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-family: "Poppins";
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.C-T-B h3,
+.M-L h3 {
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-bottom: 12px;
+}
+
+.Trainer-Proposal-Management-Popup-Bottom h1 {
+  color: #2676c2;
+  font-family: Poppins;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 36px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.Trainer-Proposal-Management-Popup-button button {
+  background: #fff;
+  border: 1px Solid #2676c2;
+  border-radius: 2px;
+  color: #2676c2;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
+  width: 10.1875rem;
+  height: 1.9375rem;
+}
+
+.Trainer-Proposal-Management-Popup-button {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 3rem;
+}
+
+.Trainer-Proposal-Management-Popup-button button:hover {
+  background: #2676c2;
+  border: 1px Solid #fff;
+  border-radius: 2px;
+  color: #fff;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
+}
+.Trainer-Proposal-Management-Popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #0a0a0a33;
+  z-index: 9998;
+}
+
+.Trainer-Proposal-Management-Popup-modalContainer {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 426px;
+  width: 646px;
+  background-color: white;
+  /* border: 1px solid #ccc; */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  z-index: 9999;
+  /* display: flex; */
+  /* justify-content: center; */
+  /* flex-direction: column; */
+  /* align-items: center; */
+}
+
+.Trainer-Proposal-Management-Popup-Top {
+  width: 100%;
+  height: 67%;
+  background: #2676c2;
+  border-radius: 18px 18px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  /* margin: auto; */
+}
+
+.Trainer-Proposal-Management-Popup-Bottom {
+  width: 100%;
+  height: 35%;
+  background: #fff;
+  border-radius: 0 0 20px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.Trainer-Proposal-Management-Popup-Posted-By {
+  width: 44%;
+}
+
+.Trainer-Proposal-Management-Popup-info {
+  width: 54%;
+  border-left: 2px solid #fff;
+  margin: auto;
+  display: flex;
+  justify-content: space-evenly;
+  /* align-items: center; */
+}
+
+.Trainer-Proposal-Management-Popup-Posted-By h1 {
+  font-family: Poppins;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 30px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #fff;
+}
+
+.C-T-B h1,
+.M-L h1 {
+  font-family: Poppins;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 30px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #fff;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  margin-top: px;
+}
+
+.C-T-B h2,
+.M-L h2 {
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-bottom: 12px;
+}
+
+.Trainer-Proposal-Management-Popup-Bottom h1 {
+  color: #2676c2;
+  font-family: Poppins;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 36px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.Trainer-Proposal-Management-Popup-button button {
+  background: #fff;
+  border: 1px Solid #2676c2;
+  border-radius: 2px;
+  color: #2676c2;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
+  width: 10.1875rem;
+  height: 1.9375rem;
+}
+
+.Trainer-Proposal-Management-Popup-button {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 3rem;
+}
+
+.Trainer-Proposal-Management-Popup-button button:hover {
+  background: #2676c2;
+  border: 1px Solid #fff;
+  border-radius: 2px;
+  color: #fff;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
+}

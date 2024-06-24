@@ -1,0 +1,27 @@
+.helpMenu:hover {
+  transition: 1s;
+  border-color: #2676c2;
+  cursor: pointer;
+}
+.questionMenu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  color: #535353;
+  font-size: 16px;
+  font-weight: 400;
+  cursor: pointer;
+}
+.questionMenu:hover {
+  background-color: whitesmoke;
+}
+.searchMenu h3 {
+  border: 1px solid #d1d1d1;
+  padding: 16px 20px;
+  background-color: white;
+}
+.searchMenu h3:hover {
+  background-color: #e3e3e3;
+  cursor: pointer;
+}

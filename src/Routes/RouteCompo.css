@@ -1,0 +1,72 @@
+.route-lazy-parent{
+  width: 150px;
+  height: 150px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #2676C2;
+  border-radius: 50%;
+  z-index: 1000;
+  animation: dropAndSplash 1s forwards;
+}
+
+.lazy-img{
+  width: auto;
+  animation: zoomInOut 2s ease-in-out,hideImage 1s forwards;
+  padding: 25px;
+}
+@keyframes dropAndSplash {
+0% {
+    top: 0;
+    transform: translateX(-50%) scale(1) ;
+
+}
+20% {
+    top: 75%;
+    transform: translateX(-50%) translateY(-50%) scale(1);
+}
+40% {
+    top: 25%;
+    transform: translateX(-50%) translateY(-50%) scale(1);
+}
+60% {
+    top: 65%;
+    transform: translateX(-50%) translateY(-50%) scale(1);
+}
+80% {
+    top: 45%;
+    transform: translateX(-50%) translateY(-50%) scale(1);
+}
+100% {
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%) scale(20);
+    opacity: 0.8;
+  }
+}
+@keyframes zoomInOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  
+  100% {
+    transform: scale(0);
+    opacity: 0.9;
+  }
+}
+@keyframes hideImage {
+  0% {
+      opacity: 1;
+  }
+  25%{
+    opacity: 0.5;
+  }
+  50%{
+    opacity: 0.7;
+  }
+  100% {
+      opacity: 0;
+  }
+}

@@ -1,0 +1,321 @@
+.updateContainer {
+  height: 271px;
+  width: 410px;
+  border: 0.5px solid rgba(227, 227, 227, 0.5);
+  position: fixed;
+  z-index: 1;
+}
+
+.updatedatas2 {
+  border: 0.5px solid rgba(227, 227, 227, 0.5);
+  padding: 20px;
+}
+
+.updateOptions {
+  display: flex;
+  align-items: center;
+  color: #535353;
+  font-size: 16px;
+  font-weight: 400;
+  cursor: pointer;
+  height: 67px;
+  width: 410px;
+}
+
+.updateOptions h3 {
+  margin-left: 10px;
+}
+
+.updateOptions:hover {
+  background-color: rgba(227, 227, 227, 0.2);
+}
+
+.updateOptions.selected {
+  background-color: rgb(38, 118, 194, 0.1);
+  color: #2676c2;
+}
+
+.updateOptions.selected .updateDiv {
+  background-color: #2676c2;
+}
+
+.updateOptions.selected .textHelp {
+  margin-left: 30px;
+  transition: 0.5s;
+}
+
+.updatepage {
+  display: flex;
+  margin-left: 50px;
+  margin-top: 120px;
+  height: 536px;
+  width: 1260px;
+}
+
+.updateContent {
+  margin-left: 430px;
+  border: 0.5px solid rgba(227, 227, 227, 0.5);
+  border: 0;
+}
+
+.updateval {
+  width: 206px;
+  border-right-width: 2px;
+  margin-left: 6px;
+}
+
+.updateLabel {
+  margin-left: 20px;
+}
+
+.updateLabel label {
+  color: #535353;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.updateLabel input {
+  height: 30px;
+  border: 1px solid #cecece;
+  border-radius: 2px;
+  outline: none;
+  width: 239px;
+  margin-top: 5px;
+  font-weight: 400;
+  font-size: 14px;
+  padding-left: 10px;
+}
+
+.updateLabel input::placeholder {
+  color: #888888;
+}
+
+.updateLabel textarea::placeholder {
+  color: #888888;
+}
+
+.updateLabel textarea {
+  border: 1px solid #cecece;
+  border-radius: 2px;
+  outline: none;
+  padding: 10px;
+  margin-top: 5px;
+  font-weight: 400;
+  font-size: 14px;
+  height: 147px;
+  width: 508px;
+  resize: none;
+}
+.updateLabel textarea::-webkit-scrollbar {
+  width: 5px;
+  border-radius: 8px;
+}
+.updateLabel textarea::-webkit-scrollbar-track {
+  border-radius: 8px;
+}
+.updateLabel textarea::-webkit-scrollbar-thumb {
+  background-color: #bfbfbf;
+  border-radius: 8px;
+}
+.updateLabel select {
+  height: 30px;
+  border: 1px solid #cecece;
+  border-radius: 2px;
+  outline: none;
+  width: 239px;
+  margin-top: 5px;
+  font-weight: 400;
+  font-size: 14px;
+  padding-left: 10px;
+}
+
+.contactInfo label {
+  font-size: 14px;
+  font-weight: 400;
+  color: #535353;
+}
+
+.contactInfo input {
+  height: 40px;
+  border: 1px solid #cecece;
+  border-radius: 2px;
+  outline: none;
+  width: 320px;
+  margin-top: 5px;
+  font-weight: 400;
+  font-size: 14px;
+  padding-left: 10px;
+}
+
+.contactInfo input::placeholder {
+  color: #888888;
+}
+
+.contactInfo2 label {
+  font-size: 14px;
+  font-weight: 400;
+  color: #535353;
+}
+
+.contactInfo2 input {
+  height: 40px;
+  border: 1px solid #cecece;
+  border-radius: 2px;
+  outline: none;
+  width: 320px;
+  margin-bottom: 10px;
+  margin-top: 5px;
+  font-weight: 400;
+  font-size: 14px;
+  padding-left: 10px;
+}
+
+.contactInfo2 input::placeholder {
+  color: #888888;
+}
+
+.contactInfo {
+  border: 1px solid #eeeeee;
+  padding: 0px 20px;
+  padding-bottom: 20px;
+}
+
+.contactInfo2 {
+  border: 1px solid #eeeeee;
+  padding: 0px 20px;
+  padding-bottom: 20px;
+  width: 740px;
+}
+
+.updatedatas {
+  border: 1px solid #eeeeee;
+  padding: 0px 20px;
+}
+
+.hoverItems:hover {
+  text-decoration: underline;
+  color: #2676c2;
+  cursor: pointer;
+}
+
+.delete {
+  padding: 10px 10px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.delete:hover {
+  cursor: pointer;
+  background-color: rgb(38, 118, 194, 0.1);
+}
+
+.skillData {
+  height: 310px;
+  overflow-y: scroll;
+}
+.skillData::-webkit-scrollbar {
+  width: 5px;
+  border-radius: 8px;
+}
+.skillData::-webkit-scrollbar-track {
+  border-radius: 8px;
+}
+.skillData::-webkit-scrollbar-thumb {
+  background-color: #bfbfbf;
+  border-radius: 8px;
+}
+.CropImgpopup {
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgb(0, 0, 0, 0.7);
+  z-index: 5000;
+}
+
+.CropContainer {
+  width: 600px;
+  height: 350px;
+  border: 2px solid #eeeeee;
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
+  margin: 130px 380px;
+}
+
+.Popclose {
+  padding: 4px 4px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-left: 550px;
+}
+
+.Popclose:hover {
+  cursor: pointer;
+  background-color: rgb(38, 118, 194, 0.1);
+}
+
+.skillScroll {
+  height: 430px;
+  overflow-y: scroll;
+  width: 234px;
+}
+.skillScroll::-webkit-scrollbar {
+  width: 5px;
+  border-radius: 8px;
+}
+.skillScroll::-webkit-scrollbar-track {
+  border-radius: 8px;
+}
+.skillScroll::-webkit-scrollbar-thumb {
+  background-color: #bfbfbf;
+  border-radius: 8px;
+}
+.ExperiencStore {
+  padding: 20px;
+  border: 1px solid rgba(227, 227, 227, 0.5);
+  margin-top: 20px;
+}
+.ExperiencStore h3 {
+  color: #535353;
+  font-weight: 500;
+  font-size: 16px;
+  margin: 5px;
+  display: flex;
+  align-items: center;
+}
+.experienceSpan span {
+  margin-left: 10px;
+  color: #2676c2;
+}
+.ExperiencStore p {
+  color: #535353;
+  font-weight: 500;
+  font-size: 15px;
+  margin: 5px;
+}
+.contactInfo2 textarea {
+  border: 1px solid #cecece;
+  border-radius: 2px;
+  outline: none;
+  padding: 10px;
+  margin-top: 5px;
+  font-weight: 400;
+  font-size: 14px;
+  height: 80px;
+  width: 690px;
+  resize: none;
+}
+.contactInfo2 textarea::-webkit-scrollbar {
+  width: 5px;
+  border-radius: 8px;
+}
+.contactInfo2 textarea::-webkit-scrollbar-track {
+  border-radius: 8px;
+}
+.contactInfo2 textarea::-webkit-scrollbar-thumb {
+  background-color: #bfbfbf;
+  border-radius: 8px;
+}

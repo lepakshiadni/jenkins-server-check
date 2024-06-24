@@ -1,0 +1,136 @@
+.RSMain {
+  background-image: linear-gradient(
+    to bottom right,
+    rgba(131, 225, 250, 1),
+    rgba(39, 138, 232, 1)
+  );
+  /* background: url(<path-to-image>), lightgray 50% / cover no-repeat; */
+  width: 100%;
+  height: 40rem;
+  display: flex;
+  flex-direction: column;
+}
+.SvgHover:hover path {
+  fill: white !important;
+}
+.RSHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin: auto;
+  margin-top: 5rem;
+}
+
+.LIcon {
+  gap: 1rem;
+  box-sizing: border-box;
+  border: 2px #fff solid;
+  width: 11.8rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.LIcon select {
+  /* color: #FFF; */
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--icon-color, #fff);
+  font-family: Poppins;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+#RSEnglish option {
+  color: #2676c2;
+  cursor: pointer;
+}
+
+.RSRole {
+  border: 1px solid #ddd;
+  background: var(--icon-color, #fff);
+  height: 23rem;
+  width: 90%;
+  margin: auto;
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.Unlock {
+  width: 23.4375rem;
+  height: 6.25rem;
+  flex-shrink: 0;
+  border-radius: 1.25rem;
+  /* border-radius: 1.25rem; */
+  background: rgba(39, 138, 232, 0.2);
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  z-index: 0;
+}
+
+.Select_Role {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.RSCarousel {
+  width: 42.8125rem;
+  height: 19.75rem;
+  flex-shrink: 0;
+}
+
+.Inspire h3 {
+  color: var(--icon-color, #2676c2);
+  font-family: Poppins;
+  font-size: 1.3rem;
+  font-style: normal;
+  font-weight: 600;
+  word-spacing: 0.03rem;
+  line-height: normal;
+  margin: 0%;
+}
+
+.Inspire p {
+  color: var(--icon-color, #2676c2);
+  font-family: Poppins;
+  font-size: 0.8rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0%;
+}
+
+.Select_Role h2 {
+  color: #2676c2;
+  font-family: Poppins;
+  font-size: 1.625rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0%;
+}
+
+.Unlock:hover {
+  background: #2676c2;
+  cursor: pointer;
+  /* Change the background color on hover */
+}
+
+.Unlock:hover .Inspire h3,
+.Unlock:hover .Inspire p {
+  color: #fff;
+  /* Change the text color inside .Inspire on parent .Unlock hover */
+}
+
+.Unlock:hover .UnlockIcon {
+  color: #fff;
+}

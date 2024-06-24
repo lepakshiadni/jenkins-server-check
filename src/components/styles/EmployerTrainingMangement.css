@@ -1,0 +1,457 @@
+.Training_Programs {
+  /* width:100%; */
+  background: #fff;
+  height: auto;
+}
+
+.DashBoard {
+  color: #888;
+  font-family: Poppins;
+  font-size: 1.2rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.MTP {
+  color: #2676c2;
+  font-family: Poppins;
+  font-size: 1.2rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.OGP p {
+  color: #333;
+  font-family: Poppins;
+  font-size: 1.2rem;
+  font-style: normal;
+  font-weight: bold;
+  line-height: normal;
+  /* margin-bottom: 0%; */
+}
+
+.SDD p,
+.EDD p,
+.Trainer_Infoo p,
+.Total_Part p,
+.Notes p,
+.Total_Partt p {
+  color: #333;
+  font-family: Poppins;
+  font-size: 1.1rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: 0.5px;
+  /* margin-bottom: 0%; */
+}
+
+.progress-bar .indicator {
+  position: absolute;
+  height: 100%;
+  width: 0%;
+  background: #4070f4;
+  transition: all 300ms ease;
+}
+
+.Total_Part {
+  display: flex;
+  flex-direction: column;
+  gap: 0rem;
+}
+
+.Total_Partt {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.Notess {
+  width: 75%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5rem;
+  border: 1px solid #eee;
+}
+
+.Notess p {
+  color: #535353;
+  text-align: center;
+  font-family: Poppins;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  /* margin: auto; */
+  margin: 0;
+  padding: 1rem;
+}
+
+.SDEDD {
+  display: flex;
+  justify-content: space-between;
+  /* align-items: flex-start; */
+  width: 80%;
+}
+
+.OGP {
+  /* margin: auto; */
+  width: 95%;
+}
+
+.Training_Programm {
+  /* width: 98%; */
+  /* margin: auto; */
+  height: 26rem;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Trainer_Infoo {
+  width: 28%;
+  height: 25rem;
+  border: #88888857 0.3px solid;
+  border-radius: 10px 0 0 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  /* margin-top: 1rem; */
+}
+
+.Program_Info {
+  width: 71%;
+  height: 25rem;
+  border: #88888857 0.3px solid;
+  border-radius: 0 10px 10px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.SDD h2,
+.EDD h2,
+.TTTDD h2,
+.Total_Part h2,
+.Total_Partt h2 {
+  color: #535353;
+  font-family: Poppins;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  /* margin-top: 2%; */
+}
+
+.Blue_H22 {
+  color: #2676c2;
+  font-family: Poppins;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  /* margin-top: 2%; */
+}
+
+.TTTDD {
+  width: 90%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin: auto;
+  gap: 0.5rem;
+  /* margin-top: 3.3rem; */
+}
+
+.P205 {
+  display: flex;
+  align-items: flex-end;
+  /* gap: 0.4rem; */
+  color: #2676c2;
+  font-family: Poppins;
+  /* font-size: rem; */
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  /* margin: 0%; */
+}
+
+.P205 h1 {
+  color: #2676c2;
+  font-family: Poppins;
+  font-size: 1.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.DELDIT {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.Edt {
+  border-radius: 0.5rem;
+  background: #2676c2;
+  width: 5.1875rem;
+  height: 1.5625rem;
+  border: none;
+  color: #fff;
+  font-family: Poppins;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  cursor: pointer;
+}
+
+.Del {
+  border-radius: 0.5rem;
+  background: #fff;
+  border: #2676c2 0.5px solid;
+  width: 5.1875rem;
+  height: 1.5625rem;
+  /* border: none; */
+  color: #2676c2;
+  font-family: Poppins;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.Del:hover {
+  background: #2676c2;
+  color: #fff;
+  cursor: pointer;
+}
+
+.Program_Status {
+  width: 88%;
+  margin: auto;
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+  gap: 1rem;
+  height: 16.6875rem;
+}
+
+.Notes {
+  width: 75%;
+  height: 100%;
+  background: #f8f8f8;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5rem;
+  border: 1px solid #eee;
+}
+
+.Notess {
+  width: 75%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5rem;
+  border: 1px solid #eee;
+}
+
+.Notes input {
+  width: 90%;
+  height: 12rem;
+  border-radius: 0.125rem;
+  border: #f8f8f8;
+  background: #fff;
+  color: #888;
+  font-family: Poppins;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  position: relative;
+  bottom: 1.4rem;
+  outline-color: #2676c2;
+  box-sizing: border-box;
+}
+
+.Stepper {
+  width: 85%;
+  height: 6rem;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background: #2676C2; */
+  /* margin-top: 0%; */
+}
+
+.Notes p {
+  width: 90%;
+  height: 1rem;
+  margin: auto;
+  position: relative;
+  bottom: 1.3rem;
+}
+
+.Notes input::placeholder {
+  padding-left: 1rem;
+  position: relative;
+  bottom: 4rem;
+}
+
+.Total_Part p {
+  margin: 0%;
+  margin-top: 0.5rem;
+  width: 70%;
+}
+
+/* .Stepper {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    max-width: 780px;
+    width: 100%;
+  } */
+
+.Stepper .steps {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.steps .circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  width: 3rem;
+  color: #2676c2;
+  font-size: 1.2rem;
+  font-weight: 500;
+  border-radius: 50%;
+  background: #ebebeb;
+  /* border: 4px solid #f8f8f8; */
+  transition: all 200ms ease;
+  transition-delay: 0s;
+  z-index: 1;
+  cursor: pointer, progress;
+}
+
+.steps .circle.active {
+  transition-delay: 100ms;
+  background: #2676c2;
+  color: #fff;
+}
+
+.steps .progress-bar {
+  position: absolute;
+  height: 4px;
+  width: 100%;
+  background: #e0e0e0;
+  z-index: 0;
+}
+
+.progress-bar .indicator {
+  position: absolute;
+  height: 100%;
+  width: 0%;
+  background: #4070f4;
+  transition: all 300ms ease;
+}
+
+.svg-container {
+  position: relative;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+}
+
+.background-circle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  fill: #2676c2;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.svg-container:hover .background-circle,
+.svg-container.hovered .background-circle {
+  opacity: 0.1;
+}
+
+.Step1PS {
+  position: relative;
+  right: 15rem;
+  margin-top: 0rem;
+}
+
+.Step3PS {
+  position: relative;
+  left: 17rem;
+  margin-top: 0rem;
+}
+
+.Step1PS h4,
+.Step2PS h4,
+.Step3PS h4,
+.Step4PS h4 {
+  color: #535353;
+  font-family: Poppins;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.Step1PS p,
+.Step2PS p,
+.Step3PS p {
+  color: #2676c2;
+  background: #2676c233;
+  border: 0.2px solid #2676c233;
+  border-radius: 0.3rem;
+  font-family: Poppins;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: left;
+  display: flex;
+  justify-content: center;
+}
+
+.Step4PS p {
+  color: #c22626;
+  background: #c2262633;
+  border: 0.2px solid #c2262633;
+  border-radius: 0.3rem;
+  font-family: Poppins;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: left;
+  display: flex;
+  justify-content: center;
+}

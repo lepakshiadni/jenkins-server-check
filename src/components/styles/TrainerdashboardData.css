@@ -1,0 +1,351 @@
+.dashboardData {
+  width: 100%;
+}
+
+.dashboardMain {
+  height: 130px;
+  width: 32%;
+  border: 1px solid #2676c2;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.dashChaild1 {
+  background-color: #2676c2;
+  width: 40%;
+  height: 128px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashChaild1 path {
+  fill: white;
+}
+
+.dashChaild path {
+  fill: white;
+}
+
+.dashChaild mask {
+  stroke: white;
+}
+
+.dashChaild2 {
+  margin-top: -50px;
+  margin-left: -5px;
+}
+
+.dashChaild2 path {
+  fill: #2676c2;
+}
+
+.dashChaild3 {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashChaild3 h4 {
+  color: #2676c2;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 36px;
+  font-family: Poppins;
+}
+
+.dashChaild5 {
+  background-color: rgba(38, 118, 194, 0.2);
+  color: #2676c2;
+  border-radius: 50px;
+  padding: 8px;
+  font-weight: 600;
+  font-size: 18px;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* hover */
+.dashboardMain:hover {
+  background-color: #2676c2;
+}
+
+.dashboardMain:hover .dashChaild1 {
+  background-color: white;
+}
+
+.dashboardMain:hover .dashChaild1 path {
+  fill: #2676c2;
+}
+
+.dashboardMain:hover .dashChaild {
+  background-color: white;
+}
+
+.dashboardMain:hover .dashChaild path {
+  stroke: #2676c2;
+}
+
+.dashboardMain:hover .dashChaild mask {
+  stroke: #2676c2;
+}
+
+.dashboardMain:hover .dashChaild2 path {
+  fill: white;
+}
+
+.dashboardMain:hover .dashChaild5 {
+  background-color: rgba(186, 203, 219, 0.5);
+  color: white;
+}
+
+.dashboardMain:hover .dashChaild3 h4 {
+  color: white;
+  text-decoration: underline;
+}
+
+.dropOption {
+  font-size: 18px;
+  font-weight: 400;
+  color: #888888;
+  padding-left: 20px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  background-color: white;
+}
+
+.dropOption:hover {
+  background-color: #f0f0f0;
+}
+
+.graphMain {
+  height: 491px;
+  width: 100%;
+  border: 1px solid #dedede;
+}
+
+.graphLabel {
+  margin-top: 30px;
+  width: 250px;
+  height: 230px;
+  border: 1px solid #dedede;
+  padding: 45px;
+}
+
+.graphChild h3 {
+  font-weight: 400;
+  font-size: 16px;
+  color: #535353;
+}
+
+.graphChild {
+  width: 25px;
+  height: 24px;
+  border-radius: 8px;
+  box-shadow: 2px 2px 1px 0px rgba(17, 17, 17, 0.1);
+  margin-right: 20px;
+}
+
+.graph {
+  /* width: 464px; */
+  height: 430px;
+  overflow-x: scroll;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 8px;
+    border-radius: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #bfbfbf;
+    border-radius: 8px;
+  }
+}
+
+.processMain {
+  height: 380px;
+  width: 100%;
+  border: 1px solid #dedede;
+}
+
+.processData {
+  /* width: 330px; */
+  padding: 20px;
+}
+
+.processData h3 {
+  width: 60%;
+  color: #535353;
+  font-weight: 400;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.trainer-dashboard-task h3 {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+}
+
+.processing-child2 {
+  height: 380px;
+  width: 50%;
+  /* min-width: 30%; */
+  border: 1px solid #dedede;
+  text-align: center;
+  background-color: #2676c2;
+  position: relative;
+}
+
+@keyframes animateElement1 {
+  0% {
+    transform: translateY(400%);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes animateElement2 {
+  0% {
+    transform: translateY(-700%);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes animateElement3 {
+  0% {
+    transform: translateY(2000%);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.animate1 {
+  position: absolute;
+  left: 8%;
+  top: 35%;
+  animation: animateElement1 5s forwards;
+}
+
+.animate2 {
+  position: absolute;
+  left: 20%;
+  top: 60%;
+  animation: animateElement2 5s forwards;
+}
+
+.animate3 {
+  position: absolute;
+  left: 85%;
+  top: 30%;
+  animation: animateElement3 5s forwards;
+}
+
+.slideDataScroll {
+  height: 840px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
+}
+
+/* trainerPraposal */
+
+.TTTD p {
+  margin: 0px;
+  font-size: 1rem;
+}
+
+.Statuss_Buttons1 {
+  color: #fff;
+}
+
+.Statuss_Buttons1:hover {
+  color: #2676c2;
+  background-color: #fff;
+}
+
+.praposalChild h3 {
+  font-weight: 500;
+}
+
+.textChild {
+  font-size: 16px;
+  color: #2676c2;
+}
+
+.textChild:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.carousel-container {
+  position: relative;
+  width: 100%;
+}
+
+.carousel-inner {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.carousel-item {
+  width: 100%;
+}
+
+.carousel-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #2676c2;
+  height: 41px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #ffffff;
+  padding: 0 10px;
+}
+
+.denied-controls {
+  background-color: red;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  cursor: pointer;
+  font-size: 18px;
+  color: #ffffff;
+}
+
+.css-1m9128y {
+  display: none !important;
+}
+
+.custom-arrow {
+  color: white;
+  cursor: pointer;
+  font-size: 24px;
+  margin: 0 10px;
+}
