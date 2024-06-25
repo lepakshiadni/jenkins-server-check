@@ -2,15 +2,31 @@ import React, { useState, useRef } from "react";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 
-const SquareCropImg = (props) => {
+const TrainerBannerCropImg = (props) => {
     const [image, setImage] = useState(false);
     const [cropData, setCropData] = useState(null);
     const [fileName, setFileName] = useState(null);
     const cropperRef = useRef(null);
+    const fileInputRef = useRef(null)
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
+            // Check file type
+            if (!file.type.startsWith("image/")) {
+                alert("Please select an image file.");
+                fileInputRef.current.value = null; // Reset file input
+                return;
+            }
+
+            // Check file size
+            if (file.size > 100 * 1024) {
+                alert("File size should be within 100KB.");
+                fileInputRef.current.value = null; // Reset file input
+                return;
+            }
+
+            // Load image to display in cropper
             const reader = new FileReader();
             reader.onload = () => {
                 setImage(reader.result);
@@ -22,18 +38,25 @@ const SquareCropImg = (props) => {
 
     const handleCrop = () => {
         if (cropperRef.current) {
-            const croppedCanvas = cropperRef.current.cropper.getCroppedCanvas();
-            const croppedImageBase64 = croppedCanvas.toDataURL();
+            const croppedCanvas = cropperRef.current.cropper.getCroppedCanvas({
+                width: 837, // Set the desired width
+                height: 197, // Set the desired height
+                imageSmoothingEnabled: false, // Disable image smoothing to maintain pixelated effect
+                imageSmoothingQuality: "high", // High quality to maintain details
+            });
+
+            // Convert cropped canvas to base64
+            const croppedImageBase64 = croppedCanvas.toDataURL("image/jpeg", 1); // Quality set to 1 (original quality)
+
+            // Update state with cropped image data
             setCropData(croppedImageBase64);
-            props.handleUpdateBannerImage(croppedImageBase64, fileName); // Pass filename along with cropped image data
-            props.handleUpdateBannerImg()
+
+            // Pass cropped image data and filename to parent component
+            props.handleUpdateBannerImage(croppedImageBase64, fileName);
+            props.handleUpdateBannerImg();
         }
-        setImage(null);
-        setFileName(null); 
-        setCropData(null);
     };
-    
-    
+
     const handleClosePopUp = () => {
         setImage(null);
         setFileName(null);
@@ -64,8 +87,7 @@ const SquareCropImg = (props) => {
                         <Cropper
                             ref={cropperRef}
                             zoomTo={0.5}
-                            initialAspectRatio={1}
-                            preview=".img-preview"
+                            initialAspectRatio={837 / 197}
                             src={image}
                             viewMode={1}
                             minCropBoxHeight={1}
@@ -79,7 +101,7 @@ const SquareCropImg = (props) => {
                         />
 
                         {!fileName && (
-                            <input className="cursor-pointer " type="file" onChange={handleFileChange} />
+                            <input className="cursor-pointer" ref={fileInputRef} type="file" onChange={handleFileChange} />
                         )}
 
                     </div>
@@ -98,4 +120,4 @@ const SquareCropImg = (props) => {
 
 }
 
-export default SquareCropImg;
+export default TrainerBannerCropImg;

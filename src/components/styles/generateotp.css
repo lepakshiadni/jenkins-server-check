@@ -1,0 +1,27 @@
+@keyframes bounce {
+    0%,
+    20%,
+    50% {
+      transform: scale(0);
+    }
+  
+    60%,
+    80%,
+    100% {
+      transform: scale(1.2);
+    }
+  }
+  
+  .bouncing-image {
+    animation: bounce 1s forwards;
+  }
+  
+  .sigin-page-parent {
+    background: #2676c2;
+    min-height: 100vh;
+    transition: transform 0.3s ease-out;
+  }
+  .sigin-page-parent.shrink {
+    transform: scale(0);
+  }
+  

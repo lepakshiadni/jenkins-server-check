@@ -1,7 +1,7 @@
 
 /* Header.css */
  
-.header {
+.header2 {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -20,10 +20,10 @@
   justify-content: space-between;
   align-items: center;
 }
-.logo {
+.logo2 {
   width: 100%;
 }
-.logo img {
+.logo2 img {
   width: 100%;
 }
  

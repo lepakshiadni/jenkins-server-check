@@ -2,15 +2,31 @@ import React, { useState, useRef } from "react";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 
-const SquareCropImg = (props) => {
+const TrainerProfileCropImg = (props) => {
     const [image, setImage] = useState(false);
     const [cropData, setCropData] = useState(null);
     const [fileName, setFileName] = useState(null);
     const cropperRef = useRef(null);
+    const fileInputRef = useRef(null)
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
+            // Check file type
+            if (!file.type.startsWith('image/')) {
+                alert("Please select an image file.");
+                fileInputRef.current.value = null;
+                return;
+            }
+
+            // Check file size
+            if (file.size > 100 * 1024) { // 100KB
+                alert("File size should be within 100KB.");
+                fileInputRef.current.value = null;
+                return;
+            }
+
+            // Load image to display in cropper
             const reader = new FileReader();
             reader.onload = () => {
                 setImage(reader.result);
@@ -39,6 +55,7 @@ const SquareCropImg = (props) => {
         setFileName(null);
         props.setTrigger(false)
     }
+
     const handleCropChange = () => {
         if (cropperRef.current) {
             const croppedCanvas = cropperRef.current.cropper.getCroppedCanvas();
@@ -64,12 +81,11 @@ const SquareCropImg = (props) => {
                         <Cropper
                             ref={cropperRef}
                             zoomTo={0.5}
-                            initialAspectRatio={1}
-                            preview=".img-preview"
+                            initialAspectRatio={1} // Ensure initial aspect ratio is square
                             src={image}
                             viewMode={1}
-                            minCropBoxHeight={1}
-                            minCropBoxWidth={1}
+                            minCropBoxHeight={200} // Minimum height for cropping area
+                            minCropBoxWidth={150} // Minimum width for cropping area
                             background={false}
                             responsive={true}
                             autoCropArea={1}
@@ -79,7 +95,7 @@ const SquareCropImg = (props) => {
                         />
 
                         {!fileName && (
-                            <input className="cursor-pointer " type="file" onChange={handleFileChange} />
+                            <input className="cursor-pointer" ref={fileInputRef} type="file" accept="image/*" onChange={handleFileChange} />
                         )}
 
                     </div>
@@ -94,7 +110,7 @@ const SquareCropImg = (props) => {
                                 alt=""
                             />
                         </div>
-                        <button style={{ padding: '8px 70px', backgroundColor: '#2676C2', borderRadius: "10px", color: "white",marginLeft:'30px' }} onClick={handleCrop}>Replace</button>
+                        <button style={{ padding: '8px 70px', backgroundColor: '#2676C2', borderRadius: "10px", color: "white", marginLeft: '30px' }} onClick={handleCrop}>Replace</button>
                     </div>
 
                 </div>
@@ -105,4 +121,4 @@ const SquareCropImg = (props) => {
 
 }
 
-export default SquareCropImg;
+export default TrainerProfileCropImg;
