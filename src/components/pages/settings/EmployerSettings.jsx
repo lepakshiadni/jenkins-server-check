@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 import { generateOtp } from "../../../redux/action/siginup.action";
+import { strictRouteAction } from "../../../redux/action/strictRoute.action";
 
 
 function EmployerSettings() {
@@ -937,6 +938,7 @@ function EmployerSettings() {
                                             onClick={() => {
                                                 navigate('/settingOtpVerify');
                                                 dispatch(generateOtp(phoneNumber));
+                                                dispatch(strictRouteAction(true))
                                                 Cookies.set("contactDetails", phoneNumber);
 
                                             }}
@@ -996,6 +998,7 @@ function EmployerSettings() {
                                             type="submit"
                                             onClick={() => {
                                                 navigate('/settingOtpVerify');
+                                                dispatch(strictRouteAction(true))
                                                 dispatch(generateOtp(email));
                                                 Cookies.set("contactDetails", email);
 

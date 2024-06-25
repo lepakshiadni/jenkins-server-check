@@ -8,6 +8,7 @@ import { generateOtp } from "../../../redux/action/siginup.action";
 import { useDispatch, useSelector } from "react-redux";
 import DeviceDetector from "device-detector-js";
 import Cookies from "js-cookie";
+import { strictRouteAction } from "../../../redux/action/strictRoute.action";
 
 
 function TrainerSettings() {
@@ -950,6 +951,7 @@ function TrainerSettings() {
                       onClick={() => {
                         navigate('/settingOtpVerify');
                         dispatch(generateOtp(phoneNumber));
+                        dispatch(strictRouteAction(true))
                         Cookies.set("contactDetails", phoneNumber);
                       }}
                     > Get otp</button>
@@ -1014,6 +1016,7 @@ function TrainerSettings() {
                       onClick={() => {
                         navigate('/settingOtpVerify');
                         dispatch(generateOtp(email));
+                        dispatch(strictRouteAction(true))
                         Cookies.set("contactDetails", email);
                       }}
                     > Get otp</button>

@@ -1,0 +1,17 @@
+.employerSignupContent {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+    url("../assets/employersignupbg.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+@keyframes slideIn {
+  to {
+    left: 0;
+  }
+}
+.employerContent{
+  
+  animation: slideIn 0.4s ease-out 0.2s forwards;
+
+}
