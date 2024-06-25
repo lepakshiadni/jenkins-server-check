@@ -64,8 +64,9 @@ const EmployerMyTraining = () => {
     });
   }
 
-  // console.log('ongoing', ongoing)
+  console.log('ongoing', ongoing)
   // console.log('complted', completed);
+  console.log('acceptedTraiing',appliedTraining)
 
   useEffect(() => {
     setActiveOption(getActiveOption(location.pathname));

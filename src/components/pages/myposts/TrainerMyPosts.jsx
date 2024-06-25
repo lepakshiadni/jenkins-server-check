@@ -170,7 +170,7 @@ const TrainerMyPosts = () => {
       <section className='feedcontentRight' style={{ height: "650px", overflowY: "scroll", marginTop: '10px' }} >
 
         {trainerCreatePostDetails?.length > 0 ? <>
-          {trainerCreatePostDetails.map((post, index) => (
+          {trainerCreatePostDetails?.map((post, index) => (
 
             <div key={post._id}>
               <div className="centered-section2 " >
@@ -188,7 +188,7 @@ const TrainerMyPosts = () => {
                         {/* <img className='img2' height='60px' width='60px' src={post?.postedByImg} alt="" /> */}
                         {
                           post?.postedByImg ?
-                            <img className='img2' height='60px' width='60px' src={post.postedByImg} alt="" />
+                            <img className='img2' height='60px' width='60px' src={post?.postedByImg} alt="" />
                             :
                             <div className='flex justify-center items-center h-[60px] w-[60px] rounded-full bg-slate-200'>
                               <span>
