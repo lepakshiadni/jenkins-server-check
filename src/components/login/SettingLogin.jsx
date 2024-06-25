@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo, useRef } from "react";
-import "../styles/otpverify.css"; // Import your CSS file
+// import "../styles/otpverify.css"; // Import your CSS file
+import '../styles/OtpVerify.css'
 import HeaderLogo from "../assets/Header_logo.png";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import "slick-carousel/slick/slick.css";

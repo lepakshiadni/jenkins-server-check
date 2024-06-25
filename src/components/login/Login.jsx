@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo, useRef } from "react";
-import "../styles/otpverify.css"; // Import your CSS file
+// import "../styles/otpverify.css"; // Import your CSS file
+import '../styles/OtpVerify.css'
 import HeaderLogo from "../assets/Header_logo.png";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import "slick-carousel/slick/slick.css";
@@ -161,7 +162,7 @@ const Login = () => {
       // <CreateSuccessfull role={user?.data?.existEmployer?.role} />
       navigate('/createsucess')
 
-      navigate("/employerDashboard/postarequirements/post-training"); // Navigate to the next page
+      // navigate("/employerDashboard/postarequirements/post-training"); // Navigate to the next page
     }
     if (user?.message === "Invalid OTP") {
       setError(true)
@@ -179,7 +180,7 @@ const Login = () => {
       // <CreateSuccessfull role={user?.data?.existTrainer?.role} />
       navigate('/createsucess')
 
-      navigate("/trainerDashboard/feed"); // Navigate to the next page
+      // navigate("/trainerDashboard/feed"); // Navigate to the next page
     }
     else if (
       user?.message === "verifiedExitingTrainer" &&
