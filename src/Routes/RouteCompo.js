@@ -9,6 +9,7 @@ import Bird from "../components/assets/bird.png";
 import EmployerProfile from "../components/pages/employerprofile/EmployerProfile.jsx";
 import EmployerProfileEdit from "../components/pages/employerprofile/EmployerProfileEdit.jsx";
 import UnAuthorizedError from '../components/utils/UnAuthorizedError.jsx'
+
 import StrictRoute from "./strictRoute.jsx";
 import EmployerBasicInfo from "../components/pages/employerprofile/employerBasicInfo.jsx";
 import EmployerSkillsInfo from "../components/pages/employerprofile/employerSkillsInfo.jsx";
@@ -19,6 +20,8 @@ import TrainerSkillsInfo from "../components/pages/trainerprofile/trainerSkillsI
 import TrainerExperienceInfo from "../components/pages/trainerprofile/trainerExperienceInfo.jsx";
 import TrainerConatctInfo from "../components/pages/trainerprofile/trainerContactInfo.jsx";
 import TrainerCertificateInfo from "../components/pages/trainerprofile/trainerCerificateInfo.jsx";
+
+import CreatedSuccessFull from '../components/login/Successpage.jsx'
 
 const Signup = lazy(() => import("./../components/login/Signup"));
 const TrainerSiginUp = lazy(() => import("../components/login/TrainerSiginUp"));
@@ -81,12 +84,16 @@ function RouteCompo() {
           <Route path="/selectrole" element={<RoleSelection />} />
           <Route path="/employersignup" element={<EmployerSignup />} />
           <Route path="/otpverify" element={<Login />} />
+
           <Route path="/settingOtpVerify" element={<SettingLogin />} />
 
           {/* </Route> */}
 
           <Route path="/" element={<Signup />} />
           <Route path='/unautherror' element={<UnAuthorizedError />} />
+
+          <Route path='/createsucess' element={<CreatedSuccessFull/>}/>
+          <Route path='/unautherror' element={<UnAuthorizedError/>}/>
         </Routes>
       </Suspense>
     </BrowserRouter >
