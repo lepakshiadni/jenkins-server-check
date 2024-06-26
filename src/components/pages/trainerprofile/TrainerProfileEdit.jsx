@@ -8,7 +8,7 @@ const TrainerProfileEdit = () => {
   const location = useLocation();
 
   useEffect(() => {
-      window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
   }, [location.pathname]);
 
   const handleOptionClick = (path) => {
@@ -22,7 +22,7 @@ const TrainerProfileEdit = () => {
         <div className="updateContainer">
           <div
             onClick={() => {
-              navigate("/trainerprofile");
+              window.history.back()
             }}
             style={{
               fontSize: "16px",

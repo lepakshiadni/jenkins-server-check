@@ -106,6 +106,8 @@ const TrainerExperienceInfo = () => {
                             placeholder="Enter your skill name"
                             required
                             maxLength="32"
+                            autoComplete="off"
+
                         />
                     </span>
                     <br />
@@ -122,6 +124,8 @@ const TrainerExperienceInfo = () => {
                             placeholder="Select your experience"
                             required
                             min="0"
+                            autoComplete="off"
+
                         />
                     </span>
                     <br />
@@ -138,6 +142,8 @@ const TrainerExperienceInfo = () => {
                             placeholder="yyyy"
                             required
                             min="0"
+                            autoComplete="off"
+
                         />
                     </span>
                     <br />
@@ -153,6 +159,8 @@ const TrainerExperienceInfo = () => {
                             onKeyDown={handleKeyDown}
                             placeholder="Enter your Last Organization"
                             maxLength="42"
+                            autoComplete="off"
+
                         />
                     </span>
                     <span>
@@ -167,6 +175,8 @@ const TrainerExperienceInfo = () => {
                             onKeyDown={handleKeyDown}
                             placeholder="Enter your Training Count"
                             min="0"
+                            autoComplete="off"
+
                         />
                     </span>
                     <button
