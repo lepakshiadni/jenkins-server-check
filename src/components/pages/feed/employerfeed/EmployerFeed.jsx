@@ -117,7 +117,10 @@ const EmployerFeed = ({ postrainingData }) => {
                                   :
                                   <div className='flex justify-center items-center h-[55px] w-[55px] rounded-full bg-slate-200'>
                                     <span>
-                                      {bookmark?.postedByName[0]}
+                                      {/* {bookmark?.postedByName[0]} */}
+                                      {
+                                        bookmark?.postedByName === undefined  ?'': bookmark?.postedByName[0]
+                                      }
                                     </span>
                                   </div>
                               }
