@@ -2,20 +2,20 @@ import { useState, useMemo, useEffect } from "react";
 import { useDispatch, useSelector, } from "react-redux";
 import { generateOtp } from "../../redux/action/siginup.action";
 import { useNavigate } from "react-router-dom";
-import "../styles/Login.css";
-import "../styles/SliderSignin.css"
+import "../styles/generateotp.css";
 import HeaderImg from "../assets/HeaderBg.png";
 import { styled } from "@mui/system";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Cookies from "js-cookie";
-import Dropdown from "./Dropdown";
+import Dropdown from "../utils/Dropdown";
 import GitHubIcon from "@mui/icons-material/GitHub";
-import SliderSignin from "../slider/SliderSignin";
+import SliderSignin from "../utils/LoginCarousel";
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import MailRoundedIcon from '@mui/icons-material/MailRounded';
+import { strictRouteAction } from "../../redux/action/strictRoute.action";
 
 const ZoomableMailOutlineIcon = styled(MailRoundedIcon)`
   color: #ffff;
@@ -79,7 +79,7 @@ function Signup() {
       // Dispatch the action to generate OTP
       dispatch(generateOtp(value));
       Cookies.set("contactDetails", value);
-      
+
     } else {
       setContactDetails(prevState => ({
         ...prevState,
@@ -142,6 +142,7 @@ function Signup() {
   useEffect(() => {
     if (message.message) {
       setIsShrunk(true);
+      dispatch(strictRouteAction(true))
       setTimeout(() => {
         navigate("/otpverify");
       }, [1000])
@@ -149,6 +150,14 @@ function Signup() {
   }, [message.message, navigate]);
 
 
+  useEffect(() => {
+    // Disable autocomplete after component mounts
+    const inputField = document.getElementById('unique-contact-details');
+    if (inputField) {
+      inputField.setAttribute('autocomplete', 'off');
+      inputField.setAttribute('autocomplete', 'new-password'); // Try setting it to 'new-password' as well
+    }
+  }, []);
 
 
   return (
@@ -278,7 +287,7 @@ function Signup() {
 
         </div>  */}
 
-        <div className="h-[100px]  px-5 py-3  md:flex md:items-center md:justify-between md:px-16 md:py-5">
+        <div className="h-[100px]  px-5 py-3  md:flex md:items-center md:justify-between md:px-20 md:py-5">
           <div className=" ">
             <img className="h-10 w-24 md:h-[4.5rem] md:w-[12rem]" src={HeaderImg} alt="" />
           </div>
@@ -308,7 +317,7 @@ function Signup() {
           </div>
         </div>
 
-        <div className="login-body   bg-[#fff] w-[88%] md:h-[370px] md:w-[90%] ml-4 md:ml-12 lg:ml-16 mt-3 ">
+        <div className="login-body   bg-[#fff] w-[88%] md:h-[380px] md:w-[90%] ml-4 md:ml-12 lg:ml-16 mt-3 ">
           <div className="body-container flex flex-col-reverse md:flex md:flex-row md:items-center md:h-full md:w-full ">
             <div className="login-inputs  flex flex-col items-start gap-3 md:gap-8 py-2 px-5 ml-5 md:ml-0 md:py-3 lg:py-8 md:px-8 lg:px-8 h-full w-[80%] md:w-[37%]">
               <div className=""><h1 className="text-[#2676C2] text-[1.3rem] md:text-[1.625rem] font-[600]">Welcome To SISSOO</h1></div>
@@ -321,9 +330,12 @@ function Signup() {
                   onChange={handleEnterValue}
                   value={contactDetails.value}
                   onKeyDown={(e) => handleKeyPress(e)}
-                  name='contactDetails'
-                  className="login-input w-full  focus:outline-[#2676C2]  text-[#2676c2] font-[400] placeholder:text-[#8888] p-3 md:p-5 border-2 border-[#b9b9b9] text-[14px] md:text-[1.2rem] "
-                  type="text" placeholder="Enter Email Or Phone" />
+                  name={`contactDetails_${Math.random().toString(36).substr(2, 9)}`}
+                  className="login-input w-full focus:outline-[#2676C2] text-[#2676c2] font-[400] placeholder:text-[#8888] p-3 md:p-5 border-2 border-[#b9b9b9] text-[14px] md:text-[1.2rem]"
+                  type="text"
+                  placeholder="Enter Email Or Phone"
+                  id="unique-contact-details"
+                />
               </div>
               <div className="w-full mb-3">
                 <button
@@ -340,12 +352,7 @@ function Signup() {
 
             </div>
             <div className="login-carousel w-full md:w-[63%] md:mr-5 ">
-              <div className="mb-5 ">
-                <SliderSignin />
-              </div>
-
-
-
+              <SliderSignin />
             </div>
           </div>
         </div>
@@ -361,12 +368,12 @@ function Signup() {
 
           <div className="icon-parent flex items-center justify-center gap-8 mt-3">
             <div className=""   >
-              <ZoomableMailOutlineIcon sx={{ color: "#FFFFFF80", fontSize: "2.55rem" }} />
+              <ZoomableMailOutlineIcon sx={{ color: "#FFFFFF80", fontSize: "3rem" }} />
             </div>
             <div>
               <GitHubIcon
                 className="hover:fill-[#ffff] transform transition-transform duration-300 hover:scale-125  "
-                sx={{ color: "#FFFFFF80", fontSize: "2.55rem" }}
+                sx={{ color: "#FFFFFF80", fontSize: "3rem" }}
               />
             </div>
           </div>

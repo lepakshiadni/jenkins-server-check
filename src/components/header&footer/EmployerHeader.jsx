@@ -174,10 +174,10 @@ const EmployerHeader = ({ handleInputChange }) => {
   // Sample data for profile dropdown
 
   return (
-    <div className="header">
+    <div className="header2">
       {/* Company Logo */}
       <div className="w-[210px] ml-[40px]">
-        <div className="logo">
+        <div className="logo2">
           <img src={HeaderImage} alt="Company Logo" />
         </div>
       </div>

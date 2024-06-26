@@ -7,8 +7,10 @@ import { employerReducer } from "./employer.reducer";
 import { trainerReducer } from "./trainer.reducer";
 import { postRequirementReducer } from "./postRequirement.reducer";
 import { trainerCreatePostReducer } from "./trainercreatepost.reducer"
+import { strictRouteReducer } from "./strictRoute.reducer";
 
 const rootReducer = combineReducers({
+  strictRoute: strictRouteReducer,
   generateOTP: siginupreducer,
   verifyOTP: loginreducer,
   frienduser: frienduserReducer,
@@ -16,7 +18,7 @@ const rootReducer = combineReducers({
   employerSignUp: employerReducer,
   trainerSignUp: trainerReducer,
   postRequirement: postRequirementReducer,
-  trainerCreatePost: trainerCreatePostReducer
+  trainerCreatePost: trainerCreatePostReducer,
 
 });
 export default rootReducer;

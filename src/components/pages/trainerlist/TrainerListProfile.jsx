@@ -261,7 +261,7 @@ const TrainerListProfile = () => {
                     defaultValue={feedBack?.averageRating}
                     readOnly
                   />
-                 
+
                 </div>
               </div>
             </div>
@@ -299,7 +299,8 @@ const TrainerListProfile = () => {
                                   fontWeight: "400",
                                   color: "#6A6A6A",
                                 }}
-                              >{`${val.name} ${val.range} years`}</h6>
+                              >{`${val.name}`}<span className='text-[#2676c2]'> {`${val?.range === undefined ? '' : val?.range}`}</span><span className='text-[#2676c2]'>Years</span></h6>
+
 
                               <div
                                 className=""
@@ -315,7 +316,8 @@ const TrainerListProfile = () => {
                                   className=" fill w-full rounded-[5px] "
                                   style={{
                                     // "--width": `${val ? (val.range / 15) * 100 + "%" : "0"}`,
-                                    "--width": `${val ? ((val.range / 18) * 100 > 50 ? 100 - ((val.range / 15) * 100 - 50) * 2 : (val.range / 15) * 100) + "%" : "0"}`,
+                                    // "--width": `${val ? ((val.range / 18) * 100 > 50 ? 100 - ((val.range / 15) * 100 - 50) * 2 : (val.range / 15) * 100) + "%" : "0"}`,
+                                    "--width": `${val.range ? ((val.range / 18) * 100 > 50 ? 100 - ((val.range / 15) * 100 - 50) * 2 : (val.range / 15) * 100) + "%" : "0"}`,
                                   }}
                                 />
                               </div>
@@ -445,7 +447,7 @@ const TrainerListProfile = () => {
                 marginTop: "20px",
               }}
             >
-              {seletedUser?.basicInfo?.aboutYou ||  "Not  Available"}
+              {seletedUser?.basicInfo?.aboutYou || "Not  Available"}
 
 
             </h3>
@@ -458,7 +460,7 @@ const TrainerListProfile = () => {
               }}
             >
               {" "}
-              {seletedUser?.basicInfo?.objective }
+              {seletedUser?.basicInfo?.objective}
             </p>
             <div>
               <h6

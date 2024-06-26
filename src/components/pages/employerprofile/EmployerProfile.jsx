@@ -265,7 +265,7 @@ const EmployerProfile = () => {
 
   const handleEditProfile = async () => {
     // const profileEditPath = routingProfileEdit();
-    await navigate("/employerprofile/profileupdate"); // Navigate to TrainerProfileEdit route
+    await navigate("/employerprofile/profileupdate/basic-information"); // Navigate to TrainerProfileEdit route
   };
 
   const [addNewComment, setAddNewComment] = useState('')

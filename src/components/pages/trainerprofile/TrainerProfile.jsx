@@ -127,7 +127,7 @@ const TrainerProfile = () => {
   };
 
   const handleEditProfile = async () => {
-    await navigate("/trainerprofile/profileupdate"); // Navigate to TrainerProfileEdit route
+    await navigate("/trainerprofile/profileupdate/basic-information"); // Navigate to TrainerProfileEdit route
   };
   const handleRangeChange = (index, newValue) => {
     setUser(prevUser => {

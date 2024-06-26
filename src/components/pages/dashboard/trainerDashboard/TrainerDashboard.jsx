@@ -5,11 +5,11 @@ import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutl
 import TrainerHeader from "../../../header&footer/TrainerHeader.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { trainerDetails } from "../../../../redux/action/trainer.action.js";
-import { Route, Routes, NavLink, useLocation } from "react-router-dom";
+import { Route, Routes, NavLink, useLocation, Navigate } from "react-router-dom";
 import HttpsIcon from "@mui/icons-material/Https";
 import Chat from "../../messages/Chat.jsx";
 import TrainerProposalMangement from "../../proposalMangement/TrainerProposalMangement.jsx";
-import TrainerSettings from "../../settings/TrainerSettings.jsx";
+import TrainerSettings from "../../settings/trainerSetting/TrainerSettings.jsx";
 import TrainerHelpSupport from "../../help&support/TrainerHelpSupport.jsx";
 import TrainerFeed from "../../feed/trainerFeed/TrainerFeed.jsx";
 import EmployerProfileList from "../../trainerlist/EmployerListProfile.jsx";
@@ -33,6 +33,10 @@ import HelpPage2 from "../../help&support/trainerhelp&support/helpPage2.jsx";
 import HelpPage3 from "../../help&support/trainerhelp&support/helpPage3.jsx";
 import HelpPage4 from "../../help&support/trainerhelp&support/helpPage4.jsx";
 import HelpPage5 from "../../help&support/trainerhelp&support/helpPage5.jsx";
+import TrainerAccountPreferance from "../../settings/trainerSetting/trainerAccountPreference.jsx";
+import TrainerLoginSecurity from "../../settings/trainerSetting/trainerLoginSecurity.jsx";
+import TrainerVisibility from "../../settings/trainerSetting/trainerVisibility.jsx";
+import TrainerNotification from "../../settings/trainerSetting/trainerNotification.jsx";
 
 function TrainerDashboard() {
   const [selectedOption, setSelectedOption] = useState("dashboard");
@@ -531,7 +535,13 @@ function TrainerDashboard() {
                 <Route path='myposts' element={<TrainerMyPosts />} />
 
                 <Route path="trainingresource" element={<TrainingTrainingResource />} />
-                <Route path="settings" element={<TrainerSettings />} />
+                <Route path="settings/*" element={<TrainerSettings />}>
+                  <Route path="" element={<Navigate to="account-preference" />} />
+                  <Route path="account-preference" element={<TrainerAccountPreferance />} />
+                  <Route path="login-security" element={<TrainerLoginSecurity />} />
+                  <Route path="visibility" element={<TrainerVisibility />} />
+                  <Route path="notification" element={<TrainerNotification />} />
+                </Route>
                 <Route path="proposalmanagement/*" element={<TrainerProposalMangement />}>
                   <Route path="applied" element={<TrainerProposalApplied />} />
                   <Route path="proposalrequest" element={<TrainerProposalRequest />} />

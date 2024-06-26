@@ -11,21 +11,42 @@ const Trainers = ({ trainerFilteredData }) => {
   const baseUrl = process.env.REACT_APP_API_URL;
   console.log("baseUrl", baseUrl)
   // const navigate = useNavigate();
-  // const location = useLocation();
+  const location = useLocation();
   const [selecteduser, setSelecteduser] = useState(null);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [trainerDetails, setTrainerDetails] = useState([])
 
+  // useEffect(() => {
+  //   Axios.get(`${baseUrl}/trainer/getAllTrainerDetails`)
+  //     .then((resp) => {
+  //       setTrainerDetails(resp.data?.trainerDetails)
+
+      
+  //     })
+  //     .catch((error) => {
+  //       console.log(error)
+  //     })
+  // }, [])
+
   useEffect(() => {
-    Axios.get(`${baseUrl}/trainer/getAllTrainerDetails`)
-      .then((resp) => {
-        setTrainerDetails(resp.data?.trainerDetails)
-        console.log('trainerDetails',resp.data?.trainerDetails)
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-  }, [])
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+      }
+      return array;
+    }
+
+    if (trainerFilteredData?.length > 0) {
+      setTrainerDetails(shuffleArray(trainerFilteredData))
+    }
+    else{
+      setTrainerDetails(shuffleArray(trainerFilteredData))
+    }
+
+
+  }, [location.pathname,trainerFilteredData])
+  
 
 
 
@@ -60,10 +81,10 @@ const Trainers = ({ trainerFilteredData }) => {
         className="trainers-list"
       >
         {
-          trainerFilteredData?.length > 0 ?
+          trainerDetails?.length > 0 ?
             <>
 
-              {trainerFilteredData?.map((trainer, index) => {
+              {trainerDetails?.map((trainer, index) => {
                 // console.log('trainer',trainer)
                 return (
 
@@ -93,7 +114,7 @@ const Trainers = ({ trainerFilteredData }) => {
                                     </div>
                                 }
                               </div>
-                              <div style={{ marginTop: "5px", textAlign: "center" }}>
+                              <div style={{ marginTop: "5px", textAlign: "center", justifyContent:'center' }}>
                                 <h3
                                   style={{
                                     color: "#2676C2",
@@ -117,6 +138,8 @@ const Trainers = ({ trainerFilteredData }) => {
                                   sx={{ width: "6rem", height: "0.95363rem" }}
                                   direction="row"
                                   alignItems="center"
+                                  justifyContent='center'
+                                  
                                 >
                                   <Rating
                                     name={`rating-${index}`}
@@ -145,8 +168,8 @@ const Trainers = ({ trainerFilteredData }) => {
                                           image ?
                                             <img className="w-[30px] h-[30px] " src={image} alt="" />
                                             :
-                    
-                                            <div className="flex justify-center items-center w-[30px] h-[30px] bg-slate-400 rounded-full">
+
+                                            <div className=" mt-2 flex justify-center items-center w-[30px] h-[30px] bg-slate-400 rounded-full">
                                               <span className=" capitalize text-black text-sm">{name[0]}</span>
                                             </div>
                                         }
@@ -198,7 +221,7 @@ const Trainers = ({ trainerFilteredData }) => {
                                 </div>
                                 <div className="card-back-content">
                                   <h3 className="card-back-name">
-                                    { trainer?.fullName?.split(' ')?.[0]}
+                                    {trainer?.fullName?.split(' ')?.[0]}
                                   </h3>
                                   <p className="card-back-domain "
                                     style={{
@@ -254,14 +277,14 @@ const Trainers = ({ trainerFilteredData }) => {
 
                                     <div key={index} className="slider-container-child">
                                       {
-                                        val.image?
-                                        <img src={val.image} alt="" className="w-5 h-5" />
-                                        :
-                                        <div className="flex justify-center items-center w-5 h-5 bg-slate-300 rounded-full">
-                                          <span className=" capitalize text-black text-sm">
+                                        val.image ?
+                                          <img src={val.image} alt="" className="w-5 h-5" />
+                                          :
+                                          <div className="flex justify-center items-center w-5 h-5 bg-slate-300 rounded-full">
+                                            <span className=" capitalize text-black text-sm">
                                               {val?.name[0]}
-                                          </span>
-                                        </div>
+                                            </span>
+                                          </div>
                                       }
                                       <input
                                         className="relative rounded-[5px]]"

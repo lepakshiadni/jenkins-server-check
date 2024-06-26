@@ -15,8 +15,9 @@ const EmployerPosted = () => {
 
   const [seletedTraining, setSeletedTraining] = useState(null)
   const [selectedTrainer, setSelectedTrainer] = useState(null)
+  const [checkedApplicant, setCheckedApplicant] = useState(null);
   const dispatch = useDispatch()
-  const navigate=useNavigate()
+  const navigate = useNavigate()
   const [isHovered, setIsHovered] = useState(false);
   const [showModel, setShowModel] = useState(false)
 
@@ -27,20 +28,26 @@ const EmployerPosted = () => {
   const postDetails = useSelector(({ postRequirement }) => {
     return postRequirement?.postTrainingDetails?.postTrainingDetails
   })
-
-
-
-  const togglePopup = (post) => {
-    setIsVisible(!isVisible);
-
+  const handleCheckboxChange = (appliedBy) => {
+    setSelectedTrainer(appliedBy)
+    setCheckedApplicant(appliedBy === checkedApplicant ? null : appliedBy);
   };
+  console.log('selectedTrainer', selectedTrainer)
+
+
+
   const [isVisible, setIsVisible] = useState(false);
+  const [isAssign, setIsAssign] = useState(false)
   const deleteTrainingHandler = () => {
     dispatch(deletePostTrainingRequirement(seletedTraining?._id))
     // console.log('postId',seletedTraining?._id)
     setIsVisible(!isVisible);
 
   }
+  const togglePopup = (post) => {
+    setIsVisible(!isVisible);
+
+  };
 
 
 
@@ -116,7 +123,7 @@ const EmployerPosted = () => {
                             }
 
                           </div>
-                          <div className="DELDIT" onClick={() => { setSeletedTraining(training) }} >
+                          <div className="DELDIT flex flex-col" onClick={() => { setSeletedTraining(training) }} >
                             <button className="Del" onClick={togglePopup}>
                               Delete
                             </button>
@@ -221,6 +228,156 @@ const EmployerPosted = () => {
                                 </div>
                               </div>
                             )}
+
+                            <button className={`${training?.applicants?.length === 0 ? 'hidden' : 'Del'}`} onClick={() => setIsAssign(!isAssign)}>
+                              Assign
+                            </button>
+                            {isAssign && (
+                              <div
+                                style={{
+                                  position: "fixed",
+                                  top: "0",
+                                  left: "0",
+                                  width: "100%",
+                                  height: "100%",
+                                  backgroundColor: "rgba(10, 10, 10, 0.64)",
+                                  zIndex: "9998",
+                                }}
+                              >
+                                <div
+                                  style={{
+                                    position: "fixed",
+                                    top: "50%",
+                                    left: "50%",
+                                    transform: "translate(-50%, -50%)",
+                                    height: "25rem",
+                                    width: "40rem",
+                                    backgroundColor: "white",
+                                    border: "1px solid #ccc",
+                                    boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
+                                    borderRadius: "10px",
+
+                                    zIndex: 9999,
+                                    display: "flex",
+                                    justifyContent: "space-evenly",
+                                    flexDirection: "column",
+                                    alignItems: "center",
+                                  }}
+                                >
+                                  <div className="flex justify-end items-end w-full h-[20px] mr-[30px] ">
+                                    <div
+                                      className={`svg-container ${isHovered ? "hovered" : ""
+                                        }`}
+                                      onMouseEnter={() => setIsHovered(true)}
+                                      onMouseLeave={() => setIsHovered(false)}
+                                      cursor="pointer"
+                                      onClick={() => setIsAssign(!isAssign)}
+                                    >
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="34"
+                                        height="34"
+                                        viewBox="0 0 34 34"
+                                        fill="none"
+                                        cursor="pointer"
+                                        onClick={togglePopup}
+                                      >
+                                        <path
+                                          d="M8.48347 8.48528L16.9688 16.9706M16.9688 16.9706L25.454 25.4558M16.9688 16.9706L8.48347 25.4558M16.9688 16.9706L25.454 8.48528"
+                                          stroke="#2676C2"
+                                          stroke-width="2"
+                                          stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                        />
+                                      </svg>
+                                      <svg
+                                        className={`background-circle ${isHovered ? "hovered" : ""
+                                          }`}
+                                        viewBox="0 0 34 34"
+                                      >
+                                      </svg>
+                                    </div>
+                                  </div>
+                                  <div className="bg-[#2676c21a] w-[95%] h-[85%] flex justify-center items-center rounded-md ">
+                                    <div className="UsersContainer w-[96%] h-[94%] bg-white rounded-md overflow-y-scroll p-[10px] ">
+                                      {
+                                        training?.applicants?.length > 0 ?
+                                          <>
+
+                                            {
+
+                                              training?.applicants?.map(({ appliedBy, applicantName, applicantDesignation, appliedStatus, applicantProfileImg, application }) => {
+
+                                                return <div className={`${application === 'Accepted' ? '' : 'hidden'}`}>
+                                                  <div className="flex justify-center items-center p-[10px] ">
+                                                    <div className="w-full h-[50px]  rounded-sm p-[5px] flex gap-2 items-center hover:bg-[#2676c21a]  border-b">
+                                                      <div>
+                                                        <input
+                                                          className="h-[15px] w-[15px]" type="checkbox"
+                                                          checked={checkedApplicant === appliedBy}
+                                                          onChange={() => handleCheckboxChange(appliedBy)}
+                                                        />
+                                                      </div>
+
+                                                      <div onClick={() => {
+                                                        setShowModel(!showModel)
+                                                        setSelectedTrainer(appliedBy)
+                                                      }} className="flex justify-start items-center gap-3 cursor-pointer">
+                                                        {
+                                                          applicantProfileImg ?
+                                                            <img className="h-[40px] w-[40px] rounded-[50%] "
+                                                              src={applicantProfileImg}
+                                                            />
+                                                            :
+                                                            <div className="h-[40px] w-[40px] rounded-[50%] bg-[#2676c21a] flex justify-center items-center">
+                                                              <span>
+                                                                {applicantName?.[0]}
+                                                              </span>
+                                                            </div>
+
+                                                        }
+                                                        <div className="flex flex-col ">
+                                                          <div className="flex space-x-1 items-center">
+                                                            <span className="text-sm flex" >
+                                                              {applicantName}
+                                                            </span>
+                                                            <span className="text-sm text-[#2676c2]">
+                                                              <MdVerified />
+                                                            </span>
+                                                          </div>
+                                                          <span className="text-sm">
+                                                            {applicantDesignation}
+                                                          </span>
+                                                        </div>
+
+                                                      </div>
+
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              })
+                                            }
+                                          </>
+                                          :
+                                          <div className="flex justify-center items-center bg-[#f4f6f7] w-full h-[98%]">
+                                            <span className="text-[#2676c2] font-medium font-['Poppins']">
+                                              No Applicants Yet !
+                                            </span>
+                                          </div>
+                                      }
+                                    </div>
+
+                                    <div className={`${training?.applicants?.length === 0 ? 'hidden' : ' absolute bottom-12 right-12'}`}>
+                                      <button
+                                      
+                                        className="bg-green-600 text-white font-medium text-sm h-[30px] w-[60px] rounded-[5px]">
+                                        Assign
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            )}
                           </div>
                         </div>
                         <div className="w-[80%] h-full rounded-[0.5rem] border border-[#eee] bg-[#2676c21a] p-[10px]  ">
@@ -237,7 +394,8 @@ const EmployerPosted = () => {
 
                                   {
 
-                                    training?.applicants?.map(({ appliedBy, applicantName, applicantDesignation, appliedStatus, applicantProfileImg,application }) => {
+                                    training?.applicants?.map(({ appliedBy, applicantName, applicantDesignation, appliedStatus, applicantProfileImg, application }) => {
+
                                       return <div className="">
                                         <div className="w-full h-[50px]  rounded-sm p-[5px] flex justify-between items-center hover:bg-[#2676c21a]  border-b">
 
@@ -277,29 +435,35 @@ const EmployerPosted = () => {
                                             application === 'Pending' ? <div className="mr-[10px]">
                                               <div className="space-x-7">
                                                 <button
-                                                  onClick={()=>{dispatch(updatedApplicationStatus(appliedBy,training?._id,'Accepted'))}}
+                                                  onClick={() => { dispatch(updatedApplicationStatus(appliedBy, training?._id, 'Accepted')) }}
                                                   className="bg-green-600 text-white font-medium text-sm h-[25px] w-[60px] rounded-[5px]">
                                                   Accept
                                                 </button>
                                                 <button
-                                                  onClick={()=>{dispatch(updatedApplicationStatus(appliedBy,training?._id,'Denied'))}}
-                                                 className=" hover:bg-red-700 font-medium hover:text-white h-[24px] w-[60px] rounded-[5px] outline outline-red-700 outline-1  text-red-700 text-sm ">
+                                                  onClick={() => { dispatch(updatedApplicationStatus(appliedBy, training?._id, 'Denied')) }}
+                                                  className=" hover:bg-red-700 font-medium hover:text-white h-[24px] w-[60px] rounded-[5px] outline outline-red-700 outline-1  text-red-700 text-sm ">
                                                   Decline
                                                 </button>
                                               </div>
                                             </div>
                                               :
-                                              <div className="mr-[10px]">
-                                                <div className="space-x-7">
-                                                  <button
-                                                  onClick={()=>navigate('/employerDashboard/messages')}
-                                                   className="bg-[#2676c2] text-white font-medium text-sm h-[25px] w-[60px] rounded-[5px]">
-                                                    Chat
-                                                  </button>
-
-                                                </div>
-                                              </div>
+                                              null
                                           }
+                                          {
+                                            application === 'Accepted' ? <div className="mr-[10px]">
+                                              <div className="space-x-7">
+                                                <button
+                                                  onClick={() => navigate('/employerDashboard/messages')}
+                                                  className="bg-[#2676c2] text-white font-medium text-sm h-[25px] w-[60px] rounded-[5px]">
+                                                  Chat
+                                                </button>
+
+                                              </div>
+                                            </div>
+                                              : null
+                                          }
+                                              
+                                          
                                         </div>
                                       </div>
                                     })
