@@ -141,6 +141,7 @@ const EMployerExperience = () => {
                             placeholder="Enter your Company Name"
                             required
                             maxLength="42"
+                            autoComplete="off"
                         />
                     </span>
                     <br />
@@ -157,7 +158,7 @@ const EMployerExperience = () => {
                             placeholder="Select your Designation"
                             required
                             maxLength="32"
-
+                            autoComplete="off"
                         />
                     </span>
                     <br />
@@ -220,6 +221,7 @@ const EMployerExperience = () => {
                             rows="3"
                             placeholder="Enter your Role Description"
                             maxLength='1020'
+                            autoComplete="off"
                         ></textarea>
                     </span>
 

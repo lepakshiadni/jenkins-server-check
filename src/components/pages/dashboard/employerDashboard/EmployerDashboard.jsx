@@ -8,13 +8,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { employerDetails, getConversation } from "../../../../redux/action/employers.action";
 import { IoIosArrowUp } from "react-icons/io";
 import { option } from "./EmployerData";
-import { NavLink, Route, Routes, useLocation, useParams } from "react-router-dom";
+import { NavLink, Navigate, Route, Routes, useLocation, useParams } from "react-router-dom";
 import EmployerDashboardData from '../employerDashboard/EmployerDashboardData'
 import Trainers from "../../trainerlist/Trainer";
 import TrainerListProfile from "../../trainerlist/TrainerListProfile";
 import Requirements from "../../postrequirements/Requirements";
 import Chat from "../../messages/Chat";
-import EmployerSettings from "../../settings/EmployerSettings";
+import EmployerSettings from "../../settings/employerSetting/EmployerSettings";
 import TrainingResources from "../../trainingresourecs/EmployerTrainingResource";
 import PostJobSection from "../../postrequirements/PostRequirements/PostJob";
 import PostTrainingSection from "../../postrequirements/PostRequirements/PostTraining";
@@ -37,6 +37,10 @@ import HelpPage2 from "../../help&support/employerhelp&support/helpPage2";
 import HelpPage3 from "../../help&support/employerhelp&support/helpPage3";
 import HelpPage4 from "../../help&support/employerhelp&support/helpPage4";
 import HelpPage5 from "../../help&support/employerhelp&support/helpPage5";
+import EmployerAccountPreferance from "../../settings/employerSetting/employerAccountPreference";
+import EmployerLoginSecurity from "../../settings/employerSetting/employerLoginSecurity";
+import EmployerVisibility from "../../settings/employerSetting/employerVisibility";
+import EmployerNotifications from "../../settings/employerSetting/employerNotification";
 
 const DashboardApp = () => {
 
@@ -728,10 +732,18 @@ const DashboardApp = () => {
                 </Route>
                 <Route path="proposalsmanagement/candidacy/trainerlistprofile/:id" element={<TrainerListProfile />} />
                 <Route path="proposalsmanagement/proposals/trainerlistprofile/:id" element={<TrainerListProfile />} />
-                <Route path="settings" element={<EmployerSettings />} />
+                <Route path="settings" element={<EmployerSettings />}>
+                  <Route path="" element={<Navigate to="account-preference" />} />
+                  <Route path="account-preference" element={<EmployerAccountPreferance />} />
+                  <Route path="login-security" element={<EmployerLoginSecurity />} />
+                  <Route path="visibility" element={<EmployerVisibility />} />
+                  <Route path="notification" element={<EmployerNotifications />} />
+
+                </Route>
+
                 <Route path="trainingresource" element={<TrainingResources />} />
                 <Route path="help&support" element={<EmployerHelpSupport />} />
-                
+
                 <Route path="help&support/sissoo-basics" element={<HelpPage />} />
                 <Route path="help&support/account & network" element={<HelpPage2 />} />
                 <Route path="help&support/profile-management" element={<HelpPage3 />} />

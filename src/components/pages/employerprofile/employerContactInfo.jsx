@@ -119,6 +119,7 @@ const EmployerContactInfo = () => {
                                 required
                                 placeholder="Type your mobile number"
                                 disabled
+                                autoComplete="off"
                             />
                         </div>
                         <div>
@@ -134,6 +135,7 @@ const EmployerContactInfo = () => {
                                 name="secondaryNumber"
                                 onKeyDown={handleKeyDown}
                                 placeholder="Type your mobile number"
+                                autoComplete="off"
                             />
                         </div>
                     </div>
@@ -150,6 +152,7 @@ const EmployerContactInfo = () => {
                             required
                             placeholder="Type your address"
                             maxLength="180"
+                            autoComplete="off"
                         />
                     </div>
                     <div className="mt-2">
@@ -164,6 +167,7 @@ const EmployerContactInfo = () => {
                             onKeyDown={handleKeyDown}
                             required
                             placeholder="Type your mail address"
+                            autoComplete="off"
                         />
                     </div>
                     <div className="mt-2">
@@ -177,6 +181,7 @@ const EmployerContactInfo = () => {
                             name="website"
                             onKeyDown={handleKeyDown}
                             placeholder="Type website link here"
+                            autoComplete="off"
                         />
                     </div>
 

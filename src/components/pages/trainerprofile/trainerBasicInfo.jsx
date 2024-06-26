@@ -191,6 +191,14 @@ const TrainerBasicInfo = () => {
         }
     };
 
+    const handleChange = (setter) => (e) => {
+        const { value } = e.target;
+        // Allow only alphabetic characters
+        if (/^[a-zA-Z]*$/.test(value)) {
+            setter(value);
+        }
+    };
+
     useLayoutEffect(() => {
         if (trainer) {
             setFirstName(trainer?.basicInfo?.firstName);
@@ -398,12 +406,13 @@ const TrainerBasicInfo = () => {
                                     <input
                                         type="text"
                                         value={firstName}
-                                        onChange={(e) => setFirstName(e.target.value)}
+                                        onChange={handleChange(setFirstName)}
                                         name="firstName"
                                         onKeyDown={handleKeyDown}
                                         placeholder="Type your First Name"
                                         required
                                         maxLength="32"
+                                        autoComplete="off"
                                     />
                                 </div>
                                 <div>
@@ -412,11 +421,13 @@ const TrainerBasicInfo = () => {
                                     <input
                                         type="text"
                                         value={lastName}
-                                        onChange={(e) => setLastName(e.target.value)}
+                                        onChange={handleChange(setLastName)}
                                         name="lastName"
                                         onKeyDown={handleKeyDown}
                                         placeholder="Type your Last Name"
                                         maxLength="32"
+                                        autoComplete="off"
+
                                     />
                                 </div>
                             </div>
@@ -427,12 +438,14 @@ const TrainerBasicInfo = () => {
                                     style={{ width: "508px" }}
                                     type="text"
                                     value={designation}
-                                    onChange={(e) => setDesignation(e.target.value)}
+                                    onChange={handleChange(setDesignation)}
                                     name="designation"
                                     onKeyDown={handleKeyDown}
                                     placeholder="Type your Occupation"
                                     required
                                     maxLength="32"
+                                    autoComplete="off"
+
                                 />
                             </div>
                             <div className="mt-2">
@@ -442,11 +455,13 @@ const TrainerBasicInfo = () => {
                                     style={{ width: "508px" }}
                                     type="text"
                                     value={company}
-                                    onChange={(e) => setComapany(e.target.value)}
+                                    onChange={handleChange(setComapany)}
                                     name="company"
                                     onKeyDown={handleKeyDown}
                                     placeholder="Type your Company Name"
                                     maxLength="42"
+                                    autoComplete="off"
+
                                 />
                             </div>
                             <div className="mt-2">
@@ -462,6 +477,8 @@ const TrainerBasicInfo = () => {
                                     placeholder="Type your age"
                                     required
                                     min="0"
+                                    autoComplete="off"
+
                                 />
                             </div>
                             <div className="mt-2">
@@ -496,11 +513,12 @@ const TrainerBasicInfo = () => {
                                     style={{ width: "508px" }}
                                     type="text"
                                     value={objective}
-                                    onChange={(e) => setObjective(e.target.value)}
+                                    onChange={handleChange(setObjective)}
                                     name="objective"
                                     onKeyDown={handleKeyDown}
                                     placeholder="Profile title"
                                     maxLength="42"
+                                    autoComplete="off"
                                 />
                             </div>
                             <div className="mt-2">
@@ -514,6 +532,7 @@ const TrainerBasicInfo = () => {
                                     rows="5"
                                     placeholder="Type here"
                                     maxLength="1020"
+                                    autoComplete="off"
                                 ></textarea>
                             </div>
                             <button

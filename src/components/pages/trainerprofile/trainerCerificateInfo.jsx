@@ -204,6 +204,8 @@ const TrainerCertificateInfo = () => {
                             style={{ width: "370px" }}
                             required
                             maxLength="32"
+                            autoComplete="off"
+
                         />
                     </div>
                     <div>
@@ -219,6 +221,8 @@ const TrainerCertificateInfo = () => {
                             style={{ width: "370px" }}
                             required
                             maxLength="42"
+                            autoComplete="off"
+
                         />
                     </div>
                 </div>
@@ -236,6 +240,8 @@ const TrainerCertificateInfo = () => {
                         style={{ whiteSpace: "pre-line" }}
                         required
                         maxLength="1020"
+                        autoComplete="off"
+
                     >
                         {" "}
                     </textarea>

@@ -78,6 +78,8 @@ function RouteCompo() {
                 <Route path="contact-information" element={<TrainerConatctInfo />} />
               </Route >
             </Route>
+            <Route path="/settingOtpVerify" element={<SettingLogin />} />
+
           </Route>
 
           <Route path="/trainersignup" element={<TrainerSiginUp />} />
@@ -85,7 +87,6 @@ function RouteCompo() {
           <Route path="/employersignup" element={<EmployerSignup />} />
           <Route path="/otpverify" element={<Login />} />
 
-          <Route path="/settingOtpVerify" element={<SettingLogin />} />
 
           {/* </Route> */}
 

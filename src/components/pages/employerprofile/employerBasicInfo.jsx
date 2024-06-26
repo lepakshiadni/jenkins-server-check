@@ -403,6 +403,7 @@ const EmployerBasicInfo = () => {
                                         placeholder="Type your First Name"
                                         required
                                         maxLength="32"
+                                        autoComplete="off"
                                     />
                                 </div>
                                 <div>
@@ -416,6 +417,7 @@ const EmployerBasicInfo = () => {
                                         onKeyDown={handleKeyDown}
                                         placeholder="Type your Last Name"
                                         maxLength="32"
+                                        autoComplete="off"
                                     />
                                 </div>
                             </div>
@@ -432,6 +434,7 @@ const EmployerBasicInfo = () => {
                                     placeholder="Type your Occupation"
                                     required
                                     maxLength="32"
+                                    autoComplete="off"
                                 />
                             </div>
                             <div className="mt-2">
@@ -446,6 +449,7 @@ const EmployerBasicInfo = () => {
                                     onKeyDown={handleKeyDown}
                                     placeholder="Type your Company Name"
                                     maxLength="42"
+                                    autoComplete="off"
                                 />
                             </div>
                             <div className="mt-2">
@@ -461,6 +465,7 @@ const EmployerBasicInfo = () => {
                                     placeholder="Type your age"
                                     required
                                     min='0'
+                                    autoComplete="off"
                                 />
                             </div>
                             <div className="mt-2">
@@ -501,6 +506,7 @@ const EmployerBasicInfo = () => {
                                     onKeyDown={handleKeyDown}
                                     placeholder="Profile title"
                                     maxLength="42"
+                                    autoComplete="off"
                                 />
                             </div>
                             <div className="mt-2">
@@ -514,6 +520,7 @@ const EmployerBasicInfo = () => {
                                     rows="5"
                                     placeholder="Type here"
                                     maxLength="1020"
+                                    autoComplete="off"
                                 ></textarea>
                             </div>
                             <button
