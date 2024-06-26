@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { trainerBasicInfoUpdate, trainerDetails, trainerProfileBannerUpdate, trainerProfileImgUpdate } from "../../../redux/action/trainer.action";
 import { toast } from "react-toastify";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import TrainerBannerCropImg from "./trainerprofileedit/TrainerBannerCrop";
 import TrainerProfileCropImg from "./trainerprofileedit/TrainerProfileCrop";
+import { useLocation } from "react-router-dom";
 
 const TrainerBasicInfo = () => {
 
@@ -46,28 +47,37 @@ const TrainerBasicInfo = () => {
     ];
 
     const dispatch = useDispatch();
+    const locationpath = useLocation()
 
     const [profileImage, setProfileImage] = useState();
     const [banermage, setBanerImage] = useState();
     const [showProfileCropPopup, setShowProfileCropPopup] = useState(false);
     const [showBannerCropPopup, setShowBannerCropPopup] = useState(false);
-
+    const [toastShown, setToastShown] = useState(false);
     useEffect(() => {
         dispatch(trainerDetails());
-    }, [dispatch]);
+    }, [dispatch,locationpath]);
 
     const trainer = useSelector(({ trainerSignUp }) => {
-        return trainerSignUp?.trainerDetails?.trainerDetails;
+        return trainerSignUp?.trainerDetails;
     });
 
-    const message = useSelector(({ trainerSignUp }) => trainerSignUp?.trainerDetails?.message);
-    console.log(message);
+    // const message = useSelector(({ trainerSignUp }) => trainerSignUp?.trainerDetails);
+    console.log('trainer',trainer);
 
-    useEffect(() => {
-        if (message) {
-            toast.success(message);
+    useEffect(()=>{
+        if(trainer?.success){
+            if(trainer?.message === 'Basic Info Updated Successfully'){
+                toast.success('Basic Info Updated Successfully')
+            }
+
         }
-    }, [message]);
+    },[trainer?.success, trainer?.message]);
+
+
+
+
+
 
     const profileBanner = useRef(null);
     const profileImg = useRef(null);
@@ -164,14 +174,14 @@ const TrainerBasicInfo = () => {
         dispatch(trainerProfileBannerUpdate(formData))
     }
 
-    const [firstName, setFirstName] = useState(trainer?.basicInfo?.fileName || trainer?.fullName?.split(' ')[0]);
-    const [lastName, setLastName] = useState(trainer?.basicInfo?.lastName || trainer?.fullName?.split(' ')[1]);
-    const [designation, setDesignation] = useState(trainer?.basicInfo?.designation || "");
-    const [company, setComapany] = useState(trainer?.basicInfo?.company || "");
-    const [age, setAge] = useState(trainer?.basicInfo?.age || "");
-    const [location, setLocation] = useState(trainer?.basicInfo?.location || "");
-    const [objective, setObjective] = useState(trainer?.basicInfo?.objective || "");
-    const [aboutYou, setAboutYou] = useState(trainer?.basicInfo?.aboutYou || "");
+    const [firstName, setFirstName] = useState(trainer?.trainerDetails?.basicInfo?.fileName || trainer?.trainerDetails?.fullName?.split(' ')[0]);
+    const [lastName, setLastName] = useState(trainer?.trainerDetails?.basicInfo?.lastName || trainer?.trainerDetails?.fullName?.split(' ')[1]);
+    const [designation, setDesignation] = useState(trainer?.trainerDetails?.basicInfo?.designation || "");
+    const [company, setComapany] = useState(trainer?.trainerDetails?.basicInfo?.company || "");
+    const [age, setAge] = useState(trainer?.trainerDetails?.basicInfo?.age || "");
+    const [location, setLocation] = useState(trainer?.trainerDetails?.basicInfo?.location || "");
+    const [objective, setObjective] = useState(trainer?.trainerDetails?.basicInfo?.objective || "");
+    const [aboutYou, setAboutYou] = useState(trainer?.trainerDetails?.basicInfo?.aboutYou || "");
 
     const handleKeyDown = (e) => {
         if (e.key === "Enter") {
@@ -193,14 +203,14 @@ const TrainerBasicInfo = () => {
 
     useLayoutEffect(() => {
         if (trainer) {
-            setFirstName(trainer?.basicInfo?.firstName);
-            setLastName(trainer?.basicInfo?.lastName);
-            setDesignation(trainer?.basicInfo?.designation);
-            setComapany(trainer?.basicInfo?.company);
-            setAge(trainer?.basicInfo?.age);
-            setLocation(trainer?.basicInfo?.location);
-            setObjective(trainer?.basicInfo?.objective);
-            setAboutYou(trainer?.basicInfo?.aboutYou);
+            setFirstName(trainer?.trainerDetails?.basicInfo?.firstName);
+            setLastName(trainer?.trainerDetails?.basicInfo?.lastName);
+            setDesignation(trainer?.trainerDetails?.basicInfo?.designation);
+            setComapany(trainer?.trainerDetails?.basicInfo?.company);
+            setAge(trainer?.trainerDetails?.basicInfo?.age);
+            setLocation(trainer?.trainerDetails?.basicInfo?.location);
+            setObjective(trainer?.trainerDetails?.basicInfo?.objective);
+            setAboutYou(trainer?.trainerDetails?.basicInfo?.aboutYou);
         }
     }, [trainer]);
 
@@ -266,8 +276,8 @@ const TrainerBasicInfo = () => {
                     <div className="updateval">
                         <img
                             src={
-                                trainer?.basicInfo?.profileImg
-                                    ? `${trainer?.basicInfo?.profileImg}`
+                                trainer?.trainerDetails?.basicInfo?.profileImg
+                                    ? `${trainer?.trainerDetails?.basicInfo?.profileImg}`
                                     : ""
                             }
                             style={{
@@ -330,8 +340,8 @@ const TrainerBasicInfo = () => {
                         <hr style={{ marginTop: "12px", marginBottom: "12px" }} />
                         <img
                             src={
-                                trainer?.basicInfo?.profileBanner
-                                    ? `${trainer?.basicInfo?.profileBanner}`
+                                trainer?.trainerDetails?.basicInfo?.profileBanner
+                                    ? `${trainer?.trainerDetails?.basicInfo?.profileBanner}`
                                     : ""
                             }
                             alt=" "

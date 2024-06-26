@@ -89,6 +89,7 @@ function EmployerSignup() {
     if (employer?.success) {
       toast.success(employer?.message);
       Cookies.set('token', employer?.token)
+      localStorage.setItem('newUser',true)
       console.log('Success:', employer?.message);
       navigate('/employerDashboard/feed')
 
