@@ -144,6 +144,7 @@ function TrainerSignUp() {
         if (trainer?.success) {
             toast.success(trainer?.message);
             Cookies.set('token', trainer?.token)
+            localStorage.setItem('newUser', true)
             navigate('/trainerDashboard/feed')
             console.log('Success:', trainer?.message);
         } else if (trainer?.error) {

@@ -50,7 +50,6 @@ const DashboardApp = () => {
 
 
   const newUser = localStorage.getItem("newUser");
-  // console.log('newuser', newUser)
   useEffect(() => {
     if (newUser) {
       setShow(newUser)

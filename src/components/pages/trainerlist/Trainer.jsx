@@ -114,7 +114,7 @@ const Trainers = ({ trainerFilteredData }) => {
                                     </div>
                                 }
                               </div>
-                              <div style={{ marginTop: "5px", textAlign: "center" }}>
+                              <div style={{ marginTop: "5px", textAlign: "center", justifyContent:'center' }}>
                                 <h3
                                   style={{
                                     color: "#2676C2",
@@ -138,6 +138,8 @@ const Trainers = ({ trainerFilteredData }) => {
                                   sx={{ width: "6rem", height: "0.95363rem" }}
                                   direction="row"
                                   alignItems="center"
+                                  justifyContent='center'
+                                  
                                 >
                                   <Rating
                                     name={`rating-${index}`}
@@ -167,7 +169,7 @@ const Trainers = ({ trainerFilteredData }) => {
                                             <img className="w-[30px] h-[30px] " src={image} alt="" />
                                             :
 
-                                            <div className="flex justify-center items-center w-[30px] h-[30px] bg-slate-400 rounded-full">
+                                            <div className=" mt-2 flex justify-center items-center w-[30px] h-[30px] bg-slate-400 rounded-full">
                                               <span className=" capitalize text-black text-sm">{name[0]}</span>
                                             </div>
                                         }
