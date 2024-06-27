@@ -521,7 +521,7 @@ const TrainerBasicInfo = () => {
                                     style={{ width: "508px" }}
                                     type="text"
                                     value={objective}
-                                    onChange={handleChange(setObjective)}
+                                    onChange={(e)=>setObjective(e.target.value)}
                                     name="objective"
                                     onKeyDown={handleKeyDown}
                                     placeholder="Profile title"

@@ -4,6 +4,7 @@ import EmployerProfileCrop from "./employerprofileedit/EmployerProfileCrop";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { employerBasicInfoUpdate, employerDetails, employerProfileBannerUpdate, employerProfileImgUpdate } from "../../../redux/action/employers.action";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const EmployerBasicInfo = () => {
 
@@ -46,6 +47,7 @@ const EmployerBasicInfo = () => {
     ];
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     //croping and popup in basicinfo
     const [profileImage, setProfileImage] = useState();
     const [banermage, setBanerImage] = useState();
@@ -63,12 +65,15 @@ const EmployerBasicInfo = () => {
     const message = useSelector(({ employerSignUp }) => employerSignUp?.employerDetails?.message);
     console.log(message);
 
-    useEffect(() => {
-        if (message) {
-            toast.success(message);
-        }
-        console.log(employer);
-    }, [message]);
+    // useEffect(() => {
+    //     if (message === 'Employer profile fetched') {
+
+    //     }
+    //     else {
+    //         toast.success(message);
+    //     }
+    //     console.log(employer);
+    // }, [message]);
 
     const profileBanner = useRef(null);
     const profileImg = useRef(null);
@@ -165,10 +170,10 @@ const EmployerBasicInfo = () => {
         dispatch(employerProfileBannerUpdate(formData));
     }
 
-    const [firstName, setFirstName] = useState(employer?.basicInfo?.firstName || employer?.fullName?.split('  ')[0] || '');
-    const [lastName, setLastName] = useState(employer?.basicInfo?.lastName || employer?.fullName?.split('  ')[1] || '');
-    const [designation, setDesignation] = useState(employer?.basicInfo?.designation || "");
-    const [company, setComapany] = useState(employer?.basicInfo?.company || "");
+    const [firstName, setFirstName] = useState(employer?.basicInfo?.firstName || employer?.fullName?.split(' ')[0] || '');
+    const [lastName, setLastName] = useState(employer?.basicInfo?.lastName || employer?.fullName?.split(' ')[1] || '');
+    const [designation, setDesignation] = useState(employer?.basicInfo?.designation || employer?.designation);
+    const [company, setComapany] = useState(employer?.basicInfo?.company || employer?.companyName);
     const [age, setAge] = useState(employer?.basicInfo?.age || "");
     const [location, setLocation] = useState(employer?.basicInfo?.location || "");
     const [objective, setObjective] = useState(employer?.basicInfo?.objective || "");
@@ -196,9 +201,9 @@ const EmployerBasicInfo = () => {
 
     useLayoutEffect(() => {
         if (employer) {
-            setFirstName(employer?.basicInfo?.firstName);
-            setLastName(employer?.basicInfo?.lastName);
-            setDesignation(employer?.basicInfo?.designation);
+            setFirstName(employer?.basicInfo?.firstName || employer?.fullName?.split(' ')[0] || '');
+            setLastName(employer?.basicInfo?.lastName || employer?.fullName?.split(' ')[1] || '');
+            setDesignation(employer?.basicInfo?.designation || employer?.designation);
             setComapany(employer?.basicInfo?.company);
             setAge(employer?.basicInfo?.age);
             setLocation(employer?.basicInfo?.location);
@@ -222,14 +227,17 @@ const EmployerBasicInfo = () => {
         formData.append("firstName", firstName);
         formData.append("lastName", lastName);
         formData.append("designation", designation);
-        formData.append("company", company);
         formData.append("age", age);
         formData.append("location", location);
-        formData.append("objective", objective);
-        formData.append("aboutYou", aboutYou);
+        if (company) formData.append("company", company);
+        if (objective) formData.append("objective", objective);
+        if (aboutYou) formData.append("aboutYou", aboutYou);
         formData.append("status", true);
 
         dispatch(employerBasicInfoUpdate(formData));
+        toast.success('Basic Info Updated')
+        navigate('/employerprofile/profileupdate/skills')
+
     };
 
     return (
@@ -471,19 +479,7 @@ const EmployerBasicInfo = () => {
                             <div className="mt-2">
                                 <label htmlFor="">Location *</label>
                                 <br />
-                                {/* <select
-                      name="location"
-                      id=""
-                      value={location}
-                      onChange={(e) => setLocation(e.target.value)}
-                    >
-                      <option value="" selected>
-                        select Location
-                      </option>
-                      <option value="Banglore">Banglore</option>
-                      <option value="Manglore">Manglore</option>
-                      <option value="Mysore">Mysore</option>
-                    </select> */}
+
                                 <select name="location" id="State" value={location} onChange={(e) => setLocation(e.target.value)} required>
                                     <option value="">Select Location</option>
                                     {states.map((state, index) => (
