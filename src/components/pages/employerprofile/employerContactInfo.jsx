@@ -2,29 +2,31 @@ import { useEffect, useLayoutEffect, useState } from "react";
 import { employerContactInfoUpdate, employerDetails } from "../../../redux/action/employers.action";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const EmployerContactInfo = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    useEffect(() => {
-        dispatch(employerDetails());
-    }, [dispatch]);
+
 
     const employer = useSelector(({ employerSignUp }) => {
         return employerSignUp?.employerDetails?.employerDetails;
     });
-
+    console.log('employerContactDetails', employer?.contactInfo)
     const message = useSelector(({ employerSignUp }) => employerSignUp?.employerDetails?.message);
     // console.log(message);
 
+    // useEffect(() => {
+    //     if (message) {
+    //         toast.success(message);
+    //     }
+    //     console.log(employer);
+    // }, [message]);
     useEffect(() => {
-        if (message) {
-            toast.success(message);
-        }
-        console.log(employer);
-    }, [message]);
-
+        dispatch(employerDetails());
+    }, [dispatch]);
     const [primaryNumber, setPrimaryNumber] = useState(employer?.contactInfo?.primaryNumber || "");
     const [secondaryNumber, setSecondaryNumber] = useState(employer?.contactInfo?.secondaryNumber || "");
     const [address, setAddress] = useState(employer?.contactInfo?.address || "");
@@ -60,33 +62,36 @@ const EmployerContactInfo = () => {
 
     const handleCase3Data = async () => {
         const contactInfo = {
-          primaryNumber: primaryNumber,
-          secondaryNumber: secondaryNumber || null,
-          address: address,
-          email: email,
-          website: website,
-          status: true,
+            primaryNumber: primaryNumber,
+            secondaryNumber: secondaryNumber,
+            address: address,
+            email: email,
+            website: website,
+            status: true,
         };
         dispatch(employerContactInfoUpdate(contactInfo));
-      };
-    
-      const handleSubmitData = async (e) => {
+        toast.success('ContactInfo Updated')
+        navigate('/employerprofile')
+
+    };
+
+    const handleSubmitData = async (e) => {
         e.preventDefault();
         await handleCase3Data();
-      };
+    };
 
-      const handlePrimaryNumberChange = (e) => {
+    const handlePrimaryNumberChange = (e) => {
         const { value } = e.target;
         const numericValue = value.replace(/\D/g, ''); // Remove non-numeric characters
         setPrimaryNumber(numericValue);
-      };
-    
-      const handleSecondaryNumberChange = (e) => {
+    };
+
+    const handleSecondaryNumberChange = (e) => {
         const { value } = e.target;
         const numericValue = value.replace(/\D/g, ''); // Remove non-numeric characters
         setSecondaryNumber(numericValue);
-      };
-    
+    };
+
     return (
         <>
             <div className="contactInfo">

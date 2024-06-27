@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { employerSkillsUpdate, getSkillsData } from "../../../redux/action/employers.action";
 import { toast } from "react-toastify";
 import vector from "../../assets/Vector.svg";
+import { useNavigate } from "react-router-dom";
 
 const EmployerSkillsInfo = () => {
 
@@ -13,14 +14,16 @@ const EmployerSkillsInfo = () => {
     const message = useSelector(({ employerSignUp }) => employerSignUp?.employerDetails?.message);
     // console.log(message);
 
-    useEffect(() => {
-        if (message) {
-            toast.success(message);
-        }
-        console.log(employer);
-    }, [message]);
+    // useEffect(() => {
+    //     if (message) {
+    //         toast.success(message);
+    //     }
+    //     console.log(employer);
+    // }, [message]);
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+
     const skillRef = useRef();
 
     const skillDataVal = useSelector(({ employerSignUp }) => {
@@ -111,6 +114,8 @@ const EmployerSkillsInfo = () => {
     const handleCase1Data = () => {
         clickedTitles.forEach((skill) => skill);
         dispatch(employerSkillsUpdate(clickedTitles));
+        toast.success('Skills Info Updated')
+        navigate('/employerprofile/profileupdate/experience')
     };
 
     return (
