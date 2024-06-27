@@ -343,7 +343,7 @@ const TrainerBasicInfo = () => {
                                 fontSize: "12px",
                             }}
                         >
-                            max-size (100KB*)
+                            max-size (1024KB*)
                         </h6>
                         <hr style={{ marginTop: "12px", marginBottom: "12px" }} />
                         <img
@@ -404,7 +404,7 @@ const TrainerBasicInfo = () => {
                                 fontSize: "12px",
                             }}
                         >
-                            max-size (100KB*)
+                            max-size (1024KB*)
                         </h6>
                     </div>
                     <form onSubmit={handleCase0Data}>

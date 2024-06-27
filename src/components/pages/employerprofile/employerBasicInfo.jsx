@@ -165,8 +165,8 @@ const EmployerBasicInfo = () => {
         dispatch(employerProfileBannerUpdate(formData));
     }
 
-    const [firstName, setFirstName] = useState(employer?.basicInfo?.firstName || "");
-    const [lastName, setLastName] = useState(employer?.basicInfo?.lastName || "");
+    const [firstName, setFirstName] = useState(employer?.basicInfo?.firstName || employer?.fullName?.split('  ')[0] || '');
+    const [lastName, setLastName] = useState(employer?.basicInfo?.lastName || employer?.fullName?.split('  ')[1] || '');
     const [designation, setDesignation] = useState(employer?.basicInfo?.designation || "");
     const [company, setComapany] = useState(employer?.basicInfo?.company || "");
     const [age, setAge] = useState(employer?.basicInfo?.age || "");
@@ -324,7 +324,7 @@ const EmployerBasicInfo = () => {
                                 fontSize: "12px",
                             }}
                         >
-                            max-size (100KB*)
+                            max-size (1024KB*)
                         </h6>
                         <hr style={{ marginTop: "12px", marginBottom: "12px" }} />
                         <img
@@ -385,7 +385,7 @@ const EmployerBasicInfo = () => {
                                 fontSize: "12px",
                             }}
                         >
-                            max-size (100KB*)
+                            max-size (1024KB*)
                         </h6>
                     </div>
                     <form onSubmit={handleCase0Data}>
