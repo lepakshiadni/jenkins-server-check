@@ -140,29 +140,18 @@ const Login = () => {
       user?.message === "verifiedExitingEmployer" &&
       user?.data?.existEmployer?.role === "employer"
     ) {
-      toast.success(user?.data?.existEmployer?.role, {
-        style: { backgroundColor: "#4CAF90", color: "#ffffff" },
-      });
       Cookies.set("token", user?.data?.token);
       localStorage.setItem("role", user?.data?.existEmployer?.role);
-
       navigate('/createsucess')
-      // <CreateSuccessfull role={user?.data?.existEmployer?.role} />
-      // navigate("/employerDashboard/postarequirements/post-training"); // Navigate to the next page
     }
     else if (
       user?.message === "verifiedExitingEmployer" &&
       user?.data?.existEmployer2?.role === "employer"
     ) {
-      toast.success(user?.data?.existEmployer2?.role, {
-        style: { backgroundColor: "#4CAF90", color: "#ffffff" },
-      });
       Cookies.set("token", user?.data?.token);
       localStorage.setItem("role", user?.data?.existEmployer2?.role);
-      // <CreateSuccessfull role={user?.data?.existEmployer?.role} />
-      navigate('/createsucess')
 
-      // navigate("/employerDashboard/postarequirements/post-training"); // Navigate to the next page
+      navigate('/createsucess')
     }
     if (user?.message === "Invalid OTP") {
       setError(true)
@@ -172,23 +161,14 @@ const Login = () => {
       user?.message === "verifiedExitingTrainer" &&
       user?.data?.existTrainer?.role === "trainer"
     ) {
-      toast.success(user?.data?.existTrainer?.role, {
-        style: { backgroundColor: "#4CAF90", color: "#ffffff" },
-      });
       Cookies.set("token", user?.data?.token);
       localStorage.setItem("role", user?.data?.existTrainer?.role);
-      // <CreateSuccessfull role={user?.data?.existTrainer?.role} />
       navigate('/createsucess')
-
-      // navigate("/trainerDashboard/feed"); // Navigate to the next page
     }
     else if (
       user?.message === "verifiedExitingTrainer" &&
       user?.data?.existTrainer2?.role === "trainer"
     ) {
-      toast.success(user?.data?.existTrainer2?.role, {
-        style: { backgroundColor: "#4CAF90", color: "#ffffff" },
-      });
       Cookies.set("token", user?.data?.token);
       localStorage.setItem("role", user?.data?.existTrainer2?.role);
       navigate('/createsucess')
