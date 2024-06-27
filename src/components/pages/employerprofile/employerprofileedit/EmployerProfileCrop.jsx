@@ -52,6 +52,7 @@ const EmployerProfileCrop = (props) => {
     const handleClosePopUp = () => {
         setImage(null);
         setFileName(null);
+        setCropData(null)
         props.setTrigger(false);
     };
     const handleCropChange = () => {
