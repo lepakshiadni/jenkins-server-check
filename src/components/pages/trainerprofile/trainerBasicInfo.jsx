@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import TrainerBannerCropImg from "./trainerprofileedit/TrainerBannerCrop";
 import TrainerProfileCropImg from "./trainerprofileedit/TrainerProfileCrop";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const TrainerBasicInfo = () => {
 
@@ -48,6 +48,7 @@ const TrainerBasicInfo = () => {
 
     const dispatch = useDispatch();
     const locationpath = useLocation()
+    const navigate = useNavigate()
 
     const [profileImage, setProfileImage] = useState();
     const [banermage, setBanerImage] = useState();
@@ -56,27 +57,23 @@ const TrainerBasicInfo = () => {
     const [toastShown, setToastShown] = useState(false);
     useEffect(() => {
         dispatch(trainerDetails());
-    }, [dispatch,locationpath]);
+    }, [dispatch, locationpath]);
 
     const trainer = useSelector(({ trainerSignUp }) => {
         return trainerSignUp?.trainerDetails;
     });
 
     // const message = useSelector(({ trainerSignUp }) => trainerSignUp?.trainerDetails);
-    console.log('trainer',trainer);
+    console.log('trainer', trainer);
 
-    useEffect(()=>{
-        if(trainer?.success){
-            if(trainer?.message === 'Basic Info Updated Successfully'){
-                toast.success('Basic Info Updated Successfully')
-            }
+    // useEffect(() => {
+    //     if (trainer?.success) {
+    //         if (trainer?.message === 'Basic Info Updated Successfully') {
+    //             toast.success('Basic Info Updated Successfully')
+    //         }
 
-        }
-    },[trainer?.success, trainer?.message]);
-
-
-
-
+    //     }
+    // }, [trainer?.success, trainer?.message]);
 
 
     const profileBanner = useRef(null);
@@ -174,7 +171,7 @@ const TrainerBasicInfo = () => {
         dispatch(trainerProfileBannerUpdate(formData))
     }
 
-    const [firstName, setFirstName] = useState(trainer?.trainerDetails?.basicInfo?.fileName || trainer?.trainerDetails?.fullName?.split(' ')[0]);
+    const [firstName, setFirstName] = useState(trainer?.trainerDetails?.basicInfo?.firstName || trainer?.trainerDetails?.fullName?.split(' ')[0]);
     const [lastName, setLastName] = useState(trainer?.trainerDetails?.basicInfo?.lastName || trainer?.trainerDetails?.fullName?.split(' ')[1]);
     const [designation, setDesignation] = useState(trainer?.trainerDetails?.basicInfo?.designation || "");
     const [company, setComapany] = useState(trainer?.trainerDetails?.basicInfo?.company || "");
@@ -211,8 +208,8 @@ const TrainerBasicInfo = () => {
 
     useLayoutEffect(() => {
         if (trainer) {
-            setFirstName(trainer?.trainerDetails?.basicInfo?.firstName);
-            setLastName(trainer?.trainerDetails?.basicInfo?.lastName);
+            setFirstName(trainer?.trainerDetails?.basicInfo?.firstName || trainer?.trainerDetails?.fullName?.split(' ')[0]);
+            setLastName(trainer?.trainerDetails?.basicInfo?.lastName || trainer?.trainerDetails?.fullName?.split(' ')[1]);
             setDesignation(trainer?.trainerDetails?.basicInfo?.designation);
             setComapany(trainer?.trainerDetails?.basicInfo?.company);
             setAge(trainer?.trainerDetails?.basicInfo?.age);
@@ -239,15 +236,16 @@ const TrainerBasicInfo = () => {
         formData.append("firstName", firstName);
         formData.append("lastName", lastName);
         formData.append("designation", designation);
-        formData.append("company", company);
         formData.append("age", age);
         formData.append("location", location);
-        formData.append("objective", objective);
-        formData.append("aboutYou", aboutYou);
+        if (company) formData.append("company", company);
+        if (objective) formData.append("objective", objective);
+        if (aboutYou) formData.append("aboutYou", aboutYou);
         formData.append("status", true);
 
         dispatch(trainerBasicInfoUpdate(formData));
-
+        toast.success('Basic Info Updated Successfully')
+        navigate('/trainerprofile/profileupdate/skills')
         // }
     };
     return (

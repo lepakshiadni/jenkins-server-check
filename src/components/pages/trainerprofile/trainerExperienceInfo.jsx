@@ -2,10 +2,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { trainerDetails, trainerExperienceInfoUpdate } from "../../../redux/action/trainer.action";
 import { toast } from "react-toastify";
 import { useEffect, useLayoutEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const TrainerExperienceInfo = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate()
 
     useEffect(() => {
         dispatch(trainerDetails());
@@ -18,11 +20,11 @@ const TrainerExperienceInfo = () => {
     const message = useSelector(({ trainerSignUp }) => trainerSignUp?.trainerDetails?.message);
     console.log(message);
 
-    useEffect(() => {
-        if (message) {
-            toast.success(message);
-        }
-    }, [message]);
+    // useEffect(() => {
+    //     if (message) {
+    //         toast.success(message);
+    //     }
+    // }, [message]);
 
     const [expertIn, setExpertIn] = useState(trainer?.experiences?.expertIn || "");
     const [experience, setExperience] = useState(trainer?.experiences?.experience || "");
@@ -74,6 +76,8 @@ const TrainerExperienceInfo = () => {
     const handleSubmitData = async (e) => {
         e.preventDefault();
         await handleCase4Data();
+        toast.success('Experience Info Update Successfully');
+        navigate('/trainerprofile')
 
     };
 

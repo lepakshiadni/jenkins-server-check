@@ -2,10 +2,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { trainerContactInfoUpdate, trainerDetails } from "../../../redux/action/trainer.action";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const TrainerConatctInfo = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate()
 
     useEffect(() => {
         dispatch(trainerDetails());
@@ -18,11 +20,11 @@ const TrainerConatctInfo = () => {
     const message = useSelector(({ trainerSignUp }) => trainerSignUp?.trainerDetails?.message);
     console.log(message);
 
-    useEffect(() => {
-        if (message) {
-            toast.success(message);
-        }
-    }, [message]);
+    // useEffect(() => {
+    //     if (message) {
+    //         toast.success(message);
+    //     }
+    // }, [message]);
 
     const [primaryNumber, setPrimaryNumber] = useState(trainer?.contactInfo?.primaryNumber || "");
     const [secondaryNumber, setSecondaryNumber] = useState(trainer?.contactInfo?.secondaryNumber || "");
@@ -74,7 +76,8 @@ const TrainerConatctInfo = () => {
         };
 
         dispatch(trainerContactInfoUpdate(contactInfo));
-
+        toast.success('Contact Info Update Successfully');
+        navigate('/trainerprofile/profileupdate/contact-information')
     };
 
     const handlePrimaryNumberChange = (e) => {
