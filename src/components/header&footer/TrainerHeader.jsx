@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import UserAvatar from '../assets/UserAvatar.png';
 // import getDeviceDetails from 'device-details';
 import { useDispatch, useSelector } from "react-redux";
-import { trainerDetails,getAllNotification,readNotification,deleteAllNotification } from "../../redux/action/trainer.action";
+import { trainerDetails, getAllNotification, readNotification, deleteAllNotification } from "../../redux/action/trainer.action";
 import axios from "axios";
 import timesago from "timesago";
 
@@ -17,10 +17,14 @@ const TrainerHeader = ({ handleInputChange }) => {
   const [isDropdownActive, setDropdownActive] = useState(false);
   const [showNotificationDropdown, setShowNotificationDropdown] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
-  const [notifications,setNotifications]=useState([])
+  const [notifications, setNotifications] = useState([])
   const notificationRef = useRef(null);
   const profileRef = useRef(null);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(trainerDetails());
+  }, [dispatch]);
 
   const user = useSelector(({ trainerSignUp }) => {
     return trainerSignUp?.trainerDetails?.trainerDetails;
@@ -29,23 +33,21 @@ const TrainerHeader = ({ handleInputChange }) => {
     return trainerSignUp?.notification;
   });
 
-  useEffect(()=>{
+  useEffect(() => {
     // setNotifications(notification?.notifications)
-    notification?.notifications?.map(({notifications})=>{
+    notification?.notifications?.map(({ notifications }) => {
       setNotifications(notifications)
     })
-  },[notification,notifications,dispatch])
-  console.log('notification',notifications)
+  }, [notification, notifications, dispatch])
+  console.log('notification', notifications)
+
 
 
   useEffect(() => {
-    dispatch(trainerDetails());
-  }, [dispatch]);
-  useEffect(()=>{
-    if(user?._id){
+    if (user?._id) {
       dispatch(getAllNotification(user?._id))
     }
-  },[user,dispatch])
+  }, [user, dispatch])
 
 
 
@@ -190,6 +192,8 @@ const TrainerHeader = ({ handleInputChange }) => {
     },
   ];
 
+  console.log('user', user)
+
   // Sample data for profile dropdown
 
   return (
@@ -286,13 +290,13 @@ const TrainerHeader = ({ handleInputChange }) => {
                           <div className=" text-white text-sm font-normal font-['Poppins'] ml-[5px] mb-[1px]">
                             {/* 5 */}
                             {
-                              notifications?.length 
+                              notifications?.length
                             }
                           </div>
                         </div>
                       </div>
-                      <div 
-                      onClick={()=>{dispatch(deleteAllNotification(user?._id))}}
+                      <div
+                        onClick={() => { dispatch(deleteAllNotification(user?._id)) }}
                       >
                         <span className="text-red-500 text-sm font-normal font-['Poppins'] hover:underline">
                           Clear All
@@ -301,35 +305,35 @@ const TrainerHeader = ({ handleInputChange }) => {
                     </div>
                     <hr />
                     {
-                      notifications?.map((message,index)=>{
+                      notifications?.map((message, index) => {
                         return (
                           <>
                             <div
-                              onClick={()=>{dispatch(readNotification(message?._id,user?._id))}}
+                              onClick={() => { dispatch(readNotification(message?._id, user?._id)) }}
                               key={index}
-                              className={`notification-message h-[56.49px] hover:bg-[#9fc6ed] flex items-center ${message?.unread ? 'bg-[#2676c233]':''} `}
+                              className={`notification-message h-[56.49px] hover:bg-[#9fc6ed] flex items-center ${message?.unread ? 'bg-[#2676c233]' : ''} `}
                             >
                               <div className="pr-[10px] pt-[11.49px] pb-[8px] pl-[5px]">
                                 {
-                                  message?.notifierImage?
-                                  <img
-                                  className="w-10 h-[40px] rounded-full"
-                                  src={message?.notifierImage}
-                                  alt=""
-                                />
-                                :
-                                <div className="w-10 h-[40px] rounded-full flex justify-center items-center bg-slate-400">
-                                  <span className=" capitalize">
-                                      {message?.notifierName[0]}
-                                  </span>
-                                </div>
+                                  message?.notifierImage ?
+                                    <img
+                                      className="w-10 h-[40px] rounded-full"
+                                      src={message?.notifierImage}
+                                      alt=""
+                                    />
+                                    :
+                                    <div className="w-10 h-[40px] rounded-full flex justify-center items-center bg-slate-400">
+                                      <span className=" capitalize">
+                                        {message?.notifierName[0]}
+                                      </span>
+                                    </div>
                                 }
                               </div>
                               <div>
-                                <div className={`text-neutral-700 text-base ${message?.unread? ' font-extrabold':'font-normal'} font-['Poppins']`}>
+                                <div className={`text-neutral-700 text-base ${message?.unread ? ' font-extrabold' : 'font-normal'} font-['Poppins']`}>
                                   {message?.notificationMessage}
                                 </div>
-                                <div className={`text-zinc-400 text-[10px] ${message?.unread? ' font-extrabold':'font-normal'} font-['Poppins']`}>
+                                <div className={`text-zinc-400 text-[10px] ${message?.unread ? ' font-extrabold' : 'font-normal'} font-['Poppins']`}>
                                   {timesago(message?.createdAt)}
                                 </div>
                               </div>
@@ -365,9 +369,8 @@ const TrainerHeader = ({ handleInputChange }) => {
               </div>
               <div className="text-start min-w-[120px] w-[auto]   ">
                 <span className="font-[600] flex justify-center">
-                  {user?.basicInfo?.firstName && user?.basicInfo?.lastName
-                    ? `${user.basicInfo.firstName} ${user.basicInfo.lastName}`
-                    : user?.fullName
+                  {
+                    user?.fullName
                   }
                 </span>
                 <p className="flex justify-center" style={{ letterSpacing: "100%" }}>{user?.basicInfo?.designation || ''}</p>

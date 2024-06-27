@@ -28,7 +28,7 @@ function ProfileComplition({ trigger, setTrigger }) {
                     <h4 className='text-[#535353] font-[Poppins] font-semibold'>Profile Complition </h4>
                     <div className='flex justify-between '>
                         <div className='m-[25px] flex flex-col gap-2 '>
-                            <Link to={`/${role}profile/profileupdate`} className='hover:underline decoration-[#2676c2] hover:text-[#2676c2] flex gap-3 justify-start items-center'>
+                            <Link to={`/${role}profile/profileupdate/basic-information`} className='hover:underline decoration-[#2676c2] hover:text-[#2676c2] flex gap-3 justify-start items-center'>
                                 Profile Image Update <span><svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="15"
@@ -264,7 +264,7 @@ function ProfileComplition({ trigger, setTrigger }) {
                     <button onClick={() => setTrigger(!trigger)} className='w-[160px] h-[40px] bg-[#ffff] border border-stone-400 hover:bg-[#2676c2] hover:text-[#ffff] rounded-[10px]'>
                         Skip
                     </button>
-                    <Link to={`/${role}profile/profileupdate`}>
+                    <Link to={`/${role}profile/profileupdate/basic-information`}>
                         <button className='w-[160px] h-[40px] bg-[#2676c2] text-[#ffff] rounded-[10px]'>
                             Next
                         </button>

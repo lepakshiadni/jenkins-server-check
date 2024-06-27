@@ -598,7 +598,7 @@ const EmployerFeedData = ({ bookMarkedPost, postrainingData }) => {
                                 <div>
                                   {post?.comments?.map((item, index) => (
                                     <div className='' key={index} style={{ display: 'flex', margin: '5px', marginTop: '10px' }}>
-                                      <img className='img2' height='40px' width='40px' src={item.imageUrl} alt="" />
+                                      <img className='img2' height='40px' width='40px' src={item?.commentedByProfile} alt="" />
                                       <div style={{ maxWidth: "436px", backgroundColor: '#f0f0f0', padding: '10px', marginLeft: '10px', borderStartEndRadius: '15px', borderEndStartRadius: '15px', borderEndEndRadius: '15px', border: '2px solid #E9E9E9' }}>
                                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                           <div className="me-5">
@@ -622,7 +622,7 @@ const EmployerFeedData = ({ bookMarkedPost, postrainingData }) => {
                                           }
                                         </div>
                                         <div>
-                                          <p style={{ margin: '0px', color: '#888888', fontSize: '14px' }}>{item?.comment}</p>
+                                          <p style={{ margin: '0px', color: '#888888', fontSize: '14px' }}>{item?.commentText}</p>
                                         </div>
                                       </div>
                                     </div>
@@ -671,7 +671,7 @@ const EmployerFeedData = ({ bookMarkedPost, postrainingData }) => {
                                           }
                                         </div>
                                         <div>
-                                          <p style={{ margin: '0px', color: '#888888', fontSize: '14px' }}>{item?.comment}</p>
+                                          <p style={{ margin: '0px', color: '#888888', fontSize: '14px' }}>{item?.commentText}</p>
                                         </div>
                                       </div>
                                     </div>

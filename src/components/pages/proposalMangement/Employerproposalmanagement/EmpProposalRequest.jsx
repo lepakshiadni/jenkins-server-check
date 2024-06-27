@@ -16,27 +16,7 @@ const EmployerProposalRequest = () => {
         return employerSignUp?.getAppliedTrainingEmployer?.getAppliedTraining
     })
     console.log('appliedTrainingDetails', appliedTrainingDetails)
-    // const proposalData = {
-    //     programName: "Full Stack Developer",
-    //     topics: "Java, Js, Python, React Native",
-    //     trainingType: "Corporate",
-    //     duration: "10 Days",
-    //     startDate: "01-12-2023",
-    //     endDate: "01-01-2024",
-    //     trainer: {
-    //         name: "Kowshik",
-    //         role: "UI/UX Developer",
-    //         rating: 4.5,
-    //     },
-    //     budget: "$1000-$2000",
-    //     modeOfTraining: "Online",
-    //     proposalStatus: "Kowshik Proposed For Your Post a Requirement",
-    //     company: "Wipro",
-    //     proposalBudget: "2000-3000",
-    //     proposalMode: "Offline",
-    //     proposalLocation: "Kerala",
-    // };
-
+    
     const [isDenyPopupVisible, setIsDenyPopupVisible] = useState(false);
     const [isAcceptPopupVisible, setIsAcceptPopupVisible] = useState(false);
     const [seletedTraining, setSeletedTraining] = useState(null)
@@ -133,7 +113,8 @@ const EmployerProposalRequest = () => {
                                                                         :
                                                                         <div className="rounded-[10px] w-[5.8rem] h-[6.55rem] flex justify-center items-center text-3xl bg-[#f4f6f7]" >
                                                                             <span className="capitalize text-black ">
-                                                                                {proposals?.trainerName[0]}
+                                                                                {/* {proposals?.trainerName[0]} */}
+                                                                                {proposals?.trainerName?.charAt(0)}
                                                                             </span>
                                                                         </div>
                                                                 }

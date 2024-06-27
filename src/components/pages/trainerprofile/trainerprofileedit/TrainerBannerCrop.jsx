@@ -20,8 +20,8 @@ const TrainerBannerCropImg = (props) => {
             }
 
             // Check file size
-            if (file.size > 100 * 1024) {
-                alert("File size should be within 100KB.");
+            if (file.size > 1 *1024* 1024) {
+                alert("File size should be within 1024KB.");
                 fileInputRef.current.value = null; // Reset file input
                 return;
             }
