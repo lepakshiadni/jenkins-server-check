@@ -2,10 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import { deleteTrainerCertificate, trainerCertificateUpdate, trainerDetails } from "../../../redux/action/trainer.action";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const TrainerCertificateInfo = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate()
 
     useEffect(() => {
         dispatch(trainerDetails());
@@ -18,11 +20,11 @@ const TrainerCertificateInfo = () => {
     const message = useSelector(({ trainerSignUp }) => trainerSignUp?.trainerDetails?.message);
     console.log(message);
 
-    useEffect(() => {
-        if (message) {
-            toast.success(message);
-        }
-    }, [message]);
+    // useEffect(() => {
+    //     if (message) {
+    //         toast.success(message);
+    //     }
+    // }, [message]);
 
 
     //image file drop and drag
@@ -145,15 +147,14 @@ const TrainerCertificateInfo = () => {
     const handleCase2Data = (e) => {
         e.preventDefault();
         const file = certificateImg.current.files[0];
+        console.log('files',file)
+
 
         if (file) {
             // Append form data to formData
             formData.append("certificateHead", certificateHead.current.value);
             formData.append("institution", institution.current.value);
-            formData.append(
-                "certificationDescription",
-                certificationDescription.current.value
-            );
+            formData.append("certificationDescription", certificationDescription.current.value);
             formData.append("certificateImg", file);
             formData.append("status", true);
             handleSubmit();
@@ -163,11 +164,15 @@ const TrainerCertificateInfo = () => {
     };
 
     const handlecertificate = async () => {
+
+        
         dispatch(trainerCertificateUpdate(formData));
+        toast.success('Certificate Info Updated')
+        navigate('/trainerprofile/profileupdate/contact-information')
     };
     const handleDelete = (_id) => {
         dispatch(deleteTrainerCertificate(_id));
-      };
+    };
     return (
         <>
             <div className="certificateData">
@@ -486,7 +491,7 @@ const TrainerCertificateInfo = () => {
                             </button>
                         )}
                 </div>
-                <div>
+                <div style={{border:'1px solid gray'}}>
                     {trainer?.certificateDetails?.map((data, index) => (
                         <div key={index}>
                             <div>

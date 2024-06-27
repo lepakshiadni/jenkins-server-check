@@ -3,10 +3,12 @@ import { getSkillsData, trainerDetails, trainerSkillsUpdate } from "../../../red
 import { toast } from "react-toastify";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import vector from "../../assets/Vector.svg";
+import { useNavigate } from "react-router-dom";
 
 const TrainerSkillsInfo = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate()
 
     useEffect(() => {
         dispatch(trainerDetails());
@@ -20,11 +22,11 @@ const TrainerSkillsInfo = () => {
     const message = useSelector(({ trainerSignUp }) => trainerSignUp?.trainerDetails?.message);
     console.log(message);
 
-    useEffect(() => {
-        if (message) {
-            toast.success(message);
-        }
-    }, [message]);
+    // useEffect(() => {
+    //     if (message) {
+    //         toast.success(message);
+    //     }
+    // }, [message]);
 
     const skillRef = useRef();
 
@@ -111,6 +113,8 @@ const TrainerSkillsInfo = () => {
         // const formDatas=new FormData()
         clickedTitles.forEach((skill) => skill);
         dispatch(trainerSkillsUpdate(clickedTitles));
+        toast.success("skills update successfully");
+        navigate('/trainerprofile/profileupdate/certificate-information')
       };
 
     return (
