@@ -10,7 +10,8 @@ export const trainerCreatePost = (postDetails) => {
     return async (dispatch) => {
         await Axios.post(`${baseUrl}/trainerpost/trainerCreatePost`, postDetails,{
             headers:{
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${token}`,
+                
             }
         })
             .then((resp) => {

@@ -77,7 +77,7 @@ const TrainerConatctInfo = () => {
 
         dispatch(trainerContactInfoUpdate(contactInfo));
         toast.success('Contact Info Update Successfully');
-        navigate('/trainerprofile/profileupdate/contact-information')
+        navigate('/trainerprofile/profileupdate/experience')
     };
 
     const handlePrimaryNumberChange = (e) => {
