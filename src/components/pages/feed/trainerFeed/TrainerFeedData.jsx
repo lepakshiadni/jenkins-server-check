@@ -24,7 +24,7 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
   const dispatch = useDispatch()
   const s3 = new S3();
   console.log(process.env.REACT_APP_S3_ACCESSKEY_KEY)
-  console.log('url',process.env.REACT_APP_BASE_URL)
+  console.log('url', process.env.REACT_APP_BASE_URL)
 
   const trainer = useSelector(({ trainerSignUp }) => {
     return trainerSignUp?.trainerDetails?.trainerDetails;
@@ -225,16 +225,29 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
     return () => {
       document.removeEventListener('mousedown', handler)
     }
-  },[open2,open3Array,showMoreArray,showAllComments,messageShowMoreBasedOnProfile,numCommentsToShow]);
+  }, [open2, open3Array, showMoreArray, showAllComments, messageShowMoreBasedOnProfile, numCommentsToShow]);
 
   const deleteComment = async (postId, comentId) => {
     await dispatch(deletePostTrainingComment(postId, comentId))
     setOpen3Array([]);
   };
 
+  let errorComment;
   const handleAddComment = async (e) => {
     e.preventDefault()
-    if (addNewComment !== '') {
+    // if (addNewComment !== '') {
+    //   const comment = {
+    //     commentedByUser: trainer?._id,
+    //     commentText: addNewComment
+    //   }
+    //   const postId = selectedPost?._id
+    //   await dispatch(addPostTrainingComments(postId, comment))
+    //   setAddNewComment('')
+    // }
+    // else{
+    //   alert('Please enter a comment')
+    // }
+    if (addNewComment?.length > 0) {
       const comment = {
         commentedByUser: trainer?._id,
         commentText: addNewComment
@@ -243,6 +256,13 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
       await dispatch(addPostTrainingComments(postId, comment))
       setAddNewComment('')
     }
+    else{
+      errorComment = true
+      alert('Please enter a comment')
+    }
+    // if(addNewComment ?.length===0){
+    //   errorComment = true
+    // }
 
   }
   // console.log('selectedPost', selectedPost)
@@ -331,6 +351,7 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
   }
 
   const array = [1, 2, 3]
+  console.log('errormessage',errorComment)
   return (
     <section >
 
@@ -465,7 +486,7 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
                         {/* <hr style={{ margin: '10px 0px' }} /> */}
                         <div className='skilldata'>
 
-                          <div style={{ display: 'flex', marginTop: '10px', height: '25px',justifyContent:'space-between' }}>
+                          <div style={{ display: 'flex', marginTop: '10px', height: '25px', justifyContent: 'space-between' }}>
                             <h5 className='font-[600]' style={{ color: '#535353' }}>Wanted skills</h5>
                             <button onClick={() => {
                               setApplyPopUp(true);
@@ -592,9 +613,12 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
                     </div>
 
                     <div style={{ width: '650px' }}>
+
                       {!messageShowMoreBasedOnProfile[post._id] ? null : (
                         <div ref={messageref}>
+
                           <div className='messageFooter'>
+
                             <div className='messageContent'>
                               {/* <img className='img2' height='50px' width='50px' src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=600" alt="" /> */}
                               {
@@ -608,12 +632,23 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
                                   </div>
 
                               }
+
                               <div className='messageChild'>
-                                <form onSubmit={handleAddComment} className='flex'>
+                                <form onSubmit={handleAddComment} className='flex items-center justify-center'>
                                   <div>
+                                    {
+                                      errorComment ===true ?
+                                        <span className='text-xs text-red-900 flex  items-center'>
+                                          Please enter the value
+
+                                        </span>
+                                        :
+                                        null
+                                    }
                                     <input value={addNewComment} onChange={(e) => { setAddNewComment(e.target.value) }} type="text" style={{ border: '2px solid whitesmoke', width: '350px', outline: "none", height: '50px', borderTopLeftRadius: '8px', borderEndStartRadius: '8px', borderRight: 'none', paddingLeft: '10px' }} placeholder="Write a comment..." />
                                   </div>
                                   <div>
+
                                     <button type='submit' onClick={handleAddComment} style={{ padding: '10px 30px', border: '2px solid #2676C2', backgroundColor: '#2676C2', borderStartEndRadius: '8px', borderEndEndRadius: '8px', height: '50px', width: '90px' }}>
                                       <svg xmlns="http://www.w3.org/2000/svg" width="19" height="21" viewBox="0 0 19 21" fill="none">
                                         <path d="M3.7877 10.5782L10.6412 10.5782M16.2379 11.9923L3.94466 18.5004C2.84298 19.0837 2.29183 19.3754 1.92856 19.2915C1.61346 19.2188 1.3531 18.9989 1.22953 18.7001C1.08705 18.3555 1.28403 17.7632 1.67834 16.5802L3.51042 11.084C3.573 10.8963 3.60399 10.8026 3.61642 10.7066C3.62745 10.6214 3.62799 10.5353 3.61697 10.45C3.60482 10.3562 3.57418 10.2643 3.51439 10.085L1.67809 4.57606C1.28377 3.3931 1.08676 2.8014 1.22924 2.45681C1.35281 2.15797 1.61313 1.93763 1.92822 1.86487C2.29155 1.78097 2.84286 2.07247 3.9449 2.6559L16.2381 9.16407C17.1045 9.62275 17.5377 9.8523 17.6794 10.1582C17.8027 10.4247 17.8029 10.7319 17.6795 10.9984C17.538 11.3042 17.1048 11.5335 16.2393 11.9917L16.2379 11.9923Z"
@@ -631,10 +666,26 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
 
                               <div>
                                 {post?.comments?.map((item, index) => (
+
                                   <div className='' key={index} style={{ display: 'flex', margin: '5px', marginTop: '10px' }}>
-                                    <img className='img2' height='40px' width='40px' src={item?.commentedByProfile} alt="" />
-                                    <div style={{ maxWidth: "436px", backgroundColor: '#f0f0f0', padding: '10px', marginLeft: '10px', borderStartEndRadius: '15px', borderEndStartRadius: '15px', borderEndEndRadius: '15px', border: '2px solid #E9E9E9' }}>
+
+                                    {
+                                      item?.commentedByProfile ? <>
+                                        <img className='img2 rounded-[50%]' height='30px' width='30px' src={item?.commentedByProfile} alt="" />
+                                      </>
+                                        :
+                                        <div className=' capitalize flex justify-center items-center h-[35px] w-[35px] bg-[#f4f6f7]'>
+                                          <span >
+                                            {item?.commentedByName?.charAt(0)}
+                                          </span>
+                                        </div>
+                                    }
+                                    <div style={{ maxWidth: "50%", backgroundColor: '#f0f0f0', padding: '10px', marginLeft: '10px', borderStartEndRadius: '15px', borderEndStartRadius: '15px', borderEndEndRadius: '15px', border: '2px solid #E9E9E9' }}>
                                       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+
+                                        <p>
+                                          comment{item?.commentText}
+                                        </p>
                                         <div className='me-5'>
                                           <h5 style={{ fontSize: '14px', margin: '0px', color: '#333333' }}>{item?.commentedByName}</h5>
                                           {/* <p style={{ fontSize: '12px', margin: '0px', color: '#777777' }}>{item?.commentedByCompany}</p> */}
@@ -647,8 +698,8 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
                                                 style={{ cursor: 'pointer', fontSize: '25px', fontWeight: 'bolder', color: 'gray' }}>⋮</div>
                                               {open3Array[index] && (
                                                 <div ref={menuRef3} style={{ position: 'absolute', top: '61%', left: 0, background: 'white', border: '1px solid #ccc', borderRadius: '5px', zIndex: 1, width: '100px' }}>
-                                                  <div className='option' style={{ padding: '5px 30px', cursor: 'pointer', fontSize: '12px' }} onClick={() => deleteComment(post._id, item._id)}>Delete</div>
-                                                  <div className='option' style={{ padding: '5px 30px', cursor: 'pointer', fontSize: '12px' }}>Report</div>
+                                                  <div className='option' style={{ padding: '5px 30px', cursor: 'pointer', fontSize: '10px' }} onClick={() => deleteComment(post._id, item._id)}>Delete</div>
+                                                  <div className='option' style={{ padding: '5px 30px', cursor: 'pointer', fontSize: '10px' }}>Report</div>
                                                 </div>
                                               )}
                                             </div>
@@ -656,7 +707,7 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
                                         }
                                       </div>
                                       <div>
-                                        <p style={{ margin: '0px', color: '#888888', fontSize: '14px' }}>{item?.commentText}</p>
+                                        <p style={{ margin: '0px', color: '#888888', fontSize: '10px' }}>{item?.commentText}</p>
                                       </div>
                                     </div>
                                   </div>
@@ -669,11 +720,23 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
 
                                 {post?.comments?.slice(-numCommentsToShow).map((item, index) => (
                                   <div key={index} style={{ display: 'flex', margin: '5px', marginTop: '10px' }}>
-                                    <img className='img2' height='40px' width='40px' src={item?.commentedByProfile} alt="" />
-                                    <div style={{ maxWidth: "436px", backgroundColor: '#f0f0f0', padding: '10px', marginLeft: '10px', borderStartEndRadius: '15px', borderEndStartRadius: '15px', borderEndEndRadius: '15px', border: '2px solid #E9E9E9' }}>
+                                    {/* <img className='img2' height='40px' width='40px' src={item?.commentedByProfile} alt="" /> */}
+                                    {
+                                      item?.commentedByProfile ? <>
+                                        <img className='img2 rounded-[50%]' height='30px' width='30px' src={item?.commentedByProfile} alt="" />
+                                      </>
+                                        :
+                                        <div className=' capitalize flex justify-center items-center h-[35px] w-[35px] bg-[#f4f6f7] rounded-full'>
+                                          <span >
+                                            {item?.commentedByName?.charAt(0)}
+
+                                          </span>
+                                        </div>
+                                    }
+                                    <div style={{ maxWidth: "90%", backgroundColor: '#f0f0f0', padding: '5px', marginLeft: '10px', borderStartEndRadius: '15px', borderEndStartRadius: '15px', borderEndEndRadius: '15px', border: '2px solid #E9E9E9' }}>
                                       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                         <div className='me-5'>
-                                          <h5 style={{ fontSize: '14px', margin: '0px', color: '#333333' }}>{item?.commentedByName}</h5>
+                                          <h5 style={{ fontSize: '12px', margin: '0px', color: '#333333' }}>{item?.commentedByName}</h5>
                                           {/* <p style={{ fontSize: '12px', margin: '0px', color: '#777777' }}>{item.commentedByCompany}</p> */}
                                         </div>
                                         {
@@ -682,7 +745,7 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
                                               <div
 
                                                 onClick={() => toggleDropdown(index)}
-                                                style={{ cursor: 'pointer', fontSize: '25px', fontWeight: 'bolder', color: 'gray' }}
+                                                style={{ cursor: 'pointer', fontSize: '14px', fontWeight: 'bolder', color: 'gray' }}
                                               >
                                                 ⋮
                                               </div>
@@ -700,8 +763,8 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
                                                     width: '100px'
                                                   }}
                                                 >
-                                                  <div className='option' style={{ padding: '5px 30px', cursor: 'pointer', fontSize: '12px' }} onClick={() => deleteComment(post._id, item._id)}>Delete</div>
-                                                  <div className='option' style={{ padding: '5px 30px', cursor: 'pointer', fontSize: '12px' }}>Report</div>
+                                                  <div className='option' style={{ padding: '5px 30px', cursor: 'pointer', fontSize: '10px' }} onClick={() => deleteComment(post._id, item._id)}>Delete</div>
+                                                  <div className='option' style={{ padding: '5px 30px', cursor: 'pointer', fontSize: '10px' }}>Report</div>
                                                 </div>
                                               )}
                                             </div>
@@ -709,7 +772,7 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
                                         }
                                       </div>
                                       <div>
-                                        <p style={{ color: '#888888', fontSize: '14px' }}>{item?.commentText}</p>
+                                        <p style={{ color: '#888888', fontSize: '10px' }}>{item?.commentText}</p>
                                       </div>
                                     </div>
                                   </div>
@@ -721,7 +784,7 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
 
                             {!showAllComments[post._id] && numCommentsToShow < post?.comments?.length && (
                               <h6
-                                style={{ color: '#2676C2', marginTop: '5px', cursor: 'pointer', fontWeight: '500' }}
+                                style={{ color: '#2676C2', marginTop: '5px', cursor: 'pointer', fontWeight: '500', fontSize: '13px' }}
                                 onClick={() => handleViewMoreComments(post._id)}>
                                 View More Comments
                               </h6>

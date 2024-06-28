@@ -147,7 +147,7 @@ const TrainerCertificateInfo = () => {
     const handleCase2Data = (e) => {
         e.preventDefault();
         const file = certificateImg.current.files[0];
-        console.log('files',file)
+        console.log('files', file)
 
 
         if (file) {
@@ -165,7 +165,7 @@ const TrainerCertificateInfo = () => {
 
     const handlecertificate = async () => {
 
-        
+
         dispatch(trainerCertificateUpdate(formData));
         toast.success('Certificate Info Updated')
         navigate('/trainerprofile/profileupdate/contact-information')
@@ -393,10 +393,10 @@ const TrainerCertificateInfo = () => {
                 </div>
                 <div>
                     <label htmlFor="">Preview </label> <br />
-                    <div className="previewCertifyData mt-2 mb-2 p-2 " style={{}}>
-                        {certificateData.certificateHead &&
-                            certificateData.certificationDescription &&
-                            certificateData.certificateImg && (
+                    <div className="previewCertifyData mt-2 mb-2 p-2 ">
+                        {certificateData?.certificateHead &&
+                            certificateData?.certificationDescription &&
+                            certificateData?.certificateImg && (
                                 <div>
                                     <h6
                                         style={{
@@ -417,10 +417,9 @@ const TrainerCertificateInfo = () => {
                                                 marginTop: "10px",
                                             }}
                                         >
-                                            {certificateData.heading}:
-                                            <span style={{ color: "#2676C2" }}>
-                                                {certificateData.institution}
-                                            </span>{" "}
+                                            {certificateData?.certificateHead} : <span style={{ color: "#2676C2" }}> {certificateData?.institution} </span>
+                                            <p className="mt-1">{certificateData?.certificationDescription}</p>
+
                                         </h6>
                                         <span className="delete" onClick={handlePreviewData}>
                                             <svg
@@ -491,9 +490,9 @@ const TrainerCertificateInfo = () => {
                             </button>
                         )}
                 </div>
-                <div style={{border:'1px solid gray'}}>
+                <div style={{ border: '1px solid gray' }}>
                     {trainer?.certificateDetails?.map((data, index) => (
-                        <div key={index}>
+                        <div className="ms-2 me-2" key={index}>
                             <div>
                                 <h6
                                     style={{
@@ -514,7 +513,7 @@ const TrainerCertificateInfo = () => {
                                             marginTop: "10px",
                                         }}
                                     >
-                                        {data.certificateHead}:{" "}
+                                        {data.certificateHead}:
                                         <span style={{ color: "#2676C2" }}>
                                             {data.institution}
                                         </span>

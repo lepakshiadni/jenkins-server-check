@@ -124,12 +124,11 @@ const TrainerFeed = ({ postrainingData }) => {
                                                 <div style={{ marginRight: '10px' }}>
                                                     {
                                                         bookmark?.postedByImg ?
-                                                            <img className='img2' src={bookmark.postedByImg} alt="" />
-
+                                                            <img className='img2 rounded-[50%] h-[40px] w-[40px]' src={bookmark.postedByImg} alt="" />
                                                             :
                                                             <div className='flex justify-center items-center h-[55px] w-[55px] rounded-full bg-slate-200'>
                                                                 <span>
-                                                                    {bookmark?.postedByName[0]}
+                                                                    {bookmark?.postedByName?.chartAt(0)}
                                                                 </span>
                                                             </div>
                                                     }

@@ -138,11 +138,11 @@
   cursor: pointer;
 }
 
-.img2 {
+/* .img2 {
   border-radius: 50%;
   height: 60px;
   width: 60px;
-}
+} */
 .scroll::-webkit-scrollbar {
   width: 0.5em;
 }
@@ -206,7 +206,8 @@
 }
 .messageContent {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  gap: 4px;
   align-items: center;
   margin-top: 10px;
 }
@@ -222,17 +223,7 @@
   border: 1px solid #EEEEEE;
 }
 
-.messageContent {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 10px;
-}
 
-.messageFooter {
-  padding: 10px;
-  border: 1px solid #EEEEEE;
-}
 
 .no-transition {
   transition: none !important;
