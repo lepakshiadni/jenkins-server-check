@@ -347,7 +347,7 @@ const EmployerFeedData = ({ bookMarkedPost, postrainingData }) => {
                               </div>
                             </div>
                           </div>
-                          
+
                           <div className="flex items-center justify-center space-x-5">
                             <div className='inst' onClick={() => handleIconClick(index, post)}>
 
@@ -598,7 +598,17 @@ const EmployerFeedData = ({ bookMarkedPost, postrainingData }) => {
                                 <div>
                                   {post?.comments?.map((item, index) => (
                                     <div className='' key={index} style={{ display: 'flex', margin: '5px', marginTop: '10px' }}>
-                                      <img className='img2' height='40px' width='40px' src={item?.commentedByProfile} alt="" />
+                                      {
+                                        item?.commentedByProfile ? <>
+                                          <img className='img2 rounded-full' height='30px' width='30px' src={item?.commentedByProfile} alt="" />
+                                        </>
+                                          :
+                                          <div className=" capitalize flex justify-center items-center bg-[#f4f6f7] h-[30px] w-[30px]">
+                                            <span>
+                                              {item?.commentedByName?.charAt(0)}
+                                            </span>
+                                          </div>
+                                      }
                                       <div style={{ maxWidth: "436px", backgroundColor: '#f0f0f0', padding: '10px', marginLeft: '10px', borderStartEndRadius: '15px', borderEndStartRadius: '15px', borderEndEndRadius: '15px', border: '2px solid #E9E9E9' }}>
                                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                           <div className="me-5">
@@ -632,7 +642,18 @@ const EmployerFeedData = ({ bookMarkedPost, postrainingData }) => {
                                 <div>
                                   {post?.comments?.slice(-numCommentsToShow).map((item, index) => (
                                     <div key={index} style={{ display: 'flex', margin: '5px', marginTop: '10px' }}>
-                                      <img className='img2' height='40px' width='40px' src={item?.commentedByProfile} alt="" />
+                                      {/* <img className='img2' height='40px' width='40px' src={item?.commentedByProfile} alt="" /> */}
+                                      {
+                                        item?.commentedByProfile ? <>
+                                          <img className='img2 rounded-full' height='35px' width='35px' src={item?.commentedByProfile} alt="" />
+                                        </>
+                                          :
+                                          <div className=" capitalize flex justify-center items-center bg-[#f4f6f7] h-[30px] w-[30px]">
+                                            <span>
+                                              {item?.commentedByName?.charAt(0)}
+                                            </span>
+                                          </div>
+                                      }
                                       <div style={{ maxWidth: "436px", backgroundColor: '#f0f0f0', padding: '10px', marginLeft: '10px', borderStartEndRadius: '15px', borderEndStartRadius: '15px', borderEndEndRadius: '15px', border: '2px solid #E9E9E9' }}>
                                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                           <div className="me-5">

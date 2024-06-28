@@ -200,11 +200,11 @@ const TrainerBasicInfo = () => {
 
     const handleChange = (setter) => (e) => {
         const { value } = e.target;
-        // Allow only alphabetic characters
-        if (/^[a-zA-Z]*$/.test(value)) {
-            setter(value);
+        // Allow only alphabetic characters and spaces
+        if (/^[a-zA-Z\s]*$/.test(value)) {
+          setter(value);
         }
-    };
+      };
 
     useLayoutEffect(() => {
         if (trainer) {
@@ -521,7 +521,7 @@ const TrainerBasicInfo = () => {
                                     style={{ width: "508px" }}
                                     type="text"
                                     value={objective}
-                                    onChange={(e)=>setObjective(e.target.value)}
+                                    onChange={handleChange(setObjective)}
                                     name="objective"
                                     onKeyDown={handleKeyDown}
                                     placeholder="Profile title"
