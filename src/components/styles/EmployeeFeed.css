@@ -165,7 +165,8 @@
 }
 .messageContent {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  gap: 4px;
   align-items: center;
   margin-top: 10px;
 }

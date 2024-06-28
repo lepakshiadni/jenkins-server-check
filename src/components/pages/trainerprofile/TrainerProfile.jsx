@@ -129,18 +129,29 @@ const TrainerProfile = () => {
   const handleEditProfile = async () => {
     await navigate("/trainerprofile/profileupdate/basic-information"); // Navigate to TrainerProfileEdit route
   };
-  const handleRangeChange = (index, newValue) => {
+
+
+  const [changedRanges, setChangedRanges] = useState({});
+
+  const handleRangeInputChange = (index, newValue) => {
     setUser(prevUser => {
       const updatedSkills = [...prevUser.skills];
       updatedSkills[index].range = newValue;
       return { ...prevUser, skills: updatedSkills };
     });
+    setChangedRanges(prev => ({ ...prev, [index]: true }));
   };
 
-  const handleUpdateSkillRange = (skillId, newRange) => {
-    dispatch(updateSkillRating(skillId, newRange));
-    toast.success('skill updated')
+  const handleUpdate = (skillId, newRange, index) => {
+    if (changedRanges[index]) {
+      dispatch(updateSkillRating(skillId, newRange));
+      toast.success('Skill updated');
+      setChangedRanges(prev => ({ ...prev, [index]: false }));
+    } else {
+      toast.error('No changes to update');
+    }
   };
+
 
   const handleDeletePost = (postId, userId) => {
     dispatch(deteteTrainerPostById(postId, userId))
@@ -410,48 +421,45 @@ const TrainerProfile = () => {
                   </div>
                 </div>
                 <div className="w-full mt-[6px]">
-                  {user?.skills?.map((val, index) => {
-                    return (
-                      <div key={index} className="w-full flex justify-between items-center flex-col">
-                        <div className=" w-full flex space-x-2 items-center h-[50px]">
-                          {!val.image ? (
-                            <h3 style={{ padding: '6px 12px', fontWeight: 600, backgroundColor: 'gray', color: '#FFF' }}>
-                              {val.name[0]}
-                            </h3>
-                          ) : (
-                            <img height='30px' width='30px' src={val.image} alt={val.name[0]} />
-                          )}
-                          <input
-                            type="range"
-                            min="0"
-                            max="15"
-                            value={val.range}
-                            className="w-full h-[7px] cursor-pointer"
-                            onChange={(e) => handleRangeChange(index, e.target.value)}
-                          />
-                          <div className="pr-[31.92px] flex gap-1">{val.range} <span>Year</span></div>
-                          <div>
-                            <div className=" cursor-pointer" onClick={() => handleUpdateSkillRange(val._id, val.range)}>
-                              <IconButton>
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  viewBox="0 0 24 24"
-                                  fill="#2676c2"
-                                  width="24"
-                                  height="24"
-                                >
-                                  <path
-                                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"
-                                  />
-                                </svg>
-
-                              </IconButton>
-                            </div>
+                  {user?.skills?.map((val, index) => (
+                    <div key={index} className="w-full flex justify-between items-center flex-col">
+                      <div className="w-full flex space-x-2 items-center h-[50px]">
+                        {!val.image ? (
+                          <h3 style={{ padding: '6px 12px', fontWeight: 600, backgroundColor: 'gray', color: '#FFF' }}>
+                            {val.name[0]}
+                          </h3>
+                        ) : (
+                          <img height='30px' width='30px' src={val.image} alt={val.name[0]} />
+                        )}
+                        <input
+                          type="range"
+                          min="0"
+                          max="15"
+                          value={val.range}
+                          className="w-full h-[7px] cursor-pointer"
+                          onChange={(e) => handleRangeInputChange(index, e.target.value)}
+                        />
+                        <div className="pr-[31.92px] flex gap-1">{val.range} <span>Year</span></div>
+                        <div>
+                          <div className={`cursor-pointer ${!changedRanges[index] && 'opacity-50 pointer-events-none'}`} onClick={() => handleUpdate(val._id, val.range, index)}>
+                            <IconButton>
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="#2676c2"
+                                width="24"
+                                height="24"
+                              >
+                                <path
+                                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"
+                                />
+                              </svg>
+                            </IconButton>
                           </div>
                         </div>
                       </div>
-                    );
-                  })}
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -491,7 +499,7 @@ const TrainerProfile = () => {
                               <div>
                                 <img src={post?.postedImg?.postImg} alt="" />
                               </div>
-                              <hr style={{border:'0.5px solid #E3E3E3'}} />
+                              <hr style={{ border: '0.5px solid #E3E3E3' }} />
                             </div>
                           </>
                         })
