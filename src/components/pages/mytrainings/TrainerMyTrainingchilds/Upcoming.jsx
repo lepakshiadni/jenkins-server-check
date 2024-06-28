@@ -19,7 +19,7 @@ const Upcoming = ({ upcomming }) => {
     };
 
     return (
-        <div className="Training_Programs" style={{ marginTop: '20px' }}>
+        <div className="Training_Programs mt-5" >
             {
                 upcomming?.length > 0 ?
                     <>

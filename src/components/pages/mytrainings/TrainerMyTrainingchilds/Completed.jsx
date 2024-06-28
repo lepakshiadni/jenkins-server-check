@@ -32,7 +32,7 @@ const Completed = ({ completed }) => {
                     <>
                         {
                             completed?.map(({ trainingPostDetails, trainingResources }, index) => {
-                                return <div key={index} className="Training_Programm" style={{ marginTop: '20px' }}>
+                                return <div key={index} className="Training_Programm mt-5" >
                                     <div className="Trainer_Infoo">
                                         <div className="TTTDD">
                                             <p>Training Program Name</p>
@@ -83,14 +83,12 @@ const Completed = ({ completed }) => {
                                         <div className="Program_Status">
                                             <div className="Total_Parttt">
                                                 <>
-                                                    <h1 style={{
-                                                        color: '#333',
-                                                        fontFamily: 'Poppins',
-                                                        fontSize: '1.125rem',
+                                                    <h1 className='text-[#333] font-[Poppins] text-[1.125rem] m-0 font-[600]' style={{
+                                                
                                                         fontStyle: 'normal',
-                                                        fontWeight: '600',
+                                                     
                                                         lineHeight: 'normal',
-                                                        margin: '0'
+                                                
                                                     }}>Posted By</h1>
                                                     <Link to={`/trainerDashboard/mytrainings/completed/employerprofilelist/${trainingPostDetails?.postedById}`}>
                                                         <div className="PBB">
