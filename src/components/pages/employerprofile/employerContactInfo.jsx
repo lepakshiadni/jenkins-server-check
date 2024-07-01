@@ -9,15 +9,11 @@ const EmployerContactInfo = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-
-
     const employer = useSelector(({ employerSignUp }) => {
         return employerSignUp?.employerDetails?.employerDetails;
     });
     console.log('employerContactDetails', employer?.contactInfo)
     const message = useSelector(({ employerSignUp }) => employerSignUp?.employerDetails?.message);
-    // console.log(message);
-
     // useEffect(() => {
     //     if (message) {
     //         toast.success(message);
@@ -27,16 +23,64 @@ const EmployerContactInfo = () => {
     useEffect(() => {
         dispatch(employerDetails());
     }, [dispatch]);
+
     const [primaryNumber, setPrimaryNumber] = useState(employer?.contactInfo?.primaryNumber || "");
     const [secondaryNumber, setSecondaryNumber] = useState(employer?.contactInfo?.secondaryNumber || "");
     const [address, setAddress] = useState(employer?.contactInfo?.address || "");
     const [email, setEmail] = useState(employer?.contactInfo?.email || "");
     const [website, setWebsite] = useState(employer?.contactInfo?.website || "");
 
+    const [isValidEmail, setIsValidEmail] = useState(true);
+    const [isValidPrimaryNumber, setIsValidPrimaryNumber] = useState(true);
+    const [isValidSecondaryNumber, setIsValidSecondaryNumber] = useState(true);
+    const [isValidWebsite, setIsValidWebsite] = useState(true);
+
+    const handleEmailChange = (e) => {
+        const newEmail = e.target.value;
+        setEmail(newEmail);
+        validateEmail(newEmail);
+    };
+
+    const validateEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        setIsValidEmail(emailRegex.test(email));
+    };
+
+    const handlePrimaryNumberChange = (e) => {
+        const newPrimaryNumber = e.target.value.replace(/\D/g, '');
+        setPrimaryNumber(newPrimaryNumber);
+        validatePrimaryNumber(newPrimaryNumber);
+    };
+
+    const validatePrimaryNumber = (number) => {
+        setIsValidPrimaryNumber(number.length === 10);
+    };
+
+    const handleSecondaryNumberChange = (e) => {
+        const newSecondaryNumber = e.target.value.replace(/\D/g, '');
+        setSecondaryNumber(newSecondaryNumber);
+        validateSecondaryNumber(newSecondaryNumber);
+    };
+
+    const validateSecondaryNumber = (number) => {
+        setIsValidSecondaryNumber(number.length === 0 || number.length === 10);
+    };
+
+    const handleWebsiteChange = (e) => {
+        const newWebsite = e.target.value;
+        setWebsite(newWebsite);
+        validateWebsite(newWebsite);
+    };
+
+    const validateWebsite = (website) => {
+        const websiteRegex = /^(https?:\/\/)?([^\s$.?#].[^\s]*)$/i;
+        setIsValidWebsite(websiteRegex.test(website));
+    };
+
+
     const handleKeyDown = (e) => {
         if (e.key === "Enter") {
             e.preventDefault();
-
             if (e.target.name === "primaryNumber") {
                 document.querySelector("[name=secondaryNumber]").focus();
             } else if (e.target.name === "secondaryNumber") {
@@ -48,7 +92,6 @@ const EmployerContactInfo = () => {
             }
         }
     };
-
 
     useLayoutEffect(() => {
         if (employer) {
@@ -71,29 +114,20 @@ const EmployerContactInfo = () => {
         };
         dispatch(employerContactInfoUpdate(contactInfo));
         toast.success('ContactInfo Updated')
-        navigate('/employerprofile')
-
+        navigate('/employerprofile');
     };
 
     const handleSubmitData = async (e) => {
         e.preventDefault();
-        await handleCase3Data();
-    };
-
-    const handlePrimaryNumberChange = (e) => {
-        const { value } = e.target;
-        const numericValue = value.replace(/\D/g, ''); // Remove non-numeric characters
-        setPrimaryNumber(numericValue);
-    };
-
-    const handleSecondaryNumberChange = (e) => {
-        const { value } = e.target;
-        const numericValue = value.replace(/\D/g, ''); // Remove non-numeric characters
-        setSecondaryNumber(numericValue);
+        if (isValidEmail) {
+            await handleCase3Data();
+        } else {
+            toast.error('Please enter a valid email address.');
+        }
     };
 
     return (
-        <>
+       
             <div className="contactInfo">
                 <h6
                     style={{
@@ -106,14 +140,13 @@ const EmployerContactInfo = () => {
                 >
                     Contact Information
                 </h6>
-
                 <form onSubmit={handleSubmitData}>
                     <div className="flex">
                         <div style={{ marginRight: "50px" }}>
                             <label htmlFor="">Primary Contact *</label>
                             <br />
                             <input
-                                style={{ width: "320px" }}
+                                style={{ width: "320px", borderColor: isValidPrimaryNumber ? '#CECECE' : 'red' }}
                                 type="tel"
                                 maxLength="10"
                                 minLength="10"
@@ -123,15 +156,17 @@ const EmployerContactInfo = () => {
                                 onKeyDown={handleKeyDown}
                                 required
                                 placeholder="Type your mobile number"
-                                disabled
                                 autoComplete="off"
                             />
+                            {!isValidPrimaryNumber && (
+                                <p className="text-sm text-[red]">Contact must be 10 digits long.</p>
+                            )}
                         </div>
                         <div>
                             <label htmlFor="">Secondary Contact</label>
                             <br />
                             <input
-                                style={{ width: "320px" }}
+                                style={{ width: "320px", borderColor: isValidSecondaryNumber ? '#CECECE' : 'red' }}
                                 type="tel"
                                 maxLength="10"
                                 minLength="10"
@@ -142,6 +177,9 @@ const EmployerContactInfo = () => {
                                 placeholder="Type your mobile number"
                                 autoComplete="off"
                             />
+                            {!isValidSecondaryNumber && (
+                                <p className="text-sm text-[red]">Contact must be 10 digits long or left empty.</p>
+                            )}
                         </div>
                     </div>
                     <div className="mt-2">
@@ -164,32 +202,37 @@ const EmployerContactInfo = () => {
                         <label htmlFor="">Email *</label>
                         <br />
                         <input
-                            style={{ width: "690px" }}
+                            style={{ width: '690px', borderColor: isValidEmail ? '#CECECE' : 'red' }}
                             type="email"
                             value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            onChange={handleEmailChange}
                             name="email"
                             onKeyDown={handleKeyDown}
                             required
-                            placeholder="Type your mail address"
+                            placeholder="Type your email address"
                             autoComplete="off"
                         />
+                        {!isValidEmail && (
+                            <p className="text-sm text-[red]">Please enter a valid email address.</p>
+                        )}
                     </div>
                     <div className="mt-2">
                         <label htmlFor="">Website </label>
                         <br />
                         <input
-                            style={{ width: "690px" }}
+                            style={{ width: "690px", borderColor: isValidWebsite ? '#CECECE' : 'red' }}
                             type="url"
                             value={website}
-                            onChange={(e) => setWebsite(e.target.value)}
+                            onChange={handleWebsiteChange}
                             name="website"
                             onKeyDown={handleKeyDown}
                             placeholder="Type website link here"
                             autoComplete="off"
                         />
+                        {!isValidWebsite && (
+                            <p className="text-sm text-[red]">Please enter a valid website URL.</p>
+                        )}
                     </div>
-
                     <button
                         type="submit"
                         style={{
@@ -199,14 +242,16 @@ const EmployerContactInfo = () => {
                             color: "white",
                             marginTop: "30px",
                             marginLeft: "490px",
+                            cursor: isValidEmail && isValidPrimaryNumber && isValidSecondaryNumber && isValidWebsite ? 'pointer' : 'not-allowed',
+                            opacity: isValidEmail && isValidPrimaryNumber && isValidSecondaryNumber && isValidWebsite ? 1 : 0.5,
                         }}
+                        disabled={!isValidEmail || !isValidPrimaryNumber || !isValidSecondaryNumber || !isValidWebsite}
                     >
                         Submit
                     </button>
                 </form>
             </div>
-        </>
     );
-}
+};
 
 export default EmployerContactInfo;

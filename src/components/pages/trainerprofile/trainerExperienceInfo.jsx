@@ -116,7 +116,7 @@ const TrainerExperienceInfo = () => {
                     </span>
                     <br />
                     <span>
-                        <label htmlFor="">Experience *</label>
+                        <label htmlFor="">Experience (In years) *</label>
                         <br />
                         <input
                             style={{ width: "690px" }}
