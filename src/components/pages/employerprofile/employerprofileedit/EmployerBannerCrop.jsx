@@ -98,7 +98,7 @@ const EmployerBannerCrop = (props) => {
 
                 <div className="flex justify-between  items-start p-10">
                     <div
-                        className="flex items-center"
+                        className="flex items-center p-1"
                         style={{
                             border: "2px Dotted black",
                             height: "200px",
@@ -120,6 +120,7 @@ const EmployerBannerCrop = (props) => {
                             checkOrientation={false}
                             guides={true}
                             crop={handleCropChange}
+                            style={{ height: '100%', objectFit: 'contain' }}
                         />
 
                         {!fileName && (

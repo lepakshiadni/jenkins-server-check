@@ -6,6 +6,7 @@ import Box from "@mui/material/Box";
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
 import '../../../styles/Requirements.css';
+import { addDays, addMonths,addHours } from 'date-fns';
 
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -28,9 +29,6 @@ const PostTrainingSection = () => {
     const [availability, setAvailability] = useState("");
     const [content, setContent] = useState("");
     const [contentt,] = useState("")
-    const [experience, setExperience] = React.useState(0);
-    const [toastShown, setToastShown] = useState(false);
-    const [isDragging, setIsDragging] = React.useState(false);
     const [selectedFileName, setSelectedFileName] = useState("");
     const [otherLocation, setOtherLocation] = useState('');
     const [selectedState, setSelectedState] = useState('');
@@ -42,8 +40,8 @@ const PostTrainingSection = () => {
     const postRequiement = useSelector(({ postRequirement }) => {
         return postRequirement;
     })
- 
-    
+
+
     let states = [
         "Andhra Pradesh",
         "Arunachal Pradesh",
@@ -97,22 +95,6 @@ const PostTrainingSection = () => {
         }
     };
 
-    const handleDragStart = () => {
-        setIsDragging(true);
-    };
-
-
-    const handleDragEnd = () => {
-        setIsDragging(false);
-    };
-
-    const showValueLabel = isDragging || (experience > 0 && !isDragging);
-
-
-    const trackBackground = {
-        background: `linear-gradient(to right, #2676C2 0%, #2676C2 ${(experience / 50) * 100}%, #d3d3d3 ${(experience / 50) * 100}%, #d3d3d3 100%)`,
-    };
-
     useEffect(() => {
         adjustHeight();
     }, [content, contentt]);
@@ -123,11 +105,50 @@ const PostTrainingSection = () => {
 
     const handleStartDateChange = (date) => {
         setStartDate(date);
+        if (date && durationType !== "hour" && durationCount > 0) {
+            handleEndDateChange(date);
+        }
     };
 
-    const handleEndDateChange = (date) => {
-        setEndDate(date);
+    const handleEndDateChange = (startDate) => {
+        if (durationType === "day") {
+            const endDate = addDays(startDate, durationCount);
+            setEndDate(endDate);
+        } else if (durationType === "month") {
+            const endDate = addMonths(startDate, durationCount);
+            setEndDate(endDate);
+        } else if (durationType === "hour") {
+            const endDate = addHours(startDate, durationCount);
+            setEndDate(endDate);
+        }
     };
+
+    const handleDurationCountChange = (count) => {
+        setDurationCount(count);
+        if (startDate && durationType !== "hour") {
+            handleEndDateChange(startDate);
+        } else if (startDate && durationType === "hour") {
+            handleEndDateChange(startDate);
+        }
+    };
+
+    const filterEndDate = (date) => {
+        if (!startDate) return true; // Allow selection if no start date is set
+
+        if (durationType === "day") {
+            const minEndDate = addDays(startDate, durationCount);
+            return date >= minEndDate;
+        } else if (durationType === "month") {
+            const minEndDate = addMonths(startDate, durationCount);
+            return date >= minEndDate;
+        } else if (durationType === "hour") {
+            const minEndDate = addHours(startDate, durationCount);
+            return date >= minEndDate;
+        }
+
+        return true;
+    };
+
     const [urgentlyNeedTrainer, setUrgentlyNeedTrainer] = useState(false);
 
     const handleCheckboxChange = (event) => {
@@ -309,7 +330,6 @@ const PostTrainingSection = () => {
         setTrainingMode('')
         setMinBudget('')
         setMaxBudget('')
-        setExperience(0)
         setDurationType('')
         setAvailability('')
         setStartDate('')
@@ -359,17 +379,20 @@ const PostTrainingSection = () => {
                 {activeOption === "postTraining" && (
                     <div className="Post_Training_content">
                         <div div className="Company">
-                            <div className="Training_Name">Training Name</div>
+                            <div className="Training_Name">Training Name *</div>
                             <input
                                 type="text" style={{ padding: '0 10px', color: '#333333', }}
                                 placeholder="Training Name"
                                 ref={trainingName}
                                 name="trainingName"
                                 onKeyDown={handleKeyDown}
+                                autoComplete="off"
+                                maxLength="32"
+                                required
                             />
                         </div>
                         <div className="Training_Description">
-                            <label for="description" className="text-[#333333] font-['Poppins'] mb-[10px]">Description</label>
+                            <label for="description" className="text-[#333333] font-['Poppins'] mb-[10px]">Description *</label>
                             <textarea
                                 ref={description}
                                 name="description"
@@ -378,11 +401,15 @@ const PostTrainingSection = () => {
                                 id="description"
                                 placeholder="Enter your description here..."
                                 style={{ borderRadius: '0.4rem', minHeight: "2.4rem" }}
+                                autoComplete="off"
+                                required
+                                minLength="80"
+                                maxLength='1020'
                             />
                         </div>
 
                         <div className="Content_Title" style={{ width: '41.3rem', marginBottom: '10px' }}>
-                            <p>Technology (Training Topics)</p>
+                            <p>Technology (Training Topics) *</p>
                             <div className="mt-[10px] mb-[20px]">
                                 <Select
                                     defaultValue={[]}
@@ -406,7 +433,7 @@ const PostTrainingSection = () => {
                             </div>
                         </div>
                         <div className="Type_Of_Training ">
-                            <div className="text-[#333333] font-['Poppins']">Type Of Training</div>
+                            <div className="text-[#333333] font-['Poppins']">Type Of Training *</div>
                             <div className="RadioTOT">
                                 <label className={`LLLabel ${trainingType === "Corporate Training" ? "active" : ""}`}>
                                     <input
@@ -453,7 +480,7 @@ const PostTrainingSection = () => {
                                             value={participantCount}
                                             onChange={(e) => setParticipantCount(Math.max(parseInt(e.target.value) || 0, 0))}
                                             style={{ width: `${Math.min((participantCount.toString().length * 8), maxCount)}px` }}
-
+                                            maxLength="3"
                                         />
 
                                         <button
@@ -478,7 +505,7 @@ const PostTrainingSection = () => {
                                             value={participantCount}
                                             onChange={(e) => setParticipantCount(Math.max(parseInt(e.target.value) || 0, 0))}
                                             style={{ width: `${Math.min((participantCount.toString().length * 8), maxCount)}px` }}
-
+                                            maxLength="3"
                                         />
                                         <button
                                             onClick={() => setParticipantCount(Math.min(participantCount + 1,))}
@@ -502,7 +529,7 @@ const PostTrainingSection = () => {
                                             value={participantCount}
                                             onChange={(e) => setParticipantCount(Math.max(parseInt(e.target.value) || 0, 0))}
                                             style={{ width: `${Math.min((participantCount.toString().length * 8), maxCount)}px` }}
-
+                                            maxLength="3"
                                         />
                                         <button
                                             onClick={() => setParticipantCount(participantCount + 1)}
@@ -515,7 +542,7 @@ const PostTrainingSection = () => {
                         </div>
 
                         <div className="Mode_Of_Training">
-                            <div className="text-[#333333] font-['Poppins']">Mode of Training</div>
+                            <div className="text-[#333333] font-['Poppins']">Mode of Training *</div>
                             <div className="Radio_MOT">
                                 <label className={`LLLabel font-['Poppins'] ${trainingMode === "Online" ? "active" : ""}`}>
                                     <input
@@ -561,8 +588,8 @@ const PostTrainingSection = () => {
                                             value={otherLocation}
                                             onChange={(e) => setOtherLocation(e.target.value)}
                                             placeholder="Enter your location"
-                                            className="mt-[10px] mb-[10px] text-[#2676C2] font-['Poppins'] text-[16px]"
-                                            style={{ border: '2px solid gray', outline: 'none',borderRadius:'5px' }}
+                                            className="mt-[10px] mb-[10px] text-[#2676C2] font-['Poppins'] text-[16px] p-1"
+                                            style={{ border: '1px solid #CECECE', outline: 'none', borderRadius: '5px' }}
                                         />
                                     )}
                                 </div>
@@ -625,114 +652,61 @@ const PostTrainingSection = () => {
                             </div>
                         </div> */}
                         <div className="Duration_Of_Time">
-                            <div className=" font-['Poppins']">Duration Of Training</div>
+                            <div className="font-Poppins">Duration Of Training *</div>
                             <div className="Radio_Duration">
-                                <label className={`LLLabel font-['Poppins'] ${durationType === "hour" ? "active" : ""}`}>
+                                <label className={`LLLabel font-Poppins ${durationType === "hour" ? "active" : ""}`}>
                                     <input
                                         type="radio"
                                         name="durationType"
                                         value="hour"
                                         checked={durationType === "hour"}
-                                        onChange={() => handleDurationTypeChange("hour")}
+                                        onChange={() => setDurationType("hour")}
                                     />
                                     Hourly
                                 </label>
-                                <label className={`LLLabel font-['Poppins'] ${durationType === "day" ? "active" : ""}`}>
+                                <label className={`LLLabel font-Poppins ${durationType === "day" ? "active" : ""}`}>
                                     <input
                                         type="radio"
                                         name="durationType"
                                         value="day"
                                         checked={durationType === "day"}
-                                        onChange={() => handleDurationTypeChange("day")}
+                                        onChange={() => setDurationType("day")}
                                     />
                                     Day
                                 </label>
-                                <label className={`LLLabel font-['Poppins'] ${durationType === "month" ? "active" : ""}`}>
+                                <label className={`LLLabel font-Poppins ${durationType === "month" ? "active" : ""}`}>
                                     <input
                                         type="radio"
                                         name="durationType"
                                         value="month"
                                         checked={durationType === "month"}
-                                        onChange={() => handleDurationTypeChange("month")}
+                                        onChange={() => setDurationType("month")}
                                     />
                                     Month
                                 </label>
                             </div>
-                            {durationType === "hour" && (
+                            {(durationType === "day" || durationType === "month" || durationType === "hour") && (
                                 <div className="DurationCount">
-                                    <h5 className="mt-[10px] mb-[10px] text-[#535353] font-['Poppins']">Select No Of Hours</h5>
+                                    <h5 className="mt-2 mb-2 text-535353 font-Poppins">
+                                        Select No Of {durationType === "day" ? "Days" : "Months"}
+                                    </h5>
                                     <div className="Radio_Duration_Count">
-                                        <button
-                                            onClick={() => setDurationCount(Math.max(durationCount - 1, 0))}
-                                        >
-                                            -
-                                        </button>
+                                        <button onClick={() => handleDurationCountChange(Math.max(durationCount - 1, 0))}>-</button>
                                         <input
                                             className="Duration_Input"
                                             value={durationCount}
-                                            onChange={(e) => setDurationCount(Math.max(parseInt(e.target.value) || 0, 0))}
-                                            style={{ width: `${Math.min((durationCount.toString().length * 8), maxCount)}px` }}
+                                            onChange={(e) => handleDurationCountChange(parseInt(e.target.value) || 0)}
+                                            style={{ width: `${Math.min(durationCount.toString().length * 8, 60)}px` }}
+                                            maxLength="3"
                                         />
-                                        <button
-                                            onClick={() => setDurationCount(durationCount + 1)}
-                                        >
-                                            +
-                                        </button>
+                                        <button onClick={() => handleDurationCountChange(durationCount + 1)}>+</button>
                                     </div>
                                 </div>
                             )}
 
-                            {durationType === "day" && (
-                                <div className="DurationCount">
-                                    <h5 className="mt-[10px] mb-[10px] text-[#535353] font-['Poppins']">Select No Of Days</h5>
-                                    <div className="Radio_Duration_Count">
-                                        <button
-                                            onClick={() => setDurationCount(Math.max(durationCount - 1, 0))}
-                                        >
-                                            -
-                                        </button>
-                                        <input
-                                            className="Duration_Input"
-                                            value={durationCount}
-                                            onChange={(e) => setDurationCount(Math.max(parseInt(e.target.value) || 0, 0))}
-                                            style={{ width: `${Math.min((durationCount.toString().length * 8), maxCount)}px` }}
-                                        />
-
-                                        <button
-                                            onClick={() => setDurationCount(durationCount + 1)}
-                                        >
-                                            +
-                                        </button>
-                                    </div>
-                                </div>
-                            )}
-                            {durationType === "month" && (
-                                <div className="DurationCount">
-                                    <h5 className="mt-[10px] mb-[10px] text-[#535353] font-['Poppins']">Select No Of Months</h5>
-                                    <div className="Radio_Duration_Count">
-                                        <button
-                                            onClick={() => setDurationCount(Math.max(durationCount - 1, 0))}
-                                        >
-                                            -
-                                        </button>
-                                        <input
-                                            className="Duration_Input"
-                                            value={durationCount}
-                                            onChange={(e) => setDurationCount(Math.max(parseInt(e.target.value) || 0, 0))}
-                                            style={{ width: `${Math.min((durationCount.toString().length * 8), maxCount)}px` }}
-                                        />
-
-                                        <button
-                                            onClick={() => setDurationCount(durationCount + 1)}
-                                        >
-                                            +
-                                        </button>
-                                    </div>
-                                </div>
-                            )}
                         </div>
                         <div className="Budgets">
-                            <p className="text-lg font-[500] font-['Poppins']">Budgets</p>
+                            <p className="text-lg font-[500] font-['Poppins']">Budgets *</p>
                             <span className="Budget_MM">
                                 <select
                                     className=""
@@ -767,8 +741,10 @@ const PostTrainingSection = () => {
                                         }}
                                         type="text"
                                         value={minBudget}
-                                        onChange={(e) => setMinBudget(e.target.value)}
+                                        onChange={(e) => setMinBudget(e.target.value.replace(/\D/, ''))}
                                         placeholder={placeholders[selectedCountry]}
+                                        maxLength="8"
+                                        required
                                     />
                                     <input
                                         style={{
@@ -779,15 +755,16 @@ const PostTrainingSection = () => {
                                         }}
                                         type="text"
                                         value={maxBudget}
-                                        onChange={(e) => setMaxBudget(e.target.value)}
+                                        onChange={(e) => setMaxBudget(e.target.value.replace(/\D/, ''))}
                                         placeholder={placeholders[selectedCountry]}
-
+                                        maxLength="8"
+                                        required
                                     />
                                 </span>
                             </span>
                         </div>
                         <div className="TOC">
-                            <p >TOC (Table of content)</p>
+                            <p >TOC (Table of content) *</p>
 
                             <div className="TOC_Radio">
                                 <label className={`font-['Poppins'] ${availability === "available" ? "active" : ""}`}>
@@ -830,26 +807,24 @@ const PostTrainingSection = () => {
                             )}
                         </div>
                         <div className="Training_Dates">
-                            <p className=" font-['Poppins']">Training Dates</p>
+                            <p className=" font-['Poppins']">Training Dates *</p>
                         </div>
                         <div className="Training_Dates" style={{ display: 'flex', gap: '1rem' }}>
                             <div className="date-picker">
-                                <p>Start Date</p>
+                                <p>Start Date *</p>
                                 <div style={{ width: '16rem', display: 'flex', }}>
                                     <DatePicker
                                         className="end"
                                         selected={startDate}
-                                        onChange={handleStartDateChange}
+                                        onChange={date => handleStartDateChange(date)}
                                         selectsStart
                                         startDate={startDate}
                                         endDate={endDate}
                                         isClearable={true}
-                                        style={{ border: '1px Solid #333 ' }}
                                         dateFormat="dd/MM/yyyy"
                                         placeholderText="DD/MM/YYYY"
                                         ref={startDatePickerRef}
                                         minDate={new Date()}
-
                                     />
                                     <div className="CalenderIcon" onClick={() => handleCalendarIconClick(startDatePickerRef)}>
                                         <CalendarMonthOutlinedIcon color="#333" sx={{ cursor: 'pointer' }} />
@@ -857,12 +832,12 @@ const PostTrainingSection = () => {
                                 </div>
                             </div>
                             < div className="date-picker">
-                                <p>End Date</p>
+                                <p>End Date *</p>
                                 <div style={{ width: '16rem', display: 'flex' }}>
                                     <DatePicker
                                         className="end"
                                         selected={endDate}
-                                        onChange={handleEndDateChange}
+                                        onChange={date => setEndDate(date)}
                                         selectsEnd
                                         startDate={startDate}
                                         endDate={endDate}
@@ -871,7 +846,7 @@ const PostTrainingSection = () => {
                                         dateFormat="dd/MM/yyyy"
                                         placeholderText="DD/MM/YYYY"
                                         ref={endDatePickerRef}
-
+                                        filterDate={filterEndDate}
                                     />
                                     <div className="CalenderIcon" onClick={() => handleCalendarIconClick(endDatePickerRef)}>
                                         <CalendarMonthOutlinedIcon color="#333" sx={{ cursor: 'pointer' }} />

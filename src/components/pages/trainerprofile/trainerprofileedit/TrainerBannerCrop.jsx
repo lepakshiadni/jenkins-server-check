@@ -20,7 +20,7 @@ const TrainerBannerCropImg = (props) => {
             }
 
             // Check file size
-            if (file.size > 1 *1024* 1024) {
+            if (file.size > 1 * 1024 * 1024) {
                 alert("File size should be within 1024KB.");
                 fileInputRef.current.value = null; // Reset file input
                 return;
@@ -83,7 +83,7 @@ const TrainerBannerCropImg = (props) => {
                 </div>
 
                 <div className="flex justify-between  items-start p-10">
-                    <div className="flex items-center" style={{ border: '2px Dotted black', height: '200px', width: "300px", borderRadius: '10px' }}>
+                    <div className="flex items-center p-1" style={{ border: '2px Dotted black', height: '200px', width: "300px", borderRadius: '10px' }}>
 
                         <Cropper
                             ref={cropperRef}
@@ -99,6 +99,7 @@ const TrainerBannerCropImg = (props) => {
                             checkOrientation={false}
                             guides={true}
                             crop={handleCropChange}
+                            style={{ height: '100%', objectFit: 'contain' }}
                         />
 
                         {!fileName && (

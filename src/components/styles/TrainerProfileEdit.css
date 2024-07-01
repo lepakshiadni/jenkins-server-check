@@ -246,6 +246,7 @@
   width: 810px;
   border: 1px solid #cecece;
   overflow-y: scroll;
+  border-radius: 5px;
 }
 
 .previewCertifyData::-webkit-scrollbar {
