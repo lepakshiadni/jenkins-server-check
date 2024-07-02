@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 
 function Messages({ messages, own, selecteduser }) {
   const [ownUser, setOwnUser] = useState(null);
+  const [timeAgo, setTimeAgo] = useState(Time(messages?.createdAt));
 
   const employer = useSelector(({ employerSignUp }) => employerSignUp?.employerDetails);
   const trainer = useSelector(({ trainerSignUp }) => trainerSignUp?.trainerDetails);
@@ -17,7 +18,13 @@ function Messages({ messages, own, selecteduser }) {
     }
   }, [employer, trainer]);
 
-  const timeAgo = Time(messages?.createdAt);
+    useEffect(() => {
+    const intervalId = setInterval(() => {
+      setTimeAgo(Time(messages?.createdAt));
+    }, 5000); // Update every 60 seconds
+
+    return () => clearInterval(intervalId); // Cleanup interval on component unmount
+  }, [messages?.createdAt]);
 
   return (
     <div>
