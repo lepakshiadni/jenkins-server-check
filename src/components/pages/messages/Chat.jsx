@@ -31,11 +31,6 @@ function Chat() {
     }
   };
 
-  // const handleFileChange = (e) => {
-  //   const selectedFile = e.target.files[0];
-  //   console.log('Selected File:', selectedFile);
-  // };
-
   const employer = useSelector(({ employerSignUp }) => {
     return employerSignUp?.employerDetails;
   });
@@ -59,7 +54,7 @@ function Chat() {
   // console.log("currentChat", currentChat);
 
   useEffect(() => {
-    socket.current = io(`http://13.235.90.102:4040`, { 
+    socket.current = io(`http://localhost:4040`, { 
       transports: ["websocket"],
       withCredentials: true,
       extraHeaders: {
@@ -111,6 +106,7 @@ function Chat() {
     // }
   }, [arrivalMessage, currentChat]);
 
+  // console.log("arrivalMessage", arrivalMessage);
 
 
   useEffect(() => {
@@ -443,30 +439,6 @@ function Chat() {
                       onKeyDown={handleTyping}
                       onKeyUp={handleStoppedTyping}
                     />
-                    {/* <div className=" absolute left-[80%]">
-                      <div onClick={handleButtonClick}>
-                        <button className="h-[58px] ">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="19"
-                            height="20"
-                            viewBox="0 0 19 20"
-                            fill="none"
-                          >
-                            <path
-                              d="M16.7655 1.36747C14.9422 -0.455823 11.9451 -0.455823 10.1218 1.36747L0.131127 11.3331C-0.043709 11.508 -0.043709 11.7827 0.131127 11.9575C0.305963 12.1324 0.580706 12.1324 0.755542 11.9575L10.7462 1.99188C12.2448 0.493288 14.6675 0.493288 16.1411 1.99188C16.8654 2.7162 17.2651 3.66531 17.2651 4.68935C17.2651 5.71339 16.8654 6.6625 16.1411 7.38683L12.8192 10.7087L5.12644 18.4015C4.20231 19.3256 2.72869 19.3256 1.80456 18.4015C1.77958 18.3765 1.75461 18.3515 1.70465 18.2766C0.880425 17.3525 0.930378 15.9538 1.80456 15.0796L9.49735 7.38683L12.7943 4.08992C12.9691 3.91508 13.1689 3.84015 13.3937 3.84015C13.6185 3.84015 13.8433 3.94006 13.9931 4.08992C14.3178 4.41461 14.3178 4.9641 13.9931 5.31377L7.1995 12.1574C7.02466 12.3322 7.02466 12.6069 7.1995 12.7818C7.37434 12.9566 7.64908 12.9566 7.82391 12.7818L14.6425 5.96316C15.3169 5.28879 15.3169 4.16485 14.6425 3.49048C14.3178 3.16578 13.8682 2.99095 13.4187 2.99095C12.9441 2.99095 12.5195 3.16578 12.1948 3.49048L1.20512 14.4802C0.00624418 15.6791 -0.0686857 17.6022 1.03028 18.8511C1.08024 18.926 1.13019 18.976 1.20512 19.0509C1.80456 19.6503 2.62879 20 3.47799 20C4.35217 20 5.15142 19.6753 5.75086 19.0509L6.79988 18.0019L16.7655 8.03622C17.6397 7.16204 18.1392 5.96316 18.1392 4.71433C18.1392 3.44052 17.6397 2.24165 16.7655 1.36747Z"
-                              fill="#888888"
-                            />
-                          </svg>
-                        </button>
-                        <input
-                            type="file"
-                            style={{ display: 'none' }}
-                            ref={fileInputRef}
-                            onChange={handleFileChange}
-                          />
-                      </div>
-                    </div> */}
                   </div>
                   <button
                     className="absolute right-0 w-[92px] h-[54px] bg-[#2676C2] rounded-br-lg  "
