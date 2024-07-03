@@ -12,7 +12,7 @@ function Conversation({ conversation, currentuser, selectedConversation, lastMes
 
   useEffect(() => {
     // Initialize socket connection
-    const newSocket = io(baseUrl);
+    const newSocket = io('http://localhost:4040');
     setSocket(newSocket);
 
     return () => {
