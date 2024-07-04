@@ -184,7 +184,7 @@ function Signup() {
               <div className=" w-full flex flex-col gap-2">
                 <label className="text-[1.4rem] text-[#2676C2] font-[600]" htmlFor="">Login </label>
                 {contactDetails.errorMessage && (
-                  <span className="text-red-700 text-sm">{contactDetails.errorMessage}</span>
+                  <span className="text-red-700 text-xs">{contactDetails.errorMessage}</span>
                 )}
                 <div>
                   <input
