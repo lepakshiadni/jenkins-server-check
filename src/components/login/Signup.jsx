@@ -182,7 +182,7 @@ function Signup() {
                 <h1 className="text-[#2676C2] text-[1.3rem] md:text-[1.625rem] font-[600]">Welcome To SISSOO</h1>
               </div>
               <div className=" w-full flex flex-col gap-2">
-                <label className="text-[1.4rem] text-[#2676C2] font-[600]" htmlFor="">Login :</label>
+                <label className="text-[1.4rem] text-[#2676C2] font-[600]" htmlFor="">Login </label>
                 {contactDetails.errorMessage && (
                   <span className="text-red-700 text-sm">{contactDetails.errorMessage}</span>
                 )}
@@ -194,7 +194,7 @@ function Signup() {
                     name={`contactDetails_${Math.random().toString(36).substr(2, 9)}`}
                     className="login-input w-full focus:outline-[#2676C2] text-[#2676c2] font-[400] placeholder:text-[#8888] p-3 md:p-5 border-2 border-[#b9b9b9] text-[14px] md:text-[1.2rem] rounded-md"
                     type={loginMethod === 'phone' ? 'tel' : 'email'}
-                    placeholder={`Enter ${loginMethod === 'phone' ? 'Phone Number' : 'Email'}...`}
+                    placeholder={`Enter ${loginMethod === 'phone' ? 'Phone Number' : 'Email'}`}
                     id="unique-contact-details"
                     style={{ border: '2px solid #b9b9b9' }}
                   />

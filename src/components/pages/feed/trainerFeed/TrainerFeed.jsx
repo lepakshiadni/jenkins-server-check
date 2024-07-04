@@ -57,6 +57,7 @@ const TrainerFeed = ({ postrainingData }) => {
     const bookMarkedPost = useSelector(({ trainerSignUp }) => {
         return trainerSignUp?.addBookMarkedPost?.userBookmarks;
     })
+    console.log('bookMarkedPost',bookMarkedPost);
 
     useEffect(() => {
         dispatch(getBookMarkedPost())
@@ -126,9 +127,9 @@ const TrainerFeed = ({ postrainingData }) => {
                                                         bookmark?.postedByImg ?
                                                             <img className='img2 rounded-[50%] h-[40px] w-[40px]' src={bookmark.postedByImg} alt="" />
                                                             :
-                                                            <div className='flex justify-center items-center h-[55px] w-[55px] rounded-full bg-slate-200'>
+                                                            <div className='flex justify-center items-center h-[55px] w-[55px] rounded-full bg-slate-200 capitalize'>
                                                                 <span>
-                                                                    {bookmark?.postedByName?.chartAt(0)}
+                                                                    {bookmark?.postedByName[0]}
                                                                 </span>
                                                             </div>
                                                     }

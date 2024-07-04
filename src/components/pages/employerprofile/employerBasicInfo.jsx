@@ -227,8 +227,8 @@ const EmployerBasicInfo = () => {
         formData.append("firstName", firstName);
         formData.append("lastName", lastName);
         formData.append("designation", designation);
-        formData.append("age", age);
         formData.append("location", location);
+        if (age) formData.append("age", age);
         if (company) formData.append("company", company);
         if (objective) formData.append("objective", objective);
         if (aboutYou) formData.append("aboutYou", aboutYou);
@@ -238,6 +238,22 @@ const EmployerBasicInfo = () => {
         toast.success('Basic Info Updated')
         navigate('/employerprofile/profileupdate/skills')
 
+    };
+
+    const handleChange = (setter, pattern) => (e) => {
+        const { value } = e.target;
+        // Apply the specified pattern for validation
+        if (pattern.test(value)) {
+            setter(value);
+        }
+    };
+
+    const handleObjectiveChange = (e) => {
+        const { value } = e.target;
+        // Prevent four consecutive numbers
+        if (!/\d{5}/.test(value)) {
+            setObjective(value);
+        }
     };
 
     return (
@@ -405,7 +421,7 @@ const EmployerBasicInfo = () => {
                                     <input
                                         type="text"
                                         value={firstName}
-                                        onChange={(e) => setFirstName(e.target.value)}
+                                        onChange={handleChange(setFirstName, /^[a-zA-Z\s]*$/)}
                                         name="firstName"
                                         onKeyDown={handleKeyDown}
                                         placeholder="Type your First Name"
@@ -420,7 +436,7 @@ const EmployerBasicInfo = () => {
                                     <input
                                         type="text"
                                         value={lastName}
-                                        onChange={(e) => setLastName(e.target.value)}
+                                        onChange={handleChange(setLastName, /^[a-zA-Z\s]*$/)}
                                         name="lastName"
                                         onKeyDown={handleKeyDown}
                                         placeholder="Type your Last Name"
@@ -436,7 +452,7 @@ const EmployerBasicInfo = () => {
                                     style={{ width: "508px" }}
                                     type="text"
                                     value={designation}
-                                    onChange={(e) => setDesignation(e.target.value)}
+                                    onChange={handleChange(setDesignation, /^[a-zA-Z\s]*$/)}
                                     name="designation"
                                     onKeyDown={handleKeyDown}
                                     placeholder="Type your Occupation"
@@ -452,7 +468,7 @@ const EmployerBasicInfo = () => {
                                     style={{ width: "508px" }}
                                     type="text"
                                     value={company}
-                                    onChange={(e) => setComapany(e.target.value)}
+                                    onChange={handleChange(setComapany, /^[a-zA-Z\s]*$/)}
                                     name="company"
                                     onKeyDown={handleKeyDown}
                                     placeholder="Type your Company Name"
@@ -461,19 +477,19 @@ const EmployerBasicInfo = () => {
                                 />
                             </div>
                             <div className="mt-2">
-                                <label htmlFor="">Age *</label>
+                                <label htmlFor="">Age</label>
                                 <br />
                                 <input
                                     style={{ width: "508px" }}
-                                    type="number"
+                                    type="text"
                                     value={age}
-                                    onChange={(e) => setAge(e.target.value)}
+                                    onChange={handleChange(setAge, /^[0-9]*$/)}
                                     name="age"
                                     onKeyDown={handleKeyDown}
                                     placeholder="Type your age"
-                                    required
                                     min='0'
                                     autoComplete="off"
+                                    maxLength="3"
                                 />
                             </div>
                             <div className="mt-2">
@@ -497,11 +513,11 @@ const EmployerBasicInfo = () => {
                                     style={{ width: "508px" }}
                                     type="text"
                                     value={objective}
-                                    onChange={(e) => setObjective(e.target.value)}
+                                    onChange={handleObjectiveChange}
                                     name="objective"
                                     onKeyDown={handleKeyDown}
                                     placeholder="Profile title"
-                                    maxLength="42"
+                                    maxLength="32"
                                     autoComplete="off"
                                 />
                             </div>

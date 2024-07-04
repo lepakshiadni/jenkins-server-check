@@ -198,13 +198,21 @@ const TrainerBasicInfo = () => {
         }
     };
 
-    const handleChange = (setter) => (e) => {
+    const handleChange = (setter, pattern) => (e) => {
         const { value } = e.target;
-        // Allow only alphabetic characters and spaces
-        if (/^[a-zA-Z\s]*$/.test(value)) {
-          setter(value);
+        // Apply the specified pattern for validation
+        if (pattern.test(value)) {
+            setter(value);
         }
-      };
+    };
+
+    const handleObjectiveChange = (e) => {
+        const { value } = e.target;
+        // Prevent four consecutive numbers
+        if (!/\d{5}/.test(value)) {
+            setObjective(value);
+        }
+    };
 
     useLayoutEffect(() => {
         if (trainer) {
@@ -236,8 +244,8 @@ const TrainerBasicInfo = () => {
         formData.append("firstName", firstName);
         formData.append("lastName", lastName);
         formData.append("designation", designation);
-        formData.append("age", age);
         formData.append("location", location);
+        if (age) formData.append("age", age);
         if (company) formData.append("company", company);
         if (objective) formData.append("objective", objective);
         if (aboutYou) formData.append("aboutYou", aboutYou);
@@ -414,7 +422,7 @@ const TrainerBasicInfo = () => {
                                     <input
                                         type="text"
                                         value={firstName}
-                                        onChange={handleChange(setFirstName)}
+                                        onChange={handleChange(setFirstName, /^[a-zA-Z\s]*$/)}
                                         name="firstName"
                                         onKeyDown={handleKeyDown}
                                         placeholder="Type your First Name"
@@ -429,7 +437,7 @@ const TrainerBasicInfo = () => {
                                     <input
                                         type="text"
                                         value={lastName}
-                                        onChange={handleChange(setLastName)}
+                                        onChange={handleChange(setLastName, /^[a-zA-Z\s]*$/)}
                                         name="lastName"
                                         onKeyDown={handleKeyDown}
                                         placeholder="Type your Last Name"
@@ -446,7 +454,7 @@ const TrainerBasicInfo = () => {
                                     style={{ width: "508px" }}
                                     type="text"
                                     value={designation}
-                                    onChange={handleChange(setDesignation)}
+                                    onChange={handleChange(setDesignation, /^[a-zA-Z\s]*$/)}
                                     name="designation"
                                     onKeyDown={handleKeyDown}
                                     placeholder="Type your Occupation"
@@ -463,7 +471,7 @@ const TrainerBasicInfo = () => {
                                     style={{ width: "508px" }}
                                     type="text"
                                     value={company}
-                                    onChange={handleChange(setComapany)}
+                                    onChange={handleChange(setComapany, /^[a-zA-Z\s]*$/)}
                                     name="company"
                                     onKeyDown={handleKeyDown}
                                     placeholder="Type your Company Name"
@@ -473,18 +481,18 @@ const TrainerBasicInfo = () => {
                                 />
                             </div>
                             <div className="mt-2">
-                                <label htmlFor="">Age *</label>
+                                <label htmlFor="">Age</label>
                                 <br />
                                 <input
                                     style={{ width: "508px" }}
-                                    type="number"
+                                    type="text"
                                     value={age}
-                                    onChange={(e) => setAge(e.target.value)}
+                                    onChange={handleChange(setAge, /^[0-9]*$/)}
                                     name="age"
                                     onKeyDown={handleKeyDown}
                                     placeholder="Type your age"
-                                    required
                                     min="0"
+                                    maxLength="3"
                                     autoComplete="off"
 
                                 />
@@ -492,19 +500,6 @@ const TrainerBasicInfo = () => {
                             <div className="mt-2">
                                 <label htmlFor="">Location *</label>
                                 <br />
-                                {/* <select
-                      name=""
-                      id=""
-                      value={location}
-                      onChange={(e) => setLocation(e.target.value)}
-                    >
-                      <option value="" selected>
-                        select Location
-                      </option>
-                      <option value="Banglore">Banglore</option>
-                      <option value="Manglore">Manglore</option>
-                      <option value="Mysore">Mysore</option>
-                    </select> */}
                                 <select name="location" id="State" value={location} onChange={(e) => setLocation(e.target.value)} required>
                                     <option value="">Select Location</option>
                                     {states.map((state, index) => (
@@ -521,11 +516,11 @@ const TrainerBasicInfo = () => {
                                     style={{ width: "508px" }}
                                     type="text"
                                     value={objective}
-                                    onChange={handleChange(setObjective)}
+                                    onChange={handleObjectiveChange}
                                     name="objective"
                                     onKeyDown={handleKeyDown}
                                     placeholder="Profile title"
-                                    maxLength="42"
+                                    maxLength="32"
                                     autoComplete="off"
                                 />
                             </div>
