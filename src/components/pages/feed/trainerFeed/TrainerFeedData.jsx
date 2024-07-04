@@ -90,7 +90,7 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
       });
     }
     if (bookMarkedPost) {
-      const bookmark = bookMarkedPost.postDetails.map((data) => data._id)
+      const bookmark = bookMarkedPost?.postDetails?.map((data) => data._id)
       setSelectedItems(bookmark)
     }
   }, [postrainingData, bookMarkedPost, dispatch]);

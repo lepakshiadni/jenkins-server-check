@@ -334,3 +334,11 @@
   background-color: #bfbfbf;
   border-radius: 8px;
 }
+.cropper-view-box,
+.cropper-face {
+  border-radius: 50%;
+}
+
+.cropper-view-box {
+  outline: 1px solid rgba(51, 153, 255, 0.75);
+}

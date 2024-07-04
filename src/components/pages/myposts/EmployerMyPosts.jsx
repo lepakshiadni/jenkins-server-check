@@ -472,7 +472,7 @@ const EmployerMyPosts = () => {
                                   </div>
                                 </div>
                                 <div>
-                                  <p style={{ margin: '0px', color: '#888888', fontSize: '14px' }}>{item?.comment}</p>
+                                  <p style={{ margin: '0px', color: '#888888', fontSize: '14px' }}>{item?.commentText}</p>
                                 </div>
                               </div>
                             </div>
@@ -491,7 +491,7 @@ const EmployerMyPosts = () => {
                                   </div>
                                 </div>
                                 <div>
-                                  <p style={{ margin: '0px', color: '#888888', fontSize: '14px' }}>{item?.comment}</p>
+                                  <p style={{ margin: '0px', color: '#888888', fontSize: '14px' }}>{item?.commentText}</p>
                                 </div>
                               </div>
                             </div>

@@ -349,13 +349,14 @@ function TrainerSignUp() {
                                         </span>
                                     )}
                                     <Select
-
                                         className="Multiselector "
                                         value={selectedSkills}
                                         required
                                         onChange={setSelectedSkills}
                                         onKeyDown={handleKeyDown}
                                         placeholder='Enter Your skills'
+                                        inputValue={enteredSkill} // Control the input field value
+                                        onInputChange={(newValue) => setEnteredSkill(newValue)}
                                         defaultValue={[]}
                                         isMulti
                                         name="skills"

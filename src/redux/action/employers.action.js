@@ -652,8 +652,6 @@ export const conversationRequestAccept = (requestId) => {
       Axios.put(`${baseUrl}/conversation/employerConversationRequestAccept`, { requestId }, {
         headers: {
           Authorization: `Bearer ${token}`,
-
-
         }
       })
         .then((resp) => {
@@ -672,6 +670,7 @@ export const conversationRequestAccept = (requestId) => {
     }
   }
 }
+
 export const conversationRequestDecline = (id) => {
   const token = Cookies.get('token')
   console.log('request conversation Action')

@@ -13,7 +13,7 @@ import UnAuthorizedError from '../components/utils/UnAuthorizedError.jsx'
 import StrictRoute from "./strictRoute.jsx";
 import EmployerBasicInfo from "../components/pages/employerprofile/employerBasicInfo.jsx";
 import EmployerSkillsInfo from "../components/pages/employerprofile/employerSkillsInfo.jsx";
-import EMployerExperience from "../components/pages/employerprofile/employerExperienceInfo.jsx";
+import EmployerExperience from "../components/pages/employerprofile/employerExperienceInfo.jsx";
 import EmployerContactInfo from "../components/pages/employerprofile/employerContactInfo.jsx";
 import TrainerBasicInfo from "../components/pages/trainerprofile/trainerBasicInfo.jsx";
 import TrainerSkillsInfo from "../components/pages/trainerprofile/trainerSkillsInfo.jsx";
@@ -63,7 +63,7 @@ function RouteCompo() {
               <Route path="/employerprofile/profileupdate" element={<EmployerProfileEdit />} >
                 <Route path="basic-information" element={<EmployerBasicInfo />} />
                 <Route path="skills" element={<EmployerSkillsInfo />} />
-                <Route path="experience" element={<EMployerExperience />} />
+                <Route path="experience" element={<EmployerExperience />} />
                 <Route path="contact-information" element={<EmployerContactInfo />} />
               </Route >
             </Route>
