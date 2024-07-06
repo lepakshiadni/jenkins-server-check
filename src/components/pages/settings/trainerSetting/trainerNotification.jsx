@@ -72,7 +72,7 @@ function TrainerNotification(){
         <p>Close Account</p>
       </div>
       <div className="mt-2 ">
-         <span>Sure.., do you want to close your SISSOO account</span>
+         <span>Sure!, do you want to close your SISSOO account</span>
         <div className="mt-5 flex gap-5">
           <button className='p-[5px] w-40 border-[0.5px] border-[#2676C2] text-[#2676c2] bg'>Don't show</button>
           <button  className='p-[5px] w-40 text-white bg-[#2676c2]'>Show</button>
