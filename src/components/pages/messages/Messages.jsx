@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import Time from 'timesago';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import Time from "timesago";
+import { useSelector } from "react-redux";
 
-function Messages({ messages, own, selecteduser }) {
+function Messages({ messages, own, selecteduser, typingStatus }) {
   const [ownUser, setOwnUser] = useState(null);
   const [timeAgo, setTimeAgo] = useState(Time(messages?.createdAt));
-
-  const employer = useSelector(({ employerSignUp }) => employerSignUp?.employerDetails);
-  const trainer = useSelector(({ trainerSignUp }) => trainerSignUp?.trainerDetails);
+  console.log(typingStatus, "typingStatus");
+  const employer = useSelector(
+    ({ employerSignUp }) => employerSignUp?.employerDetails
+  );
+  const trainer = useSelector(
+    ({ trainerSignUp }) => trainerSignUp?.trainerDetails
+  );
 
   useEffect(() => {
     if (employer?.success) {
@@ -18,13 +22,31 @@ function Messages({ messages, own, selecteduser }) {
     }
   }, [employer, trainer]);
 
-    useEffect(() => {
+  useEffect(() => {
     const intervalId = setInterval(() => {
       setTimeAgo(Time(messages?.createdAt));
     }, 5000); // Update every 60 seconds
-
     return () => clearInterval(intervalId); // Cleanup interval on component unmount
   }, [messages?.createdAt]);
+
+  // useEffect(() => {
+  //   if (!own && !messages.isRead) {
+  //     updateMessageStatus(messages._id);
+  //   }
+  // }, [messages, own]);
+
+  // const updateMessageStatus = async (messageId) => {
+  //   try {
+  //     const response = await axios.put(`/api/updateMessageStatus/${messageId}`);
+  //     if (response.data.success) {
+  //       console.log('Message status updated successfully', response.data.updatedMessage);
+  //     } else {
+  //       console.error('Failed to update message status');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error updating message status:', error);
+  //   }
+  // };
 
   return (
     <div>
@@ -38,7 +60,7 @@ function Messages({ messages, own, selecteduser }) {
                 alt=""
               />
             ) : (
-              <div className='w-[40px] h-[40px] rounded-full flex justify-center items-center bg-slate-500'>
+              <div className="w-[40px] h-[40px] rounded-full flex justify-center items-center bg-slate-500">
                 <p className="text-lg">{ownUser?.fullName[0]}</p>
               </div>
             )}
@@ -62,7 +84,7 @@ function Messages({ messages, own, selecteduser }) {
                 alt=""
               />
             ) : (
-              <div className='w-[40px] h-[40px] rounded-full mt-[10px] flex justify-center items-center bg-slate-500'>
+              <div className="w-[40px] h-[40px] rounded-full mt-[10px] flex justify-center items-center bg-slate-500">
                 <p className="text-lg">{selecteduser?.fullName[0]}</p>
               </div>
             )}
@@ -77,6 +99,7 @@ function Messages({ messages, own, selecteduser }) {
               {timeAgo}
             </div>
           </div>
+          {/* <div>{typingStatus == selecteduser._id ? "typing...." : null}</div> */}
         </div>
       )}
     </div>
