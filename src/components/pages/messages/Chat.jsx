@@ -405,7 +405,7 @@ function Chat() {
               </div>
               <div ref={lastMessageRef} />
             </div>
-            <div style={{marginLeft:"10px", marginBottom:"10px"}}>{typingStatus == selectedUser._id ? "Typing...." : null}</div>
+            <div style={{marginLeft:"10px", marginBottom:"10px"}}>{typingStatus == selectedUser?._id ? "Typing...." : null}</div>
             <div className="">
               <form className="" onSubmit={handlesubmit}>
                 <div className="relative flex w-auto  border border-t ">
