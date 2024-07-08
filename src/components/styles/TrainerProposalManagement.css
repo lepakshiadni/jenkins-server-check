@@ -14,7 +14,7 @@
   stroke: #eee;
   display: flex;
   /* border: #c7c7c7 1px solid; */
-  box-shadow: 2px 2px 8px 1px #c7c3c357;
+  box-shadow: 2px 2px 8px 1px rgba(199, 195, 195, 0.341);
 
   justify-content: center;
   align-items: center;
@@ -108,7 +108,7 @@
 .Proposal {
   width: 60%;
   height: 100%;
-  background: rgb(38, 118, 194, 0.1);
+  background: #2676c21a;
   border-radius: 10px 0 0 10px;
   padding: 1.5rem;
 }
@@ -288,7 +288,7 @@
 .Post_T {
   border-radius: 2.5rem;
   border: 1px solid #b6adad;
-  background: rgba(220, 220, 220, 0.1);
+  background: #dcdcdc1a;
   color: #888;
   font-family: Poppins;
   font-size: 1rem;
@@ -304,7 +304,7 @@
 .Post_J {
   border-radius: 2.5rem;
   border: 1px solid #b6adad;
-  background: rgba(220, 220, 220, 0.1);
+  background: #dcdcdc1a;
   color: #888;
   font-family: Poppins;
   font-size: 1rem;
@@ -319,7 +319,7 @@
 .Proposall {
   width: 32%;
   height: 100%;
-  background: rgb(38, 118, 194, 0.1);
+  background: #2676c21a;
   border-radius: 10px 0 0 10px;
   display: flex;
   /* align-items: center; */
