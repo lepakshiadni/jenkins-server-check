@@ -119,7 +119,7 @@ const EmployerFeed = ({ postrainingData }) => {
                                     <span>
                                       {/* {bookmark?.postedByName[0]} */}
                                       {
-                                        bookmark?.postedByName === undefined  ?'': bookmark?.postedByName[0]
+                                        bookmark?.postedByName === undefined ? '' : bookmark?.postedByName[0]
                                       }
                                     </span>
                                   </div>
@@ -131,8 +131,8 @@ const EmployerFeed = ({ postrainingData }) => {
                             </div>
                           </div>
 
-                          <div style={{ position: 'relative', display: 'inline-block' }}>
-                            <div
+                          <div style={{ position: 'relative', display: 'inline-block', cursor: 'pointer' }}>
+                            {/* <div
                               onClick={() => handleMenuClick(index)}
                               style={{ cursor: 'pointer', fontSize: '25px', fontWeight: 'bolder', color: 'gray' }}
                             >
@@ -155,7 +155,10 @@ const EmployerFeed = ({ postrainingData }) => {
                                 <div className='option' style={{ padding: '5px', cursor: 'pointer', fontSize: '12px' }}>Connect</div>
                                 <div className='option' style={{ padding: '5px', cursor: 'pointer', fontSize: '12px' }} onClick={() => handleIconClick(index, bookmark)}>Remove</div>
                               </div>
-                            )}
+                            )} */}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 14 18" fill="none" onClick={() => handleIconClick(index, bookmark)}>
+                              <path d="M0 18V2C0 1.45 0.195833 0.979167 0.5875 0.5875C0.979167 0.195833 1.45 0 2 0H12C12.55 0 13.0208 0.195833 13.4125 0.5875C13.8042 0.979167 14 1.45 14 2V18L7 15L0 18Z" fill="#2676C2" />
+                            </svg>
                           </div>
 
                         </div>
@@ -165,7 +168,7 @@ const EmployerFeed = ({ postrainingData }) => {
                           </p>
                           <img width='100%' src={bookmark?.postedImg?.postImg} alt="" />
                         </div>
-                        <button onClick={() => { setPopUpButton2(true) }}
+                        {/* <button onClick={() => { setPopUpButton2(true) }}
                           style={{
                             backgroundColor: '#2676C2',
                             border: '0px',
@@ -175,7 +178,7 @@ const EmployerFeed = ({ postrainingData }) => {
                             fontWeight: 500,
                             marginTop: '10px',
                             display: 'block' // Make it a block-level element
-                          }}>Hire</button>
+                          }}>Hire</button> */}
                         <hr style={{ margin: "10px 0px" }} />
 
                       </div>

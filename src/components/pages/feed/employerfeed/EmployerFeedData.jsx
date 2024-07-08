@@ -75,7 +75,7 @@ const EmployerFeedData = ({ bookMarkedPost, postrainingData }) => {
     await dispatch(addBookMarkePost(post?._id, post))
   };
 
-  // console.log('conversation', conversation)
+  console.log('postrainingData', postrainingData)
 
   const [likedPosts, setLikedPosts] = useState([]);
 
@@ -543,7 +543,7 @@ const EmployerFeedData = ({ bookMarkedPost, postrainingData }) => {
                           </div>
                         </section>
                       </div>
-                      <div style={{ width: "650px" }}>
+                      <div style={{ width: "100%" }}>
                         {!messageShowMoreBasedOnProfile[post._id] ? null : (
                           <div ref={messageref} className="messageFooter">
                             <div className="messageContent">
@@ -640,7 +640,7 @@ const EmployerFeedData = ({ bookMarkedPost, postrainingData }) => {
                                 </div>
                               ) : (
                                 <div>
-                                  {post?.comments?.slice(-numCommentsToShow).map((item, index) => (
+                                  {post?.comments?.slice(0, numCommentsToShow).map((item, index) => (
                                     <div key={index} style={{ display: 'flex', margin: '5px', marginTop: '10px' }}>
                                       {/* <img className='img2' height='40px' width='40px' src={item?.commentedByProfile} alt="" /> */}
                                       {

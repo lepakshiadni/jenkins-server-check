@@ -240,10 +240,10 @@ const EmployerBasicInfo = () => {
 
     };
 
-    const handleChange = (setter, pattern) => (e) => {
+    const handleChange = (setter, pattern, name, maxLength = Infinity) => (e) => {
         const { value } = e.target;
-        // Apply the specified pattern for validation
-        if (pattern.test(value)) {
+        // Apply the specified pattern for validation and ensure length does not exceed maxLength
+        if (pattern.test(value) && (name !== "age" || value.length <= maxLength)) {
             setter(value);
         }
     };
@@ -446,7 +446,7 @@ const EmployerBasicInfo = () => {
                                 </div>
                             </div>
                             <div className="mt-2">
-                                <label htmlFor="">Designation *</label>
+                                <label htmlFor="">Designation <span className="text-[#CECECE]">(eg: Freelancer, Corporate Trainer)</span>*</label>
                                 <br />
                                 <input
                                     style={{ width: "508px" }}
@@ -468,7 +468,7 @@ const EmployerBasicInfo = () => {
                                     style={{ width: "508px" }}
                                     type="text"
                                     value={company}
-                                    onChange={handleChange(setComapany, /^[a-zA-Z\s]*$/)}
+                                    onChange={(e) => setComapany(e.target.value)}
                                     name="company"
                                     onKeyDown={handleKeyDown}
                                     placeholder="Type your Company Name"
@@ -477,17 +477,17 @@ const EmployerBasicInfo = () => {
                                 />
                             </div>
                             <div className="mt-2">
-                                <label htmlFor="">Age</label>
+                                <label htmlFor="">Age <span className="text-[#CECECE]">(eg: 21-60)</span></label>
                                 <br />
                                 <input
                                     style={{ width: "508px" }}
-                                    type="text"
+                                    type="number"
                                     value={age}
-                                    onChange={handleChange(setAge, /^[0-9]*$/)}
-                                    name="age"
+                                    onChange={handleChange(setAge, /^[0-9]*$/, 'age', 3)} name="age"
                                     onKeyDown={handleKeyDown}
                                     placeholder="Type your age"
-                                    min='0'
+                                    min="21"
+                                    max="60"
                                     autoComplete="off"
                                     maxLength="3"
                                 />

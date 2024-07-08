@@ -14,7 +14,7 @@ function EmployerSignup() {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const countries = ["French", "Spanish", "German", "English", "Italian", "Chinese"];
+  // const countries = ["French", "Spanish", "German", "English", "Italian", "Chinese"];
   const [values, setValues] = useState({
     fullName: {
       value: "",
@@ -54,6 +54,25 @@ function EmployerSignup() {
       }
     }));
   };
+
+  const handleCompanyNameChange = (e) => {
+    const { value } = e.target;
+    const maxLength = 32; // Define max length if needed
+    let errorMessage = "";
+  
+    if (value.length < 2 || value.length > maxLength) {
+      errorMessage = `Should be between 2 and ${maxLength} characters`;
+    }
+  
+    setValues(prevValues => ({
+      ...prevValues,
+      companyName: {
+        value: value,
+        errorMessage: errorMessage
+      }
+    }));
+  };
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -114,7 +133,7 @@ function EmployerSignup() {
   return (
     <div className=" w-full min-h-screen employerSignupContent">
       <div className="flex flex-col md:flex-row justify-between items-center  md:p-6 lg:px-12 gap-4 md:gap-6 lg:gap-8">
-        <div className="w-[200px] h-[73px]">
+        <div className="w-[200px] h-[60px]">
           <img src={LOGO} alt="Logo" />
         </div>
         <div className="hidden md:flex gap-10 mr-[15px] ">
@@ -195,7 +214,7 @@ function EmployerSignup() {
                 : "English"}
               <BiChevronDown size={30} className={`${open && "rotate-180"}`} />
             </div>
-            {open && (
+            {/* {open && (
               <ul className="absolute bg-[#2676c2] text-[#ffff] w-[190px]">
                 {countries.map((country) => (
                   <li
@@ -213,7 +232,7 @@ function EmployerSignup() {
                   </li>
                 ))}
               </ul>
-            )}
+            )} */}
           </div>
         </div>
       </div>
@@ -244,12 +263,12 @@ function EmployerSignup() {
               >
                 <div>
                   <label className="text-white font-[300] text-[16px]">
-                    First Name*
+                    Full Name*
                   </label>
                   <input
                     onChange={handleOnChange}
                     onKeyDown={handleEnter}
-                    className="w-full h-[46px] bg-[#ffffff30] rounded-sm text-white placeholder: pl-[10px] placeholder:text-white placeholder:text-sm outline-none"
+                    className="w-full h-[46px] bg-[#ffffff30] rounded-sm text-white placeholder: pl-[10px] placeholder:text-[#CECECE] placeholder:text-sm outline-none"
                     type="text"
                     minLength={2}
                     maxLength={32}
@@ -270,9 +289,9 @@ function EmployerSignup() {
                     Company Name*
                   </label>
                   <input
-                    onChange={handleOnChange}
+                    onChange={handleCompanyNameChange}
                     onKeyDown={handleEnter}
-                    className="w-full h-[46px] bg-[#ffffff30] rounded-sm text-white placeholder: pl-[10px] placeholder:text-white placeholder:text-sm outline-none"
+                    className="w-full h-[46px] bg-[#ffffff30] rounded-sm text-white placeholder: pl-[10px] placeholder:text-[#CECECE] placeholder:text-sm outline-none"
                     type="text"
                     minLength={2}
                     maxLength={32}
@@ -295,7 +314,7 @@ function EmployerSignup() {
                   <input
                     onChange={handleOnChange}
                     onKeyDown={handleEnter}
-                    className="w-full h-[46px] bg-[#ffffff30] rounded-sm text-white placeholder: pl-[10px] placeholder:text-white placeholder:text-sm outline-none"
+                    className="w-full h-[46px] bg-[#ffffff30] rounded-sm text-white placeholder: pl-[10px] placeholder:text-[#CECECE] placeholder:text-sm outline-none"
                     type="text"
                     minLength={2}
                     maxLength={32}

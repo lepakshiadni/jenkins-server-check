@@ -6,7 +6,7 @@ const Dropdown = () => {
   const [inputValue, setInputValue] = useState("");
   const [selected, setSelected] = useState("");
   const [open, setOpen] = useState(false);
-  const countries = ["French", "Spanish", "German", "Italian", "Chinese"];
+  // const countries = ["French", "Spanish", "German", "Italian", "Chinese"];
 
   return (
     <div className="relative inline-block">
@@ -68,7 +68,7 @@ const Dropdown = () => {
           : "English"}
         <BiChevronDown size={30} className={`${open && "rotate-180"}`} />
       </div>
-      {open && (
+      {/* {open && (
         <ul className="absolute bg-white text-[#7B7B7B] w-[190px] z-[3]">
           {countries?.map((country) => (
             <li
@@ -88,7 +88,7 @@ const Dropdown = () => {
             </li>
           ))}
         </ul>
-      )}
+      )} */}
     </div>
   );
 };

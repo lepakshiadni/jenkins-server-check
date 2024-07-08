@@ -57,7 +57,7 @@ const TrainerFeed = ({ postrainingData }) => {
     const bookMarkedPost = useSelector(({ trainerSignUp }) => {
         return trainerSignUp?.addBookMarkedPost?.userBookmarks;
     })
-    console.log('bookMarkedPost',bookMarkedPost);
+    console.log('bookMarkedPost', bookMarkedPost);
 
     useEffect(() => {
         dispatch(getBookMarkedPost())
@@ -105,11 +105,13 @@ const TrainerFeed = ({ postrainingData }) => {
 
                             {trainer?.skills?.slice(0, 4)?.map(({ name }) => (
                                 <p className='ms-1'> {name} |</p>
-                            ))}</p>
+                            ))}
+                        </p>
                         <p style={{ fontSize: '12px', marginTop: '10px', color: '#6A6A6A', display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
                             {trainer?.skills?.slice(4, 10)?.map(({ name }) => (
                                 <p className='ms-1'> {name} |</p>
-                            ))}</p>
+                            ))}
+                        </p>
                     </div>
                     <section>
                         <h3 style={{ color: '#888888', fontSize: '16px', marginTop: '10px', textAlign: "start" }}>Bookmarked post</h3>
@@ -140,8 +142,8 @@ const TrainerFeed = ({ postrainingData }) => {
                                                 </div>
                                             </div>
 
-                                            <div style={{ position: 'relative', display: 'inline-block' }}>
-                                                <div
+                                            <div style={{ position: 'relative', display: 'inline-block', cursor: 'pointer' }}>
+                                                {/* <div
                                                     onClick={() => handleMenuClick(index)}
                                                     style={{ cursor: 'pointer', fontSize: '25px', fontWeight: 'bolder', color: 'gray' }}
                                                 >
@@ -164,17 +166,23 @@ const TrainerFeed = ({ postrainingData }) => {
                                                         <div className='option' style={{ padding: '5px', cursor: 'pointer', fontSize: '12px' }}>Connect</div>
                                                         <div className='option' style={{ padding: '5px', cursor: 'pointer', fontSize: '12px' }} onClick={() => handleIconClick(index, bookmark)}>Remove</div>
                                                     </div>
-                                                )}
+                                                )} */}
+
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 14 18" fill="none" onClick={() => handleIconClick(index, bookmark)}>
+                                                    <path d="M0 18V2C0 1.45 0.195833 0.979167 0.5875 0.5875C0.979167 0.195833 1.45 0 2 0H12C12.55 0 13.0208 0.195833 13.4125 0.5875C13.8042 0.979167 14 1.45 14 2V18L7 15L0 18Z" fill="#2676C2" />
+                                                </svg>
                                             </div>
 
                                         </div>
 
                                         <p
-                                            className={showMoreArray[index] ? "show-more" : "show-less"} style={{ fontSize: '14px', color: '#888888', marginTop: "10px" }}>
+                                            className={showMoreArray[index] ? "show-more" : "show-less"}
+                                            style={{ fontSize: '14px', color: '#888888', marginTop: "10px" }}>
+                                            <h5 className='font-[600]' style={{ fontSize: '14px', color: '#535353', marginTop: '10px' }}>{bookmark?.trainingName}</h5>
+
                                             {bookmark?.description}
-                                            <hr style={{ margin: '10px 0px' }} />
                                             <div className='skilldata' >
-                                                <h5 style={{ color: '#888888' }}>Wanted skills</h5>
+                                                <h5 style={{ color: '#535353',fontWeight:'600' }}>Wanted skills</h5>
                                                 {bookmark?.topics.map((val, index) => (
                                                     <div key={index}>
                                                         <p>{val}</p>
@@ -200,8 +208,8 @@ const TrainerFeed = ({ postrainingData }) => {
                                                     <h5 style={{ margin: '0px' }}><span className='skillchild' >End Date</span> <br /> <span className='skillchild2'>{bookmark?.endDate}</span> </h5>
 
                                                 </div>
-                                                <h5><span className='skillchild' >Mode of Training -</span> <span className='skillchild2'>{bookmark?.modOfTraining}</span> </h5>
-                                                <button onClick={() => {
+                                                <h5><span className='skillchild' >Mode of Training -</span> <span className='skillchild2'>{bookmark?.modeOfTraining}</span> </h5>
+                                                {/* <button onClick={() => {
                                                     setApplyPopUp(true);
                                                     setSelectedPost(bookmark)
                                                 }} style={{
@@ -213,7 +221,7 @@ const TrainerFeed = ({ postrainingData }) => {
                                                     borderRadius: '10px',
                                                     marginTop: '10px',
                                                     display: 'block' // Make it a block-level element
-                                                }}>Apply</button>
+                                                }}>Apply</button> */}
                                             </div>
                                         </p>
                                         <button onClick={() => handleShowMoreClick(index)} style={{ background: 'none', border: 'none', color: '#2676C2', cursor: 'pointer', padding: "0px", margin: '0px' }}>
