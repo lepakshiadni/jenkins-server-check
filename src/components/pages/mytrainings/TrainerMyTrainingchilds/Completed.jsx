@@ -5,6 +5,7 @@ import pen from "../../../assets/edit.svg";
 import dust from "../../../assets/Delete.svg";
 import NTD from "../../../assets/NTD.jfif";
 import { Link } from "react-router-dom";
+import '../../../styles/TrainerCompleted.css'
 
 const Completed = ({ completed }) => {
     console.log('completed', completed);
@@ -32,43 +33,51 @@ const Completed = ({ completed }) => {
                     <>
                         {
                             completed?.map(({ trainingPostDetails, trainingResources }, index) => {
-                                return <div key={index} className="Training_Programm mt-5" >
-                                    <div className="Trainer_Infoo">
-                                        <div className="TTTDD">
-                                            <p>Training Program Name</p>
-                                            <h3 className="Blue_H22">{trainingPostDetails?.trainingName}</h3>
-                                            <p>Company Name</p>
-                                            <h3 className="Blue_H22">{trainingPostDetails?.postedByCompanyName}</h3>
-                                            <p>Type Of Training</p>
-                                            <h2>{trainingPostDetails?.typeOfTraining}</h2>
-                                            <p>Duration Of Training</p>
-                                            <h2>{trainingPostDetails?.durationCount} {trainingPostDetails?.durationType} {trainingPostDetails?.durationCount > 0 ? "'s" : ""}</h2>
-                                            <div className="SDEDD">
-                                                <div className="SDD">
-                                                    <p>Start Date</p>
-                                                    <h2>{trainingPostDetails.startDate}</h2>
+                                return <div key={index} className="flex flex-shrink-0 justify-evenly items-center mt-5 p-[5px]" >
+                                    <div className="w-[28%] h-[23rem] shadow-[0px_2px_8px_1px_rgba(199,195,195,0.34)] flex flex-col justify-evenly ">
+                                        <div className="w-[90%] h-[80%] flex flex-col justify-evenly m-auto gap-[0.5rem]">
+                                            <div className="">
+                                            <p className='text-[#333333] font-medium text-base'>Training Program Name</p>
+                                            <h3 className="text-[15px] font-normal text-[#2676c2] truncate">{trainingPostDetails?.trainingName}</h3>
+                                            </div>
+                                            <div className="">
+                                            <p className='text-[#333333] font-medium text-base'>Company Name</p>
+                                            <h3 className="text-[15px] font-normal text-[#2676c2] truncate">{trainingPostDetails?.postedByCompanyName}</h3>
+                                            </div>
+                                            <div className="">
+                                            <p className='text-[#333333] font-medium text-base'>Type Of Training</p>
+                                            <h2 className='text-[15px] font-normal text-[#535353] truncate'>{trainingPostDetails?.typeOfTraining}</h2>
+                                            </div>
+                                            <div className="">
+                                            <p className='text-[#333333] font-medium text-base'>Duration Of Training</p>
+                                            <h2 className='text-[15px] font-normal text-[#535353] truncate'>{trainingPostDetails?.durationCount} {trainingPostDetails?.durationType} {trainingPostDetails?.durationCount > 0 ? "'s" : ""}</h2>
+                                            </div>
+                                            <div className="flex w-[90%] justify-between">
+                                                <div className="">
+                                                    <p className='text-[#333333] font-medium text-base'>Start Date</p>
+                                                    <h2 className='text-[15px] font-normal text-[#535353] truncate'>{trainingPostDetails.startDate}</h2>
                                                 </div>
-                                                <div className="EDD">
-                                                    <p>End Date</p>
-                                                    <h2>{trainingPostDetails.endDate}</h2>
+                                                <div className="">
+                                                    <p className='text-[#333333] font-medium text-base'>End Date</p>
+                                                    <h2 className='text-[15px] font-normal text-[#535353] truncate'>{trainingPostDetails.endDate}</h2>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="Program_Info">
-                                        <div className="Stepper" style={{ height: '2.5rem', marginTop: '1.5rem' }}>
-                                            <div className="steps">
+                                    <div className="w-[72%] h-[23rem] shadow-[0px_2px_8px_1px_rgba(199,195,195,0.34)] rounded-r-[10px] flex flex-col justify-center items-center">
+                                        <div className="Trainer-completed-stepper" style={{ height: '2.5rem', marginTop: '1.5rem' }}>
+                                            <div className="Trainer-completed-steps">
                                                 {[1, 2, 3].map((step) => (
                                                     <span
                                                         key={step}
-                                                        className={`circle ${activeSteps.includes(step) ? 'active' : ''}`}
+                                                        className={`Trainer-completed-circle ${activeSteps.includes(step) ? 'Trainer-completed-active' : ''}`}
                                                     >
                                                         {step}
                                                     </span>
                                                 ))}
-                                                <div className="progress-bar">
+                                                <div className="Trainer-completed-progress-bar">
                                                     <span
-                                                        className="indicator"
+                                                        className="Trainer-completed-indicator"
                                                         style={{
                                                             width: calculateProgressBarWidth(),
                                                         }}
@@ -76,13 +85,13 @@ const Completed = ({ completed }) => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="Step3PS">
-                                            <h4>Program Status</h4>
-                                            <p>{`Completed: ${trainingPostDetails?.endDate}`}</p>
+                                        <div className="relative left-[17rem] mt-0">
+                                            <h4 className='text-[13px]'>Program Status</h4>
+                                            <p className='text-[11px] bg-[#2676c233] text-[#2676c2] border-[0.2px] border-[#2676c233] rounded-[0.3rem] '>{`Completed: ${trainingPostDetails?.endDate}`}</p>
                                         </div>
-                                        <div className="Program_Status">
-                                            <div className="Total_Parttt">
-                                                <>
+                                        <div className="w-[90%] m-auto flex justify-center gap-4 mt-1 ">
+                                        <div className="flex w-[30%] flex-col gap-[0.4rem]">
+                                        <>
                                                     <h1 className='text-[#333] font-[Poppins] text-[1.125rem] m-0 font-[600]' style={{
                                                 
                                                         fontStyle: 'normal',
@@ -91,8 +100,8 @@ const Completed = ({ completed }) => {
                                                 
                                                     }}>Posted By</h1>
                                                     <Link to={`/trainerDashboard/mytrainings/completed/employerprofilelist/${trainingPostDetails?.postedById}`}>
-                                                        <div className="PBB">
-                                                            {
+                                                    <div className="bg-[#2676c233] min-w-[190px] max-w-[80%] h-[4.5rem] w-[2.5rem] flex items-center gap-[0.8rem] pl-[0.3rem] rounded-[2.5rem]">
+                                                    {
                                                                 trainingPostDetails?.postedByImg ?
                                                                     <img
                                                                         src={trainingPostDetails?.postedByImg}
@@ -105,15 +114,15 @@ const Completed = ({ completed }) => {
                                                                     />
 
                                                                     :
-                                                                    <div className="w-[4rem] h-[4rem] rounded-full flex justify-center items-center bg-slate-500">
+                                                                    <div className="w-[4rem] h-[4rem] rounded-full flex justify-center items-center bg-[#f4f6f7]">
                                                                         <span className=" capitalize">
                                                                             {trainingPostDetails?.postedByName[0]}
                                                                         </span>
                                                                     </div>
                                                             }
                                                             <span>
-                                                                <h2>{trainingPostDetails?.postedByName}</h2>
-                                                                <p>{trainingPostDetails?.postedByCompanyName}</p>
+                                                                <h2 className="text-[#333] text-[1.125rem] font-[600]">{trainingPostDetails?.postedByName}</h2>
+                                                                <p className="text-[#535353] text-[0.75rem] font-medium">{trainingPostDetails?.postedByCompanyName}</p>
                                                             </span>
                                                         </div>
                                                     </Link>
@@ -125,13 +134,13 @@ const Completed = ({ completed }) => {
                                                 }}>
                                                     Total Application
                                                 </p>
-                                                <div className="P205">
-                                                    <h1>{trainingPostDetails?.participantCount}</h1>
+                                                <div className="flex items-end text-[#2676c2] font-medium">
+                                                    <h1 className="text-[#2676c2] text-[1.87rem] font-medium">{trainingPostDetails?.participantCount}</h1>
                                                 </div>
                                                 <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
                                                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                                                        <p>Mode</p>
-                                                        <h2>{trainingPostDetails?.modeOfTraining}</h2>
+                                                        <p className="text-[#333] font-[600]">Mode</p>
+                                                        <h2 className="text-[#535353] font-medium">{trainingPostDetails?.modeOfTraining}</h2>
                                                     </div>
                                                     {
                                                         trainingPostDetails?.modeOfTraining === 'offline' ?
@@ -142,8 +151,8 @@ const Completed = ({ completed }) => {
                                                                     alignItems: "center",
                                                                 }}
                                                             >
-                                                                <p>Location</p>
-                                                                <h2>{trainingPostDetails?.location}</h2>
+                                                                <p className="text-[#333] font-[600]">Location</p>
+                                                                <h2 className="text-[#535353] font-medium">{trainingPostDetails?.location}</h2>
                                                             </div>
                                                             :
                                                             null
@@ -151,8 +160,8 @@ const Completed = ({ completed }) => {
 
                                                 </div>
                                             </div>
-                                            <div className="Notesss">
-                                                <div className="R_Content">
+                                            <div className="w-[70%] h-[100%] flex flex-col items-center justify-center rounded-[0.5rem] border-[1px] border-[#eee] pr-1">
+                                                <div className="text-[#2676c2] font-[500] text-[14px]">
                                                     {/* Map over resources */}
                                                     {trainingResources?.map(({ fileName, fileData }, index) => (
                                                         <h2 key={index} onClick={() => { filePreview(fileName, fileData) }}>
@@ -235,7 +244,7 @@ const Completed = ({ completed }) => {
                         }
                     </>
                     :
-                    <div className='flex justify-center items-center h-[300px] w-full bg-slate-300 mt-[30px] rounded-md'>
+                    <div className='flex justify-center items-center h-[300px] w-full bg-[#f4f6f7] mt-[30px] rounded-md'>
                         <h1 className='items-center'>No Completed Trainings Avaiable !</h1>
                     </div>
             }

@@ -1,0 +1,60 @@
+.Trainer-Ongoing-stepper{
+    width: 85%;
+    height: 6rem;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.Trainer-Ongoing-steps{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+
+}
+.Trainer-Ongoing-circle{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 3rem;
+    width: 3rem;
+    color: #2676c2;
+    font-size: 1.2rem;
+    font-weight: 500;
+    border-radius: 50%;
+    background: #ebebeb;
+    /* border: 4px solid #f8f8f8; */
+    transition: all 200ms ease;
+    transition-delay: 0s;
+    z-index: 1;
+    cursor: pointer, progress;
+
+}
+.Trainer-Ongoing-active{
+    transition-delay: 100ms;
+    background: #2676c2;
+    color: #fff;
+
+}
+.Trainer-Ongoing-progress-bar{
+    position: absolute;
+    height: 4px;
+    width: 100%;
+    background: #e0e0e0;
+    z-index: 0;
+
+}
+.Trainer-Ongoing-indicator{
+    position: absolute;
+    height: 100%;
+    width: 0%;
+    background: #4070f4;
+    transition: all 300ms ease;
+
+}
+.Trainer-Ongoing-stepFooter{
+
+}

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import image15 from "../../../assets/image 15.png";
 import { Link } from 'react-router-dom'
+import '../../../styles/TrainerProposalDenied.css'
 
 
 const TrainerProposalDenied = ({ denied }) => {
-    // Dummy data for denied training
     console.log(denied)
     const DeniedData = [
         {
@@ -43,44 +43,52 @@ const TrainerProposalDenied = ({ denied }) => {
                 denied?.length > 0 ? <>
                     {
                         denied?.map(({ trainingPostDetails }, index) => (
-                            <div key={index} className="Training_Programs" style={{ marginTop: "20px" }}>
-                                <div className="Training_Programm">
-                                    <div className="Trainer_Infoo">
-                                        <div className="TTTDD">
-                                            <p>Training Program Name</p>
-                                            <h3 className="Blue_H22">{trainingPostDetails?.trainingName}</h3>
-                                            <p>Company Name</p>
-                                            <h3 className="Blue_H22">{trainingPostDetails?.postedByCompanyName}</h3>
-                                            <p>Type Of Training</p>
-                                            <h2>{trainingPostDetails?.typeOfTraining}</h2>
-                                            <p>Duration Of Training</p>
-                                            <h2>{trainingPostDetails?.durationCount}</h2>
-                                            <div className="SDEDD">
-                                                <div className="SDD">
-                                                    <p>Start Date</p>
-                                                    <h2>{trainingPostDetails.startDate}</h2>
+                            <div key={index} className="mt-5 p-[10px]" >
+                                <div className="w-[100%] flex items-center gap-1   h-[370px] ">
+                                    <div className="h-[100%] w-[30%]   shadow-[2px_2px_8px_1px_rgba(199,195,195,0.34)]">
+                                        <div className="w-[95%] h-[100%] pl-4 flex flex-col justify-center gap-4 ">
+                                            <div className="">
+                                            <p className='text-[#333333] font-medium text-base' >Training Program Name</p>
+                                            <h3 className="text-[15px] font-normal text-[#2676c2] truncate ">{trainingPostDetails?.trainingName}</h3>
+                                            </div>
+                                            <div className="">
+                                            <p className='text-[#333333] font-medium text-base'>Company Name</p>
+                                            <h3 className="text-[15px] font-normal text-[#2676c2] truncate ">{trainingPostDetails?.postedByCompanyName}</h3>
+                                            </div>
+                                            <div className="">
+                                            <p className='text-[#333333] font-medium text-base'>Type Of Training</p>
+                                            <h2 className='text-[15px] font-normal text-[#535353] truncate'>{trainingPostDetails?.typeOfTraining}</h2>
+                                            </div>
+                                            <div className="">
+                                            <p className='text-[#333333] font-medium text-base'>Duration Of Training</p>
+                                            <h2 className='text-[15px] font-normal text-[#535353] truncate'>{trainingPostDetails?.durationCount}</h2>
+                                            </div>
+                                            <div className="flex w-[90%] justify-between">
+                                                <div className="">
+                                                    <p className="text-[#333333] font-medium text-base">Start Date</p>
+                                                    <h2 className="text-[15px] font-normal text-[#535353] ">{trainingPostDetails.startDate}</h2>
                                                 </div>
-                                                <div className="EDD">
-                                                    <p>End Date</p>
-                                                    <h2>{trainingPostDetails.endDate}</h2>
+                                                <div className="">
+                                                    <p className="text-[#333333] font-medium text-base">End Date</p>
+                                                    <h2 className="text-[15px] font-normal text-[#535353] ">{trainingPostDetails.endDate}</h2>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="Program_Info">
-                                        <div className="Stepper" style={{ height: '2.5rem', marginTop: '1.5rem' }}>
-                                            <div className="steps">
+                                    <div className=" shadow-[2px_2px_8px_1px_rgba(199,195,195,0.34)] flex flex-col items-center justify-center gap-[5px]   h-[100%] w-[70%]">
+                                        <div className="denied-stepper">
+                                            <div className="denied-steps">
                                                 {[1, 2, 3].map((step) => (
                                                     <span
                                                         key={step}
-                                                        className={`circlered ${activeSteps.includes(step) ? "active" : ""} ${activeOption === "deNied" && step === 2 ? "denied" : ""}`}
+                                                        className={`denied-redcircle ${activeSteps.includes(step) ? "denied-active" : ""} ${activeOption === "deNied" && step === 2 ? "denied" : ""}`}
                                                     >
                                                         {step}
                                                     </span>
                                                 ))}
-                                                <div className="progress-bar">
+                                                <div className="denied-progressBar">
                                                     <span
-                                                        className="indicatorred"
+                                                        className="denied-redIndicator"
                                                         style={{
                                                             width: calculateProgressBarWidth(),
                                                         }}
@@ -88,64 +96,50 @@ const TrainerProposalDenied = ({ denied }) => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="Step4PS">
-                                            <h4>Program Status</h4>
-                                            <p>Denied</p>
+                                        <div className="denied-stepFooter">
+                                            <h4 className='text-[13px] mt-2'>Program Status</h4>
+                                            <p className=' w-[90px] h-[18px]  text-[11px] border-[1] border-[#c22626] bg-red-200 text-[#c22626] flex items-center justify-center rounded-lg ml-[5px] '>Denied</p>
                                         </div>
-                                        <div className="Program_Status">
-                                            <div className="Total_Parttt">
+                                        <div className="flex mt-[10px] w-[90%] justify-center gap-[5px]   ">
+                                            <div className="flex flex-col w-[35%]  gap-2">
                                                 <>
-                                                    <h1 style={{
-                                                        color: '#333',
-                                                        fontFamily: 'Poppins',
-                                                        fontSize: '1.125rem',
-                                                        fontStyle: 'normal',
-                                                        fontWeight: '600',
-                                                        lineHeight: 'normal',
-                                                        margin: '0'
-                                                    }}>Posted By</h1>
+                                                    <h1 className='text-[#333] text-[1.1rem] font-[600]  ' 
+                                                     
+                                                    >Posted By</h1>
                                                     <Link to={`/trainerDashboard/mytrainings/denied/employerprofilelist/${trainingPostDetails?.postedById}`}>
-                                                        <div className="PBB">
+                                                        <div className=" bg-[#2676c233] min-w-[190px] max-w-[80%] h-[4.3rem] rounded-[2.3rem] flex items-center gap-[0.8rem] pl-[0.3rem] ">
                                                             {
                                                                 trainingPostDetails?.postedByImg ?
-                                                                    <img
+                                                                    <img className='h-[3.5rem] w-[3.5rem] rounded-full object-cover '
                                                                         src={trainingPostDetails?.postedByImg}
                                                                         alt=""
-                                                                        style={{
-                                                                            borderRadius: "100%",
-                                                                            width: "4rem",
-                                                                            height: "4rem",
-                                                                        }}
+                                                                      
                                                                     />
 
                                                                     :
-                                                                    <div className="w-[4rem] h-[4rem] rounded-full flex justify-center items-center bg-slate-500">
+                                                                    <div className="w-[4rem] h-[4rem] rounded-full flex justify-center items-center bg-[#f4f6f7]">
                                                                         <span className=" capitalize">
                                                                             {trainingPostDetails?.postedByName[0]}
                                                                         </span>
                                                                     </div>
                                                             }
                                                             <span>
-                                                                <h2>{trainingPostDetails?.postedByName}</h2>
-                                                                <p>{trainingPostDetails?.postedByCompanyName}</p>
+                                                                <h2 className='text-[#333] text-[1.1rem] font-[600] w-[100px] overflow-hidden text-ellipsis whitespace-nowrap'>{trainingPostDetails?.postedByName}</h2>
+                                                                <p className='text-[#535353] text-[0.75rem] w-[100px] overflow-hidden text-ellipsis whitespace-nowrap' >{trainingPostDetails?.postedByCompanyName}</p>
                                                             </span>
                                                         </div>
                                                     </Link>
                                                 </>
-                                                <p style={{
-                                                    whiteSpace: "nowrap",
-                                                    marginBottom: "1rem",
-                                                    margin: "0%",
-                                                }}>
+                                                <p className='font-[600]' >
                                                     Total Application
                                                 </p>
-                                                <div className="P205">
-                                                    <h1>{trainingPostDetails?.participantCount}</h1>
+                                                <div className="">
+                                                    <h1 className='text-[#2676c2] text-[1.875rem] font-medium '>{trainingPostDetails?.participantCount}</h1>
                                                 </div>
-                                                <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
-                                                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                                                        <p>Mode</p>
-                                                        <h2>{trainingPostDetails?.modeOfTraining}</h2>
+                                                <div className='flex items-center gap-[2rem]' >
+                                                    <div className='flex flex-col items-start'>
+                                                        <p className='font-[600] text-base'>Mode</p>
+                                                        <h2 className='text-[0.9rem]'>{trainingPostDetails?.modeOfTraining}</h2>
                                                     </div>
                                                     {
                                                         trainingPostDetails?.modeOfTraining === 'offline' ?
@@ -164,7 +158,7 @@ const TrainerProposalDenied = ({ denied }) => {
                                                     }
                                                 </div>
                                             </div>
-                                            <div className="Notesss">
+                                            <div className="Notesss w-[65%] h-[100%]">
                                                 {/* Add any additional content specific to Denied section */}
                                             </div>
                                         </div>
@@ -174,7 +168,7 @@ const TrainerProposalDenied = ({ denied }) => {
                         ))}
                 </>
                     :
-                    <div className='flex justify-center items-center h-[300px] w-full bg-slate-300 mt-[30px] rounded-md'>
+                    <div className='flex justify-center items-center h-[300px] w-full bg-[#f4f6f7] mt-[30px] rounded-md'>
                         <h1 className='items-center'>No Denied Trainings Avaiable !</h1>
                     </div>
             }

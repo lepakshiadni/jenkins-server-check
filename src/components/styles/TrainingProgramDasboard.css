@@ -51,7 +51,7 @@
   width: 28%;
   height: 25rem;
   /* border: #88888857 0.3px solid; */
-  box-shadow: 0px 2px 8px 1px #c7c3c357;
+  box-shadow: 0px 2px 8px 1px hwb(0 76% 22% / 0.341);
   border-radius: 10px 0 0 10px;
   display: flex;
   flex-direction: column;
@@ -222,6 +222,7 @@
   outline-color: #2676c2;
   box-sizing: border-box;
 }
+
 
 
 
