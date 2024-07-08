@@ -196,6 +196,21 @@ const postRequirementReducer = (state = initialState, action) => {
         message: action.payload.error
       };
 
+    case 'UPDATE_ENABLESTATUS_SUCCESS':
+      return {
+        ...state,
+        postTrainingDetails: action.payload,
+        message: action.payload.message,
+        success: action.payload.success
+      };
+    case 'UPDATE_ENABLESTATUS_FAILURE':
+      return {
+        ...state,
+        message: action.payload.error
+      };
+
+
+
     default:
       return state;
   }

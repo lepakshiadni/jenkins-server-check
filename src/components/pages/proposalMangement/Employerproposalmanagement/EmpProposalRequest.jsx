@@ -167,7 +167,7 @@ const EmployerProposalRequest = () => {
                                                                                     seletedTraining?.trainerProfileImg ?
                                                                                         <img src={seletedTraining?.trainerProfileImg} alt="" style={{ borderRadius: "10px", width: '5.8rem', height: '6.55rem' }} />
                                                                                         :
-                                                                                        <div className="rounded-[10px] w-[5.8rem] h-[6.55rem] flex justify-center items-center text-3xl" style={{ backgroundColor: generateRandomColor(proposals?.trainerName) }}>{proposals?.trainerName[0]}</div>
+                                                                                        <div className="rounded-[10px] w-[5.8rem] h-[6.55rem] flex justify-center items-center text-3xl">{proposals?.trainerName?.[0]}</div>
                                                                                 }
                                                                             </div>
                                                                             <div >
