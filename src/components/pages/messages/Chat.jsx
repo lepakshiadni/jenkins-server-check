@@ -20,10 +20,13 @@ function Chat() {
   const [user, setUser] = useState(null);
   const [onlineUser, setOnlineUser] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [members, setMembers] = useState([]);
+  const [typingStatusConvo,setTypingStatusConvo] = useState(null);
   console.log(onlineUser, "onlineUser");
   const [typingStatus, setTypingStatus] = useState(null);
-  const fileInputRef = useRef(null);
 
+  const fileInputRef = useRef(null);
+    console.log(selectedConversation, "selectedConversation");
   const employer = useSelector(
     ({ employerSignUp }) => employerSignUp?.employerDetails
   );
@@ -83,11 +86,13 @@ function Chat() {
   useEffect(() => {
     socket.current.on("typing", (data) => {
       setTypingStatus(data.senderId);
+      setTypingStatusConvo(data.senderId);
       console.log("Typing", data);
     });
 
     socket.current.on("stopTyping", (data) => {
       setTypingStatus(false);
+      setTypingStatusConvo(false);
     });
   });
   useEffect(() => {
@@ -130,6 +135,7 @@ function Chat() {
     };
   }, [user]);
 
+
   useEffect(() => {
     const getconversation = async () => {
       if (user) {
@@ -150,7 +156,7 @@ function Chat() {
     const getmessage = async () => {
       await Axios.get(`${baseUrl}/message/allMessage/${currentChat?._id}`)
         .then((resp) => {
-          // console.log(resp.data.messages);
+          console.log(resp.data.messages,"messages");
           setMessages(resp.data.messages);
         })
         .catch((err) => {
@@ -207,7 +213,8 @@ function Chat() {
           { lastMessage: message }
         )
           .then((resp) => {
-            console.log(resp.data);
+            // console.log(resp.data, "lastMessage");
+            setMembers(resp.data.updatedConversation?.members);
             setLastMessage(resp.data.updatedConversation?.lastMessage?.text);
           })
           .catch((error) => {
@@ -227,6 +234,7 @@ function Chat() {
   const handleFocus = () => {
     console.log("Typing");
     setTypingStatus(true);
+    setTypingStatusConvo(true);
     socket.current.emit("sendTyping", {
       conversationId: currentChat?._id,
       senderId: user?._id,
@@ -238,6 +246,7 @@ function Chat() {
   const handleBlur = () => {
     console.log("Stopped Typing");
     setTypingStatus(false);
+    setTypingStatusConvo(false);
     socket.current.emit("stopTyping", {
       conversationId: currentChat?._id,
       senderId: user?._id,
@@ -326,6 +335,9 @@ function Chat() {
                               }
                               lastMessage={lastMessage}
                               onlineUser={onlineUser}
+                              selecteduser={selectedUser}
+                              typingStatus={typingStatusConvo}
+                              members={members}
                             />
                           </div>
                         );
