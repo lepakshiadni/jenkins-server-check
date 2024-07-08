@@ -9,7 +9,12 @@ function Conversation({ conversation, currentuser, selectedConversation, lastMes
   const [lastmessage, setLastmessage] = useState("");
   const [timeAgo, setTimeAgo] = useState("");
   const [socket, setSocket] = useState(null);
-
+  const truncateMessage = (message, length) => {
+    if (message.length <= length) {
+      return message;
+    }
+    return message.substring(0, length) + ' ....';
+  };
   useEffect(() => {
     // Initialize socket connection
     const newSocket = io('http://localhost:4040');
@@ -101,9 +106,9 @@ function Conversation({ conversation, currentuser, selectedConversation, lastMes
             <div className="Charlie text-gray-800 text-base font-medium font-['Poppins'] capitalize">
               {user?.basicInfo?.firstName || user?.fullName}
             </div>
-            <div className="Typing text-neutral-500 text-xs font-normal font-['Poppins']">
-              {lastmessage ? lastmessage?.text : "No messages"}
-            </div>
+           <div className="Typing text-neutral-500 text-xs font-normal font-['Poppins']">
+            {typingStatus ? "Typing..." : truncateMessage(lastmessage?.text || "No messages", 10)}
+          </div>
           </div>
         </div>
         <div className="flex flex-col space-y-2 mr-[10px]">
