@@ -14,11 +14,11 @@ const TrainerProposalApplied = ({ training }) => {
                       className="flex mt-[2rem] gap-3 items-center  bg-[#fff] stroke-[#eee] stroke-1 shadow-[2px_2px_8px_1px_rgba(199,195,195,0.34)] w-[100%] min-h-[23rem] h-[auto] p-4 rounded-[0.5rem] "
                      
                     >
-                      <div className="w-[30%] overflow-y-scroll Scroll h-[21rem] pt-[40px] ">
-                        <div className=" h-[100%] w-[100%] flex flex-col gap-4 justify-center pr-1">
+                      <div className="w-[30%] overflow-y-scroll Scroll h-[20rem]  ">
+                        <div className=" h-[100%] w-[100%] flex flex-col gap-2 justify-center pr-1">
                           <div className="">
                             <p className="text-[#333333] font-medium text-base">
-                              Training Program Name {appliedStatus}
+                              Training Program Name 
                             </p>
                             <h3 className="text-[15px] font-normal text-[#2676c2] w-[240px]  overflow-hidden text-ellipsis whitespace-nowrap  ">
                               {trainingPostDetails?.trainingName}
