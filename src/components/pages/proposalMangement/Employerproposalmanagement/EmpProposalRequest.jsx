@@ -16,7 +16,7 @@ const EmployerProposalRequest = () => {
         return employerSignUp?.getAppliedTrainingEmployer?.getAppliedTraining
     })
     console.log('appliedTrainingDetails', appliedTrainingDetails)
-    
+
     const [isDenyPopupVisible, setIsDenyPopupVisible] = useState(false);
     const [isAcceptPopupVisible, setIsAcceptPopupVisible] = useState(false);
     const [seletedTraining, setSeletedTraining] = useState(null)
@@ -66,29 +66,29 @@ const EmployerProposalRequest = () => {
                             return proposals?.trainingDetails?.map(({ trainingPostDetails, _id }, trainingData) => {
                                 return <div className="p-1">
                                     <div className='flex bg-[#fff] stroke-1 stroke-[#eee] shadow-[2px_2px_8px_1px_rgba(199,195,195,0.34)] justify-center gap-5 items-center w-[100%] min-h-[23rem] h-auto py-3 pl-1 pr-3 rounded-[0.5rem] mt-[1.5rem]' >
-                                        <div className="w-[28%] overflow-y-scroll Scroll h-full  ">
+                                        <div className="w-[28%] h-[20rem] overflow-y-scroll Scroll   ">
                                             <div className=" w-[90%]  h-[100%] flex flex-col m-auto gap-4 ">
                                                 <div className="">
-                                                <p className="text-[#333333] font-medium text-base">Training Program Name</p>
-                                                <h3 className="text-[15px] font-normal text-[#2676c2] w-[240px]  overflow-hidden text-ellipsis whitespace-nowrap  ">{trainingPostDetails?.trainingName}</h3>
+                                                    <p className="text-[#333333] font-medium text-base">Training Program Name</p>
+                                                    <h3 className="text-[15px] font-normal text-[#2676c2] w-[240px]  overflow-hidden text-ellipsis whitespace-nowrap  ">{trainingPostDetails?.trainingName}</h3>
                                                 </div>
                                                 <div className="">
-                                                <p className="text-[#333333] font-medium text-base">Training Topics & Subjects</p>
-                                                <div className="capitalize">
-                                                    {/* <div className='flex gap-1'>{trainingPostDetails?.topics?.slice(0, 5)?.map((items) => <h2 className="text-[15px] font-normal text-[#535353]"> {items} </h2>)}</div>
+                                                    <p className="text-[#333333] font-medium text-base">Training Topics & Subjects</p>
+                                                    <div className="capitalize">
+                                                        {/* <div className='flex gap-1'>{trainingPostDetails?.topics?.slice(0, 5)?.map((items) => <h2 className="text-[15px] font-normal text-[#535353]"> {items} </h2>)}</div>
                                                     <div className='flex gap-1'>{trainingPostDetails?.topics?.slice(5, 10)?.map((items) => <h2 className="text-[15px] font-normal text-[#535353]">{items}</h2>)}</div> */}
-                                                    {
-                                trainingPostDetails?.topics?.map((items) => <h2>{items}</h2>)
-                              }
-                                                </div>
-                                                </div>
-                                                <div className="">
-                                                <p className="text-[#333333] font-medium text-base">Type Of Training</p>
-                                                <h2 className="text-[15px] font-normal text-[#535353]">{trainingPostDetails?.typeOfTraining}</h2>
+                                                        {
+                                                            trainingPostDetails?.topics?.map((items) => <h2>{items}</h2>)
+                                                        }
+                                                    </div>
                                                 </div>
                                                 <div className="">
-                                                <p className="text-[#333333] font-medium text-base">Duration Of Training</p>
-                                                <h2 className="text-[15px] font-normal text-[#535353]">{trainingPostDetails?.durationCount}</h2>
+                                                    <p className="text-[#333333] font-medium text-base">Type Of Training</p>
+                                                    <h2 className="text-[15px] font-normal text-[#535353]">{trainingPostDetails?.typeOfTraining}</h2>
+                                                </div>
+                                                <div className="">
+                                                    <p className="text-[#333333] font-medium text-base">Duration Of Training</p>
+                                                    <h2 className="text-[15px] font-normal text-[#535353]">{trainingPostDetails?.durationCount}</h2>
                                                 </div>
                                                 <div className="flex justify-between w-[90%]">
                                                     <div className="">
@@ -105,8 +105,8 @@ const EmployerProposalRequest = () => {
                                         <div className='w-[72%] h-[20rem] rounded-[10px] flex'>
                                             <div className='w-[35%] h-[100%] bg-[#2676c21a] rounded-l-lg flex pl-[10px]  '>
                                                 <div className="flex flex-col justify-center gap-[0.5rem]">
-                                                    <h1 className="m-0 text-[#333] text-[1.125rem] not-italic font-[500]" 
-                                                      >Trainer Profile</h1>
+                                                    <h1 className="m-0 text-[#333] text-[1.125rem] not-italic font-[500]"
+                                                    >Trainer Profile</h1>
 
                                                     <div className='w-[13rem] h-[6.7rem] flex items-center gap-[0.3rem]'>
                                                         <Link to={`/employerDashboard/proposalsmanagement/proposals/trainerlistprofile/${proposals?.trainerId}`}>
@@ -252,11 +252,11 @@ const EmployerProposalRequest = () => {
                                                                                     seletedTraining?.trainerProfileImg ?
                                                                                         <img src={seletedTraining?.trainerProfileImg} alt="" style={{ borderRadius: "10px", width: '5.8rem', height: '6.55rem' }} />
                                                                                         :
-                                                                                        <div className="rounded-[10px] w-[5.8rem] h-[6.55rem] flex justify-center items-center text-3xl" style={{ backgroundColor: generateRandomColor(proposals?.trainerName) }}>{proposals?.trainerName[0]}</div>
+                                                                                        <div className="rounded-[10px] w-[5.8rem] h-[6.55rem] flex justify-center items-center text-3xl">{proposals?.trainerName?.[0]}</div>
                                                                                 }
                                                                             </div>
                                                                             <div >
-                                                                                <h2 style={{}}>{seletedTraining?.trainerName}</h2>
+                                                                                <h2>{seletedTraining?.trainerName}</h2>
                                                                                 <h2>{seletedTraining?.trainerDesignation}</h2>
                                                                                 <Stack
                                                                                     spacing={1}
@@ -264,7 +264,6 @@ const EmployerProposalRequest = () => {
                                                                                         width: "3rem",
                                                                                         height: "0.95363rem",
                                                                                         marginTop: "0.31rem",
-                                                                                        // marginLeft: "1.11rem",
                                                                                     }}
                                                                                     direction="row"
                                                                                     alignItems="center"

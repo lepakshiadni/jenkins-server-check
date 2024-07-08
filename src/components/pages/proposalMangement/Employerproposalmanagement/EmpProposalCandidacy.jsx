@@ -21,7 +21,7 @@ const EmployerProposalCandidacy = ({ activeStep, handleStepClick, candidacy }) =
                 return trainingDetails?.map(({ applicationstatus, appliedStatus, trainingPostDetails }, index) => {
                   return <div className="p-1">
                     <div key={index} className='flex mt-[1.5rem] gap-5 items-center  bg-[#fff] stroke-[#eee] stroke-1 shadow-[2px_2px_8px_1px_rgba(199,195,195,0.34)] w-[100%] min-h-[23rem] h-auto p-3 rounded-[0.5rem]' >
-                      <div className="w-[28%] overflow-y-scroll Scroll  ">
+                      <div className="w-[28%] h-[20rem] overflow-y-scroll Scroll  ">
                         <div className="w-[90%] h-[100%] flex flex-col gap-4">
                           <div className="">
                           <p className="text-[#333333] font-medium text-base">Training Program Name</p>
