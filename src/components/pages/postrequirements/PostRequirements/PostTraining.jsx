@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Select from 'react-select';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css'
@@ -6,23 +6,25 @@ import Box from "@mui/material/Box";
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import FileUploadOutlinedIcon from "@mui/icons-material/FileUploadOutlined";
 import '../../../styles/Requirements.css';
-import { addDays, addMonths,addHours } from 'date-fns';
+import { addDays, addMonths, addHours } from 'date-fns';
 
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux'
 import { postTrainingRequirementAction } from "../../../../redux/action/postRequirement.action";
+import Axios from "axios";
+const baseUrl = process.env.REACT_APP_API_URL
 const PostTrainingSection = () => {
 
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [activeOption,] = useState("postTraining");
     const [trainingType, setTrainingType] = useState("");
-    const [participantCount, setParticipantCount] = useState(0);
+    const [participantCount, setParticipantCount] = useState('');
     const [trainingMode, setTrainingMode] = useState("");
     const [durationType, setDurationType] = useState("");
-    const [durationCount, setDurationCount] = useState(0);
+    const [durationCount, setDurationCount] = useState('');
     const [selectedCountry, setSelectedCountry] = useState("IND");
     const [minBudget, setMinBudget] = useState('');
     const [maxBudget, setMaxBudget] = useState('');
@@ -40,7 +42,6 @@ const PostTrainingSection = () => {
     const postRequiement = useSelector(({ postRequirement }) => {
         return postRequirement;
     })
-
 
     let states = [
         "Andhra Pradesh",
@@ -105,49 +106,35 @@ const PostTrainingSection = () => {
 
     const handleStartDateChange = (date) => {
         setStartDate(date);
-        if (date && durationType !== "hour" && durationCount > 0) {
-            handleEndDateChange(date);
+        if (date) {
+            handleEndDateChange(date, durationCount);
         }
     };
 
-    const handleEndDateChange = (startDate) => {
+    const handleEndDateChange = (startDate, count) => {
+        let endDate;
         if (durationType === "day") {
-            const endDate = addDays(startDate, durationCount);
-            setEndDate(endDate);
+            endDate = addDays(startDate, count);
         } else if (durationType === "month") {
-            const endDate = addMonths(startDate, durationCount);
-            setEndDate(endDate);
+            endDate = addMonths(startDate, count);
         } else if (durationType === "hour") {
-            const endDate = addHours(startDate, durationCount);
-            setEndDate(endDate);
+            endDate = addHours(startDate, count);
         }
+        setEndDate(endDate);
     };
 
     const handleDurationCountChange = (count) => {
         setDurationCount(count);
-        if (startDate && durationType !== "hour") {
-            handleEndDateChange(startDate);
-        } else if (startDate && durationType === "hour") {
-            handleEndDateChange(startDate);
+        if (startDate) {
+            handleEndDateChange(startDate, count);
         }
     };
 
-    const filterEndDate = (date) => {
-        if (!startDate) return true; // Allow selection if no start date is set
-
-        if (durationType === "day") {
-            const minEndDate = addDays(startDate, durationCount);
-            return date >= minEndDate;
-        } else if (durationType === "month") {
-            const minEndDate = addMonths(startDate, durationCount);
-            return date >= minEndDate;
-        } else if (durationType === "hour") {
-            const minEndDate = addHours(startDate, durationCount);
-            return date >= minEndDate;
+    useEffect(() => {
+        if (startDate) {
+            handleEndDateChange(startDate, durationCount);
         }
-
-        return true;
-    };
+    }, [startDate, durationCount, durationType]);
 
     const [urgentlyNeedTrainer, setUrgentlyNeedTrainer] = useState(false);
 
@@ -171,14 +158,31 @@ const PostTrainingSection = () => {
         }
     };
 
-    const handleAvailabilityChange = (event) => {
-        setAvailability(event.target.value);
+    const handleDurationTypeChange = (e) => {
+        setDurationType(e.target.value);
+        setDurationCount(''); // Reset the duration count when the type changes
     };
 
-    const handleTrainingTypeChange = (type) => {
-        setTrainingType(type);
-        setParticipantCount(0);
-        setDurationCount(0);
+    const handleTrainingTypeChange = (e) => {
+        setParticipantCount(''); // Reset participant count on training type change
+        setTrainingType(e.target.value);
+    };
+
+    const handleParticipantCountChange = (count) => {
+        setParticipantCount(count);
+    };
+
+
+    const handleInputCount = (e) => {
+        let value = e.target.value.replace(/^0+/, ''); // Remove leading zeros
+        value = value === '' ? '' : parseInt(value, 10); // Allow empty string or valid number
+        handleDurationCountChange(isNaN(value) ? '' : value);
+    };
+
+    const handleParticipantInputChange = (e) => {
+        let value = e.target.value.replace(/^0+/, ''); // Remove leading zeros
+        value = value === '' ? '' : parseInt(value, 10); // Allow empty string or valid number
+        handleParticipantCountChange(isNaN(value) ? '' : value); // Handle NaN by setting empty string
     };
 
     // const getCurrencySymbol = (countryCode) => {
@@ -218,35 +222,15 @@ const PostTrainingSection = () => {
     //     return `${currencySymbol} ${amountWithoutSymbol}`;
     // };
 
-
-    const topTopics = [
-        { value: 'python', label: 'Python' },
-        { value: 'java', label: 'Java' },
-        { value: 'c', label: 'c' },
-        { value: 'c++', label: 'C++' },
-        { value: 'react', label: 'React' },
-        { value: 'html', label: 'HTML' },
-        { value: 'css', label: 'CSS' },
-        { value: 'django', label: 'Django' },
-        { value: 'express', label: 'Express' }
-    ]
-
-
-
     const handleTrainingModeChange = (mode) => {
         setTrainingMode(mode);
-    };
-
-
-    const handleDurationTypeChange = (type) => {
-        setDurationType(type);
-        setDurationCount(0);
     };
 
     const trainingName = useRef()
     const description = useRef()
     const tocFile = useRef()
 
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handlePostTrainingSubmit = async () => {
         if (
@@ -267,6 +251,7 @@ const PostTrainingSection = () => {
             toast.error('Please fill in all required fields.');
             return; // Exit the function early if validation fails
         }
+        setIsSubmitting(true);
 
         let formData = new FormData();
         // Append fields to FormData
@@ -302,6 +287,8 @@ const PostTrainingSection = () => {
             toast.success('Your Training is posted successfully');
         } catch (error) {
             toast.error('An error occurred while posting your training. Please try again later.');
+        } finally {
+            setIsSubmitting(false);
         }
 
     }
@@ -340,25 +327,40 @@ const PostTrainingSection = () => {
     }
 
     const [selectedTopics, setSelectedTopics] = useState([]);
-    const [inputValue, setInputValue] = useState('');
+    const [inputValue, setInputValue] = useState("");
+    const [skills, setSkills] = useState([]);
 
-    const handleInputChange = (newValue) => {
-        setInputValue(newValue);
-    };
-
-    const handleInputKeyDown = (e) => {
-        if (e.key === 'Enter' && inputValue.trim() !== '') {
-            // Add the word as an option
-            const newOption = { value: inputValue, label: inputValue };
-            setSelectedTopics([...selectedTopics, newOption]);
-            // Clear the input value
-            setInputValue('');
-        }
-    };
+    useMemo(() => {
+        Axios.get(`${baseUrl}/trainer/skills`)
+            .then((resp) => {
+                const sortedSkills = resp.data?.skills.sort((a, b) =>
+                    a.name.localeCompare(b.name)
+                );
+                const formattedSkills = sortedSkills.map(skill => ({
+                    value: skill.name,
+                    label: skill.name
+                }));
+                setSkills(formattedSkills);
+            })
+            .catch((err) => console.log(err));
+    }, [baseUrl]);
 
     const handleTopicChange = (selectedOptions) => {
         setSelectedTopics(selectedOptions);
     };
+
+    const handleInputKeyDown = (e) => {
+        if (e.key === "Enter" && inputValue.trim() !== "") {
+            const newOption = { value: inputValue, label: inputValue };
+            setSelectedTopics([...selectedTopics, newOption]);
+            setInputValue("");
+        }
+    };
+
+    const handleInputChange = (newValue) => {
+        setInputValue(newValue)
+    };
+
 
     const description2 = useRef()
     const description3 = useRef()
@@ -372,6 +374,35 @@ const PostTrainingSection = () => {
             }
         }
     }
+
+    const handleFileUploadClick = () => {
+        tocFile.current.click();
+    };
+
+    const handleFileChange = (e) => {
+        if (e.target.files[0] !== undefined) {
+            let file = e.target.files[0];
+            setSelectedFileName(file.name);
+        }
+    };
+
+    const handleAvailabilityChange = (e) => {
+        const value = e.target.value;
+        setAvailability(value);
+        if (value === "unavailable" && tocFile.current) {
+            setSelectedFileName('');
+            tocFile.current.value = '';  // Clear the file input value
+        }
+    };
+
+    const handleLocationChange = (e) => {
+        const value = e.target.value;
+        // Allow only letters and spaces
+        const regex = /^[A-Za-z\s]*$/;
+        if (regex.test(value)) {
+            setOtherLocation(value);
+        }
+    };
 
     return (
         <div className="Requirements">
@@ -399,7 +430,7 @@ const PostTrainingSection = () => {
                                 className="h-auto"
                                 onChange={handleChange}
                                 id="description"
-                                placeholder="Enter your description here..."
+                                placeholder="Enter your description here"
                                 style={{ borderRadius: '0.4rem', minHeight: "2.4rem" }}
                                 autoComplete="off"
                                 required
@@ -415,9 +446,9 @@ const PostTrainingSection = () => {
                                     defaultValue={[]}
                                     isMulti
                                     name="colors"
-                                    options={topTopics}
+                                    options={skills}
                                     className="Multiselector"
-                                    placeholder="select Training Topics"
+                                    placeholder="Select Training Topics"
                                     styles={{
                                         placeholder: (provided) => ({
                                             ...provided,
@@ -432,7 +463,7 @@ const PostTrainingSection = () => {
                                 />
                             </div>
                         </div>
-                        <div className="Type_Of_Training ">
+                        <div className="Type_Of_Training">
                             <div className="text-[#333333] font-['Poppins']">Type Of Training *</div>
                             <div className="RadioTOT">
                                 <label className={`LLLabel ${trainingType === "Corporate Training" ? "active" : ""}`}>
@@ -441,7 +472,7 @@ const PostTrainingSection = () => {
                                         name="trainingType"
                                         value="Corporate Training"
                                         checked={trainingType === "Corporate Training"}
-                                        onChange={() => handleTrainingTypeChange("Corporate Training")}
+                                        onChange={handleTrainingTypeChange}
                                     />
                                     <h2>Corporate Training</h2>
                                 </label>
@@ -451,7 +482,7 @@ const PostTrainingSection = () => {
                                         name="trainingType"
                                         value="College Training"
                                         checked={trainingType === "College Training"}
-                                        onChange={() => handleTrainingTypeChange("College Training")}
+                                        onChange={handleTrainingTypeChange}
                                     />
                                     <h2>College Training</h2>
                                 </label>
@@ -461,88 +492,37 @@ const PostTrainingSection = () => {
                                         name="trainingType"
                                         value="Individual"
                                         checked={trainingType === "Individual"}
-                                        onChange={() => handleTrainingTypeChange("Individual")}
+                                        onChange={handleTrainingTypeChange}
                                     />
                                     <h2>Individual</h2>
                                 </label>
                             </div>
-                            {trainingType === "Corporate Training" && (
-                                <div className="ParticipantCount">
-                                    <h5 className="mt-[5px] mb-[0px] text-[#535353] font-['Poppins']">Select No Of Participents</h5>
-                                    <div className="RadioTOT_Count">
-                                        <button
-                                            onClick={() => setParticipantCount(Math.max(participantCount - 1, 0))}
-                                        >
-                                            -
-                                        </button>
-                                        <input
-                                            className="TOT_Input"
-                                            value={participantCount}
-                                            onChange={(e) => setParticipantCount(Math.max(parseInt(e.target.value) || 0, 0))}
-                                            style={{ width: `${Math.min((participantCount.toString().length * 8), maxCount)}px` }}
-                                            maxLength="3"
-                                        />
 
-                                        <button
-                                            onClick={() => setParticipantCount(participantCount + 1)}
-                                        >
-                                            +
-                                        </button>
-                                    </div>
-                                </div>
-                            )}
-                            {trainingType === "College Training" && (
+                            {(trainingType === "Corporate Training" || trainingType === "College Training" || trainingType === "Individual") && (
                                 <div className="ParticipantCount">
-                                    <h5 className="mt-[5px] mb-[0px] text-[#535353] font-['Poppins']">Select No Of Participents</h5>
+                                    <h5 className="mt-2 mb-2 text-535353 font-Poppins">
+                                        Select No Of Participants
+
+                                    </h5>
                                     <div className="RadioTOT_Count">
-                                        <button
-                                            onClick={() => setParticipantCount(Math.max(participantCount - 1, 0))}
-                                        >
-                                            -
-                                        </button>
+                                        <button onClick={() => handleParticipantCountChange(Math.max(participantCount - 1, 0))}>-</button>
                                         <input
-                                            className="TOT_Input"
+                                            className="Duration_Input placeholder-[#2676C2] placeholder:ps-2"
                                             value={participantCount}
-                                            onChange={(e) => setParticipantCount(Math.max(parseInt(e.target.value) || 0, 0))}
-                                            style={{ width: `${Math.min((participantCount.toString().length * 8), maxCount)}px` }}
+                                            onChange={handleParticipantInputChange}
+                                            style={{ width: `30px`, textAlign: 'center' }}
                                             maxLength="3"
+                                            placeholder="0"
+
                                         />
-                                        <button
-                                            onClick={() => setParticipantCount(Math.min(participantCount + 1,))}
-                                        >
-                                            +
-                                        </button>
-                                    </div>
-                                </div>
-                            )}
-                            {trainingType === "Individual" && (
-                                <div className="ParticipantCount">
-                                    <h5 className="mt-[5px] mb-[0px]">Select No Of Participents</h5>
-                                    <div className="RadioTOT_Count">
-                                        <button
-                                            onClick={() => setParticipantCount(Math.max(participantCount - 1, 0))}
-                                        >
-                                            -
-                                        </button>
-                                        <input
-                                            className="TOT_Input"
-                                            value={participantCount}
-                                            onChange={(e) => setParticipantCount(Math.max(parseInt(e.target.value) || 0, 0))}
-                                            style={{ width: `${Math.min((participantCount.toString().length * 8), maxCount)}px` }}
-                                            maxLength="3"
-                                        />
-                                        <button
-                                            onClick={() => setParticipantCount(participantCount + 1)}
-                                        >
-                                            +
-                                        </button>
+                                        <button onClick={() => handleParticipantCountChange(Math.min(participantCount + 1, 999))}>+</button>
                                     </div>
                                 </div>
                             )}
                         </div>
 
                         <div className="Mode_Of_Training">
-                            <div className="text-[#333333] font-['Poppins']">Mode of Training *</div>
+                            <div className="text-[#333333] font-['Poppins']">Mode Of Training *</div>
                             <div className="Radio_MOT">
                                 <label className={`LLLabel font-['Poppins'] ${trainingMode === "Online" ? "active" : ""}`}>
                                     <input
@@ -586,7 +566,7 @@ const PostTrainingSection = () => {
                                         <input
                                             type="text"
                                             value={otherLocation}
-                                            onChange={(e) => setOtherLocation(e.target.value)}
+                                            onChange={handleLocationChange}
                                             placeholder="Enter your location"
                                             className="mt-[10px] mb-[10px] text-[#2676C2] font-['Poppins'] text-[16px] p-1"
                                             style={{ border: '1px solid #CECECE', outline: 'none', borderRadius: '5px' }}
@@ -660,7 +640,7 @@ const PostTrainingSection = () => {
                                         name="durationType"
                                         value="hour"
                                         checked={durationType === "hour"}
-                                        onChange={() => setDurationType("hour")}
+                                        onChange={handleDurationTypeChange}
                                     />
                                     Hourly
                                 </label>
@@ -670,7 +650,7 @@ const PostTrainingSection = () => {
                                         name="durationType"
                                         value="day"
                                         checked={durationType === "day"}
-                                        onChange={() => setDurationType("day")}
+                                        onChange={handleDurationTypeChange}
                                     />
                                     Day
                                 </label>
@@ -680,7 +660,7 @@ const PostTrainingSection = () => {
                                         name="durationType"
                                         value="month"
                                         checked={durationType === "month"}
-                                        onChange={() => setDurationType("month")}
+                                        onChange={handleDurationTypeChange}
                                     />
                                     Month
                                 </label>
@@ -688,18 +668,21 @@ const PostTrainingSection = () => {
                             {(durationType === "day" || durationType === "month" || durationType === "hour") && (
                                 <div className="DurationCount">
                                     <h5 className="mt-2 mb-2 text-535353 font-Poppins">
-                                        Select No Of {durationType === "day" ? "Days" : "Months"}
+                                        Select No Of {durationType === "day" ? "Days" : durationType === "month" ? "Months" : "Houres"}
+
                                     </h5>
                                     <div className="Radio_Duration_Count">
                                         <button onClick={() => handleDurationCountChange(Math.max(durationCount - 1, 0))}>-</button>
                                         <input
-                                            className="Duration_Input"
+                                            className="Duration_Input placeholder-[#2676C2] placeholder:ps-2"
                                             value={durationCount}
-                                            onChange={(e) => handleDurationCountChange(parseInt(e.target.value) || 0)}
-                                            style={{ width: `${Math.min(durationCount.toString().length * 8, 60)}px` }}
+                                            onChange={handleInputCount}
+                                            style={{ width: `30px`, textAlign: 'center' }}
                                             maxLength="3"
+                                            placeholder="0"
+
                                         />
-                                        <button onClick={() => handleDurationCountChange(durationCount + 1)}>+</button>
+                                        <button onClick={() => handleDurationCountChange(Math.min(durationCount + 1, 999))}>+</button>
                                     </div>
                                 </div>
                             )}
@@ -743,7 +726,7 @@ const PostTrainingSection = () => {
                                         value={minBudget}
                                         onChange={(e) => setMinBudget(e.target.value.replace(/\D/, ''))}
                                         placeholder={placeholders[selectedCountry]}
-                                        maxLength="8"
+                                        maxLength="7"
                                         required
                                     />
                                     <input
@@ -757,7 +740,7 @@ const PostTrainingSection = () => {
                                         value={maxBudget}
                                         onChange={(e) => setMaxBudget(e.target.value.replace(/\D/, ''))}
                                         placeholder={placeholders[selectedCountry]}
-                                        maxLength="8"
+                                        maxLength="7"
                                         required
                                     />
                                 </span>
@@ -793,17 +776,19 @@ const PostTrainingSection = () => {
                                     <span className="For_Align_Upload">
                                         <h4>{selectedFileName || "Select File"}</h4>
                                         <FileUploadOutlinedIcon
-                                            sx={{ color: "#2676C2", fontSize: "1.3rem" }}
+                                            sx={{ color: "#2676C2", fontSize: "1.3rem", cursor: 'pointer' }}
+                                            onClick={handleFileUploadClick}
                                         />
                                     </span>
-                                    <input type="file" ref={tocFile} onChange={(e) => {
-                                        if (e.target.files[0] !== undefined) {
-                                            let file = e.target.files[0];
-                                            setSelectedFileName(file.name);
+                                    <input
+                                        type="file"
+                                        ref={tocFile}
+                                        onChange={handleFileChange}
+                                        style={{ cursor: 'pointer', display: 'none' }}
 
-                                        }
-                                    }} />
+                                    />
                                 </div>
+
                             )}
                         </div>
                         <div className="Training_Dates">
@@ -846,7 +831,7 @@ const PostTrainingSection = () => {
                                         dateFormat="dd/MM/yyyy"
                                         placeholderText="DD/MM/YYYY"
                                         ref={endDatePickerRef}
-                                        filterDate={filterEndDate}
+                                        filterDate={() => false}
                                     />
                                     <div className="CalenderIcon" onClick={() => handleCalendarIconClick(endDatePickerRef)}>
                                         <CalendarMonthOutlinedIcon color="#333" sx={{ cursor: 'pointer' }} />
@@ -880,8 +865,8 @@ const PostTrainingSection = () => {
                                     <span onClick={handleResetPostTraining}>Reset</span>
                                 </button>
                                 <button
-                                    style={{ borderRadius: "5px" }} onClick={handlePostTrainingSubmit} className="Submit_Btn flex justify-center items-center">
-                                    <span>SUBMIT</span>
+                                    style={{ borderRadius: "5px" }} onClick={handlePostTrainingSubmit} disabled={isSubmitting} className="Submit_Btn flex justify-center items-center">
+                                    <span>{isSubmitting ? 'Submitting...' : 'Submit'}</span>
                                 </button>
                             </div>
                         )}

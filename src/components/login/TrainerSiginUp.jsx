@@ -19,7 +19,7 @@ function TrainerSignUp() {
     const [open, setOpen] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const countries = ["French", "English", "Spanish", "German", "Italian", "Chinese"];
+    // const countries = ["French", "English", "Spanish", "German", "Italian", "Chinese"];
 
     const [errorMessage, setErrorMessage] = useState("");
     const trainer = useSelector(({ trainerSignUp }) => trainerSignUp?.trainerDetails, shallowEqual)
@@ -40,7 +40,10 @@ function TrainerSignUp() {
     });
     useMemo(() => {
         Axios.get(`${baseUrl}/trainer/skills`)
-            .then((resp) => setSkillsTopics(resp.data?.skills))
+            .then((resp) => {
+                const sortedSkills = resp.data?.skills.sort((a, b) => a.name.localeCompare(b.name));
+                setSkillsTopics(sortedSkills)
+            })
             .catch((err) => console.log(err))
     }, [])
 
@@ -88,9 +91,11 @@ function TrainerSignUp() {
                 errorMessage = "Should be between 2 and 32 characters";
             }
         } else if (name === "experience") {
-            filteredValue = value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
-            if (filteredValue.length > 2) {
-                errorMessage = "Should be a valid number less than 100";
+            // Allow up to two decimal places, but not exceed 100
+            const regex = /^(?:\d{1,2}(?:\.\d{1,2})?|100(?:\.0{1,2})?)$/;
+            filteredValue = value.replace(/[^0-9.]/g, ""); // Filter only valid numeric and decimal characters
+            if (!regex.test(filteredValue)) {
+                errorMessage = "experience Should be less than 100";
             }
         }
 
@@ -102,6 +107,7 @@ function TrainerSignUp() {
             }
         }));
     };
+
 
 
     const handleSubmit = (e) => {
@@ -116,9 +122,19 @@ function TrainerSignUp() {
             }
         });
 
+        // Validate experience field
+        const experienceValue = newValues.experience.value;
+        const experienceRegex = /^\d{0,2}(\.\d{1,2})?$/;
+        if (!experienceRegex.test(experienceValue) || parseFloat(experienceValue) > 100) {
+            newValues.experience.errorMessage = "Sholud be a valid experience";
+            hasError = true;
+        } else if (experienceValue.length > 2 && !experienceValue.includes(".")) {
+            newValues.experience.errorMessage = "Sholud be a valid experience";
+            hasError = true;
+        }
         // Validate skills separately
-        if (selectedSkills.length < 4) {
-            setErrorMessage("Please select at least 4 skills.");
+        if (selectedSkills.length < 2) {
+            setErrorMessage("Please select at least 2 skills.");
             hasError = true;
         } else {
             setErrorMessage("");
@@ -248,7 +264,7 @@ function TrainerSignUp() {
                                 : "English"}
                             <BiChevronDown size={30} className={`${open && "rotate-180"}`} />
                         </div>
-                        {open && (
+                        {/* {open && (
                             <ul className="absolute bg-[#2676c2] text-[#ffff] w-[190px]">
                                 {countries.map((country) => (
                                     <li
@@ -266,7 +282,7 @@ function TrainerSignUp() {
                                     </li>
                                 ))}
                             </ul>
-                        )}
+                        )} */}
                     </div>
                 </div>
             </div>
@@ -295,12 +311,12 @@ function TrainerSignUp() {
                             >
                                 <div>
                                     <label className="text-white font-[300] text-[16px]">
-                                        First Name*
+                                        Full Name*
                                     </label>
                                     <input
                                         onChange={handleOnChange}
                                         onKeyDown={handleEnter}
-                                        className="w-full h-[46px] bg-[#ffffff30] rounded-sm text-white placeholder: pl-[10px] placeholder:text-white placeholder:text-sm outline-none"
+                                        className="w-full h-[46px] bg-[#ffffff30] rounded-sm text-white placeholder: pl-[10px] placeholder:text-[#CECECE] placeholder:text-sm outline-none"
                                         type="text"
                                         minLength={2}
                                         maxLength={32}
@@ -318,14 +334,14 @@ function TrainerSignUp() {
                                 </div>
                                 <div className="space-y-3">
                                     <label className="text-white font-[300] text-[16px]">
-                                        Experience*
+                                        Experience (eg : 0-99years)*
                                     </label>
                                     <input
                                         onChange={handleOnChange}
                                         onKeyDown={handleEnter}
-                                        className="w-full h-[46px] bg-[#ffffff30] rounded-sm text-white placeholder: pl-[10px] placeholder:text-white placeholder:text-sm outline-none"
+                                        className="w-full h-[46px] bg-[#ffffff30] rounded-sm text-white placeholder: pl-[10px] placeholder:text-[#CECECE] placeholder:text-sm outline-none"
                                         type="text"
-                                        maxLength={2}
+                                        maxLength={4}
                                         required
                                         value={values.experience.value}
                                         name="experience"
@@ -333,11 +349,11 @@ function TrainerSignUp() {
                                         min="0"
                                         autoComplete='off'
                                     />
-                                    {/* {values.companyName.errorMessage && (
-                            <span className="text-red-700 text-sm">
-                                {values.companyName.errorMessage}
-                            </span>
-                            )} */}
+                                    {values.experience.errorMessage && (
+                                        <span className="text-red-700 text-sm">
+                                            {values.experience.errorMessage}
+                                        </span>
+                                    )}
                                 </div>
                                 <div className="space-y-3 ">
                                     <label className="text-white font-[300] text-[16px]">
@@ -381,7 +397,7 @@ function TrainerSignUp() {
 
                                             placeholder: (provided) => ({
                                                 ...provided,
-                                                color: 'var(--icon-color, #ffff)',
+                                                color: '#CECECE',
                                                 fontFamily: 'Poppins',
                                                 fontSize: '14px',
                                                 fontStyle: 'normal',

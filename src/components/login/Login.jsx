@@ -40,7 +40,7 @@ const Login = () => {
   const contactDetails = useState(Cookies.get("contactDetails"));
   const [selected, setSelected] = useState("");
   const [open, setOpen] = useState(false);
-  const countries = ["French", "English", "Spanish", "German", "Italian"];
+  // const countries = ["French", "English", "Spanish", "German", "Italian"];
   const [initialTimer, setInitialTimer] = useState(120);
   const [disableResend, setDisableResend] = useState(false);
   const navigate = useNavigate();
@@ -285,7 +285,7 @@ const Login = () => {
                   className={`${open && "rotate-180"}`}
                 />
               </div>
-              {open && (
+              {/* {open && (
                 <ul className=" absolute bg-[#2676c2] w-[130px] text-[#ffff] md:w-[190px] z-[3]">
                   {countries?.map((country) => (
                     <li
@@ -303,7 +303,7 @@ const Login = () => {
                     </li>
                   ))}
                 </ul>
-              )}
+              )} */}
 
             </div>
           </div>

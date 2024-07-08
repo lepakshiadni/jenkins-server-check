@@ -33,13 +33,13 @@ function RoleSelection() {
     navigate('/trainersignup')
   }
 
-  const countries = ["French", "Spanish", "English", "German", "Italian"];
+  // const countries = ["French", "Spanish", "English", "German", "Italian"];
   return (
     <>
       <div className="Role-selection-section ">
 
         <div className="RSHead flex p-8 items-center justify-between h-[100px]">
-          <img className='h-8 w-24 md:h-[80px] md:w-[190px]' src={HeaderLogo} alt="Header_Logo" />
+          <img className='h-[60px] w-[200px]' src={HeaderLogo} alt="Header_Logo" />
           <div className="Help flex gap-10 items-center">
             <svg
               width="32"
@@ -117,7 +117,7 @@ function RoleSelection() {
                   : "English"}
                 <BiChevronDown size={30} className={`${open && "rotate-180"}`} />
               </div>
-              {open && (
+              {/* {open && (
                 <ul className="absolute bg-white text-[#7B7B7B] w-[190px]">
                   {countries?.map((country) => (
                     <li
@@ -135,7 +135,7 @@ function RoleSelection() {
                     </li>
                   ))}
                 </ul>
-              )}
+              )} */}
             </div>
           </div>
         </div>

@@ -20,7 +20,7 @@ const TrainerProfileCropImg = (props) => {
             }
 
             // Check file size
-            if (file.size > 1 *1024* 1024) { // 100KB
+            if (file.size > 1 * 1024 * 1024) { // 100KB
                 alert("File size should be within 1024KB.");
                 fileInputRef.current.value = null;
                 return;
@@ -82,10 +82,10 @@ const TrainerProfileCropImg = (props) => {
                         <Cropper
                             ref={cropperRef}
                             zoomTo={0.5}
-                            initialAspectRatio={1} // Ensure initial aspect ratio is square
+                            aspectRatio={1} // Lock the aspect ratio to ensure circular cropping
                             src={image}
                             viewMode={1}
-                            minCropBoxHeight={200} // Minimum height for cropping area
+                            minCropBoxHeight={150} // Minimum height for cropping area
                             minCropBoxWidth={150} // Minimum width for cropping area
                             background={false}
                             responsive={true}
@@ -94,7 +94,9 @@ const TrainerProfileCropImg = (props) => {
                             guides={true}
                             crop={handleCropChange}
                             style={{ height: '100%', objectFit: 'contain' }}
+                            className="circle-cropper"
                         />
+
 
                         {!fileName && (
                             <input className="cursor-pointer" ref={fileInputRef} type="file" accept="image/*" onChange={handleFileChange} />
