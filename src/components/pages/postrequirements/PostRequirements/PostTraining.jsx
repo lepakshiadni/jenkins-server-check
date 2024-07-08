@@ -668,7 +668,7 @@ const PostTrainingSection = () => {
                             {(durationType === "day" || durationType === "month" || durationType === "hour") && (
                                 <div className="DurationCount">
                                     <h5 className="mt-2 mb-2 text-535353 font-Poppins">
-                                        Select No Of {durationType === "day" ? "Days" : durationType === "month" ? "Months" : "Houres"}
+                                        Select No Of {durationType === "day" ? "Days" : durationType === "month" ? "Months" : "Hours"}
 
                                     </h5>
                                     <div className="Radio_Duration_Count">
