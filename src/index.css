@@ -46,19 +46,21 @@ code {
   background: #e3e3e3;
 } */
 
-&::-webkit-scrollbar {
-  width: 4px;
+.Scroll::-webkit-scrollbar {
+  width: 2px;
+  /* height: 1px; */
+
   border-radius: 8px;
 }
 
- &::-webkit-scrollbar-track {
+.Scroll::-webkit-scrollbar-track {
   /* background-color: #f1f1f1; */
   border-radius: 8px;
 
 }
 
-&::-webkit-scrollbar-thumb {
-  background-color: #BFBFBF;
+.Scroll::-webkit-scrollbar-thumb {
+  background-color: #2676C233;
   border-radius: 8px;
 
 }

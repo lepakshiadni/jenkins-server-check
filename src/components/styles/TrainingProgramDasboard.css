@@ -223,16 +223,7 @@
   box-sizing: border-box;
 }
 
-.Stepper {
-  width: 85%;
-  height: 6rem;
-  margin: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* background: #2676C2; */
-  /* margin-top: 0%; */
-}
+
 
 .Notes p {
   width: 90%;

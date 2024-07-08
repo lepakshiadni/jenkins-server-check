@@ -41,6 +41,7 @@ import EmployerAccountPreferance from "../../settings/employerSetting/employerAc
 import EmployerLoginSecurity from "../../settings/employerSetting/employerLoginSecurity";
 import EmployerVisibility from "../../settings/employerSetting/employerVisibility";
 import EmployerNotifications from "../../settings/employerSetting/employerNotification";
+import EmployerCreatePostPopUp from "../../../utils/EmployerCreatePostPopUp";
 
 const DashboardApp = () => {
 
@@ -80,6 +81,7 @@ const DashboardApp = () => {
   const [selectedFilter, setSelectedFilter] = useState('');
   const [selectedFilter2, setSelectedFilter2] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
+  const [model, setModel] = useState(false)
 
   const [trainerDetails, setTrainerDetails] = useState([])
 
@@ -687,6 +689,21 @@ const DashboardApp = () => {
 
                 </div>
               </div>
+              <div>
+                <div
+                  className={` ${selectedOption === "Feed" ? "relative" : "hidden"
+                    }`}
+                >
+                  <button
+                    onClick={() => {
+                      setModel(true);
+                    }}
+                    className="w-[161px] h-[40px] bg-[#2676C2] border rounded-lg text-white text-base font-medium font-['Poppins']"
+                  >
+                    Create a post +
+                  </button>
+                </div>
+              </div>
 
 
             </div>
@@ -750,7 +767,15 @@ const DashboardApp = () => {
                 <Route path="help&support/sissoo-support" element={<HelpPage5 />} />
               </Routes>
             </div>
+
           </div>
+          {model && selectedOption === "Feed" ? (
+            <>
+              <EmployerCreatePostPopUp trigger={model} setTrigger={setModel} />
+            </>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </>
