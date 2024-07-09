@@ -9,6 +9,9 @@ import { useSelector } from "react-redux";
 const baseUrl = process.env.REACT_APP_API_URL;
 
 function Chat() {
+  const [hasUnreadMessages, setHasUnreadMessages] = useState(false);
+
+
   const [conversation, setConversation] = useState([]);
   const [currentChat, setCurrentChat] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -19,29 +22,46 @@ function Chat() {
   const [lastMessage, setLastMessage] = useState(null);
   const [user, setUser] = useState(null);
   const [onlineUser, setOnlineUser] = useState([]);
-  const [istyping, setIstyping] = useState(false);
-  const [notification, setNotification] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("")
-  // console.log("typing", istyping);
-  const fileInputRef = useRef(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [members, setMembers] = useState([]);
+  const [typingStatusConvo,setTypingStatusConvo] = useState(null);
+  // console.log(onlineUser, "onlineUser");
+  const [typingStatus, setTypingStatus] = useState(null);
 
-  const handleButtonClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
+  const fileInputRef = useRef(null);
+    // console.log(selectedConversation, "selectedConversation");
+  const employer = useSelector(
+    ({ employerSignUp }) => employerSignUp?.employerDetails
+  );
+  const trainer = useSelector(
+    ({ trainerSignUp }) => trainerSignUp?.trainerDetails
+  );
+
+
+  const markMessageAsRead = async (conversationId) => {
+    // console.log(conversationId, 'conversationId');
+    if(!conversationId) {
+        console.error('Invalid conversation ID:', conversationId);
+        return;
+    }
+    try {
+        const response = await Axios.put(
+            `${baseUrl}/conversation/markAsRead/${conversationId}`,
+            {},
+        );
+  
+        if (response.status === 200) {
+            // console.log('Message marked as read:', response.data);
+            // Emit a socket event to notify other users
+            socket.current.emit("readMessage", { conversationId, userId: user?._id });
+        } else {
+            console.error('Failed to mark message as read:', response.data.message);
+        }
+    } catch (error) {
+        console.error('Error marking message as read:', error);
     }
   };
-
-  // const handleFileChange = (e) => {
-  //   const selectedFile = e.target.files[0];
-  //   console.log('Selected File:', selectedFile);
-  // };
-
-  const employer = useSelector(({ employerSignUp }) => {
-    return employerSignUp?.employerDetails;
-  });
-  const trainer = useSelector(({ trainerSignUp }) => {
-    return trainerSignUp?.trainerDetails;
-  });
+  
 
   useEffect(() => {
     if (employer?.success) {
@@ -52,66 +72,63 @@ function Chat() {
     }
   }, [employer, trainer]);
 
-
   const lastMessageRef = useRef(null);
   const socket = useRef();
 
-  // console.log("currentChat", currentChat);
+  // // console.log("currentChat", currentChat);
 
   useEffect(() => {
-    socket.current = io(`http://13.235.90.102:4040`, { 
+    socket.current = io(`http://localhost:4040`, {
       transports: ["websocket"],
       withCredentials: true,
       extraHeaders: {
         "my-custom-header": "value",
       },
     });
-
+    return () => {
+      socket.current.disconnect();
+    };
   }, []);
   useEffect(() => {
     if (user) {
       socket.current.emit("addUser", user?._id);
       socket.current.on("getUsers", (users) => {
-        console.log(users);
+        // console.log(users);
+        setOnlineUser(users.filter((u) => u.userId !== user?._id));
       });
     }
   }, [user]);
 
   useEffect(() => {
-    //receive message  from server
     socket.current.on("getMessage", (data) => {
       setArrivalMessage({
         sender: data.senderId,
         text: data.text,
         createdAt: Date.now(),
       });
-
-      // Debounce incoming messages to update state less frequently
-      // const timeout = setTimeout(() => {
-      //   setArrivalMessage((prev) => [...prev, data]);
-      // }, 300);
-
-      // return () => clearTimeout(timeout);
-      console.log("data form server ", data)
     });
-    return () => {
-      socket.current.off('getMessage');
-    };
-  }, []);
 
+    return () => {
+      socket.current.off("getMessage");
+    };
+  }, [user]);
+  useEffect(() => {
+    socket.current.on("typing", (data) => {
+      setTypingStatus(data.senderId);
+      setTypingStatusConvo(data.senderId);
+      // console.log("Typing", data);
+    });
+
+    socket.current.on("stopTyping", (data) => {
+      setTypingStatus(false);
+      setTypingStatusConvo(false);
+    });
+  });
   useEffect(() => {
     arrivalMessage &&
       currentChat?.members?.includes(arrivalMessage.sender) &&
       setMessages((prev) => [...prev, arrivalMessage]);
-    // Process arrivalMessages and update state accordingly
-    // if (arrivalMessage?.length > 0) {
-    //   // Process and update state with the batch of messages
-    //   setMessages((prevMessages) => [...prevMessages, ...arrivalMessage]);
-    //   setArrivalMessage([]);
-    // }
   }, [arrivalMessage, currentChat]);
-
-
 
   useEffect(() => {
     // Listen for the updateLastMessage event
@@ -122,9 +139,9 @@ function Chat() {
           prev.map((c) =>
             c._id === conversationId
               ? {
-                ...c,
-                lastMessage: lastMessage,
-              }
+                  ...c,
+                  lastMessage: lastMessage,
+                }
               : c
           )
         );
@@ -132,15 +149,11 @@ function Chat() {
     );
   }, [arrivalMessage, messages]);
 
-
-
-
   useEffect(() => {
     if (user) {
+      socket.current.emit("addUser", user?._id);
       socket.current.on("getUsers", (users) => {
-        // Filter out the current user's ID from the list of online users
-        const filteredUsers = users.filter((u) => u.userId !== user?._id);
-        setOnlineUser(filteredUsers);
+        setOnlineUser(users.filter((u) => u.userId !== user?._id));
       });
     }
     // Clean up the event listener when the component unmounts
@@ -151,16 +164,17 @@ function Chat() {
     };
   }, [user]);
 
+
   useEffect(() => {
     const getconversation = async () => {
       if (user) {
         await Axios.get(`${baseUrl}/conversation/getConversation/${user?._id}`)
           .then((resp) => {
-            // console.log(resp.data);
+            // // console.log(resp.data);
             setConversation(resp.data.conversation);
           })
           .catch((err) => {
-            console.log(err);
+            // console.log(err);
           });
       }
     };
@@ -171,11 +185,11 @@ function Chat() {
     const getmessage = async () => {
       await Axios.get(`${baseUrl}/message/allMessage/${currentChat?._id}`)
         .then((resp) => {
-          // console.log(resp.data.messages);
+          // console.log(resp.data.messages,"messages");
           setMessages(resp.data.messages);
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
     };
     getmessage();
@@ -200,7 +214,6 @@ function Chat() {
       return;
     }
     if (newmessage?.length > 1) {
-
       const message = {
         sender: user?._id,
         text: newmessage,
@@ -214,13 +227,14 @@ function Chat() {
       });
 
       try {
-        await Axios.post(`${baseUrl}/message/addMesage`, message).then((resp) => {
-          setMessages([...messages, resp.data.savedMessage]);
-          setNewmessage(" ");
-
-        });
+        await Axios.post(`${baseUrl}/message/addMesage`, message).then(
+          (resp) => {
+            setMessages([...messages, resp.data.savedMessage]);
+            setNewmessage("");
+          }
+        );
       } catch (err) {
-        console.log(err);
+        // console.log(err);
       }
       try {
         await Axios.put(
@@ -228,36 +242,41 @@ function Chat() {
           { lastMessage: message }
         )
           .then((resp) => {
-            console.log(resp.data);
+            // // console.log(resp.data, "lastMessage");
+            setMembers(resp.data.updatedConversation?.members);
             setLastMessage(resp.data.updatedConversation?.lastMessage?.text);
           })
           .catch((error) => {
-            console.log(error);
+            // console.log(error);
           });
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
-    }
-    else {
-      alert('Please enter a valid message')
+    } else {
+      alert("Please enter a valid message");
     }
   };
   //for getting receiver Id
   const getRecipientId = (members) => {
     return members?.find((member) => member?._id !== user?._id)?._id;
   };
-  // Emit typing event when user starts typing
-  const handleTyping = () => {
-    socket.current.emit("typing", {
+  const handleFocus = () => {
+    // console.log("Typing");
+    setTypingStatus(true);
+    setTypingStatusConvo(true);
+    socket.current.emit("sendTyping", {
       conversationId: currentChat?._id,
       senderId: user?._id,
       receiverId: getRecipientId(currentChat?.members),
+      text: "Typing...",
     });
   };
 
-  // Emit stopped typing event when user stops typing
-  const handleStoppedTyping = () => {
-    socket.current.emit("stoppedTyping", {
+  const handleBlur = () => {
+    // console.log("Stopped Typing");
+    setTypingStatus(false);
+    setTypingStatusConvo(false);
+    socket.current.emit("stopTyping", {
       conversationId: currentChat?._id,
       senderId: user?._id,
       receiverId: getRecipientId(currentChat?.members),
@@ -284,8 +303,21 @@ function Chat() {
         member?.fullName?.toLowerCase().includes(searchQuery.toLowerCase())
     )
   );
-
-  console.log('conversation', conversation);
+  useEffect(() => {
+    if (user) {
+      socket.current.emit("addUser", user?._id);
+      socket.current.on("getUsers", (users) => {
+        setOnlineUser(users.filter((u) => u.userId !== user?._id));
+      });
+    }
+    // Clean up the event listener when the component unmounts
+    return () => {
+      if (user) {
+        socket.current.off("getUsers");
+      }
+    };
+  }, [user]);
+  // // console.log('conversation', user?._id);
 
   return (
     <div className="Rectangle111  w-[100%] h-[75vh]  bg-white rounded-lg border border-zinc-300 flex gap-[4px]  ">
@@ -307,81 +339,57 @@ function Chat() {
           </form>
           <div className="messageChat  mt-[10px] w-full">
             <div className=" w-[317px] h-[60vh] bg-white   flex flex-col">
-              {/* {conversation?.map((c, index) => {
-                return (
-                  <div
-                    key={index}
-                    onClick={() => {
-                      // setCurrentChat((prevChat) => {
-                      //   if (prevChat === c) {
-                      //     return; // Toggle off if the conversation is already selected
-                      //   }
-                      //   setSelectedConversation(c?._id); // Set the selected conversation ID
-                      //   // return c;
-                      // });
-                      setCurrentChat(c);
-                      setSelectedConversation(c?._id);
-                    }}
-                  >
-                    <Conversation
-                      conversation={c}
-                      currentuser={user}
-                      selectedConversation={selectedConversation === c?._id}
-                      lastMessage={lastMessage}
-                      onlineUser={onlineUser}
-                    />
-                  </div>
-                );
-              })} */}
-              {
-                conversation?.length > 0 ?
-                  <>
-
-                    {filteredConversations?.length === 0 || undefined ? (
-                      <div className="flex items-center justify-center h-[50%]">
-                        <p className="text-gray-500">No conversations found.</p>
-                      </div>
-                    ) : (
-                      <div>
-
-                        {
-                          filteredConversations?.map((c, index) => {
-                            return (
-                              <div
-                                key={index}
-                                onClick={() => {
-                                  setCurrentChat(c);
-                                  setSelectedConversation(c?._id);
-                                }}
-                              >
-                                <Conversation
-                                  conversation={c}
-                                  currentuser={user}
-                                  selectedConversation={selectedConversation === c?._id}
-                                  lastMessage={lastMessage}
-                                  onlineUser={onlineUser}
-                                />
-                              </div>
-                            );
-                          })
-                        }
-                      </div>
-                    )}
-                  </>
-                  :
-                  <div className="h-[50%] flex justify-center items-center "  >
-                    <span className="items-center">
+              {conversation?.length > 0 ? (
+                <>
+                  {filteredConversations?.length === 0 || undefined ? (
+                    <div className="flex items-center justify-center h-[50%]">
+                      <p className="text-gray-500">No conversations found.</p>
+                    </div>
+                  ) : (
+                    <div>
+                      {filteredConversations?.map((c, index) => {
+                        return (
+                          <div
+                            key={index}
+                            onClick={() => {
+                                setSelectedConversation(c?._id);
+                                // markMessageAsRead(selectedConversation)
+                                setCurrentChat(c);
+                                // window.location.reload();
+                            }}
+                          >
+                            <Conversation
+                              hasUnreadMessages={hasUnreadMessages} 
+                              conversation={c}
+                              currentuser={user}
+                              selectedConversation={
+                                selectedConversation === c?._id
+                              }
+                              lastMessage={lastMessage}
+                              onlineUser={onlineUser}
+                              selecteduser={selectedUser}
+                              typingStatus={typingStatusConvo}
+                              members={members}
+                            />
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                </>
+              ) : (
+                <div className="h-[50%] flex justify-center items-center ">
+                  <span className="items-center">
                     No Conversation Available
-                    </span>
-                  </div>
-
-              }
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         </div>
       </div>
 
-      {currentChat._id ? (
+      {currentChat._id  ? (
         <div className="w-9/12 ">
           <div className=" w-auto  h-[70vh] rounded border mt-[20px] mb-[20px]  mr-[20px]  flex flex-col ">
             <div className="flex">
@@ -407,6 +415,19 @@ function Chat() {
               <div className="Julia text-gray-800 text-xl font-medium font-['Poppins'] mt-[25px] ml-[20px]">
                 {selectedUser?.basicInfo?.firstName || selectedUser?.fullName}
               </div>
+              <div
+                className="w-[170px] h-[43px] ml-[10px] mt-[15px]"
+                style={{ textAlign: "right", alignContent: "center" }}
+              >
+                <p className="text-gray-600 text-sm">
+                  {onlineUser.find((user) => user.userId === selectedUser?._id)
+                    ? "Online"
+                    : "Offline"}
+                </p>
+                {typingStatus == selectedUser?._id && (
+                  <p className="text-gray-600 text-sm">Typing...</p>
+                )}
+              </div>
             </div>
 
             <div className="Line10 w-[600px] h-[0px] ml-[20px] mt-[10px] border border-zinc-100 border-opacity-80" />
@@ -417,9 +438,11 @@ function Chat() {
                   return (
                     <div key={index}>
                       <Messages
+                      unreadMsgValue={(value) => setHasUnreadMessages(value)} 
                         messages={m}
                         own={m.sender === user?._id}
                         selecteduser={selectedUser}
+                        typingStatus={typingStatus}
                       />
                     </div>
                   );
@@ -427,7 +450,7 @@ function Chat() {
               </div>
               <div ref={lastMessageRef} />
             </div>
-
+            <div style={{marginLeft:"10px", marginBottom:"10px"}}>{typingStatus == selectedUser?._id ? "Typing...." : null}</div>
             <div className="">
               <form className="" onSubmit={handlesubmit}>
                 <div className="relative flex w-auto  border border-t ">
@@ -440,33 +463,9 @@ function Chat() {
                       onChange={(e) => {
                         setNewmessage(e.target.value);
                       }}
-                      onKeyDown={handleTyping}
-                      onKeyUp={handleStoppedTyping}
+                      onFocus={handleFocus}
+                      onBlur={handleBlur}
                     />
-                    {/* <div className=" absolute left-[80%]">
-                      <div onClick={handleButtonClick}>
-                        <button className="h-[58px] ">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="19"
-                            height="20"
-                            viewBox="0 0 19 20"
-                            fill="none"
-                          >
-                            <path
-                              d="M16.7655 1.36747C14.9422 -0.455823 11.9451 -0.455823 10.1218 1.36747L0.131127 11.3331C-0.043709 11.508 -0.043709 11.7827 0.131127 11.9575C0.305963 12.1324 0.580706 12.1324 0.755542 11.9575L10.7462 1.99188C12.2448 0.493288 14.6675 0.493288 16.1411 1.99188C16.8654 2.7162 17.2651 3.66531 17.2651 4.68935C17.2651 5.71339 16.8654 6.6625 16.1411 7.38683L12.8192 10.7087L5.12644 18.4015C4.20231 19.3256 2.72869 19.3256 1.80456 18.4015C1.77958 18.3765 1.75461 18.3515 1.70465 18.2766C0.880425 17.3525 0.930378 15.9538 1.80456 15.0796L9.49735 7.38683L12.7943 4.08992C12.9691 3.91508 13.1689 3.84015 13.3937 3.84015C13.6185 3.84015 13.8433 3.94006 13.9931 4.08992C14.3178 4.41461 14.3178 4.9641 13.9931 5.31377L7.1995 12.1574C7.02466 12.3322 7.02466 12.6069 7.1995 12.7818C7.37434 12.9566 7.64908 12.9566 7.82391 12.7818L14.6425 5.96316C15.3169 5.28879 15.3169 4.16485 14.6425 3.49048C14.3178 3.16578 13.8682 2.99095 13.4187 2.99095C12.9441 2.99095 12.5195 3.16578 12.1948 3.49048L1.20512 14.4802C0.00624418 15.6791 -0.0686857 17.6022 1.03028 18.8511C1.08024 18.926 1.13019 18.976 1.20512 19.0509C1.80456 19.6503 2.62879 20 3.47799 20C4.35217 20 5.15142 19.6753 5.75086 19.0509L6.79988 18.0019L16.7655 8.03622C17.6397 7.16204 18.1392 5.96316 18.1392 4.71433C18.1392 3.44052 17.6397 2.24165 16.7655 1.36747Z"
-                              fill="#888888"
-                            />
-                          </svg>
-                        </button>
-                        <input
-                            type="file"
-                            style={{ display: 'none' }}
-                            ref={fileInputRef}
-                            onChange={handleFileChange}
-                          />
-                      </div>
-                    </div> */}
                   </div>
                   <button
                     className="absolute right-0 w-[92px] h-[54px] bg-[#2676C2] rounded-br-lg  "
