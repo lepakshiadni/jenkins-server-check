@@ -174,7 +174,7 @@ const Login = () => {
       navigate('/createsucess')
 
     }
-    if (user?.message === "newUser") {
+    if (user?.message === "New user") {
       toast.success(user?.message, {
         style: {
           backgroundColor: "#ffff",
