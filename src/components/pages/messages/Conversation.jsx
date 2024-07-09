@@ -1,28 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Axios from "axios";
 import timesago from "timesago";
 import { io } from "socket.io-client";
 
 const baseUrl = process.env.REACT_APP_API_URL;
 
-function Conversation({ conversation, currentuser, selectedConversation, lastMessage, onlineUser, typingStatus, members }) {
+function Conversation({ hasUnreadMessages, conversation, currentuser, selectedConversation, lastMessage, onlineUser, typingStatus, members }) {
   const [user, setUser] = useState(null);
   const [lastmessage, setLastmessage] = useState("");
   const [timeAgo, setTimeAgo] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [socket, setSocket] = useState(null);
   const [lastMessageStatus, setLastMessageStatus] = useState(null);
+  const [unreadMessageCount, setUnreadMessageCount] = useState(0);
+  const [x, setX] = useState(0);
 
   const [activeTypingUser, setActiveTypingUser] = useState(null);
-  console.log(typingStatus, "members");
+  const isFetching = useRef(false);
+
   useEffect(() => {
-    if(typingStatus) {
+    if (typingStatus) {
       setActiveTypingUser(typingStatus);
-    }
-    else{
+    } else {
       setActiveTypingUser(null);
     }
-  },[typingStatus])
+  }, [typingStatus]);
+
   useEffect(() => {
     const newSocket = io('http://localhost:4040');
     setSocket(newSocket);
@@ -37,29 +40,31 @@ function Conversation({ conversation, currentuser, selectedConversation, lastMes
     setUser(friendid);
 
     const fetchLastMessage = async () => {
+      if (isFetching.current) return;
+      isFetching.current = true;
       try {
         const response = await Axios.get(`${baseUrl}/conversation/lastMessage/${conversation._id}`);
         setLastmessage(response.data?.lastMessage?.lastMessage);
+        setUnreadMessageCount(response.data?.unreadCount);
         setLastMessageStatus(response.data);
+        setX(response.data?.unreadCount);
       } catch (error) {
         console.error("Error fetching last message:", error);
       }
+      isFetching.current = false;
     };
+
     fetchLastMessage();
 
     if (socket) {
-      console.log(socket, "socket");
       socket.on("getMessage", (data) => {
-        console.log(data, "data")
         if (data.conversationId === conversation._id) {
           setLastmessage(data);
         }
       });
 
       socket.on("sendTyping", (data) => {
-        console.log("send typing called");
         if (data.conversationId === conversation._id) {
-          console.log(data, "send typing data");
           setIsTyping(true);
           setActiveTypingUser(data?.senderId);
         }
@@ -71,7 +76,7 @@ function Conversation({ conversation, currentuser, selectedConversation, lastMes
         }
       });
     }
-  }, [conversation, currentuser, lastMessage, socket]);
+  }, [conversation, currentuser, lastmessage, socket]);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -87,21 +92,10 @@ function Conversation({ conversation, currentuser, selectedConversation, lastMes
     return () => clearInterval(intervalId);
   }, [lastmessage]);
 
-  useEffect(() => {
-    if (activeTypingUser) {
-      console.log("custom console message")
-      console.log("user Id", user?._id);
-      console.log("sender id", activeTypingUser);
-    }
-  },[activeTypingUser])
-
   const isUserOnline = onlineUser?.some((u) => u.userId === user?._id);
 
-  // Check if the last message was sent to the current user and is unread
-  const hasUnreadMessages = lastmessage && lastmessage.senderId === currentuser?._id && !lastmessage.isRead;
-
   return (
-    <div className={`${selectedConversation ? "Rectangle115 hover:cursor-pointer w-full h-[70px] flex justify-between justify-items-center bg-[#E3E3E3]" : "Rectangle115 hover:cursor-pointer w-[317px] h-[70px] flex justify-between justify-items-center bg-white"} ${hasUnreadMessages ? "bg-yellow-200" : ""}`}>
+    <div className={`${selectedConversation ? "Rectangle115 hover:cursor-pointer w-full h-[70px] flex justify-between justify-items-center bg-[#E3E3E3]" : "Rectangle115 hover:cursor-pointer w-[317px] h-[70px] flex justify-between justify-items-center bg-white"} ${(!hasUnreadMessages && (unreadMessageCount != 0) && lastmessage.sender == user?._id) ? "bg-red-100" : ""}`}>
       <div className="flex">
         <div className="mt-[12px] ml-[10px]">
           <div className="Group1189 w-[51px] h-[51px] rounded-[50%] relative">
@@ -138,8 +132,7 @@ function Conversation({ conversation, currentuser, selectedConversation, lastMes
             {user?.basicInfo?.firstName || user?.fullName}
           </div>
           <div className="Typing text-neutral-500 text-xs font-normal font-['Poppins']">
-
-            {user?._id == activeTypingUser ? "Typing..." : lastmessage ? lastmessage?.text : "No messages"}
+            {user?._id == activeTypingUser ? "Typing..." : lastmessage ? lastmessage?.text.slice(0, 10) + "..." : "No messages"}
           </div>
         </div>
       </div>
@@ -148,6 +141,10 @@ function Conversation({ conversation, currentuser, selectedConversation, lastMes
           {timeAgo}
         </div>
       </div>
+
+      {!hasUnreadMessages && (unreadMessageCount != 0) && lastmessage.sender == user?._id && <div className="w-5 h-5 flex text-sm relative right-2 top-2 justify-center items-center text-white bg-red-500 rounded-full">
+        {unreadMessageCount}
+      </div>}
     </div>
   );
 }
