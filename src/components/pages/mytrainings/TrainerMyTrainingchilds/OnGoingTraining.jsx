@@ -18,8 +18,9 @@ const OngoingTraining = ({ ongoing }) => {
   const [activeSteps, setActiveSteps] = useState([1, 2]);
   const [fileData, setFileData] = useState([])
   const [seletedTraining, setSeletedTraining] = useState(null)
-  const addFile = () => {
+  const addFile = (seletedTraining) => {
     setIsVisible(!isVisible);
+    setSeletedTraining(seletedTraining)
   };
   const calculateProgressBarWidth = () => {
     const totalSteps = 3; // Update this based on the total number of steps
@@ -36,7 +37,7 @@ const OngoingTraining = ({ ongoing }) => {
     setFileData(updatedFileData);
   };
 
-  const saveFile = async (trainingDetails) => {
+  const saveFile = async () => {
     if (currentFileName && fileAttachment) {
       const newFile = { name: currentFileName, attachment: fileAttachment };
       setFileData([...fileData, newFile]);
@@ -44,12 +45,13 @@ const OngoingTraining = ({ ongoing }) => {
       setCurrentFileName("");
       setFileAttachment(null);
       setIsVisible(true);
-      setSeletedTraining(trainingDetails)
+      // setSeletedTraining(trainingDetails)
       // console.log('fileName', newFile?.attachment?.name)
       console.log("File Uploaded:", newFile);
     }
   };
   console.log('filedata', fileData)
+  console.log('selectedTraining',seletedTraining)
 
   const addresourcesHandler = () => {
     const formData = new FormData()
@@ -145,15 +147,6 @@ const OngoingTraining = ({ ongoing }) => {
                         <div className="flex w-[30%] flex-col gap-[0.4rem]">
                           <h1
                           className="text-[#333] text-[1.125rem] font-[600] m-0"
-                            // style={{
-                            //   color: "#333",
-                            //   fontFamily: "Poppins",
-                            //   fontSize: "1.125rem",
-                            //   fontStyle: "normal",
-                            //   fontWeight: "600",
-                            //   lineHeight: "normal",
-                            //   margin: "0",
-                            // }}
                           >
                             Posted By
                           </h1>
@@ -174,7 +167,7 @@ const OngoingTraining = ({ ongoing }) => {
                                   :
                                   <div className="w-[4rem] h-[4rem] rounded-full flex justify-center items-center bg-[#f4f6f7]">
                                     <span className=" capitalize">
-                                      {trainingPostDetails?.postedByName[0]}
+                                      {trainingPostDetails?.postedByName?.[0]}
                                     </span>
                                   </div>
                               }
@@ -236,7 +229,7 @@ const OngoingTraining = ({ ongoing }) => {
                               gap:'10px',
                               alignItems: "center",
                             }}
-                            onClick={addFile}
+                            onClick={()=>{addFile(_id)}}
                           >
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -244,14 +237,14 @@ const OngoingTraining = ({ ongoing }) => {
                               height="60"
                               viewBox="0 0 60 60"
                               fill="none"
-                              onClick={addFile}
+                              onClick={()=>{addFile(_id)}}
                             >
                               <circle
                                 cx="30"
                                 cy="30"
                                 r="30"
                                 fill="#E8E8E8"
-                                onClick={addFile}
+                                onClick={()=>{addFile(_id)}}
                               />
                             </svg>
                             <span
@@ -278,8 +271,8 @@ const OngoingTraining = ({ ongoing }) => {
                                 />
                               </svg>
                             </span>
-                            <div className="Step2content" onClick={addFile}>
-                              <p onClick={addFile}>Click To Add Resources File</p>
+                            <div className="Step2content" onClick={()=>{addFile(_id)}}>
+                              <p onClick={()=>{addFile(_id)}}>Click To Add Resources File</p>
                             </div>
                           </div>
                           {isVisible && (
@@ -405,7 +398,7 @@ const OngoingTraining = ({ ongoing }) => {
 
                                       <div className="saveButtonContainer">
                                         <button
-                                          onClick={() => { saveFile(_id) }}
+                                          onClick={saveFile}
                                           className="saveButton"
                                           disabled={!currentFileName || !fileAttachment}
                                         >

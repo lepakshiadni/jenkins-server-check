@@ -81,6 +81,7 @@ const trainingDetails={
 trainerId:trainderId,
 trainingDetails:{
   trainingPostDetails:selectedPost,
+  // _id:selectedPost?.postedById
 }
 }
 const  applyHandler=async()=>{
@@ -100,7 +101,7 @@ const  applyHandler=async()=>{
 return trigger ? (
 <>
 <div className="TrainerApplyPopup h-screen flex justify-center items-center ">
-  <div className=" w-6/12 m-auto h-[80%] bg-white rounded-[20px]">
+  <div className=" w-6/12 m-auto h-[90vh] bg-white rounded-[20px]">
     <div
       className=" mr-[10px] mt-[10px] "
       style={{
@@ -154,14 +155,14 @@ return trigger ? (
           <div>
             <p>Training Topics & Subjects</p>
             {/* <p className="same">Java, Js, Python, React Native</p> */}
-            <div className="flex   gap-2">
+            <div className="flex gap-2 text-ellipsis overflow-hidden whitespace-nowrap ">
 
               {
                 selectedPost?.topics?.slice(0, 5)?.map((topic) => {
                   return (
                     // <p className="flex">{topic}</p>
                     <div className="">
-                      <p className="capitalize text-[#535353] text-sm">{topic},</p>
+                      <p className="capitalize text-[#535353] text-sm">{topic}</p>
                     </div>
                   )
                 })
