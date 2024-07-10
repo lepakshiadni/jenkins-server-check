@@ -465,16 +465,16 @@ const EmployerPosted = () => {
                                                     </div>
 
                                                 }
-                                                <div className="flex flex-col ">
+                                                <div className="flex flex-col w-[50%] ">
                                                   <div className="flex space-x-1 items-center">
-                                                    <span className="text-sm flex" >
+                                                    <span className="text-sm  text-ellipsis overflow-hidden whitespace-nowrap" >
                                                       {applicantName}
                                                     </span>
                                                     <span className="text-sm text-[#2676c2]">
                                                       <MdVerified />
                                                     </span>
                                                   </div>
-                                                  <span className="text-sm">
+                                                  <span className="text-sm text-ellipsis overflow-hidden whitespace-nowrap">
                                                     {applicantDesignation}
                                                   </span>
                                                 </div>
@@ -482,7 +482,7 @@ const EmployerPosted = () => {
                                               </div>
                                               {
                                                 application === 'Pending' ? <div className="mr-[10px]">
-                                                  <div className="space-x-7">
+                                                  <div className="space-x-3">
                                                     <button
                                                       onClick={() => { dispatch(updatedApplicationStatus(appliedBy, training?._id, 'Accepted')) }}
                                                       className="bg-green-600 text-white font-medium text-sm h-[25px] w-[60px] rounded-[5px]">
