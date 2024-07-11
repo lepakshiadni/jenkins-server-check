@@ -8,6 +8,7 @@ const TrainerProfileCropImg = (props) => {
     const [fileName, setFileName] = useState(null);
     const cropperRef = useRef(null);
     const fileInputRef = useRef(null)
+    const [isCircular, setIsCircular] = useState(true);
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -82,11 +83,12 @@ const TrainerProfileCropImg = (props) => {
                         <Cropper
                             ref={cropperRef}
                             zoomTo={0.5}
-                            aspectRatio={1} // Lock the aspect ratio to ensure circular cropping
+                            initialAspectRatio={isCircular ? 1 : 1} // Set aspect ratio for circular or rectangular
+                            aspectRatio={isCircular ? 1 : 1} // Explicit aspect ratio setting
                             src={image}
                             viewMode={1}
-                            minCropBoxHeight={150} // Minimum height for cropping area
-                            minCropBoxWidth={150} // Minimum width for cropping area
+                            minCropBoxHeight={1}
+                            minCropBoxWidth={1}
                             background={false}
                             responsive={true}
                             autoCropArea={1}
@@ -94,7 +96,7 @@ const TrainerProfileCropImg = (props) => {
                             guides={true}
                             crop={handleCropChange}
                             style={{ height: '100%', objectFit: 'contain' }}
-                            className="circle-cropper"
+                            className={isCircular ? 'cropper-circular' : 'cropper-rectangular'}
                         />
 
 

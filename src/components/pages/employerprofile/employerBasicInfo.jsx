@@ -216,6 +216,11 @@ const EmployerBasicInfo = () => {
     const handleCase0Data = async (e) => {
         e.preventDefault();
         const formData = new FormData();
+        
+        if (!isValidAge) {
+            toast.error('Please enter a valid age between 21 and 60');
+            return; // Stop form submission
+        }
         // const fileInput = profileImg.current;
         // const fileInput2 = profileBanner.current;
 
@@ -240,10 +245,10 @@ const EmployerBasicInfo = () => {
 
     };
 
-    const handleChange = (setter, pattern, name, maxLength = Infinity) => (e) => {
+    const handleChange = (setter, pattern) => (e) => {
         const { value } = e.target;
         // Apply the specified pattern for validation and ensure length does not exceed maxLength
-        if (pattern.test(value) && (name !== "age" || value.length <= maxLength)) {
+        if (pattern.test(value)) {
             setter(value);
         }
     };
@@ -254,6 +259,19 @@ const EmployerBasicInfo = () => {
         if (!/\d{5}/.test(value)) {
             setObjective(value);
         }
+    };
+
+    const [isValidAge, setIsValidAge] = useState(true);
+
+    const handleAgeChange = (e) => {
+        const newAge = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+        setAge(newAge);
+        validateAge(newAge);
+    };
+
+    const validateAge = (number) => {
+        const numericValue = parseInt(number, 10);
+        setIsValidAge(number === '' || (numericValue >= 21 && numericValue <= 60));
     };
 
     return (
@@ -480,17 +498,19 @@ const EmployerBasicInfo = () => {
                                 <label htmlFor="">Age <span className="text-[#CECECE]">(eg: 21-60)</span></label>
                                 <br />
                                 <input
-                                    style={{ width: "508px" }}
-                                    type="number"
+                                    style={{ width: "508px", borderColor: isValidAge ? '#CECECE' : 'red' }}
+                                    type="tel"
+                                    maxLength="2"
+                                    minLength="2"
                                     value={age}
-                                    onChange={handleChange(setAge, /^[0-9]*$/, 'age', 3)} name="age"
-                                    onKeyDown={handleKeyDown}
+                                    name="age"
+                                    onChange={handleAgeChange}
                                     placeholder="Type your age"
-                                    min="21"
-                                    max="60"
                                     autoComplete="off"
-                                    maxLength="3"
                                 />
+                                {!isValidAge && (
+                                    <p className="text-sm text-[red]">Age must be between 21 and 60 or left empty.</p>
+                                )}
                             </div>
                             <div className="mt-2">
                                 <label htmlFor="">Location *</label>

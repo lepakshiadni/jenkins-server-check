@@ -2,8 +2,8 @@ import '../../../styles/Feed.css'
 import { useEffect, useLayoutEffect, useState } from 'react';
 import { useRef } from 'react';
 import TrainerFeedData from './TrainerFeedData';
-import { getAllPostTrainingRequirementAction, } from '../../../../redux/action/postRequirement.action'
-import { getBookMarkedPost, createConversation, addBookMarkePost } from '../../../../redux/action/trainer.action'
+import { getAllPostTrainingRequirementAction, addBookMarkPostTraining } from '../../../../redux/action/postRequirement.action'
+import { createConversation } from '../../../../redux/action/trainer.action'
 import { useDispatch, useSelector } from 'react-redux'
 import Skeleton from '@mui/material/Skeleton';
 import TrainerApplyPopup from '../../../utils/TrainerApplyPopUp';
@@ -17,6 +17,7 @@ const TrainerFeed = ({ postrainingData }) => {
     const trainer = useSelector(({ trainerSignUp }) => {
         return trainerSignUp?.trainerDetails?.trainerDetails;
     });
+    const currentUserId = trainer?._id
 
     const menuRef = useRef(null)
     const [open, setOpen] = useState(Array(postrainingData.length).fill(false));
@@ -53,27 +54,29 @@ const TrainerFeed = ({ postrainingData }) => {
         }
     }, [open]);
 
-
-    const bookMarkedPost = useSelector(({ trainerSignUp }) => {
-        return trainerSignUp?.addBookMarkedPost?.userBookmarks;
-    })
-    console.log('bookMarkedPost', bookMarkedPost);
-
     useEffect(() => {
-        dispatch(getBookMarkedPost())
         dispatch(getAllPostTrainingRequirementAction())
     }, [dispatch])
-
-
-    const handleIconClick = async (index, bookmark) => {
-        await dispatch(addBookMarkePost(bookmark?._id, bookmark))
-        setOpen([])
-    };
 
     const [applyPopUp, setApplyPopUp] = useState(false)
     const [selectedPost, setSelectedPost] = useState(null)
 
+    const [bookMarkedPost, setBookMarkPost] = useState([])
+    const handleIconClick = async (postId, currentUserId) => {
+        await dispatch(addBookMarkPostTraining(postId, currentUserId))
+    };
 
+    useEffect(() => {
+        if (postrainingData) {
+            const bookmarkedPosts = postrainingData
+                .filter(post =>
+                    post.bookMark?.some(bookmark => bookmark._id === currentUserId)
+                )
+            setBookMarkPost(bookmarkedPosts);
+        }
+    }, [postrainingData, currentUserId]);
+
+    console.log('bookMarkedPost', bookMarkedPost);
     return (
         <div>
             <div className="feed">
@@ -118,8 +121,8 @@ const TrainerFeed = ({ postrainingData }) => {
 
                         <section ref={showmoreRef} className='scroll' style={{ border: '1px solid #EEEEEE', padding: '10px', height: '300px', marginTop: '10px' }}>
 
-                            {bookMarkedPost?.postDetails?.length > 0 ? <>
-                                {bookMarkedPost?.postDetails?.map((bookmark, index) => (
+                            {bookMarkedPost?.length > 0 ? <>
+                                {bookMarkedPost?.slice()?.reverse()?.map((bookmark, index) => (
                                     <div key={index}>
 
                                         <div className='bookmark data' style={{ display: 'flex', alignItems: 'center', textAlign: 'center', justifyContent: 'space-between' }}>
@@ -168,7 +171,7 @@ const TrainerFeed = ({ postrainingData }) => {
                                                     </div>
                                                 )} */}
 
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 14 18" fill="none" onClick={() => handleIconClick(index, bookmark)}>
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 14 18" fill="none" onClick={() => handleIconClick(bookmark._id, currentUserId)}>
                                                     <path d="M0 18V2C0 1.45 0.195833 0.979167 0.5875 0.5875C0.979167 0.195833 1.45 0 2 0H12C12.55 0 13.0208 0.195833 13.4125 0.5875C13.8042 0.979167 14 1.45 14 2V18L7 15L0 18Z" fill="#2676C2" />
                                                 </svg>
                                             </div>
@@ -182,7 +185,7 @@ const TrainerFeed = ({ postrainingData }) => {
 
                                             {bookmark?.description}
                                             <div className='skilldata' >
-                                                <h5 style={{ color: '#535353',fontWeight:'600' }}>Wanted skills</h5>
+                                                <h5 style={{ color: '#535353', fontWeight: '600' }}>Wanted skills</h5>
                                                 {bookmark?.topics.map((val, index) => (
                                                     <div key={index}>
                                                         <p>{val}</p>
@@ -242,7 +245,8 @@ const TrainerFeed = ({ postrainingData }) => {
                             </> : <>
                                 <div className='flex justify-center items-center h-40'>
                                     <span>
-                                        No BookMarks  yet. Start by clicking the "Bookmark" !!.
+                                        {/* No BookMarks  yet. Start by clicking the "Bookmark" !!. */}
+                                        No  Bookmarks Found!
                                     </span>
                                 </div>
 
@@ -256,7 +260,7 @@ const TrainerFeed = ({ postrainingData }) => {
                 </section>
 
                 <section>
-                    <TrainerFeedData bookMarkedPost={bookMarkedPost} postrainingData={postrainingData} />
+                    <TrainerFeedData postrainingData={postrainingData} />
                 </section>
 
             </div >

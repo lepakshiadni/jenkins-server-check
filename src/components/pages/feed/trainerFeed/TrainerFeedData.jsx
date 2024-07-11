@@ -3,8 +3,8 @@ import { useEffect, useState, useRef } from 'react';
 import RequestSound from '../../../assets/requestsound.mp3'
 import PopUp from './PopUp';
 import { useDispatch, useSelector } from 'react-redux'
-import { addBookMarkePost, createConversation, getConversation, getAllRequestedConnection } from '../../../../redux/action/trainer.action'
-import { getAllPostTrainingRequirementAction, addPostTrainingComments, addlikePostTraining, deletePostTrainingComment, addHidePost } from '../../../../redux/action/postRequirement.action'
+import {createConversation, getConversation, getAllRequestedConnection } from '../../../../redux/action/trainer.action'
+import { getAllPostTrainingRequirementAction, addPostTrainingComments, addlikePostTraining, deletePostTrainingComment, addHidePost, addBookMarkPostTraining } from '../../../../redux/action/postRequirement.action'
 import TrainerApplyPopup from './../../../utils/TrainerApplyPopUp';
 import ProfileImage from '../../../utils/ProfileImage'
 import Skeleton from '@mui/material/Skeleton';
@@ -13,9 +13,7 @@ import { toast } from 'react-toastify'
 import { S3 } from 'aws-sdk'
 
 
-
-const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
-  const [selectedItems, setSelectedItems] = useState([]);
+const TrainerFeeData = ({ postrainingData }) => {
   const [selectedPost, setSelectedPost] = useState(null)
   const [addNewComment, setAddNewComment] = useState('')
   const [connectSound] = useState(new Audio(RequestSound));
@@ -36,10 +34,6 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
     dispatch(getConversation(currentUserId))
     dispatch(getAllRequestedConnection())
   }, [dispatch, selectedPost])
-
-  // const PostTrainingData = useSelector(({ postRequirement }) => {
-  //   return postRequirement?.postTrainingDetails?.postTrainingDetails
-  // })
 
   const connections = useSelector(({ trainerSignUp }) => {
     return trainerSignUp?.connections?.conversation;
@@ -73,20 +67,22 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
   // console.log('PostTrainingData', PostTrainingData);
 
 
-  const handleIconClick = async (index, post) => {
-    await setSelectedPost(post)
-    await dispatch(addBookMarkePost(post?._id, post))
-  };
-
-
   const [likedPosts, setLikedPosts] = useState([]);
   const [appliedPost, setAppliedPosts] = useState([])
+  const [bookMarkPost, setBookMarkPost] = useState([])
 
   useEffect(() => {
     if (postrainingData) {
       postrainingData?.forEach(post => {
         post?.likes?.forEach(like => {
           setLikedPosts(prevLikedPosts => [...prevLikedPosts, like._id]);
+        });
+      });
+    }
+    if (postrainingData) {
+      postrainingData?.forEach(post => {
+        post?.bookMark?.forEach(book => {
+          setBookMarkPost(prevBookMarkedPosts => [...prevBookMarkedPosts, book._id]);
         });
       });
     }
@@ -99,16 +95,16 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
       });
       setAppliedPosts(prevApply => [...prevApply, ...new Set(appliedIds)]);
     }
-    if (bookMarkedPost) {
-      const bookmark = bookMarkedPost?.postDetails?.map((data) => data._id)
-      setSelectedItems(bookmark)
-    }
-  }, [postrainingData, bookMarkedPost, dispatch]);
+  }, [postrainingData, dispatch]);
 
-  console.log('postrainingData', postrainingData);
+
+  const handleIconClick = async (postId, currentUserId) => {
+    await dispatch(addBookMarkPostTraining(postId, currentUserId))
+    setBookMarkPost([...bookMarkPost, postId]);
+  };
+
   const handleIconClick2 = async (postId, currentUserId) => {
     try {
-      console.log('Liked post:', postId);
       await dispatch(addlikePostTraining(postId, currentUserId));
 
       setLikedPosts([...likedPosts, postId]); // Update likedPosts state
@@ -376,7 +372,7 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
 
             <>
               {
-                post.hide.some(hide => hide._id === currentUserId) ? null : (
+                post?.hide?.some(hide => hide._id === currentUserId) ? null : (
 
                   <div className='' key={post._id}>
                     <div className='centered-section2'>
@@ -413,9 +409,9 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
                               null
 
                           } */}
-                          <div className='inst me-5' onClick={() => handleIconClick(index, post)}>
+                          <div className='inst me-5' onClick={() => handleIconClick(post._id, currentUserId)}>
 
-                            {selectedItems.includes(post._id) ? (
+                            {bookMarkPost.includes(currentUserId) && post?.bookMark?.some(instId => instId._id === currentUserId) ? (
                               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 14 18" fill="none" >
                                 <path d="M0 18V2C0 1.45 0.195833 0.979167 0.5875 0.5875C0.979167 0.195833 1.45 0 2 0H12C12.55 0 13.0208 0.195833 13.4125 0.5875C13.8042 0.979167 14 1.45 14 2V18L7 15L0 18Z" fill="#2676C2" />
                               </svg>
@@ -424,7 +420,6 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
                                 <path d="M4.16699 17.5V4.16667C4.16699 3.70833 4.33019 3.31597 4.65658 2.98958C4.98296 2.66319 5.37533 2.5 5.83366 2.5H14.167C14.6253 2.5 15.0177 2.66319 15.3441 2.98958C15.6705 3.31597 15.8337 3.70833 15.8337 4.16667V17.5L10.0003 15L4.16699 17.5ZM5.83366 14.9583L10.0003 13.1667L14.167 14.9583V4.16667H5.83366V14.9583Z" fill="#8D8D8D" className='icon-path' />
                               </svg>
                             )}
-
                           </div>
 
                           <div style={{ position: 'relative', display: 'inline-block' }}>
@@ -503,20 +498,11 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
                             <button onClick={() => {
                               setApplyPopUp(true);
                               setSelectedPost(post)
-                            }} style={{
-
-                              backgroundColor: '#2676C2',
-                              border: '0px',
-                              color: 'white',
-                              padding: '5px 50px',
-                              borderRadius: '10px',
-                              // marginLeft: '340px',  // Center horizontally
-                              display: 'block', // Make it a block-level element
-                              height: '30px'
-                            }}
+                            }} 
                               disabled={appliedPost.includes(currentUserId) && post?.applicants?.some(user => user?.appliedBy === currentUserId)}
                             >
-                              {appliedPost.includes(currentUserId) && post?.applicants?.some(user => user?.appliedBy === currentUserId) ? "Applied" : "Apply"}
+                              {appliedPost.includes(currentUserId) && post?.applicants?.some(user => user?.appliedBy === currentUserId) ? <span className='text-[white] bg-[green] px-11 py-1.5 rounded-md block'>Applied</span> : <span className='text-[white] bg-[#2676C2] px-11 py-1.5 rounded-md block'>Apply</span>}
+
                             </button>
 
                           </div>

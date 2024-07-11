@@ -142,6 +142,26 @@ export const addlikePostTraining = (postId, likedBy) => {
             })
     }
 }
+
+export const addBookMarkPostTraining = (postId, bookMarkedBy) => {
+    console.log(bookMarkedBy, postId);
+    return async (dispatch) => {
+        await Axios.put(`${baseUrl}/employerpost/addBookMarkToTrainingPost/${postId}`, { bookMarkedBy })
+            .then((resp) => {
+                dispatch({
+                    type: 'ADD_BOOKMARKPOSTTRAINING_SUCCESS',
+                    payload: resp.data
+                })
+            })
+            .catch((error) => {
+                dispatch({
+                    type: "ADD_BOOKMARKPOSTTRAINING_FAILURE",
+                    payload: error
+                })
+            })
+    }
+}
+
 export const deletePostTrainingRequirement = (postId) => {
     const token = Cookies.get('token')
     console.log(postId)

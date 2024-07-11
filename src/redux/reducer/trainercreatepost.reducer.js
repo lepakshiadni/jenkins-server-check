@@ -110,6 +110,18 @@ const trainerCreatePostReducer = (state = initialState, action) => {
                 ...state,
                 message: action.payload.error
             };
+        case 'ADD_BOOKMARKPOSTTRAINING_SUCCESS':
+            return {
+                ...state,
+                trainerCreatePostDetails: action.payload,
+                message: action.payload.message,
+                success: action.payload.success
+            };
+        case 'ADD_BOOKMARKPOSTTRAINING_FAILURE':
+            return {
+                ...state,
+                message: action.payload.error
+            };
         case 'ADD_HIDEPOST_SUCCESS':
             return {
                 ...state,
