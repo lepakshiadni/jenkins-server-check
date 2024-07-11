@@ -68,14 +68,14 @@ const TrainingResources = () => {
           if (appliedStatus) {
             // Check if training is completed
             return trainingPostDetails &&
-              trainingPostDetails.startDate < new Date().toISOString().substr(0, 10) &&
-              trainingPostDetails.endDate < new Date().toISOString().substr(0, 10);
+              trainingPostDetails.startDate <= new Date().toISOString().substr(0, 10) &&
+              trainingPostDetails.endDate <= new Date().toISOString().substr(0, 10);
           }
         })
       };
     });
   }
-  console.log('complete', completed)
+  console.log('complete', appliedTraining)
 
 
   return (

@@ -80,8 +80,8 @@ const OngoingTraining = ({ ongoing }) => {
                 return <div>
                   <div
                     key={index}
-                    className="flex flex-shrink justify-evenly items-center mt-[20px]"
-                    style={{ marginTop: "20px" }}
+                    className="flex flex-shrink justify-evenly items-center mt-[20px] p-[5px] gap-1 "
+                    // style={{ marginTop: "20px" }}
                   >
                     <div className="w-[28%] h-[23rem] shadow-[2px_2px_8px_1px_rgba(199,195,195,0.34)]">
                       <div className="h-[100%] w-[95%]  flex flex-col justify-center p-3 gap-4">

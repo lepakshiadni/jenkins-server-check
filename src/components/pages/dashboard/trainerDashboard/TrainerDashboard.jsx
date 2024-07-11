@@ -73,7 +73,7 @@ function TrainerDashboard() {
   const socket = useRef();
 
   useEffect(() => {
-    socket.current = io(`http://13.235.90.102:4040`, {
+    socket.current = io(`http://192.168.1.109:4040`, {
       transports: ["websocket"],
       withCredentials: true,
       extraHeaders: {
