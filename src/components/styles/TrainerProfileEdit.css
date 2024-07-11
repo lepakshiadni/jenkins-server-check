@@ -204,6 +204,7 @@
   font-size: 14px;
   padding-left: 10px;
 }
+
 .contactInfo input::placeholder {
   color: #888888;
 }
@@ -334,11 +335,22 @@
   background-color: #bfbfbf;
   border-radius: 8px;
 }
-.cropper-view-box,
-.cropper-face {
+
+/* ImageCropper.css */
+
+/* General cropper styles */
+.cropper-view-box {
+  outline: 1px solid rgba(51, 153, 255, 0.75);
+}
+
+/* Styles for circular crop */
+.cropper-circular .cropper-view-box,
+.cropper-circular .cropper-face {
   border-radius: 50%;
 }
 
-.cropper-view-box {
-  outline: 1px solid rgba(51, 153, 255, 0.75);
+/* Styles for rectangular crop (if needed) */
+.cropper-rectangular .cropper-view-box,
+.cropper-rectangular .cropper-face {
+  border-radius: 0;
 }

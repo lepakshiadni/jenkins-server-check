@@ -672,14 +672,14 @@ const DashboardApp = () => {
                 >
 
                   <div className="dropdown-buttons">
-                    <select className="accordionPost" style={{ backgroundColor: "#f9f9f9", border: "1px solid #dadada", outline: 'none', color: 'gray' }} value={selectedFilter} onChange={(e) => handleFilterChange(e.target.value)} >
+                    <select style={{ backgroundColor: "#f9f9f9", border: "1px solid #dadada", outline: 'none', color: 'gray',borderRadius:'8px',width:'13rem',height:"2rem",cursor:'pointer' }} value={selectedFilter} onChange={(e) => handleFilterChange(e.target.value)} >
                       <option value="" selected>Select Location</option>
                       {storeLoc.map((item, index) => (
                         <option key={index} value={item}>{item}</option>
                       ))}
                     </select>
 
-                    <select className="accordionPost" style={{ backgroundColor: "#f9f9f9", border: "1px solid #dadada", outline: 'none', color: 'gray' }} value={selectedFilter2} onChange={(e) => handleFilterChange2(e.target.value)} >
+                    <select style={{ backgroundColor: "#f9f9f9", border: "1px solid #dadada", outline: 'none', color: 'gray',borderRadius:'8px',width:'13rem',height:"2rem",cursor:"pointer" }} value={selectedFilter2} onChange={(e) => handleFilterChange2(e.target.value)} >
                       <option value="" selected>Select Designation</option>
                       {storedesignation.map((item, index) => (
                         <option key={index} value={item}>{item}</option>

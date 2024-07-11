@@ -1,15 +1,33 @@
-import React from 'react';
-import { Outlet, Navigate } from 'react-router-dom';
-import Cookies from 'js-cookie';
+// PrivateRoute.js
 
+import React, { useState, useEffect } from 'react';
+import { Outlet, Navigate } from 'react-router-dom';
+import { isTokenExpired, removeToken } from '../components/utils/TokenUtils'; // Import token utils
 
 const PrivateRoute = ({ element, ...rest }) => {
-  const token = Cookies.get('token');
-  return (
-    token?<Outlet/>:<Navigate to='/'/>
-  )
+  const [expired, setExpired] = useState(false); // State to track session expiry
 
+  useEffect(() => {
+    const checkTokenExpiration = () => {
+      if (isTokenExpired()) {
+        removeToken(); // Clear token from cookies manually
+        setExpired(true);
+      }
+    };
 
+    checkTokenExpiration(); // Initial check on component mount
+
+    const interval = setInterval(checkTokenExpiration, 10000); // Check every 10 seconds
+
+    return () => clearInterval(interval); // Clean up interval on unmount
+  }, []);
+
+  if (expired) {
+    alert('Your session has expired. Please log in again.');
+    return <Navigate to="/" replace />;
+  }
+
+  return <Outlet {...rest} />;
 };
 
 export default PrivateRoute;

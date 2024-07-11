@@ -7,6 +7,7 @@ import { BiChevronDown } from 'react-icons/bi';
 import { employerSignUpAction } from '../../redux/action/employers.action'
 import { toast } from 'react-toastify'
 import Cookies from 'js-cookie'
+import { setToken } from '../utils/TokenUtils';
 
 function EmployerSignup() {
 
@@ -59,11 +60,11 @@ function EmployerSignup() {
     const { value } = e.target;
     const maxLength = 32; // Define max length if needed
     let errorMessage = "";
-  
+
     if (value.length < 2 || value.length > maxLength) {
       errorMessage = `Should be between 2 and ${maxLength} characters`;
     }
-  
+
     setValues(prevValues => ({
       ...prevValues,
       companyName: {
@@ -72,7 +73,7 @@ function EmployerSignup() {
       }
     }));
   };
-  
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -107,8 +108,8 @@ function EmployerSignup() {
   useEffect(() => {
     if (employer?.success) {
       toast.success(employer?.message);
-      Cookies.set('token', employer?.token)
-      localStorage.setItem('newUser',true)
+      setToken(employer?.token)
+      localStorage.setItem('newUser', true)
       console.log('Success:', employer?.message);
       navigate('/employerDashboard/feed')
 
