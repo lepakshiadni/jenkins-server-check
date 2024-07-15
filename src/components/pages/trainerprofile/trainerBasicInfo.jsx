@@ -60,7 +60,7 @@ const TrainerBasicInfo = () => {
     }, [dispatch, locationpath]);
 
     const trainer = useSelector(({ trainerSignUp }) => {
-        return trainerSignUp?.trainerDetails;
+        return trainerSignUp?.trainerDetails?.trainerDetails;
     });
 
     // const message = useSelector(({ trainerSignUp }) => trainerSignUp?.trainerDetails);
@@ -171,14 +171,14 @@ const TrainerBasicInfo = () => {
         dispatch(trainerProfileBannerUpdate(formData))
     }
 
-    const [firstName, setFirstName] = useState(trainer?.trainerDetails?.basicInfo?.firstName || trainer?.trainerDetails?.fullName?.split(' ')[0]);
-    const [lastName, setLastName] = useState(trainer?.trainerDetails?.basicInfo?.lastName || trainer?.trainerDetails?.fullName?.split(' ')[1]);
-    const [designation, setDesignation] = useState(trainer?.trainerDetails?.basicInfo?.designation || "");
-    const [company, setComapany] = useState(trainer?.trainerDetails?.basicInfo?.company || "");
-    const [age, setAge] = useState(trainer?.trainerDetails?.basicInfo?.age || "");
-    const [location, setLocation] = useState(trainer?.trainerDetails?.basicInfo?.location || "");
-    const [objective, setObjective] = useState(trainer?.trainerDetails?.basicInfo?.objective || "");
-    const [aboutYou, setAboutYou] = useState(trainer?.trainerDetails?.basicInfo?.aboutYou || "");
+    const [firstName, setFirstName] = useState(trainer?.basicInfo?.firstName || trainer?.fullName?.split(' ')[0]);
+    const [lastName, setLastName] = useState(trainer?.basicInfo?.lastName || trainer?.fullName?.split(' ')[1]);
+    const [designation, setDesignation] = useState(trainer?.basicInfo?.designation);
+    const [company, setComapany] = useState(trainer?.basicInfo?.company);
+    const [age, setAge] = useState(trainer?.basicInfo?.age || "");
+    const [location, setLocation] = useState(trainer?.basicInfo?.location || "");
+    const [objective, setObjective] = useState(trainer?.basicInfo?.objective || "");
+    const [aboutYou, setAboutYou] = useState(trainer?.basicInfo?.aboutYou || "");
 
     const handleKeyDown = (e) => {
         if (e.key === "Enter") {
@@ -198,10 +198,10 @@ const TrainerBasicInfo = () => {
         }
     };
 
-    const handleChange = (setter, pattern, name, maxLength = Infinity) => (e) => {
+    const handleChange = (setter, pattern) => (e) => {
         const { value } = e.target;
         // Apply the specified pattern for validation and ensure length does not exceed maxLength
-        if (pattern.test(value) && (name !== "age" || value.length <= maxLength)) {
+        if (pattern.test(value)) {
             setter(value);
         }
     };
@@ -214,33 +214,72 @@ const TrainerBasicInfo = () => {
         }
     };
 
+    const [originalValues, setOriginalValues] = useState({
+        firstName: trainer?.basicInfo?.firstName || trainer?.fullName?.split(' ')[0] || '',
+        lastName: trainer?.basicInfo?.lastName || trainer?.fullName?.split(' ')[1] || '',
+        designation: trainer?.basicInfo?.designation || trainer?.designation,
+        company: trainer?.basicInfo?.company || trainer?.companyName,
+        age: trainer?.basicInfo?.age || "",
+        location: trainer?.basicInfo?.location || "",
+        objective: trainer?.basicInfo?.objective || "",
+        aboutYou: trainer?.basicInfo?.aboutYou || ""
+    });
+
     useLayoutEffect(() => {
         if (trainer) {
-            setFirstName(trainer?.trainerDetails?.basicInfo?.firstName || trainer?.trainerDetails?.fullName?.split(' ')[0]);
-            setLastName(trainer?.trainerDetails?.basicInfo?.lastName || trainer?.trainerDetails?.fullName?.split(' ')[1]);
-            setDesignation(trainer?.trainerDetails?.basicInfo?.designation);
-            setComapany(trainer?.trainerDetails?.basicInfo?.company);
-            setAge(trainer?.trainerDetails?.basicInfo?.age);
-            setLocation(trainer?.trainerDetails?.basicInfo?.location);
-            setObjective(trainer?.trainerDetails?.basicInfo?.objective);
-            setAboutYou(trainer?.trainerDetails?.basicInfo?.aboutYou);
+            setFirstName(trainer?.basicInfo?.firstName || trainer?.fullName?.split(' ')[0] || '');
+            setLastName(trainer?.basicInfo?.lastName || trainer?.fullName?.split(' ')[1] || '');
+            setDesignation(trainer?.basicInfo?.designation);
+            setComapany(trainer?.basicInfo?.company);
+            setAge(trainer?.basicInfo?.age);
+            setLocation(trainer?.basicInfo?.location);
+            setObjective(trainer?.basicInfo?.objective);
+            setAboutYou(trainer?.basicInfo?.aboutYou);
+
+            setOriginalValues({
+                firstName: trainer?.basicInfo?.firstName || trainer?.fullName?.split(' ')[0] || '',
+                lastName: trainer?.basicInfo?.lastName || trainer?.fullName?.split(' ')[1] || '',
+                designation: trainer?.basicInfo?.designation || trainer?.designation,
+                company: trainer?.basicInfo?.company,
+                age: trainer?.basicInfo?.age,
+                location: trainer?.basicInfo?.location,
+                objective: trainer?.basicInfo?.objective,
+                aboutYou: trainer?.basicInfo?.aboutYou
+            });
         }
     }, [trainer]);
 
-
     const handleCase0Data = async (e) => {
         e.preventDefault();
+
+        // Validate age here as before
+        if (!isValidAge) {
+            toast.error('Please enter a valid age between 21 and 60');
+            return;
+        }
+
+        const currentValues = {
+            firstName,
+            lastName,
+            designation,
+            company,
+            age,
+            location,
+            objective,
+            aboutYou
+        };
+
+        const isChanged = Object.keys(currentValues).some(
+            key => currentValues[key] !== originalValues[key]
+        );
+
+        if (!isChanged) {
+            navigate('/trainerprofile/profileupdate/skills');
+            return;
+        }
+
+        // Prepare form data for update
         const formData = new FormData();
-        const fileInput = profileImg.current;
-        const fileInput2 = profileBanner.current;
-
-        // if (fileInput && fileInput2 && fileInput.files.length > 0 && fileInput2.files.length > 0) {
-        // const file = fileInput.files[0];
-        // const file2 = fileInput2.files[0];
-
-        // Append form data to formData
-        // formData.append("profileImg", file);
-        // formData.append("profileBanner", file2);
         formData.append("firstName", firstName);
         formData.append("lastName", lastName);
         formData.append("designation", designation);
@@ -251,11 +290,27 @@ const TrainerBasicInfo = () => {
         if (aboutYou) formData.append("aboutYou", aboutYou);
         formData.append("status", true);
 
+        // Dispatch update action
         dispatch(trainerBasicInfoUpdate(formData));
-        toast.success('Basic Info Updated Successfully')
-        navigate('/trainerprofile/profileupdate/skills')
-        // }
+
+        // Show toast on successful update
+        toast.success('Basic Info Updated Successfully');
+        navigate('/trainerprofile/profileupdate/skills');
     };
+
+    const [isValidAge, setIsValidAge] = useState(true);
+
+    const handleAgeChange = (e) => {
+        const newAge = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+        setAge(newAge);
+        validateAge(newAge);
+    };
+
+    const validateAge = (number) => {
+        const numericValue = parseInt(number, 10);
+        setIsValidAge(number === '' || (numericValue >= 21 && numericValue <= 60));
+    };
+
     return (
         <>
             <TrainerProfileCropImg
@@ -290,8 +345,8 @@ const TrainerBasicInfo = () => {
                     <div className="updateval">
                         <img
                             src={
-                                trainer?.trainerDetails?.basicInfo?.profileImg
-                                    ? `${trainer?.trainerDetails?.basicInfo?.profileImg}`
+                                trainer?.basicInfo?.profileImg
+                                    ? `${trainer?.basicInfo?.profileImg}`
                                     : ""
                             }
                             style={{
@@ -354,8 +409,8 @@ const TrainerBasicInfo = () => {
                         <hr style={{ marginTop: "12px", marginBottom: "12px" }} />
                         <img
                             src={
-                                trainer?.trainerDetails?.basicInfo?.profileBanner
-                                    ? `${trainer?.trainerDetails?.basicInfo?.profileBanner}`
+                                trainer?.basicInfo?.profileBanner
+                                    ? `${trainer?.basicInfo?.profileBanner}`
                                     : ""
                             }
                             alt=" "
@@ -484,19 +539,20 @@ const TrainerBasicInfo = () => {
                                 <label htmlFor="">Age <span className="text-[#CECECE]">(eg: 21-60)</span></label>
                                 <br />
                                 <input
-                                    style={{ width: "508px" }}
-                                    type="number"
+                                    style={{ width: "508px", borderColor: isValidAge ? '#CECECE' : 'red' }}
+                                    type="tel"
+                                    maxLength="2"
+                                    minLength="2"
                                     value={age}
-                                    onChange={handleChange(setAge, /^[0-9]*$/, 'age', 3)}
                                     name="age"
+                                    onChange={handleAgeChange}
                                     onKeyDown={handleKeyDown}
                                     placeholder="Type your age"
-                                    min="21"
-                                    max="60"
-                                    maxLength="3"
                                     autoComplete="off"
-
                                 />
+                                {!isValidAge && (
+                                    <p className="text-sm text-[red]">Age must be between 21 and 60 or left empty.</p>
+                                )}
                             </div>
                             <div className="mt-2">
                                 <label htmlFor="">Location *</label>

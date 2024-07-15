@@ -199,6 +199,17 @@ const EmployerBasicInfo = () => {
         }
     };
 
+    const [originalValues, setOriginalValues] = useState({
+        firstName: employer?.basicInfo?.firstName || employer?.fullName?.split(' ')[0] || '',
+        lastName: employer?.basicInfo?.lastName || employer?.fullName?.split(' ')[1] || '',
+        designation: employer?.basicInfo?.designation || employer?.designation,
+        company: employer?.basicInfo?.company || employer?.companyName,
+        age: employer?.basicInfo?.age || "",
+        location: employer?.basicInfo?.location || "",
+        objective: employer?.basicInfo?.objective || "",
+        aboutYou: employer?.basicInfo?.aboutYou || ""
+    });
+
     useLayoutEffect(() => {
         if (employer) {
             setFirstName(employer?.basicInfo?.firstName || employer?.fullName?.split(' ')[0] || '');
@@ -209,26 +220,48 @@ const EmployerBasicInfo = () => {
             setLocation(employer?.basicInfo?.location);
             setObjective(employer?.basicInfo?.objective);
             setAboutYou(employer?.basicInfo?.aboutYou);
+
+            setOriginalValues({
+                firstName: employer?.basicInfo?.firstName || employer?.fullName?.split(' ')[0] || '',
+                lastName: employer?.basicInfo?.lastName || employer?.fullName?.split(' ')[1] || '',
+                designation: employer?.basicInfo?.designation || employer?.designation,
+                company: employer?.basicInfo?.company,
+                age: employer?.basicInfo?.age,
+                location: employer?.basicInfo?.location,
+                objective: employer?.basicInfo?.objective,
+                aboutYou: employer?.basicInfo?.aboutYou
+            });
         }
     }, [employer]);
 
-
     const handleCase0Data = async (e) => {
         e.preventDefault();
-        const formData = new FormData();
-        
         if (!isValidAge) {
             toast.error('Please enter a valid age between 21 and 60');
-            return; // Stop form submission
+            return;
         }
-        // const fileInput = profileImg.current;
-        // const fileInput2 = profileBanner.current;
 
-        // const file = fileInput.files[0];
-        // const file2 = fileInput2.files[0];
-        // Append form data to formData
-        // formData.append("profileImg", file);
-        // formData.append("profileBanner", file2);
+        const currentValues = {
+            firstName,
+            lastName,
+            designation,
+            company,
+            age,
+            location,
+            objective,
+            aboutYou
+        };
+
+        const isChanged = Object.keys(currentValues).some(
+            key => currentValues[key] !== originalValues[key]
+        );
+
+        if (!isChanged) {
+            navigate('/employerprofile/profileupdate/skills');
+            return;
+        }
+
+        const formData = new FormData();
         formData.append("firstName", firstName);
         formData.append("lastName", lastName);
         formData.append("designation", designation);
@@ -240,10 +273,10 @@ const EmployerBasicInfo = () => {
         formData.append("status", true);
 
         dispatch(employerBasicInfoUpdate(formData));
-        toast.success('Basic Info Updated')
-        navigate('/employerprofile/profileupdate/skills')
-
+        toast.success('Basic Info Updated Successfully');
+        navigate('/employerprofile/profileupdate/skills');
     };
+
 
     const handleChange = (setter, pattern) => (e) => {
         const { value } = e.target;
@@ -505,6 +538,7 @@ const EmployerBasicInfo = () => {
                                     value={age}
                                     name="age"
                                     onChange={handleAgeChange}
+                                    onKeyDown={handleKeyDown}
                                     placeholder="Type your age"
                                     autoComplete="off"
                                 />

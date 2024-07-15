@@ -79,7 +79,7 @@ const TrainerConatctInfo = () => {
         const websiteRegex = /^(https?:\/\/)?([^\s$.?#].[^\s]*)$/i;
         setIsValidWebsite(websiteRegex.test(website));
     };
-    
+
     const handleKeyDown = (e) => {
         if (e.key === "Enter") {
             e.preventDefault();
@@ -111,19 +111,34 @@ const TrainerConatctInfo = () => {
     const handleCase3Data = (e) => {
         e.preventDefault();
 
-        const contactInfo = {
-            primaryNumber: primaryNumber,
+        const updatedContactInfo = {
+            primaryNumber,
             secondaryNumber: secondaryNumber || null,
-            address: address,
-            email: email,
-            website: website,
-            availableDate: availableDate,
+            address,
+            email,
+            website,
+            availableDate,
             status: true,
         };
 
-        dispatch(trainerContactInfoUpdate(contactInfo));
-        toast.success('Contact Info Update Successfully');
-        navigate('/trainerprofile/profileupdate/experience')
+        // Check if there are any changes
+        const isContactInfoChanged =
+            primaryNumber !== trainer.contactInfo.primaryNumber ||
+            secondaryNumber !== trainer.contactInfo.secondaryNumber ||
+            address !== trainer.contactInfo.address ||
+            email !== trainer.contactInfo.email ||
+            website !== trainer.contactInfo.website ||
+            availableDate !== trainer.contactInfo.availableDate;
+
+        if (isContactInfoChanged) {
+            dispatch(trainerContactInfoUpdate(updatedContactInfo));
+            toast.success('Contact Info Updated Successfully');
+            navigate('/trainerprofile/profileupdate/experience');
+
+        } else {
+            navigate('/trainerprofile/profileupdate/experience');
+        }
+
     };
 
     const getTodayDate = () => {
@@ -154,7 +169,7 @@ const TrainerConatctInfo = () => {
 
                 <form onSubmit={handleCase3Data}>
                     <div className="flex">
-                    <div style={{ marginRight: "50px" }}>
+                        <div style={{ marginRight: "50px" }}>
                             <label htmlFor="">Primary Contact *</label>
                             <br />
                             <input
@@ -247,7 +262,7 @@ const TrainerConatctInfo = () => {
                         )}
                     </div>
                     <div className="mt-2">
-                        <label htmlFor="">Availabel On </label>
+                        <label htmlFor="">Available On </label>
                         <br />
                         <input
                             style={{ width: "250px", cursor: "pointer" }}
@@ -267,10 +282,10 @@ const TrainerConatctInfo = () => {
                             color: "white",
                             marginTop: "30px",
                             marginLeft: "490px",
-                            cursor: isValidEmail && isValidPrimaryNumber && isValidSecondaryNumber && isValidWebsite ? 'pointer' : 'not-allowed',
-                            opacity: isValidEmail && isValidPrimaryNumber && isValidSecondaryNumber && isValidWebsite ? 1 : 0.5,
+                            cursor: isValidEmail && isValidPrimaryNumber && isValidSecondaryNumber ? 'pointer' : 'not-allowed',
+                            opacity: isValidEmail && isValidPrimaryNumber && isValidSecondaryNumber ? 1 : 0.5,
                         }}
-                        disabled={!isValidEmail || !isValidPrimaryNumber || !isValidSecondaryNumber || !isValidWebsite}
+                        disabled={!isValidEmail || !isValidPrimaryNumber || !isValidSecondaryNumber}
                     >
                         Update
                     </button>

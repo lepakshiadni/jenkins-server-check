@@ -119,6 +119,21 @@ const EmployerContactInfo = () => {
 
     const handleSubmitData = async (e) => {
         e.preventDefault();
+
+        const contactInfo = employer?.contactInfo;
+
+        const hasChanged =
+            primaryNumber !== contactInfo.primaryNumber ||
+            secondaryNumber !== contactInfo.secondaryNumber ||
+            address !== contactInfo.address ||
+            email !== contactInfo.email ||
+            website !== contactInfo.website;
+
+        if (!hasChanged) {
+            navigate('/employerprofile');
+            return;
+        }
+
         if (isValidEmail) {
             await handleCase3Data();
         } else {
@@ -127,130 +142,128 @@ const EmployerContactInfo = () => {
     };
 
     return (
-       
-            <div className="contactInfo">
-                <h6
+
+        <div className="contactInfo">
+            <h6
+                style={{
+                    color: "#535353",
+                    fontWeight: "400",
+                    fontSize: "18px",
+                    marginTop: "14px",
+                    marginBottom: "30px",
+                }}
+            >
+                Contact Information
+            </h6>
+            <form onSubmit={handleSubmitData}>
+                <div className="flex">
+                    <div style={{ marginRight: "50px" }}>
+                        <label htmlFor="">Primary Contact *</label>
+                        <br />
+                        <input
+                            style={{ width: "320px", borderColor: isValidPrimaryNumber ? '#CECECE' : 'red' }}
+                            type="tel"
+                            maxLength="10"
+                            minLength="10"
+                            value={primaryNumber}
+                            onChange={handlePrimaryNumberChange}
+                            name="primaryNumber"
+                            onKeyDown={handleKeyDown}
+                            required
+                            placeholder="Type your mobile number"
+                            autoComplete="off"
+                        />
+                        {!isValidPrimaryNumber && (
+                            <p className="text-sm text-[red]">Contact must be 10 digits long.</p>
+                        )}
+                    </div>
+                    <div>
+                        <label htmlFor="">Secondary Contact</label>
+                        <br />
+                        <input
+                            style={{ width: "320px", borderColor: isValidSecondaryNumber ? '#CECECE' : 'red' }}
+                            type="tel"
+                            maxLength="10"
+                            minLength="10"
+                            value={secondaryNumber}
+                            onChange={handleSecondaryNumberChange}
+                            name="secondaryNumber"
+                            onKeyDown={handleKeyDown}
+                            placeholder="Type your mobile number"
+                            autoComplete="off"
+                        />
+                        {!isValidSecondaryNumber && (
+                            <p className="text-sm text-[red]">Contact must be 10 digits long or left empty.</p>
+                        )}
+                    </div>
+                </div>
+                <div className="mt-2">
+                    <label htmlFor="">Address *</label>
+                    <br />
+                    <input
+                        style={{ width: "690px" }}
+                        type="text"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        name="address"
+                        onKeyDown={handleKeyDown}
+                        required
+                        placeholder="Type your address"
+                        maxLength="180"
+                        autoComplete="off"
+                    />
+                </div>
+                <div className="mt-2">
+                    <label htmlFor="">Email *</label>
+                    <br />
+                    <input
+                        style={{ width: '690px', borderColor: isValidEmail ? '#CECECE' : 'red' }}
+                        type="email"
+                        value={email}
+                        onChange={handleEmailChange}
+                        name="email"
+                        onKeyDown={handleKeyDown}
+                        required
+                        placeholder="Type your email address"
+                        autoComplete="off"
+                    />
+                    {!isValidEmail && (
+                        <p className="text-sm text-[red]">Please enter a valid email address.</p>
+                    )}
+                </div>
+                <div className="mt-2">
+                    <label htmlFor="">Website </label>
+                    <br />
+                    <input
+                        style={{ width: "690px", borderColor: isValidWebsite ? '#CECECE' : 'red' }}
+                        type="url"
+                        value={website}
+                        onChange={handleWebsiteChange}
+                        name="website"
+                        onKeyDown={handleKeyDown}
+                        placeholder="Type website link here"
+                        autoComplete="off"
+                    />
+
+                </div>
+                <button
+                    type="submit"
                     style={{
-                        color: "#535353",
-                        fontWeight: "400",
-                        fontSize: "18px",
-                        marginTop: "14px",
-                        marginBottom: "30px",
+                        padding: "8px 70px",
+                        backgroundColor: "#2676C2",
+                        borderRadius: "10px",
+                        color: "white",
+                        marginTop: "30px",
+                        marginLeft: "490px",
+                        cursor: isValidEmail && isValidPrimaryNumber && isValidSecondaryNumber ? 'pointer' : 'not-allowed',
+                        opacity: isValidEmail && isValidPrimaryNumber && isValidSecondaryNumber ? 1 : 0.5,
                     }}
+                    disabled={!isValidEmail || !isValidPrimaryNumber || !isValidSecondaryNumber}
                 >
-                    Contact Information
-                </h6>
-                <form onSubmit={handleSubmitData}>
-                    <div className="flex">
-                        <div style={{ marginRight: "50px" }}>
-                            <label htmlFor="">Primary Contact *</label>
-                            <br />
-                            <input
-                                style={{ width: "320px", borderColor: isValidPrimaryNumber ? '#CECECE' : 'red' }}
-                                type="tel"
-                                maxLength="10"
-                                minLength="10"
-                                value={primaryNumber}
-                                onChange={handlePrimaryNumberChange}
-                                name="primaryNumber"
-                                onKeyDown={handleKeyDown}
-                                required
-                                placeholder="Type your mobile number"
-                                autoComplete="off"
-                            />
-                            {!isValidPrimaryNumber && (
-                                <p className="text-sm text-[red]">Contact must be 10 digits long.</p>
-                            )}
-                        </div>
-                        <div>
-                            <label htmlFor="">Secondary Contact</label>
-                            <br />
-                            <input
-                                style={{ width: "320px", borderColor: isValidSecondaryNumber ? '#CECECE' : 'red' }}
-                                type="tel"
-                                maxLength="10"
-                                minLength="10"
-                                value={secondaryNumber}
-                                onChange={handleSecondaryNumberChange}
-                                name="secondaryNumber"
-                                onKeyDown={handleKeyDown}
-                                placeholder="Type your mobile number"
-                                autoComplete="off"
-                            />
-                            {!isValidSecondaryNumber && (
-                                <p className="text-sm text-[red]">Contact must be 10 digits long or left empty.</p>
-                            )}
-                        </div>
-                    </div>
-                    <div className="mt-2">
-                        <label htmlFor="">Address *</label>
-                        <br />
-                        <input
-                            style={{ width: "690px" }}
-                            type="text"
-                            value={address}
-                            onChange={(e) => setAddress(e.target.value)}
-                            name="address"
-                            onKeyDown={handleKeyDown}
-                            required
-                            placeholder="Type your address"
-                            maxLength="180"
-                            autoComplete="off"
-                        />
-                    </div>
-                    <div className="mt-2">
-                        <label htmlFor="">Email *</label>
-                        <br />
-                        <input
-                            style={{ width: '690px', borderColor: isValidEmail ? '#CECECE' : 'red' }}
-                            type="email"
-                            value={email}
-                            onChange={handleEmailChange}
-                            name="email"
-                            onKeyDown={handleKeyDown}
-                            required
-                            placeholder="Type your email address"
-                            autoComplete="off"
-                        />
-                        {!isValidEmail && (
-                            <p className="text-sm text-[red]">Please enter a valid email address.</p>
-                        )}
-                    </div>
-                    <div className="mt-2">
-                        <label htmlFor="">Website </label>
-                        <br />
-                        <input
-                            style={{ width: "690px", borderColor: isValidWebsite ? '#CECECE' : 'red' }}
-                            type="url"
-                            value={website}
-                            onChange={handleWebsiteChange}
-                            name="website"
-                            onKeyDown={handleKeyDown}
-                            placeholder="Type website link here"
-                            autoComplete="off"
-                        />
-                        {!isValidWebsite && (
-                            <p className="text-sm text-[red]">Please enter a valid website URL.</p>
-                        )}
-                    </div>
-                    <button
-                        type="submit"
-                        style={{
-                            padding: "8px 70px",
-                            backgroundColor: "#2676C2",
-                            borderRadius: "10px",
-                            color: "white",
-                            marginTop: "30px",
-                            marginLeft: "490px",
-                            cursor: isValidEmail && isValidPrimaryNumber && isValidSecondaryNumber && isValidWebsite ? 'pointer' : 'not-allowed',
-                            opacity: isValidEmail && isValidPrimaryNumber && isValidSecondaryNumber && isValidWebsite ? 1 : 0.5,
-                        }}
-                        disabled={!isValidEmail || !isValidPrimaryNumber || !isValidSecondaryNumber || !isValidWebsite}
-                    >
-                        Submit
-                    </button>
-                </form>
-            </div>
+                    Submit
+                </button>
+            </form>
+        </div>
     );
 };
 

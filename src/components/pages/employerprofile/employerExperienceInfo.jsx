@@ -81,10 +81,14 @@ const EmployerExperience = () => {
     };
 
     const handleSubmitExperience = () => {
-        dispatch(employerExperienceInfoUpdate(storedData));
-        toast.success('Experience Updated')
-        navigate('/employerprofile/profileupdate/contact-information')
+        const originalData = employer?.experience || [];
 
+        // Check if data has changed
+        if (JSON.stringify(originalData) !== JSON.stringify(storedData)) {
+            dispatch(employerExperienceInfoUpdate(storedData));
+            toast.success('Experience Updated');
+        }
+        navigate('/employerprofile/profileupdate/contact-information');
     };
 
     const [isCurrentlyWorking, setIsCurrentlyWorking] = useState(false);
@@ -117,7 +121,16 @@ const EmployerExperience = () => {
 
     const handleDelete = (_id) => {
         dispatch(deleteEmployerExperience(_id));
+        toast.success('Experience Data Deleted');
     };
+
+
+    const handleDesignationChange = (e) => {
+        const newDesignation = e.target.value.replace(/[^a-zA-Z\s]/g, ''); // Remove non-alphabetical characters
+        setDesignation2(newDesignation);
+    };
+
+
     return (
         <>
             <div className="contactInfo2">
@@ -166,9 +179,8 @@ const EmployerExperience = () => {
                             style={{ width: "690px" }}
                             type="text"
                             value={designation2}
-                            onChange={(e) => setDesignation2(e.target.value)}
+                            onChange={handleDesignationChange}
                             name="designation2"
-                            onKeyDown={handleKeyDown}
                             placeholder="Select your Designation"
                             required
                             maxLength="32"
@@ -278,12 +290,14 @@ const EmployerExperience = () => {
                                                 Experience
                                             </h3>
                                             <span className="delete"
-                                                // onClick={() => handleDelete(exp._id)}
-                                                onClick={() => {
-                                                    const newArray = [...storedData];
-                                                    newArray.splice(index, 1);
-                                                    setStoredData(newArray);
-                                                }}>
+                                                onClick={() => handleDelete(exp._id)}
+                                            // onClick={() => {
+                                            //     const newArray = [...storedData];
+                                            //     newArray.splice(index, 1);
+                                            //     setStoredData(newArray);
+                                            //     handleDelete(exp._id)
+                                            // }}
+                                            >
 
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -304,7 +318,7 @@ const EmployerExperience = () => {
                                         </div>
                                         <div className="experienceSpan">
                                             <h3>
-                                                Compannny Name: <span> {exp.companyName} </span>{" "}
+                                                Company Name: <span> {exp.companyName} </span>{" "}
                                             </h3>
                                             <h3>
                                                 Designation: <span>{exp.designation2} </span>{" "}

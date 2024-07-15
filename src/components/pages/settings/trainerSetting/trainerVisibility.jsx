@@ -317,6 +317,8 @@ function TrainerVisibility() {
                                 <div className="visibility-head p-3 h-[50%] flex items">
                                     <h3 className="text-[18px] text-[#535353] ">Display</h3>
                                 </div>
+                                <hr className='border-[0.5px] border-[#eeeeee]' />
+
                                 <div
                                     onClick={() => {
                                         setVisiblity("mode");
@@ -340,6 +342,8 @@ function TrainerVisibility() {
                                         Visibility of your profile
                                     </h3>
                                 </div>
+                                <hr className='border-[0.5px] border-[#eeeeee]' />
+
                                 <div className="profile-settings ">
                                     <div
                                         onClick={() => {
@@ -360,6 +364,8 @@ function TrainerVisibility() {
                                             />
                                         </div>
                                     </div>
+                                    <hr className='border-[0.5px] border-[#eeeeee]' />
+
                                     <div
                                         onClick={() => {
                                             setVisiblity("bannerImg");
@@ -379,6 +385,8 @@ function TrainerVisibility() {
                                             />
                                         </div>
                                     </div>
+                                    <hr className='border-[0.5px] border-[#eeeeee]' />
+
                                     <div
                                         onClick={() => {
                                             setVisiblity("certification");
@@ -398,6 +406,8 @@ function TrainerVisibility() {
                                             />
                                         </div>
                                     </div>
+                                    <hr className='border-[0.5px] border-[#eeeeee]' />
+
                                     <div
                                         onClick={() => {
                                             setVisiblity("dates");

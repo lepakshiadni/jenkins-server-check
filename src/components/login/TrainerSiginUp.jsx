@@ -9,7 +9,6 @@ import Select from 'react-select';
 import { trainerSignUpAction } from '../../redux/action/trainer.action';
 import { toast } from 'react-toastify'
 import Cookies from 'js-cookie'
-import { setToken } from '../utils/TokenUtils';
 
 const baseUrl = process.env.REACT_APP_API_URL;
 function TrainerSignUp() {
@@ -160,7 +159,7 @@ function TrainerSignUp() {
     useEffect(() => {
         if (trainer?.success) {
             toast.success(trainer?.message);
-            setToken(trainer?.token)
+            Cookies.set('token', trainer?.token)
             localStorage.setItem('newUser', true)
             navigate('/trainerDashboard/feed')
             console.log('Success:', trainer?.message);

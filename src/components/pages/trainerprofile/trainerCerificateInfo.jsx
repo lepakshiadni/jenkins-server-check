@@ -172,6 +172,8 @@ const TrainerCertificateInfo = () => {
     };
     const handleDelete = (_id) => {
         dispatch(deleteTrainerCertificate(_id));
+        toast.success('Certificate Data Deleted')
+
     };
     return (
         <>
