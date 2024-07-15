@@ -115,25 +115,23 @@ const TrainerProposalManagement = () => {
   };
 
   return (
-    <div className="w-[100%] h-auto text-[#333] ">
-      <div className="Post_Buttons flex space-x-5 items-center">
+    <div className="ProposalManagement">
+      <div className="Post_Buttons flex space-x-5">
         <Link to="/trainerDashboard/proposalmanagement/applied">
-          <button  className={`rounded-[2.5rem] border-[1px] border-[#b6adad] mr-[10px] bg-[#dcdcdc1a] text-[#888] text-[1rem] not-italic font-normal leading-normal cursor-pointer w-[8rem] h-[2rem]  ${activeOption === "Applied" ? "text-[#2676c2] bg-[#2676c21a] " : ""}`}>
+          <button style={{ marginRight: "10px" }} className={`Post_T ${activeOption === "Applied" ? "active" : ""}`}>
             Applied
           </button>
         </Link>
         <Link to="/trainerDashboard/proposalmanagement/proposalrequest">
-          <button className={`rounded-[2.5rem] border-[1px] border-[#b6adad] mr-[10px] bg-[#dcdcdc1a] text-[#888] text-[1rem] not-italic font-normal leading-normal cursor-pointer w-[8rem] h-[2rem] ${activeOption === "Proposal" ? "text-[#2676c2] bg-[#2676c21a] " : ""}`}>Proposal</button>
+          <button className={`Post_J ${activeOption === "Proposal" ? "active" : ""}`}>Proposal</button>
         </Link>
         <Link to="/trainerDashboard/proposalmanagement/denied">
-          <button className={`rounded-[2.5rem] border-[1px] border-[#b6adad] mr-[10px] bg-[#dcdcdc1a] text-[#888] text-[1rem] not-italic font-normal leading-normal cursor-pointer w-[8rem] h-[2rem] ${activeOption === "Denied" ? "text-[#2676c2] bg-[#2676c21a] " : ""}`}>Denied</button>
+          <button className={`Post_J ${activeOption === "Denied" ? "active" : ""}`}>Denied</button>
         </Link>
       </div>
-      <div className="ProposalManagement w-[100%] h-auto text-[#333]">{renderComponent()}</div>
+      <div className="ProposalManagement">{renderComponent()}</div>
     </div>
   );
 };
 
 export default TrainerProposalManagement;
-
-

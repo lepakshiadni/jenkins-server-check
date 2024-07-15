@@ -199,8 +199,6 @@ function EmployerLoginSecurity() {
               <div className="p-3 ">
                 <h3 className='text-[18px] font-[400] text-[#535353] '>Account Access</h3>
               </div>
-              <hr className='border-[0.5px] border-[#eeeeee]' />
-
               <div className="login-settings ">
                 <div onClick={() => { setLoginActive('mobile Email') }} className="mob-email p-3 h-[55px] cursor-pointer  hover:bg-[#f6f6f6] hover:w-full flex items-center justify-between">
                   <p className='text-[14px] font-[400] text-[#535353]'>Mobile and Email</p>
@@ -208,16 +206,12 @@ function EmployerLoginSecurity() {
                     <NavigateNextIcon sx={{ color: 'gray', fontSize: '30px' }} />
                   </div>
                 </div>
-                <hr className='border-[0.5px] border-[#eeeeee]' />
-
                 <div onClick={() => { setLoginActive('Activated Devices') }} className="activated cursor-pointer  p-3 h-[55px] hover:bg-[#f6f6f6] hover:w-full flex items-center justify-between">
                   <p className='text-[14px] font-[400] text-[#535353]'>Activated Devices</p>
                   <div className="">
                     <NavigateNextIcon sx={{ color: 'gray', fontSize: '30px' }} />
                   </div>
                 </div>
-                <hr className='border-[0.5px] border-[#eeeeee]' />
-
                 <div onClick={() => { setLoginActive('close account') }} className="cursor-pointer p-3 h-[55px] hover:bg-[#f6f6f6] hover:w-full flex items-center justify-between">
                   <p className='text-[14px] font-[400] text-[#535353]'>Close Account</p>
                   <div className="">

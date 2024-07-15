@@ -143,24 +143,6 @@ export const addlikePostTrainer = (postId, likedBy) => {
     }
 }
 
-export const addBookMarkPostTrainer = (postId, bookMarkedBy) => {
-    return async (dispatch) => {
-        await Axios.put(`${baseUrl}/trainerpost/addBookMarkToTrainerPost/${postId}`, { bookMarkedBy })
-            .then((resp) => {
-                dispatch({
-                    type: 'ADD_BOOKMARKPOSTTRAINING_SUCCESS',
-                    payload: resp.data
-                })
-            })
-            .catch((error) => {
-                dispatch({
-                    type: "ADD_BOOKMARKPOSTTRAINING_FAILURE",
-                    payload: error
-                })
-            })
-    }
-}
-
 export const deletePostTrainerComment = (postId, commentId) => {
     console.log('delete post traiingcomments', postId, commentId)
     return async (dispatch) => {

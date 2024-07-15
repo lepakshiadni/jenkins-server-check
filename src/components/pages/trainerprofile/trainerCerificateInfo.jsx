@@ -172,8 +172,6 @@ const TrainerCertificateInfo = () => {
     };
     const handleDelete = (_id) => {
         dispatch(deleteTrainerCertificate(_id));
-        toast.success('Certificate Data Deleted')
-
     };
     return (
         <>
@@ -492,7 +490,7 @@ const TrainerCertificateInfo = () => {
                             </button>
                         )}
                 </div>
-                <div style={{border: "1px solid #CECECE",borderRadius:'5px' }}>
+                <div style={{ border: '1px solid gray' }}>
                     {trainer?.certificateDetails?.map((data, index) => (
                         <div className="ms-2 me-2" key={index}>
                             <div>

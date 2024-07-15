@@ -304,7 +304,7 @@ const EmployerProfileList = () => {
                                 </span>
                               </div>
                               <div className=" capitalize text-[#535353] text-[14px] flex flex-wrap">
-                                <p className="whitespace-normal break-words overflow-hidden text-ellipsis">
+                                <p>
                                   {exp?.roleDescription}
                                 </p>
                               </div>

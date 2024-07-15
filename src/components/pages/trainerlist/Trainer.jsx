@@ -190,7 +190,7 @@ const Trainers = ({ trainerFilteredData }) => {
                                         className="profile-img-back"
                                       />
                                       :
-                                      <div className="flex justify-center items-center bg-[#2676c2]  h-[90px] w-[82px]  rounded-[20%]">
+                                      <div className="flex justify-center items-center bg-[#2676c2]  h-[107px] w-[91px]  rounded-[20%]">
                                         <span className="capitalize text-4xl">{trainer?.fullName[0]}</span>
                                         {/* <img  className =" "alt="" src={UserAvatar}/> */}
                                       </div>

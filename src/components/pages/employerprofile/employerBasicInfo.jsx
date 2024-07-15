@@ -199,17 +199,6 @@ const EmployerBasicInfo = () => {
         }
     };
 
-    const [originalValues, setOriginalValues] = useState({
-        firstName: employer?.basicInfo?.firstName || employer?.fullName?.split(' ')[0] || '',
-        lastName: employer?.basicInfo?.lastName || employer?.fullName?.split(' ')[1] || '',
-        designation: employer?.basicInfo?.designation || employer?.designation,
-        company: employer?.basicInfo?.company || employer?.companyName,
-        age: employer?.basicInfo?.age || "",
-        location: employer?.basicInfo?.location || "",
-        objective: employer?.basicInfo?.objective || "",
-        aboutYou: employer?.basicInfo?.aboutYou || ""
-    });
-
     useLayoutEffect(() => {
         if (employer) {
             setFirstName(employer?.basicInfo?.firstName || employer?.fullName?.split(' ')[0] || '');
@@ -220,91 +209,35 @@ const EmployerBasicInfo = () => {
             setLocation(employer?.basicInfo?.location);
             setObjective(employer?.basicInfo?.objective);
             setAboutYou(employer?.basicInfo?.aboutYou);
-
-            setOriginalValues({
-                firstName: employer?.basicInfo?.firstName || employer?.fullName?.split(' ')[0] || '',
-                lastName: employer?.basicInfo?.lastName || employer?.fullName?.split(' ')[1] || '',
-                designation: employer?.basicInfo?.designation || employer?.designation,
-                company: employer?.basicInfo?.company,
-                age: employer?.basicInfo?.age,
-                location: employer?.basicInfo?.location,
-                objective: employer?.basicInfo?.objective,
-                aboutYou: employer?.basicInfo?.aboutYou
-            });
         }
     }, [employer]);
 
+
     const handleCase0Data = async (e) => {
         e.preventDefault();
-        if (!isValidAge) {
-            toast.error('Please enter a valid age between 21 and 60');
-            return;
-        }
-
-        const currentValues = {
-            firstName,
-            lastName,
-            designation,
-            company,
-            age,
-            location,
-            objective,
-            aboutYou
-        };
-
-        const isChanged = Object.keys(currentValues).some(
-            key => currentValues[key] !== originalValues[key]
-        );
-
-        if (!isChanged) {
-            navigate('/employerprofile/profileupdate/skills');
-            return;
-        }
-
         const formData = new FormData();
+        // const fileInput = profileImg.current;
+        // const fileInput2 = profileBanner.current;
+
+        // const file = fileInput.files[0];
+        // const file2 = fileInput2.files[0];
+        // Append form data to formData
+        // formData.append("profileImg", file);
+        // formData.append("profileBanner", file2);
         formData.append("firstName", firstName);
         formData.append("lastName", lastName);
         formData.append("designation", designation);
+        formData.append("age", age);
         formData.append("location", location);
-        if (age) formData.append("age", age);
         if (company) formData.append("company", company);
         if (objective) formData.append("objective", objective);
         if (aboutYou) formData.append("aboutYou", aboutYou);
         formData.append("status", true);
 
         dispatch(employerBasicInfoUpdate(formData));
-        toast.success('Basic Info Updated Successfully');
-        navigate('/employerprofile/profileupdate/skills');
-    };
+        toast.success('Basic Info Updated')
+        navigate('/employerprofile/profileupdate/skills')
 
-
-    const handleChange = (setter, pattern) => (e) => {
-        const { value } = e.target;
-        // Apply the specified pattern for validation and ensure length does not exceed maxLength
-        if (pattern.test(value)) {
-            setter(value);
-        }
-    };
-
-    const handleObjectiveChange = (e) => {
-        const { value } = e.target;
-        // Prevent four consecutive numbers
-        if (!/\d{5}/.test(value)) {
-            setObjective(value);
-        }
-    };
-
-    const [isValidAge, setIsValidAge] = useState(true);
-
-    const handleAgeChange = (e) => {
-        const newAge = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
-        setAge(newAge);
-        validateAge(newAge);
-    };
-
-    const validateAge = (number) => {
-        const numericValue = parseInt(number, 10);
-        setIsValidAge(number === '' || (numericValue >= 21 && numericValue <= 60));
     };
 
     return (
@@ -472,7 +405,7 @@ const EmployerBasicInfo = () => {
                                     <input
                                         type="text"
                                         value={firstName}
-                                        onChange={handleChange(setFirstName, /^[a-zA-Z\s]*$/)}
+                                        onChange={(e) => setFirstName(e.target.value)}
                                         name="firstName"
                                         onKeyDown={handleKeyDown}
                                         placeholder="Type your First Name"
@@ -487,7 +420,7 @@ const EmployerBasicInfo = () => {
                                     <input
                                         type="text"
                                         value={lastName}
-                                        onChange={handleChange(setLastName, /^[a-zA-Z\s]*$/)}
+                                        onChange={(e) => setLastName(e.target.value)}
                                         name="lastName"
                                         onKeyDown={handleKeyDown}
                                         placeholder="Type your Last Name"
@@ -497,13 +430,13 @@ const EmployerBasicInfo = () => {
                                 </div>
                             </div>
                             <div className="mt-2">
-                                <label htmlFor="">Designation <span className="text-[#CECECE]">(eg: Freelancer, Corporate Trainer)</span>*</label>
+                                <label htmlFor="">Designation *</label>
                                 <br />
                                 <input
                                     style={{ width: "508px" }}
                                     type="text"
                                     value={designation}
-                                    onChange={handleChange(setDesignation, /^[a-zA-Z\s]*$/)}
+                                    onChange={(e) => setDesignation(e.target.value)}
                                     name="designation"
                                     onKeyDown={handleKeyDown}
                                     placeholder="Type your Occupation"
@@ -528,23 +461,20 @@ const EmployerBasicInfo = () => {
                                 />
                             </div>
                             <div className="mt-2">
-                                <label htmlFor="">Age <span className="text-[#CECECE]">(eg: 21-60)</span></label>
+                                <label htmlFor="">Age *</label>
                                 <br />
                                 <input
-                                    style={{ width: "508px", borderColor: isValidAge ? '#CECECE' : 'red' }}
-                                    type="tel"
-                                    maxLength="2"
-                                    minLength="2"
+                                    style={{ width: "508px" }}
+                                    type="number"
                                     value={age}
+                                    onChange={(e) => setAge(e.target.value)}
                                     name="age"
-                                    onChange={handleAgeChange}
                                     onKeyDown={handleKeyDown}
                                     placeholder="Type your age"
+                                    required
+                                    min='0'
                                     autoComplete="off"
                                 />
-                                {!isValidAge && (
-                                    <p className="text-sm text-[red]">Age must be between 21 and 60 or left empty.</p>
-                                )}
                             </div>
                             <div className="mt-2">
                                 <label htmlFor="">Location *</label>
@@ -567,11 +497,11 @@ const EmployerBasicInfo = () => {
                                     style={{ width: "508px" }}
                                     type="text"
                                     value={objective}
-                                    onChange={handleObjectiveChange}
+                                    onChange={(e) => setObjective(e.target.value)}
                                     name="objective"
                                     onKeyDown={handleKeyDown}
                                     placeholder="Profile title"
-                                    maxLength="32"
+                                    maxLength="42"
                                     autoComplete="off"
                                 />
                             </div>

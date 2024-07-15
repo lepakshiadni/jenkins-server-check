@@ -4,7 +4,7 @@ import timesago from "timesago";
 import { io } from "socket.io-client";
 
 const baseUrl = process.env.REACT_APP_API_URL;
-console.log('baseUrl',baseUrl)
+
 function Conversation({ hasUnreadMessages, conversation, currentuser, selectedConversation, lastMessage, onlineUser, typingStatus, members }) {
   const [user, setUser] = useState(null);
   const [lastmessage, setLastmessage] = useState("");
@@ -27,7 +27,7 @@ function Conversation({ hasUnreadMessages, conversation, currentuser, selectedCo
   }, [typingStatus]);
 
   useEffect(() => {
-    const newSocket = io('http://192.168.1.109:4040');
+    const newSocket = io('http://localhost:4040');
     setSocket(newSocket);
 
     return () => {
@@ -95,7 +95,7 @@ function Conversation({ hasUnreadMessages, conversation, currentuser, selectedCo
   const isUserOnline = onlineUser?.some((u) => u.userId === user?._id);
 
   return (
-    <div className={`${selectedConversation ? "Rectangle115 hover:cursor-pointer w-full h-[70px] flex justify-between justify-items-center bg-[#E3E3E3]" : "Rectangle115 hover:cursor-pointer w-[317px] h-[70px] flex justify-between justify-items-center bg-white"} ${(!hasUnreadMessages && (unreadMessageCount != 0) && lastmessage.sender == user?._id) ? "bg-[#2676c2]" : ""}`}>
+    <div className={`${selectedConversation ? "Rectangle115 hover:cursor-pointer w-full h-[70px] flex justify-between justify-items-center bg-[#E3E3E3]" : "Rectangle115 hover:cursor-pointer w-[317px] h-[70px] flex justify-between justify-items-center bg-white"} ${(!hasUnreadMessages && (unreadMessageCount != 0) && lastmessage.sender == user?._id) ? "bg-red-100" : ""}`}>
       <div className="flex">
         <div className="mt-[12px] ml-[10px]">
           <div className="Group1189 w-[51px] h-[51px] rounded-[50%] relative">
@@ -142,7 +142,7 @@ function Conversation({ hasUnreadMessages, conversation, currentuser, selectedCo
         </div>
       </div>
 
-      {!hasUnreadMessages && (unreadMessageCount != 0) && lastmessage.sender == user?._id && <div className="w-5 h-5 flex text-sm relative right-2 top-2 justify-center items-center text-white bg-[#2676c2] rounded-full">
+      {!hasUnreadMessages && (unreadMessageCount != 0) && lastmessage.sender == user?._id && <div className="w-5 h-5 flex text-sm relative right-2 top-2 justify-center items-center text-white bg-red-500 rounded-full">
         {unreadMessageCount}
       </div>}
     </div>

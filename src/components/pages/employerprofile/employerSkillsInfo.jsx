@@ -110,29 +110,14 @@ const EmployerSkillsInfo = () => {
         setClickedTitles(updatedTitles);
     };
 
-    const [originalSkills, setOriginalSkills] = useState([]);
-
-    useLayoutEffect(() => {
-        if (employer?.skills) {
-            setClickedTitles(employer?.skills);
-            setOriginalSkills(employer?.skills.map(skill => ({ name: skill.name, image: skill.image })));
-        }
-    }, [employer?.skills]);
-
-    const normalizeSkills = (skills) => skills.map(({ name, image }) => ({ name, image }));
 
     const handleCase1Data = () => {
-
-        const isChanged = JSON.stringify(normalizeSkills(clickedTitles)) !== JSON.stringify(normalizeSkills(originalSkills));
-        if (!isChanged) {
-            navigate('/employerprofile/profileupdate/experience');
-            return;
-        }
-
+        clickedTitles.forEach((skill) => skill);
         dispatch(employerSkillsUpdate(clickedTitles));
-        toast.success('Skills Info Updated');
-        navigate('/employerprofile/profileupdate/experience');
+        toast.success('Skills Info Updated')
+        navigate('/employerprofile/profileupdate/experience')
     };
+
     return (
         <>
             <div className="updatedatas2">
@@ -175,7 +160,7 @@ const EmployerSkillsInfo = () => {
                                     cursor: "pointer",
                                 }}
                             >
-                                <h6 className="whitespace-normal break-words overflow-hidden text-ellipsis" style={{ marginRight: "10%" }}>{item.name}</h6>
+                                <h6 style={{ marginRight: "10%" }}>{item.name}</h6>
                                 <input
                                     ref={skillRef}
                                     value={item.name}
@@ -234,7 +219,6 @@ const EmployerSkillsInfo = () => {
                                         handleEnterKeyPressed();
                                     }
                                 }}
-                                maxLength="32"
                             />
                             <svg
                                 className=""

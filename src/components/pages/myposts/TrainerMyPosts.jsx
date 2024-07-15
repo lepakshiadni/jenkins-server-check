@@ -188,7 +188,7 @@ const TrainerMyPosts = () => {
                         {/* <img className='img2' height='60px' width='60px' src={post?.postedByImg} alt="" /> */}
                         {
                           post?.postedByImg ?
-                            <img className='img2 rounded-full' height='60px' width='60px' src={post?.postedByImg} alt="" />
+                            <img className='img2' height='60px' width='60px' src={post?.postedByImg} alt="" />
                             :
                             <div className='flex justify-center items-center h-[60px] w-[60px] rounded-full bg-slate-200'>
                               <span>
@@ -239,6 +239,7 @@ const TrainerMyPosts = () => {
                   {post.postedDescrition}
                 </p>
                 <img width='100%' src={post.postedImg.postImg} alt="" />
+
                 <section>
                   <hr style={{ margin: '10px 0px' }} />
 
@@ -358,11 +359,11 @@ const TrainerMyPosts = () => {
         </> :
 
           <>
-            <div className="flex justify-center items-center bg-slate-200 h-[400px] w-full">
-              <span>
-                No Post Yet !
-              </span>
-            </div>
+           <div className="flex justify-center items-center bg-slate-200 h-[400px] w-full">
+            <span>
+              No Post Yet !
+            </span>
+           </div>
           </>
         }
       </section>

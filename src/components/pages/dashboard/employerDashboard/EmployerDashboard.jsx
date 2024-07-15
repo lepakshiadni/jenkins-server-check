@@ -41,7 +41,6 @@ import EmployerAccountPreferance from "../../settings/employerSetting/employerAc
 import EmployerLoginSecurity from "../../settings/employerSetting/employerLoginSecurity";
 import EmployerVisibility from "../../settings/employerSetting/employerVisibility";
 import EmployerNotifications from "../../settings/employerSetting/employerNotification";
-import EmployerCreatePostPopUp from "../../../utils/EmployerCreatePostPopUp";
 
 const DashboardApp = () => {
 
@@ -81,7 +80,6 @@ const DashboardApp = () => {
   const [selectedFilter, setSelectedFilter] = useState('');
   const [selectedFilter2, setSelectedFilter2] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
-  const [model, setModel] = useState(false)
 
   const [trainerDetails, setTrainerDetails] = useState([])
 
@@ -102,7 +100,7 @@ const DashboardApp = () => {
   }, [dispatch]);
   // console.log('employer', employer);
   useEffect(() => {
-    socket.current = io(`http://192.168.1.109:4040`, {
+    socket.current = io(`http://13.235.90.102:4040`, {
       transports: ["websocket"],
       withCredentials: true,
       extraHeaders: {
@@ -672,14 +670,14 @@ const DashboardApp = () => {
                 >
 
                   <div className="dropdown-buttons">
-                    <select style={{ backgroundColor: "#f9f9f9", border: "1px solid #dadada", outline: 'none', color: 'gray',borderRadius:'8px',width:'13rem',height:"2rem",cursor:'pointer' }} value={selectedFilter} onChange={(e) => handleFilterChange(e.target.value)} >
+                    <select className="accordionPost" style={{ backgroundColor: "#f9f9f9", border: "1px solid #dadada", outline: 'none', color: 'gray' }} value={selectedFilter} onChange={(e) => handleFilterChange(e.target.value)} >
                       <option value="" selected>Select Location</option>
                       {storeLoc.map((item, index) => (
                         <option key={index} value={item}>{item}</option>
                       ))}
                     </select>
 
-                    <select style={{ backgroundColor: "#f9f9f9", border: "1px solid #dadada", outline: 'none', color: 'gray',borderRadius:'8px',width:'13rem',height:"2rem",cursor:"pointer" }} value={selectedFilter2} onChange={(e) => handleFilterChange2(e.target.value)} >
+                    <select className="accordionPost" style={{ backgroundColor: "#f9f9f9", border: "1px solid #dadada", outline: 'none', color: 'gray' }} value={selectedFilter2} onChange={(e) => handleFilterChange2(e.target.value)} >
                       <option value="" selected>Select Designation</option>
                       {storedesignation.map((item, index) => (
                         <option key={index} value={item}>{item}</option>
@@ -687,21 +685,6 @@ const DashboardApp = () => {
                     </select>
                   </div>
 
-                </div>
-              </div>
-              <div>
-                <div
-                  className={` ${selectedOption === "Feed" ? "relative" : "hidden"
-                    }`}
-                >
-                  <button
-                    onClick={() => {
-                      setModel(true);
-                    }}
-                    className="w-[161px] h-[40px] bg-[#2676C2] border rounded-lg text-white text-base font-medium font-['Poppins']"
-                  >
-                    Create a post +
-                  </button>
                 </div>
               </div>
 
@@ -767,15 +750,7 @@ const DashboardApp = () => {
                 <Route path="help&support/sissoo-support" element={<HelpPage5 />} />
               </Routes>
             </div>
-
           </div>
-          {model && selectedOption === "Feed" ? (
-            <>
-              <EmployerCreatePostPopUp trigger={model} setTrigger={setModel} />
-            </>
-          ) : (
-            ""
-          )}
         </div>
       </div>
     </>

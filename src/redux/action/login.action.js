@@ -1,19 +1,24 @@
 import Axios from "axios";
-import { detect } from "detect-browser";
-
 const baseUrl = process.env.REACT_APP_API_URL;
 
 export const verifyOtp = (contactDetails, otp) => {
+  console.log('otp verify action ',contactDetails,otp)
   return async (dispatch) => {
     try {
-      // Detect device information
-      const browser = detect();
-      const deviceInfo = browser ? `${browser.name} ${browser.version} on ${browser.os}` : 'Unknown device';
-      const response = await Axios.post(`${baseUrl}/user/verifyotp`, { contactDetails, otp, deviceInfo });
+      const response = await Axios.post(`${baseUrl}/user/verifyotp`, { contactDetails, otp });
+      // console.log(response)
       dispatch(verifyOtpSuccess(response.data));
     } catch (error) {
-      dispatch(verifyOtpFailure(error.response?.data?.message || 'Invalid OTP'));
+      dispatch(verifyOtpFailure());
     }
+    // await Axios.post(`http://44.203.138.222:4000/user/verifyotp`, { phoneNumber, otp })
+    // .then((resp)=>{
+    //     console.log('resp',resp.data)
+    //     dispatch(verifyOtpSuccess(resp.data));
+    // })
+    // .catch((error)=>{
+    //   dispatch(verifyOtpFailure('Invalid OTP'));
+    // })
   };
 };
 

@@ -4,8 +4,7 @@ import EmployerFeedData from './EmployerFeedData'
 import EmployerFeedRequestPopUp from "../../../utils/EmployerFeedRequestPopUp";
 import { useSelector, useDispatch } from "react-redux";
 import Skeleton from '@mui/material/Skeleton';
-import { addBookMarkPostTrainer } from "../../../../redux/action/trainercreatepost.action";
-// import { addBookMarkePost, getBookMarkedPost } from "../../../../redux/action/employers.action";
+import { addBookMarkePost, getBookMarkedPost } from "../../../../redux/action/employers.action";
 
 const EmployerFeed = ({ postrainingData }) => {
 
@@ -14,15 +13,14 @@ const EmployerFeed = ({ postrainingData }) => {
   const employer = useSelector(({ employerSignUp }) => {
     return employerSignUp?.employerDetails?.employerDetails;
   });
-  const currentUserId = employer?._id
 
-  // const bookMarkedPost = useSelector(({ employerSignUp }) => {
-  //   return employerSignUp?.addBookMarkedPost?.userBookmarks;
-  // })
+  const bookMarkedPost = useSelector(({ employerSignUp }) => {
+    return employerSignUp?.addBookMarkedPost?.userBookmarks;
+  })
 
-  // useEffect(() => {
-  //   dispatch(getBookMarkedPost())
-  // }, [dispatch])
+  useEffect(() => {
+    dispatch(getBookMarkedPost())
+  }, [dispatch])
 
   const menuRef = useRef(null)
   const [open, setOpen] = useState(Array(postrainingData.length).fill(false));
@@ -47,29 +45,10 @@ const EmployerFeed = ({ postrainingData }) => {
     };
   });
 
-  // const handleIconClick = async (index, bookmark) => {
-  //   await dispatch(addBookMarkePost(bookmark?._id, bookmark))
-  //   setOpen([])
-  // };
-
-  const [bookMarkedPost, setBookMarkPost] = useState([])
-
-  const handleIconClick = async (postId, currentUserId) => {
-      await dispatch(addBookMarkPostTrainer(postId, currentUserId))
-      setOpen([])
+  const handleIconClick = async (index, bookmark) => {
+    await dispatch(addBookMarkePost(bookmark?._id, bookmark))
+    setOpen([])
   };
-
-  console.log('bookMarkedPost', bookMarkedPost);
-
-  useEffect(() => {
-      if (postrainingData) {
-          const bookmarkedPosts = postrainingData
-              .filter(post =>
-                  post.bookMark?.some(bookmark => bookmark._id === currentUserId)
-              )
-          setBookMarkPost(bookmarkedPosts);
-      }
-  }, [postrainingData, currentUserId]);
 
   const [PopUpButton2, setPopUpButton2] = useState(false);
 
@@ -122,9 +101,9 @@ const EmployerFeed = ({ postrainingData }) => {
             <section className='scroll' style={{ border: '1px solid #EEEEEE', padding: '10px', height: '300px', marginTop: '10px' }}>
 
               {
-                bookMarkedPost?.length > 0 ? <>
+                bookMarkedPost?.postDetails?.length > 0 ? <>
                   {
-                    bookMarkedPost?.map((bookmark, index) => (
+                    bookMarkedPost?.postDetails?.map((bookmark, index) => (
                       <div key={index}>
 
                         <div className='bookmark data' style={{ display: 'flex', alignItems: 'center', textAlign: 'center', justifyContent: 'space-between' }}>
@@ -140,7 +119,7 @@ const EmployerFeed = ({ postrainingData }) => {
                                     <span>
                                       {/* {bookmark?.postedByName[0]} */}
                                       {
-                                        bookmark?.postedByName === undefined ? '' : bookmark?.postedByName[0]
+                                        bookmark?.postedByName === undefined  ?'': bookmark?.postedByName[0]
                                       }
                                     </span>
                                   </div>
@@ -152,8 +131,8 @@ const EmployerFeed = ({ postrainingData }) => {
                             </div>
                           </div>
 
-                          <div style={{ position: 'relative', display: 'inline-block', cursor: 'pointer' }}>
-                            {/* <div
+                          <div style={{ position: 'relative', display: 'inline-block' }}>
+                            <div
                               onClick={() => handleMenuClick(index)}
                               style={{ cursor: 'pointer', fontSize: '25px', fontWeight: 'bolder', color: 'gray' }}
                             >
@@ -176,10 +155,7 @@ const EmployerFeed = ({ postrainingData }) => {
                                 <div className='option' style={{ padding: '5px', cursor: 'pointer', fontSize: '12px' }}>Connect</div>
                                 <div className='option' style={{ padding: '5px', cursor: 'pointer', fontSize: '12px' }} onClick={() => handleIconClick(index, bookmark)}>Remove</div>
                               </div>
-                            )} */}
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 14 18" fill="none" onClick={() => handleIconClick(bookmark._id, currentUserId)}>
-                              <path d="M0 18V2C0 1.45 0.195833 0.979167 0.5875 0.5875C0.979167 0.195833 1.45 0 2 0H12C12.55 0 13.0208 0.195833 13.4125 0.5875C13.8042 0.979167 14 1.45 14 2V18L7 15L0 18Z" fill="#2676C2" />
-                            </svg>
+                            )}
                           </div>
 
                         </div>
@@ -189,7 +165,7 @@ const EmployerFeed = ({ postrainingData }) => {
                           </p>
                           <img width='100%' src={bookmark?.postedImg?.postImg} alt="" />
                         </div>
-                        {/* <button onClick={() => { setPopUpButton2(true) }}
+                        <button onClick={() => { setPopUpButton2(true) }}
                           style={{
                             backgroundColor: '#2676C2',
                             border: '0px',
@@ -199,7 +175,7 @@ const EmployerFeed = ({ postrainingData }) => {
                             fontWeight: 500,
                             marginTop: '10px',
                             display: 'block' // Make it a block-level element
-                          }}>Hire</button> */}
+                          }}>Hire</button>
                         <hr style={{ margin: "10px 0px" }} />
 
                       </div>
@@ -219,7 +195,7 @@ const EmployerFeed = ({ postrainingData }) => {
                     <Skeleton variant="text" width={270} sx={{ fontSize: '1rem' }} />
                     <Skeleton variant="text" width={270} sx={{ fontSize: '1rem' }} />
                   </div> */}
-                  <div className="flex justify-center items-center h-40">
+                  <div className="flex justify-center items-center h-96">
                     <span>
                       No  Bookmarks Found!
                     </span>
@@ -234,7 +210,7 @@ const EmployerFeed = ({ postrainingData }) => {
         </section>
 
         <section>
-          <EmployerFeedData setPopUpButton2={setPopUpButton2} postrainingData={postrainingData} />
+          <EmployerFeedData setPopUpButton2={setPopUpButton2} bookMarkedPost={bookMarkedPost} postrainingData={postrainingData} />
         </section>
       </div>
     </div>
