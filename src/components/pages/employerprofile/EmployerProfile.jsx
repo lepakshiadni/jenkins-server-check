@@ -549,7 +549,7 @@ const EmployerProfile = () => {
                                 {experience.startDate}
                               </span>
                             </h3>
-                            <p className="mt-[20px] text-[#535353] text-[16px] font-[400] font-['Poppins'] text-ellipsis break-words overflow-hidden whitespace-normal">
+                            <p className="mt-[20px] text-[#535353] text-[16px] font-[400] font-['Poppins']">
                               {experience.roleDescription}
                             </p>
                           </div>

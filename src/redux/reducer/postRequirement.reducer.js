@@ -128,20 +128,6 @@ const postRequirementReducer = (state = initialState, action) => {
         ...state,
         message: action.payload.error,
       };
-    case "ADD_BOOKMARKPOSTTRAINING_SUCCESS":
-      console.log("handling add post traiing comments");
-      return {
-        ...state,
-        postTrainingDetails: action.payload,
-        message: action.payload.message,
-        success: action.payload.success,
-      };
-    case "ADD_BOOKMARKPOSTTRAINING_FAILURE":
-      console.error("Handling failure employer:", action.payload);
-      return {
-        ...state,
-        message: action.payload.error,
-      };
     case "GET_TRAININGCOMMENTS_SUCCESS":
       console.log("handling add post traiing comments");
       return {
@@ -209,21 +195,6 @@ const postRequirementReducer = (state = initialState, action) => {
         ...state,
         message: action.payload.error
       };
-
-    case 'UPDATE_ENABLESTATUS_SUCCESS':
-      return {
-        ...state,
-        postTrainingDetails: action.payload,
-        message: action.payload.message,
-        success: action.payload.success
-      };
-    case 'UPDATE_ENABLESTATUS_FAILURE':
-      return {
-        ...state,
-        message: action.payload.error
-      };
-
-
 
     default:
       return state;

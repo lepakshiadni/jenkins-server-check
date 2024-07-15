@@ -373,34 +373,34 @@ export const updateApplicationStatus = (trainingDetailsId, trainerId, status) =>
   };
 }
 
-// export const addBookMarkePost = (postId, postDetails) => {
-//   const token = Cookies.get('token')
-//   console.log(postId, 'add bookmark post ', postDetails)
-//   return async (dispatch) => {
-//     try {
-//       Axios.post(`${baseUrl}/employer/addBookMarkePost/${postId}`, postDetails, {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//           "Content-Type": "application/json"
-//         }
-//       })
-//         .then((resp) => {
-//           // console.log(resp)
-//           dispatch({
-//             type: 'ADD_BOOKMARKEDPOST_SUCCESS',
-//             payload: resp.data
-//           })
-//         })
-//     }
-//     catch (resp) {
-//       dispatch({
-//         type: "ADD_BOOKMARKEDPOSTFAILURE",
-//         payload: resp.data
-//       })
-//     }
-//   }
+export const addBookMarkePost = (postId, postDetails) => {
+  const token = Cookies.get('token')
+  console.log(postId, 'add bookmark post ', postDetails)
+  return async (dispatch) => {
+    try {
+      Axios.post(`${baseUrl}/employer/addBookMarkePost/${postId}`, postDetails, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        }
+      })
+        .then((resp) => {
+          // console.log(resp)
+          dispatch({
+            type: 'ADD_BOOKMARKEDPOST_SUCCESS',
+            payload: resp.data
+          })
+        })
+    }
+    catch (resp) {
+      dispatch({
+        type: "ADD_BOOKMARKEDPOSTFAILURE",
+        payload: resp.data
+      })
+    }
+  }
 
-// }
+}
 
 export const getBookMarkedPost = () => {
   const token = Cookies.get('token')
@@ -652,6 +652,8 @@ export const conversationRequestAccept = (requestId) => {
       Axios.put(`${baseUrl}/conversation/employerConversationRequestAccept`, { requestId }, {
         headers: {
           Authorization: `Bearer ${token}`,
+
+
         }
       })
         .then((resp) => {
@@ -670,7 +672,6 @@ export const conversationRequestAccept = (requestId) => {
     }
   }
 }
-
 export const conversationRequestDecline = (id) => {
   const token = Cookies.get('token')
   console.log('request conversation Action')

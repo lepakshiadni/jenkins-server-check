@@ -3,7 +3,6 @@ import { addTrainingResources } from '../../../../redux/action/trainer.action'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import ProfileImage from "../../../utils/ProfileImage";
-import '../../../styles/TrainerOngoing.css'
 
 // Dummy data for ongoing training
 
@@ -18,9 +17,8 @@ const OngoingTraining = ({ ongoing }) => {
   const [activeSteps, setActiveSteps] = useState([1, 2]);
   const [fileData, setFileData] = useState([])
   const [seletedTraining, setSeletedTraining] = useState(null)
-  const addFile = (seletedTraining) => {
+  const addFile = () => {
     setIsVisible(!isVisible);
-    setSeletedTraining(seletedTraining)
   };
   const calculateProgressBarWidth = () => {
     const totalSteps = 3; // Update this based on the total number of steps
@@ -37,7 +35,7 @@ const OngoingTraining = ({ ongoing }) => {
     setFileData(updatedFileData);
   };
 
-  const saveFile = async () => {
+  const saveFile = async (trainingDetails) => {
     if (currentFileName && fileAttachment) {
       const newFile = { name: currentFileName, attachment: fileAttachment };
       setFileData([...fileData, newFile]);
@@ -45,13 +43,12 @@ const OngoingTraining = ({ ongoing }) => {
       setCurrentFileName("");
       setFileAttachment(null);
       setIsVisible(true);
-      // setSeletedTraining(trainingDetails)
+      setSeletedTraining(trainingDetails)
       // console.log('fileName', newFile?.attachment?.name)
       console.log("File Uploaded:", newFile);
     }
   };
   console.log('filedata', fileData)
-  console.log('selectedTraining',seletedTraining)
 
   const addresourcesHandler = () => {
     const formData = new FormData()
@@ -80,58 +77,50 @@ const OngoingTraining = ({ ongoing }) => {
                 return <div>
                   <div
                     key={index}
-                    className="flex flex-shrink justify-evenly items-center mt-[20px] p-[5px] gap-1 "
-                    // style={{ marginTop: "20px" }}
+                    className="Training_Programm"
+                    style={{ marginTop: "20px" }}
                   >
-                    <div className="w-[28%] h-[23rem] shadow-[2px_2px_8px_1px_rgba(199,195,195,0.34)]">
-                      <div className="h-[100%] w-[95%]  flex flex-col justify-center p-3 gap-4">
-                        <div className="">
-                        <p className='text-[#333333] font-medium text-base'>Training Program Name</p>
-                        <h3 className="text-[15px] font-normal text-[#2676c2] truncate">{trainingPostDetails?.trainingName}</h3>
-                        </div>
-                          <div className="">
-                        <p className='ext-[#333333] font-medium text-base'>Company Name</p>
-                        <h3 className="text-[15px] font-normal text-[#2676c2] truncate">{trainingPostDetails?.postedByCompanyName}</h3>
-                        </div>
-                        <div className="">
-                        <p className='text-[#333333] font-medium text-base'>Type Of Training</p>
-                        <h2 className='text-[15px] font-normal text-[#535353] truncate'>{trainingPostDetails?.typeOfTraining}</h2>
-                        </div>
-                        <div className="">
-                        <p className='text-[#333333] font-medium text-base'>Duration Of Training</p>
-                        <h2 className='text-[15px] font-normal text-[#535353] truncate'>{trainingPostDetails.durationCount} {trainingPostDetails?.durationType}{trainingPostDetails.durationCount > 0 ? "'s" : ""}</h2>
-                        </div>
-                        <div className="flex w-[90%] justify-between">
-                          <div className="">
-                            <p className='text-[#333333] font-medium text-base'>Start Date</p>
-                            <h2 className='text-[15px] font-normal text-[#535353] truncate'>{trainingPostDetails?.startDate}</h2>
+                    <div className="Trainer_Infoo">
+                      <div className="TTTDD">
+                        <p className='font-[600]'>Training Program Name</p>
+                        <h3 className="Blue_H22">{trainingPostDetails?.trainingName}</h3>
+                        <p className='font-[600]'>Company Name</p>
+                        <h3 className="Blue_H22">{trainingPostDetails?.postedByCompanyName}</h3>
+                        <p className='font-[600]'>Type Of Training</p>
+                        <h2>{trainingPostDetails?.typeOfTraining}</h2>
+                        <p className='font-[600]'>Duration Of Training</p>
+                        <h2>{trainingPostDetails.durationCount} {trainingPostDetails?.durationType}{trainingPostDetails.durationCount > 0 ? "'s" : ""}</h2>
+                        <div className="SDEDD">
+                          <div className="SDD">
+                            <p className='font-[600]'>Start Date</p>
+                            <h2>{trainingPostDetails?.startDate}</h2>
                           </div>
-                          <div className="">
-                            <p className='text-[#333333] font-medium text-base'>End Date</p>
-                            <h2 className='text-[15px] font-normal text-[#535353] truncate'>{trainingPostDetails?.endDate}</h2>
+                          <div className="EDD">
+                            <p className='font-[600]'>End Date</p>
+                            <h2>{trainingPostDetails?.endDate}</h2>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div className="w-[72%] h-[23rem] shadow-[0px_2px_8px_1px_rgba(199,195,195,0.34)] rounded-r-[10px] flex flex-col justify-center items-center">
+                    <div className="Program_Info">
                       <div
-                        className="Trainer-Ongoing-stepper"
+                        className="Stepper"
                         style={{ height: "2.5rem", marginTop: "1.5rem" }}
                       >
-                        <div className="Trainer-Ongoing-steps">
+                        <div className="steps">
                           {[1, 2, 3].map((step) => (
                             <span
                               key={step}
-                              className={`Trainer-Ongoing-circle ${activeSteps.includes(step) ? "Trainer-Ongoing-active" : ""
+                              className={`circle ${activeSteps.includes(step) ? "active" : ""
                                 }`}
                             // onClick={() => handleStepClick(step)}
                             >
                               {step}
                             </span>
                           ))}
-                          <div className="Trainer-Ongoing-progress-bar">
+                          <div className="progress-bar">
                             <span
-                              className="Trainer-Ongoing-indicator"
+                              className="indicator"
                               style={{
                                 width: calculateProgressBarWidth(), // Adjusted the calculation here
                               }}
@@ -140,18 +129,26 @@ const OngoingTraining = ({ ongoing }) => {
                         </div>
                       </div>
                       <div className="Step2PS">
-                        <h4 className="text-[13px]">Program Status</h4>
-                        <p className="text-[11px]">{`Started Date: ${trainingPostDetails?.createdAt?.slice(0, 10)}`}</p>
+                        <h4>Program Status</h4>
+                        <p>{`Started Date: ${trainingPostDetails?.createdAt?.slice(0, 10)}`}</p>
                       </div>
-                      <div className="w-[90%] m-auto  flex justify-center gap-4 h-[15rem]">
-                        <div className="flex w-[30%] flex-col gap-[0.4rem]">
+                      <div className="Program_Status">
+                        <div className="Total_Parttt">
                           <h1
-                          className="text-[#333] text-[1.125rem] font-[600] m-0"
+                            style={{
+                              color: "#333",
+                              fontFamily: "Poppins",
+                              fontSize: "1.125rem",
+                              fontStyle: "normal",
+                              fontWeight: "600",
+                              lineHeight: "normal",
+                              margin: "0",
+                            }}
                           >
                             Posted By
                           </h1>
                           <Link to={`/trainerDashboard/mytrainings/ongoing/employerprofilelist/${trainingPostDetails?.postedById}`}>
-                            <div className="bg-[#2676c233] min-w-[190px] max-w-[80%] h-[4.5rem] w-[2.5rem] flex items-center gap-[0.8rem] pl-[0.3rem] rounded-[2.5rem]">
+                            <div className="PBB">
                               {
                                 trainingPostDetails?.postedByImg ?
                                   <img
@@ -165,15 +162,15 @@ const OngoingTraining = ({ ongoing }) => {
                                   />
 
                                   :
-                                  <div className="w-[4rem] h-[4rem] rounded-full flex justify-center items-center bg-[#f4f6f7]">
+                                  <div className="w-[4rem] h-[4rem] rounded-full flex justify-center items-center bg-slate-500">
                                     <span className=" capitalize">
-                                      {trainingPostDetails?.postedByName?.[0]}
+                                      {trainingPostDetails?.postedByName[0]}
                                     </span>
                                   </div>
                               }
                               <span>
-                                <h2 className="text-[#333] text-[1.125rem] font-[600]">{trainingPostDetails?.postedByName}</h2>
-                                <p className="text-[#535353] text-[0.75rem] font-medium">{trainingPostDetails?.postedByCompanyName}</p>
+                                <h2>{trainingPostDetails?.postedByName}</h2>
+                                <p>{trainingPostDetails?.postedByCompanyName}</p>
                               </span>
                             </div>
                           </Link>
@@ -186,8 +183,8 @@ const OngoingTraining = ({ ongoing }) => {
                           >
                             Total Participant's
                           </p>
-                          <div className="flex items-end text-[#2676c2] font-medium">
-                            <h1 className="text-[#2676c2] text-[1.87rem] font-medium">{trainingPostDetails.participantCount}</h1>
+                          <div className="P205">
+                            <h1>{trainingPostDetails.participantCount}</h1>
                           </div>
                           <div
                             style={{ display: "flex", alignItems: "center", gap: "2rem" }}
@@ -199,8 +196,8 @@ const OngoingTraining = ({ ongoing }) => {
                                 alignItems: "center",
                               }}
                             >
-                              <p className="text-[#333] font-[600]">Mode</p>
-                              <h2 className="text-[#535353] font-medium">{trainingPostDetails?.modeOfTraining}</h2>
+                              <p>Mode</p>
+                              <h2>{trainingPostDetails?.modeOfTraining}</h2>
                             </div>
                             {
                               trainingPostDetails?.modeOfTraining === 'offline' ?
@@ -211,25 +208,24 @@ const OngoingTraining = ({ ongoing }) => {
                                     alignItems: "center",
                                   }}
                                 >
-                                  <p className="text-[#333] font-[600]">Location</p>
-                                  <h2 className="text-[#535353] font-medium">{trainingPostDetails?.location}</h2>
+                                  <p>Location</p>
+                                  <h2>{trainingPostDetails?.location}</h2>
                                 </div>
                                 :
                                 null
                             }
                           </div>
                         </div>
-                        <div className="w-[70%] h-[100%] flex flex-col items-center justify-center rounded-[0.5rem] border-[1px] border-[#eee] ">
+                        <div className="Notess">
                           <div
                             style={{
                               position: "relative",
                               height: "60px",
                               cursor: "pointer",
                               display: "flex",
-                              gap:'10px',
                               alignItems: "center",
                             }}
-                            onClick={()=>{addFile(_id)}}
+                            onClick={addFile}
                           >
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -237,14 +233,14 @@ const OngoingTraining = ({ ongoing }) => {
                               height="60"
                               viewBox="0 0 60 60"
                               fill="none"
-                              onClick={()=>{addFile(_id)}}
+                              onClick={addFile}
                             >
                               <circle
                                 cx="30"
                                 cy="30"
                                 r="30"
                                 fill="#E8E8E8"
-                                onClick={()=>{addFile(_id)}}
+                                onClick={addFile}
                               />
                             </svg>
                             <span
@@ -271,8 +267,8 @@ const OngoingTraining = ({ ongoing }) => {
                                 />
                               </svg>
                             </span>
-                            <div className="Step2content" onClick={()=>{addFile(_id)}}>
-                              <p onClick={()=>{addFile(_id)}}>Click To Add Resources File</p>
+                            <div className="Step2content" onClick={addFile}>
+                              <p onClick={addFile}>Click To Add Resources File</p>
                             </div>
                           </div>
                           {isVisible && (
@@ -398,7 +394,7 @@ const OngoingTraining = ({ ongoing }) => {
 
                                       <div className="saveButtonContainer">
                                         <button
-                                          onClick={saveFile}
+                                          onClick={() => { saveFile(_id) }}
                                           className="saveButton"
                                           disabled={!currentFileName || !fileAttachment}
                                         >
@@ -469,7 +465,7 @@ const OngoingTraining = ({ ongoing }) => {
             }
           </>
           :
-          <div className='flex justify-center items-center h-[300px] w-full bg-[#f4f6f7] mt-[30px] rounded-md'>
+          <div className='flex justify-center items-center h-[300px] w-full bg-slate-300 mt-[30px] rounded-md'>
             <h1 className='items-center'>No Ongoing Trainings Avaiable !</h1>
           </div>
       }

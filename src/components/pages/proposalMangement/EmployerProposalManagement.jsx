@@ -45,19 +45,19 @@ const EmployerProposalManagement = () => {
     }
   };
   return (
-    <div className="  w-[100%] h-auto  text-[#333]">
-      <div className="Post_Buttons flex items-center">
+    <div className="ProposalManagement">
+      <div className="Post_Buttons">
         <Link to="/employerDashboard/proposalsmanagement/candidacy">
           <button
             style={{ marginRight: "10px" }}
-            className={`rounded-[2.5rem] border-[1px] border-[#b6adad] bg-[#dcdcdc1a] text-[#888] text-base cursor-pointer w-[8rem] h-[2rem] mr-[10px] ${activeOption === "Candidacy" ? "active" : ""}`}
+            className={`Post_T ${activeOption === "Candidacy" ? "active" : ""}`}
           >
             Candidacy
           </button>
         </Link>
         <Link to="/employerDashboard/proposalsmanagement/proposals">
           <button
-            className={`rounded-[2.5rem] border-[1px] border-[#b6adad] bg-[#dcdcdc1a] text-[#888] text-base cursor-pointer w-[8rem] h-[2rem] mr-[10px] ${activeOption === "Proposals" ? "active" : ""}`}
+            className={`Post_J ${activeOption === "Proposals" ? "active" : ""}`}
           >
             Proposals
           </button>

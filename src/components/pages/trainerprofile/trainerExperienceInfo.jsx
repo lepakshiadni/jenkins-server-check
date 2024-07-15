@@ -60,53 +60,25 @@ const TrainerExperienceInfo = () => {
     }, [trainer]);
 
     const handleCase4Data = async () => {
+
         const experienceDetails = {
-            expertIn,
-            experience,
-            sinceInTheFiled,
-            recentCompany,
-            trainingSession,
+            expertIn: expertIn,
+            experience: experience,
+            sinceInTheFiled: sinceInTheFiled,
+            recentCompany: recentCompany,
+            trainingSession: trainingSession,
             status: true,
         };
         dispatch(trainerExperienceInfoUpdate(experienceDetails));
+
     };
 
     const handleSubmitData = async (e) => {
         e.preventDefault();
+        await handleCase4Data();
+        toast.success('Experience Info Update Successfully');
+        navigate('/trainerprofile')
 
-        // Check if any of the fields have changed
-        const isExperienceInfoChanged =
-            expertIn !== trainer?.experiences?.expertIn ||
-            experience !== trainer?.experiences?.experience ||
-            sinceInTheFiled !== trainer?.experiences?.sinceInTheFiled ||
-            recentCompany !== trainer?.experiences?.recentCompany ||
-            trainingSession !== trainer?.experiences?.trainingSession;
-
-        // Only update if there are changes
-        if (isExperienceInfoChanged) {
-            await handleCase4Data();
-            toast.success('Experience Info Updated Successfully');
-            navigate('/trainerprofile');
-        } else {
-            navigate('/trainerprofile');
-        }
-
-
-    };
-
-    const [isValidExperience, setIsValidExperience] = useState(true);
-
-    const handleExperienceChange = (e) => {
-        const value = e.target.value;
-
-        // Validate input format: one or two digits before decimal
-        const regex = /^\d{1,2}(\.\d{0,2})?$/;
-        if (regex.test(value) || value === '') {
-            setExperience(value);
-            setIsValidExperience(true);
-        } else {
-            setIsValidExperience(false);
-        }
     };
 
     return (
@@ -144,21 +116,21 @@ const TrainerExperienceInfo = () => {
                     </span>
                     <br />
                     <span>
-                        <label htmlFor="">Experience (In years) *</label>
+                        <label htmlFor="">Experience *</label>
                         <br />
                         <input
-                            style={{ width: "690px", borderColor: isValidExperience ? '#CECECE' : 'red' }}
-                            type="text"
+                            style={{ width: "690px" }}
+                            type="number"
                             value={experience}
-                            onChange={handleExperienceChange}
+                            onChange={(e) => setExperience(e.target.value)}
                             name="experience"
-                            placeholder="Enter your experience"
+                            onKeyDown={handleKeyDown}
+                            placeholder="Select your experience"
+                            required
+                            min="0"
                             autoComplete="off"
-                            maxLength='4'
+
                         />
-                        {!isValidExperience && (
-                            <p className="text-sm text-red-500">Please enter valid experience.</p>
-                        )}
                     </span>
                     <br />
                     <span>

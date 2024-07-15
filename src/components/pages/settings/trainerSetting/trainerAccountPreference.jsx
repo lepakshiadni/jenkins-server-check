@@ -84,8 +84,6 @@ function TrainerAccountPreferance() {
               <div className="profile-info-head p-3 h-[50%] flex items-center">
                 <h3 className='text-[18px] text-[#535353]'>Profile Information</h3>
               </div>
-              <hr className='border-[0.5px] border-[#eeeeee]' />
-
               <div className="profile-info-setting p-3 h-[50%] hover:bg-[#f6f6f6] flex items-center justify-between cursor-pointer" onClick={() => navigate('/trainerprofile/profileupdate/basic-information')}>
                 <p className='text-[14px] text-[#535353]'>Name, Occupation, Company, Skills, Certification, & Contact Information</p>
                 <div>
@@ -97,8 +95,6 @@ function TrainerAccountPreferance() {
               <div className="general-info-head p-3">
                 <h3 className='text-[18px] text-[#535353]'>General Preference</h3>
               </div>
-              <hr className='border-[0.5px] border-[#eeeeee]' />
-
               <div className="general-settings">
                 <div onClick={() => setActiveSubSection('Language')} className="language-setting p-3 h-[55px] cursor-pointer hover:bg-[#f6f6f6] flex items-center justify-between">
 
@@ -110,8 +106,6 @@ function TrainerAccountPreferance() {
                     <NavigateNextIcon sx={{ color: 'gray', fontSize: '30px' }} />
                   </div>
                 </div>
-                <hr className='border-[0.5px] border-[#eeeeee]' />
-
                 <div onClick={() => setActiveSubSection('Show Profile')} className="show-profile-setting p-3 h-[55px] cursor-pointer hover:bg-[#f6f6f6] flex items-center justify-between">
                   <p className='text-[14px] text-[#535353] w-[70%]'>Show Profile</p>
                   <span className='text-[16px] ml-96 text-[#a2a2a2] text-end w-[20%]'>{showProfile}</span>
@@ -120,8 +114,6 @@ function TrainerAccountPreferance() {
                     <NavigateNextIcon sx={{ color: 'gray', fontSize: '30px' }} />
                   </div>
                 </div>
-                <hr className='border-[0.5px] border-[#eeeeee]' />
-
                 <div onClick={() => setActiveSubSection('Contact Information')} className="contact-setting p-3 h-[55px] cursor-pointer hover:bg-[#f6f6f6] flex items-center justify-between">
                   <p className='text-[14px] text-[#535353] w-[70%]'>Contact Information</p>
                   <span className='text-[16px] ml-[25rem] text-[#a2a2a2] w-[20%] text-end'>{showMobNum}</span>

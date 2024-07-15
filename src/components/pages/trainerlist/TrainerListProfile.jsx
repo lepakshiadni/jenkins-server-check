@@ -171,7 +171,7 @@ const TrainerListProfile = () => {
   }
   return (
     <div className="trainerListProfile">
-      <div className="w-48 flex items-center justify-start h-[70px] sticky top-0 bg-[#FFF] z-[1000]">
+      <div className="w-full flex items-center justify-start h-[70px] sticky top-0 bg-[#FFF] z-[1000]">
         <div className="flex items-center cursor-pointer" onClick={handleTrainerList}>
           <span className="">
             <svg

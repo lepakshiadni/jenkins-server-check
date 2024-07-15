@@ -8,7 +8,7 @@ const EmployerProfileCrop = (props) => {
     const [fileName, setFileName] = useState(null);
     const cropperRef = useRef(null);
     const fileInputRef = useRef(null)
-    const [isCircular, setIsCircular] = useState(true);
+
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -20,7 +20,7 @@ const EmployerProfileCrop = (props) => {
             }
 
             // Check file size
-            if (file.size > 1 * 1024 * 1024) { // 1mb
+            if (file.size >1 *1024* 1024) { // 1mb
                 alert("File size should be within 1024KB.");
                 fileInputRef.current.value = null;
                 return;
@@ -89,31 +89,28 @@ const EmployerProfileCrop = (props) => {
 
                 <div className="flex justify-between  items-start p-10">
                     <div
-                        className="flex items-center p-1"
+                        className="flex items-center"
                         style={{
                             border: "2px Dotted black",
                             height: "200px",
                             width: "300px",
                             borderRadius: "10px",
-                        }} >
-
+                        }}
+                    >
                         <Cropper
                             ref={cropperRef}
                             zoomTo={0.5}
-                            initialAspectRatio={isCircular ? 1 : 837 / 197} // Set aspect ratio for circular or rectangular
-                            aspectRatio={isCircular ? 1 : 837 / 197} // Explicit aspect ratio setting
+                            initialAspectRatio={1} // Ensure initial aspect ratio is square
                             src={image}
                             viewMode={1}
-                            minCropBoxHeight={1}
-                            minCropBoxWidth={1}
+                            minCropBoxHeight={200} // Minimum height for cropping area
+                            minCropBoxWidth={150} // Minimum width for cropping area
                             background={false}
                             responsive={true}
                             autoCropArea={1}
                             checkOrientation={false}
                             guides={true}
                             crop={handleCropChange}
-                            style={{ height: '100%', objectFit: 'contain' }}
-                            className={isCircular ? 'cropper-circular' : 'cropper-rectangular'}
                         />
 
                         {!fileName && (

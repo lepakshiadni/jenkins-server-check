@@ -55,40 +55,28 @@ const TrainerProposalRequest = ({ training }) => {
                                 console.log('training', training)
                                 return item?.trainingDetails?.map(({ trainingPostDetails, _id }) => {
                                     return <>
-                                    <div className="p-[5px]">
-                                        <div className='w-[100%] min-h-[23rem] flex items-center justify-center gap-3 stroke-1 stroke-[#eee] h-[auto]  rounded-[0.5rem] shadow-[2px_2px_8px_1px_rgba(199,195,195,0.34)] p-4 mt-[2rem] ' >
-                                            <div className='w-[30%] overflow-y-scroll Scroll pl-[10px] h-[21rem]  '>
-                                                <div className='w-[95%] h-[100%] flex flex-col gap-4'>
-                                                    <div className="">
-                                                    <p className="text-[#333333] font-medium text-base">Training Program Name</p>
-                                                    <h3 className='text-[15px] font-normal text-[#2676c2] w-[240px]  overflow-hidden text-ellipsis whitespace-nowrap '>{trainingPostDetails?.trainingName}</h3>
+                                        <div className='allaround' style={{ marginTop: '2rem' }}>
+                                            <div className='Trainer_Info'>
+                                                <div className='TTTD'>
+                                                    <p>Training Program Name</p>
+                                                    <h3 className='Blue_H2'>{trainingPostDetails?.trainingName}</h3>
+                                                    <p>Training Topics & Subjects</p>
+                                                    <div className="capitalize">
+                                                        <div className='flex gap-1'>{trainingPostDetails?.topics?.slice(0, 5)?.map((items) => <h2> {items} </h2>)}</div>
+                                                        <div className='flex gap-1'>{trainingPostDetails?.topics?.slice(5, 10)?.map((items) => <h2>{items}</h2>)}</div>
                                                     </div>
-                                                    <div className="">
-                                                    <p className="text-[#333333] font-medium text-base">Training Topics & Subjects</p>
-                                                    <div className="capitalize overflow-hidden">
-                                                        {/* <div className='flex gap-1  text-[#535353] overflow-hidden '>{trainingPostDetails?.topics?.slice(0, 5)?.map((items, index) => <h2 className='truncate'> {items}{index !== 4 ? ', ' : ''} </h2>)}</div>
-                                                        <div className='flex gap-1  text-[#535353]  '>{trainingPostDetails?.topics?.slice(5, 10)?.map((items, index) => <h2 className='w-[240px] overflow-hidden text-ellipsis whitespace-nowrap'>{items}{index !==4 ? ',': ''}</h2>)}</div> */}
-                                                         {
-                                trainingPostDetails?.topics?.map((items) => <h2 className='text-[15px] font-normal text-[#535353]'>{items}</h2>)
-                              }
-                                                    </div>
-                                                    </div>
-                                                    <div className="">
-                                                    <p className="text-[#333333] font-medium text-base">Type Of Training</p>
-                                                    <h2 className='w-[240px]  overflow-hidden text-ellipsis whitespace-nowrap className="text-[15px] font-normal text-[#535353]  '>{trainingPostDetails?.typeOfTraining}</h2>
-                                                    </div>
-                                                    <div className="">
-                                                    <p className="text-[#333333] font-medium text-base">Duration Of Training</p>
-                                                    <h2 className="text-[15px] font-normal text-[#535353] ">{trainingPostDetails?.durationCount} {trainingPostDetails?.durationType}'s </h2>
-                                                    </div>
-                                                    <div className="flex justify-between w-[90%]">
-                                                        <div className="">
-                                                            <p className="text-[#333333] font-medium text-base">Start Date</p>
-                                                            <h2 className="text-[15px] font-normal text-[#535353] ">{trainingPostDetails?.startDate}</h2>
+                                                    <p>Type Of Training</p>
+                                                    <h2>{trainingPostDetails?.typeOfTraining}</h2>
+                                                    <p>Duration Of Training</p>
+                                                    <h2>{trainingPostDetails?.durationCount} {trainingPostDetails?.durationType}'s </h2>
+                                                    <div className="SDED">
+                                                        <div className="SD">
+                                                            <p>Start Date</p>
+                                                            <h2>{trainingPostDetails?.startDate}</h2>
                                                         </div>
-                                                        <div className="">
-                                                            <p className="text-[#333333] font-medium text-base">End Date</p>
-                                                            <h2 className="text-[15px] font-normal text-[#535353] " >{trainingPostDetails?.endDate}</h2>
+                                                        <div className="ED">
+                                                            <p>End Date</p>
+                                                            <h2>{trainingPostDetails?.endDate}</h2>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -99,15 +87,15 @@ const TrainerProposalRequest = ({ training }) => {
                                                         <div className='Trainer-Proposal-Management-Popup-Top' >
                                                             <div className='Trainer-Proposal-Management-Popup-Posted-By'>
                                                                 <h1 style={{ width: '80%', marginBottom: '15px', marginLeft: '2rem' }}>Posted By</h1>
-                                                                <div className='' style={{ background: '#FFF', marginLeft: '2rem', borderRadius:'2rem' }} >
+                                                                <div className='PBB' style={{ background: '#FFF', marginLeft: '2rem' }} >
 
                                                                     {
                                                                         trainingPostDetails?.postedByImg ?
                                                                             <img src={trainingPostDetails?.postedByImg} alt={trainingPostDetails?.postedByName[0]} style={{ borderRadius: '100%', width: '4rem', height: '4rem' }} />
                                                                             :
-                                                                            <div className=' bg-[#f4f6f7] flex items-center justify-center' style={{ borderRadius: '100%', width: '4rem', height: '4rem' }}>
+                                                                            <div className=' bg-slate-200 flex items-center justify-center' style={{ borderRadius: '100%', width: '4rem', height: '4rem' }}>
                                                                                 <span className=' capitalize text-[18px]'>
-                                                                                    {trainingPostDetails?.postedByName?.[0]}
+                                                                                    {trainingPostDetails?.postedByName[0]}
 
                                                                                 </span>
                                                                             </div>
@@ -164,9 +152,9 @@ const TrainerProposalRequest = ({ training }) => {
                                                                         trainingPostDetails?.postedByImg ?
                                                                             <img src={trainingPostDetails?.postedByImg} alt={trainingPostDetails?.postedByName[0]} style={{ borderRadius: '100%', width: '4rem', height: '4rem' }} />
                                                                             :
-                                                                            <div className='bg-[#f4f6f7] flex items-center justify-center' style={{ borderRadius: '100%', width: '4rem', height: '4rem' }}>
+                                                                            <div className='bg-slate-200 flex items-center justify-center' style={{ borderRadius: '100%', width: '4rem', height: '4rem' }}>
                                                                                 <span className=' capitalize text-[18px]'>
-                                                                                    {trainingPostDetails?.postedByName?.[0]}
+                                                                                    {trainingPostDetails?.postedByName[0]}
                                                                                 </span>
                                                                             </div>
                                                                     }
@@ -212,56 +200,58 @@ const TrainerProposalRequest = ({ training }) => {
                                                     </div>
                                                 </div>
                                             )}
-                                            <div className='w-[70%] h-[21rem] rounded-[10px] flex'>
-                                                <div className='w-[35%] bg-[#2676c21a] rounded-l-[10px] flex justify-center pl-[10px] flex-col'>
+                                            <div className='ProposalStatus'>
+                                                <div className='Proposall'>
                                                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: '', gap: '0.5rem' }}>
                                                         <>
-                                                            <h1 className="m-0 text-[#333] text-[1.125rem] not-italic font-[600]" 
-                                                              
-                                                            >Posted By</h1>
+                                                            <h1 style={{
+                                                                color: '#333',
+                                                                fontFamily: 'Poppins',
+                                                                fontSize: '1.125rem',
+                                                                fontStyle: 'normal',
+                                                                fontWeight: '600',
+                                                                lineHeight: 'normal',
+                                                                margin: '0'
+                                                            }}>Posted By</h1>
                                                             <Link to={`/trainerDashboard/proposalmanagement/proposalrequest/employerprofilelist/${trainingPostDetails?.postedById}`}>
-                                                                <div className="capitalize bg-[#fff] min-w-[190px] max-w-[80%] h-[4.3rem] rounded-[2.5rem] flex items-center gap-[0.8rem] pl-[0.3rem]  ">
+                                                                <div className='PBB' style={{ background: '#FFF' }}>
                                                                     {
                                                                         trainingPostDetails?.postedByImg ?
-                                                                            <img src={trainingPostDetails?.postedByImg} alt={trainingPostDetails?.postedByName[0]}  className="w-[4rem] h-[4rem] rounded-full "  />
+                                                                            <img src={trainingPostDetails?.postedByImg} alt={trainingPostDetails?.postedByName[0]} style={{ borderRadius: '100%', width: '4rem', height: '4rem' }} />
                                                                             :
-                                                                            <div className='flex justify-center items-center bg-[#f4f6f7] w-[4rem] h-[4rem] rounded-full' >
+                                                                            <div className='flex justify-center items-center bg-slate-200' style={{ borderRadius: '100%', width: '4rem', height: '4rem' }}>
                                                                                 <span className=' capitalize'>
 
-                                                                                    {trainingPostDetails?.postedByName?.[0]}
+                                                                                    {trainingPostDetails?.postedByName[0]}
                                                                                 </span>
                                                                             </div>
                                                                     }
 
                                                                     {/* <ProfileImage image={trainingPostDetails?.postedByImg} name={trainingPostDetails?.postedByName} w={64} h={64} r={'full'}/> */}
-                                                                    <span>
-                                                                        <h2 className="text-[#333]  text-[1rem] font-[600]  truncate w-[100px] overflow-hidden text-ellipsis whitespace-nowrap ">{trainingPostDetails?.postedByName}</h2>
-                                                                    <p className="text-[#535353] w-[100px] text-[0.75rem] font-[500] truncate">{trainingPostDetails?.postedByCompanyName}</p>
-                                                                    </span>
+                                                                    <span><h2>{trainingPostDetails?.postedByName}</h2><p>{trainingPostDetails?.postedByCompanyName}</p></span>
                                                                 </div>
                                                             </Link>
                                                         </>
 
-                                                        <div className=''>
-                                                            <h2 className="text-[#333] text-[1.125rem] font-[500]">Budget</h2>
-                                                            <h1 className="text-[#2676c2] text-base font-normal"><span>{trainingPostDetails?.selectedCountry === 'IND' ? '₹' : '$'}</span> {trainingPostDetails?.maxBudget} - <span>{trainingPostDetails?.selectedCountry === 'IND' ? '₹' : '$'}</span> {trainingPostDetails?.minBudget}</h1>
+                                                        <div className='B'>
+                                                            <h2>Budget</h2>
+                                                            <h1><span>{trainingPostDetails?.selectedCountry === 'IND' ? '₹' : '$'}</span> {trainingPostDetails?.maxBudget} - <span>{trainingPostDetails?.selectedCountry === 'IND' ? '₹' : '$'}</span> {trainingPostDetails?.minBudget}</h1>
                                                         </div>
-                                                        <div className='capitalize'>
-                                                            <h2 className="text-[#333] text-[1.125rem] font-[500]">Mode Of Training</h2><h1 className="text-[#2676c2] text-base font-normal">{trainingPostDetails?.modeOfTraining}</h1>
+                                                        <div className='B capitalize'>
+                                                            <h2>Mode Of Training</h2><h1>{trainingPostDetails?.modeOfTraining}</h1>
 
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className='w-[65%] h-[100%] bg-[#2676c2] rounded-[5px] p-[1rem] flex flex-col justify-center items-center'>
-                                                    <h3 className='text-[1.2rem] text-[#fff] font-[500] ml-[0.4rem]'>{`${trainingPostDetails?.postedByName} Proposed For Your Post a Requirement`}</h3>
+                                                <div className='Statusss flex justify-center items-center'>
+                                                    <h3>{`${trainingPostDetails?.postedByName} Proposed For Your Post a Requirement`}</h3>
                                                     <br />
-                                                    <div className='flex gap-[2rem] ml-[0.5rem]'>
-                                                        <button className=' text-[1rem] font-normal rounded-[0.125rem]  text-[#fff] border-[1px] border-[#fff] w-[9rem] h-[1.8rem] hover:text-[#2676c2] hover:bg-[#fff] ' onClick={() => { deNied(trainingPostDetails, _id) }}>Deny</button>
-                                                        <button className='text-[#fff]  text-[1rem] font-normal rounded-[0.125rem] border-[1px] border-[#fff] w-[9rem] h-[1.8rem] hover:text-[#2676c2] hover:bg-[#fff] ' onClick={() => { acCept(trainingPostDetails, _id) }}>Accept</button>
+                                                    <div className='Statuss_Buttonss'>
+                                                        <button onClick={() => { deNied(trainingPostDetails, _id) }}>Deny</button>
+                                                        <button onClick={() => { acCept(trainingPostDetails, _id) }}>Accept</button>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
                                         </div>
                                     </>
                                 })
@@ -270,7 +260,7 @@ const TrainerProposalRequest = ({ training }) => {
 
                     </>
                     :
-                    <div className='mt-[20px] flex justify-center items-center w-full h-[300px] bg-[#f4f6f7] rounded-md'>
+                    <div className='mt-[20px] flex justify-center items-center w-full h-[300px] bg-slate-200 rounded-md'>
                         No Training Proposals Yet!
                     </div>
             }

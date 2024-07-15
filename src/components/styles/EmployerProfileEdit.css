@@ -106,21 +106,17 @@
   width: 508px;
   resize: none;
 }
-
 .updateLabel textarea::-webkit-scrollbar {
   width: 5px;
   border-radius: 8px;
 }
-
 .updateLabel textarea::-webkit-scrollbar-track {
   border-radius: 8px;
 }
-
 .updateLabel textarea::-webkit-scrollbar-thumb {
   background-color: #bfbfbf;
   border-radius: 8px;
 }
-
 .updateLabel select {
   height: 30px;
   border: 1px solid #cecece;
@@ -217,21 +213,17 @@
   height: 310px;
   overflow-y: scroll;
 }
-
 .skillData::-webkit-scrollbar {
   width: 5px;
   border-radius: 8px;
 }
-
 .skillData::-webkit-scrollbar-track {
   border-radius: 8px;
 }
-
 .skillData::-webkit-scrollbar-thumb {
   background-color: #bfbfbf;
   border-radius: 8px;
 }
-
 .CropImgpopup {
   position: fixed;
   z-index: 2;
@@ -270,27 +262,22 @@
   overflow-y: scroll;
   width: 234px;
 }
-
 .skillScroll::-webkit-scrollbar {
   width: 5px;
   border-radius: 8px;
 }
-
 .skillScroll::-webkit-scrollbar-track {
   border-radius: 8px;
 }
-
 .skillScroll::-webkit-scrollbar-thumb {
   background-color: #bfbfbf;
   border-radius: 8px;
 }
-
 .ExperiencStore {
   padding: 20px;
   border: 1px solid rgba(227, 227, 227, 0.5);
   margin-top: 20px;
 }
-
 .ExperiencStore h3 {
   color: #535353;
   font-weight: 500;
@@ -299,19 +286,16 @@
   display: flex;
   align-items: center;
 }
-
 .experienceSpan span {
   margin-left: 10px;
   color: #2676c2;
 }
-
 .ExperiencStore p {
   color: #535353;
   font-weight: 500;
   font-size: 15px;
   margin: 5px;
 }
-
 .contactInfo2 textarea {
   border: 1px solid #cecece;
   border-radius: 2px;
@@ -324,36 +308,14 @@
   width: 690px;
   resize: none;
 }
-
 .contactInfo2 textarea::-webkit-scrollbar {
   width: 5px;
   border-radius: 8px;
 }
-
 .contactInfo2 textarea::-webkit-scrollbar-track {
   border-radius: 8px;
 }
-
 .contactInfo2 textarea::-webkit-scrollbar-thumb {
   background-color: #bfbfbf;
   border-radius: 8px;
-}
-
-/* ImageCropper.css */
-
-/* General cropper styles */
-.cropper-view-box {
-  outline: 1px solid rgba(51, 153, 255, 0.75);
-}
-
-/* Styles for circular crop */
-.cropper-circular .cropper-view-box,
-.cropper-circular .cropper-face {
-  border-radius: 50%;
-}
-
-/* Styles for rectangular crop (if needed) */
-.cropper-rectangular .cropper-view-box,
-.cropper-rectangular .cropper-face {
-  border-radius: 0;
 }

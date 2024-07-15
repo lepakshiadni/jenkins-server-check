@@ -29,7 +29,7 @@ function EmployerSetting() {
     return (
         <div className="flex">
             <div className="Employer-settings-section flex gap-2 p-3 w-full">
-                <div className="Employer-settings-leftBar w-[30%] h-[288px] border-[0.5px] border-[#eeeeee]">
+                <div className="Employer-settings-leftBar w-[30%] h-[280px] border-[0.5px] border-[#eeeeee]">
                     <div className="settings w-full">
                         <ul>
                             <li
@@ -38,24 +38,18 @@ function EmployerSetting() {
                             >
                                 <span className="ml-7 text-[18px]">Account Preference</span>
                             </li>
-                            <hr className='border-[0.5px] border-[#eeeeee]' />
-
                             <li
                                 onClick={() => navigate('/employerDashboard/settings/login-security')}
                                 className={`list-none cursor-pointer h-[70px] w-full border-b-[0px] flex items-center justify-start duration-300 ease-out transition-all ${activeSection === 'Login Security' ? 'bg-[#2676c21a] text-[#2676c2] border-l-[8px] border-[#2676c2] border-b-none hover:bg-[#2676c21a]' : 'text-[#535353] hover:bg-[#eeeeee]'}`}
                             >
                                 <span className="ml-7 text-[18px]">Login and Security</span>
                             </li>
-                            <hr className='border-[0.5px] border-[#eeeeee]' />
-
                             <li
                                 onClick={() => navigate('/employerDashboard/settings/visibility')}
                                 className={`list-none cursor-pointer h-[70px] w-full border-b-[0px] flex items-center justify-start duration-300 ease-out transition-all ${activeSection === 'Visibility' ? 'bg-[#2676c21a] text-[#2676c2] border-l-[8px] border-[#2676c2] border-b-none hover:bg-[#2676c21a]' : 'text-[#535353] hover:bg-[#eeeeee]'}`}
                             >
                                 <span className="ml-7 text-[18px]">Visibility</span>
                             </li>
-                            <hr className='border-[0.5px] border-[#eeeeee]' />
-
                             <li
                                 onClick={() => navigate('/employerDashboard/settings/notification')}
                                 className={`list-none cursor-pointer h-[70px] w-full border-b-[0px] flex items-center justify-start duration-300 ease-out transition-all ${activeSection === 'Notification' ? 'bg-[#2676c21a] text-[#2676c2] border-l-[8px] border-[#2676c2] border-b-none hover:bg-[#2676c21a]' : 'text-[#535353] hover:bg-[#eeeeee]'}`}
