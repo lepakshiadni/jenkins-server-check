@@ -8,6 +8,7 @@ const TrainerBannerCropImg = (props) => {
     const [fileName, setFileName] = useState(null);
     const cropperRef = useRef(null);
     const fileInputRef = useRef(null)
+    const [isCircular, setIsCircular] = useState(false);
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
@@ -20,7 +21,7 @@ const TrainerBannerCropImg = (props) => {
             }
 
             // Check file size
-            if (file.size > 1 *1024* 1024) {
+            if (file.size > 1 * 1024 * 1024) {
                 alert("File size should be within 1024KB.");
                 fileInputRef.current.value = null; // Reset file input
                 return;
@@ -83,7 +84,7 @@ const TrainerBannerCropImg = (props) => {
                 </div>
 
                 <div className="flex justify-between  items-start p-10">
-                    <div className="flex items-center" style={{ border: '2px Dotted black', height: '200px', width: "300px", borderRadius: '10px' }}>
+                    <div className="flex items-center p-1" style={{ border: '2px Dotted black', height: '200px', width: "300px", borderRadius: '10px' }}>
 
                         <Cropper
                             ref={cropperRef}
@@ -93,12 +94,16 @@ const TrainerBannerCropImg = (props) => {
                             viewMode={1}
                             minCropBoxHeight={1}
                             minCropBoxWidth={1}
+                            cropBoxResizable={false} // Disable crop box resizing
+                            cropBoxMovable={true} // Allow the crop box to be moved
                             background={false}
                             responsive={true}
                             autoCropArea={1}
                             checkOrientation={false}
                             guides={true}
                             crop={handleCropChange}
+                            style={{ height: '100%', objectFit: 'contain' }}
+                            className={isCircular ? 'cropper-circular' : 'cropper-rectangular'}
                         />
 
                         {!fileName && (

@@ -73,7 +73,7 @@ function TrainerDashboard() {
   const socket = useRef();
 
   useEffect(() => {
-    socket.current = io(`http://13.235.90.102:4040`, {
+    socket.current = io(`http://192.168.1.109:4040`, {
       transports: ["websocket"],
       withCredentials: true,
       extraHeaders: {
@@ -86,7 +86,6 @@ function TrainerDashboard() {
     if (trainer) {
       socket.current.emit("addUser", trainer?._id);
       socket.current.on("getUsers", (users) => {
-        console.log(users);
       });
     }
   }, [trainer]);
@@ -183,6 +182,48 @@ function TrainerDashboard() {
     }
     setSelectedOption(option.replace(/\s/g, ""));
   };
+
+
+  const [selectedFilter, setSelectedFilter] = useState('');
+  const [trainingType, setStoreTrainingType] = useState([])
+
+  const handleFilterChange = (selectedValue) => {
+    setSelectedFilter(selectedValue);
+    console.log('selectedValue', selectedValue);
+  };
+
+  useEffect(() => {
+    if (Array.isArray(employerPost)) {
+
+      const TrainingType = employerPost.map((val) => val?.typeOfTraining).filter(training => training !== undefined);
+      const UniqueType = [...new Set(TrainingType)]; // Filter out duplicate locations
+      setStoreTrainingType(UniqueType);
+
+      let filteredData = employerPost;
+      console.log('filteredData', filteredData);
+      if (searchTerm) {
+        filteredData = filteredData.filter(item =>
+          Object.values(item).some(value => {
+            if (typeof value === 'string') {
+              return value.toLowerCase().includes(searchTerm.toLowerCase());
+            } else if (typeof value === 'object' && value !== null) {
+              return Object.values(value).some(subValue =>
+                typeof subValue === 'string' && subValue.toLowerCase().includes(searchTerm.toLowerCase())
+              );
+            }
+            return false;
+          })
+        );
+      }
+
+      if (selectedFilter) {
+        filteredData = filteredData.filter(item => item?.typeOfTraining === selectedFilter)
+
+      }
+      setPosttrainingData(filteredData)
+    }
+  }, [employerPost, searchTerm, selectedFilter])
+
 
   return (
     <>
@@ -503,14 +544,24 @@ function TrainerDashboard() {
                   className={` ${selectedOption === "Feed" ? "relative" : "hidden"
                     }`}
                 >
-                  <button
-                    onClick={() => {
-                      setModel(true);
-                    }}
-                    className="w-[161px] h-[40px] bg-[#2676C2] border rounded-lg text-white text-base font-medium font-['Poppins']"
-                  >
-                    Create a post +
-                  </button>
+
+                  <div className="flex">
+                    <div className="dropdown-buttons">
+                      <select className="accordionPost" style={{ backgroundColor: "#f9f9f9", border: "1px solid #dadada", outline: 'none', color: 'gray' }} value={selectedFilter} onChange={(e) => handleFilterChange(e.target.value)} >
+                        <option value="" selected>All Feed</option>
+                        <option value="Corporate Training">Corporate Training</option>
+                      </select>
+                    </div>
+
+                    <button
+                      onClick={() => {
+                        setModel(true);
+                      }}
+                      className="w-[161px] h-[40px] bg-[#2676C2] border rounded-lg text-white text-base font-medium font-['Poppins']"
+                    >
+                      Create a post +
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

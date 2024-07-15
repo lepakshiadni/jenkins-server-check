@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo, useRef } from "react";
 // import "../styles/otpverify.css"; // Import your CSS file
 import '../styles/OtpVerify.css'
-import HeaderLogo from "../assets/Header_logo.png";
+import HeaderLogo from "../assets/LOGO.png";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -18,6 +18,7 @@ import CreateSuccessfull from "./Successpage";
 import { strictRouteAction } from "../../redux/action/strictRoute.action";
 import { styled } from "@mui/material";
 import MailRoundedIcon from '@mui/icons-material/MailRounded';
+import { setToken } from "../utils/TokenUtils";
 
 
 const ZoomableMailOutlineIcon = styled(MailRoundedIcon)`
@@ -40,7 +41,7 @@ const Login = () => {
   const contactDetails = useState(Cookies.get("contactDetails"));
   const [selected, setSelected] = useState("");
   const [open, setOpen] = useState(false);
-  const countries = ["French", "English", "Spanish", "German", "Italian"];
+  // const countries = ["French", "English", "Spanish", "German", "Italian"];
   const [initialTimer, setInitialTimer] = useState(120);
   const [disableResend, setDisableResend] = useState(false);
   const navigate = useNavigate();
@@ -140,7 +141,7 @@ const Login = () => {
       user?.message === "verifiedExitingEmployer" &&
       user?.data?.existEmployer?.role === "employer"
     ) {
-      Cookies.set("token", user?.data?.token);
+      setToken(user?.data?.token)
       localStorage.setItem("role", user?.data?.existEmployer?.role);
       navigate('/createsucess')
     }
@@ -148,7 +149,7 @@ const Login = () => {
       user?.message === "verifiedExitingEmployer" &&
       user?.data?.existEmployer2?.role === "employer"
     ) {
-      Cookies.set("token", user?.data?.token);
+      setToken(user?.data?.token)
       localStorage.setItem("role", user?.data?.existEmployer2?.role);
 
       navigate('/createsucess')
@@ -161,7 +162,7 @@ const Login = () => {
       user?.message === "verifiedExitingTrainer" &&
       user?.data?.existTrainer?.role === "trainer"
     ) {
-      Cookies.set("token", user?.data?.token);
+      setToken(user?.data?.token)
       localStorage.setItem("role", user?.data?.existTrainer?.role);
       navigate('/createsucess')
     }
@@ -169,7 +170,7 @@ const Login = () => {
       user?.message === "verifiedExitingTrainer" &&
       user?.data?.existTrainer2?.role === "trainer"
     ) {
-      Cookies.set("token", user?.data?.token);
+      setToken(user?.data?.token)
       localStorage.setItem("role", user?.data?.existTrainer2?.role);
       navigate('/createsucess')
 
@@ -285,7 +286,7 @@ const Login = () => {
                   className={`${open && "rotate-180"}`}
                 />
               </div>
-              {open && (
+              {/* {open && (
                 <ul className=" absolute bg-[#2676c2] w-[130px] text-[#ffff] md:w-[190px] z-[3]">
                   {countries?.map((country) => (
                     <li
@@ -303,7 +304,7 @@ const Login = () => {
                     </li>
                   ))}
                 </ul>
-              )}
+              )} */}
 
             </div>
           </div>

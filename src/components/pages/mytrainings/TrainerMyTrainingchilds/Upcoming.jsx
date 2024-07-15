@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import download from '../../../assets/download 1.svg';
+import '../../../styles/TrainerUpcoming.css'
 
 
 const Upcoming = ({ upcomming }) => {
@@ -19,50 +20,59 @@ const Upcoming = ({ upcomming }) => {
     };
 
     return (
-        <div className="Training_Programs" style={{ marginTop: '20px' }}>
+        <div className="Training_Programs mt-5 p-[10px]" >
             {
                 upcomming?.length > 0 ?
                     <>
 
                         {upcomming.map(({ trainingPostDetails }, index) => (
-                            <div key={index} className="Training_Programm">
-                                <div className="Trainer_Infoo">
-                                    <div className="TTTDD">
-                                        <p className='font-[600]'>Training Program Name</p>
-                                        <h3 className="Blue_H22">{trainingPostDetails?.trainingName}</h3>
-                                        <p className='font-[600]'>Company Name</p>
-                                        <h3 className="Blue_H22">{trainingPostDetails?.postedByCompanyName}</h3>
-                                        <p className='font-[600]'>Type Of Training</p>
-                                        <h2>{trainingPostDetails?.typeOfTraining}</h2>
-                                        <p className='font-[600]'>Duration Of Training</p>
-                                        <h2 className=' capitalize'>{trainingPostDetails?.durationCount} <span>{trainingPostDetails?.durationType}{trainingPostDetails?.durationCount > 0 ? "'s" : ""} </span> </h2>
-                                        <div className="SDEDD">
-                                            <div className="SDD">
-                                                <p className='font-[600]'>Start Date</p>
-                                                <h2>{trainingPostDetails?.startDate}</h2>
+                            <div key={index} className="flex items-center justify-evenly mt-5">
+                                <div className="w-[28%] h-[23rem] shadow-[0px_2px_8px_1px_rgba(199,195,195,0.34)] rounded-l-[10px]">
+                                    <div className="h-[100%] w-[95%]  flex flex-col justify-center p-3 gap-4">
+                                        <div className="">
+                                        <p className='text-[#333333] font-medium text-base'>Training Program Name</p>
+                                        <h3 className="text-[15px] font-normal text-[#2676c2] truncate ">{trainingPostDetails?.trainingName}</h3>
+                                        </div>
+                                        <div className="">
+                                        <p className='text-[#333333] font-medium text-base'>Company Name</p>
+                                        <h3 className="text-[15px] font-normal text-[#2676c2] truncate ">{trainingPostDetails?.postedByCompanyName}</h3>
+                                        </div>
+                                        <div className="">
+                                        <p className='text-[#333333] font-medium text-base'>Type Of Training</p>
+                                        <h2 className='text-[15px] font-normal text-[#535353] truncate'>{trainingPostDetails?.typeOfTraining}</h2>
+                                        </div>
+                                        <div className="">
+                                        <p className='text-[#333333] font-medium text-base'>Duration Of Training</p>
+                                        <h2 className=' capitalize text-[15px] font-normal text-[#535353] truncate'>{trainingPostDetails?.durationCount} <span>{trainingPostDetails?.durationType}{trainingPostDetails?.durationCount > 0 ? "'s" : ""} </span> </h2>
+                                        </div>
+                                     
+                                        <div className="flex w-[90%] justify-between">
+                                            <div className="">
+                                                <p className='text-[#333333] font-medium text-base'>Start Date</p>
+                                                <h2 className='text-[15px] font-normal text-[#535353] truncate'>{trainingPostDetails?.startDate}</h2>
                                             </div>
-                                            <div className="EDD">
-                                                <p className='font-[600]'>End Date</p>
-                                                <h2>{trainingPostDetails?.endDate}</h2>
+                                            <div className="">
+                                                <p className='text-[#333333] font-medium text-base'>End Date</p>
+                                                <h2 className='text-[15px] font-normal text-[#535353] truncate'>{trainingPostDetails?.endDate}</h2>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="Program_Info">
-                                    <div className="Stepper" style={{ height: '2.5rem', marginTop: '1.5rem' }}>
-                                        <div className="steps">
+                                <div className="w-[72%] h-[23rem] shadow-[0px_2px_8px_1px_rgba(199,195,195,0.34)] rounded-r-[10px] flex flex-col justify-center items-center ">
+                                    <div className="upcoming-stepper" style={{ height: '2.5rem', marginTop: '1.5rem' }}>
+                                        <div className="upcoming-steps">
                                             {[1, 2, 3].map((step) => (
                                                 <React.Fragment key={step}>
                                                     <div
-                                                        className={`circle ${activeSteps.includes(step) ? 'active' : ''}`}
+                                                        className={`upcoming-circle ${activeSteps.includes(step) ? 'upcoming-active' : ''}`}
                                                     >
                                                         {step}
                                                     </div>
                                                 </React.Fragment>
                                             ))}
-                                            <div className="progress-bar">
+                                            <div className="upcoming-progress-bar">
                                                 <span
-                                                    className="indicator"
+                                                    className="upcoming-indicator"
                                                     style={{
                                                         width: calculateProgressBarWidth(),
                                                     }}
@@ -71,48 +81,45 @@ const Upcoming = ({ upcomming }) => {
                                         </div>
                                     </div>
                                     <div className="Step1PS">
-                                        <h4>Program Status</h4>
-                                        <p>{`Applied Date: ${trainingPostDetails?.createdAt?.slice(0, 10)}`}</p>
+                                        <h4 className='text-[13px] mt-2'>Program Status</h4>
+                                        <p className='p-[0.5px]' style={{fontSize:'11px'}}>{`Applied Date: ${trainingPostDetails?.createdAt?.slice(0, 10)}`}</p>
                                     </div>
-                                    <div className="Program_Status">
+                                    <div className="w-[90%] m-auto flex justify-center gap-4 h-[15rem]">
                                         <div
-                                            className="Total_Part"
-                                            style={{
-                                                display: 'flex',
-                                                flexDirection: 'column',
-                                                gap: '1rem',
-                                                paddingTop: '2rem',
-                                            }}
+                                            className="flex flex-col gap-4 pt-4 "
+                                            // style={{
+                                            //     display: 'flex',
+                                            //     flexDirection: 'column',
+                                            //     gap: 'rem',
+                                            //     paddingTop: '2rem',
+                                            // }}
                                         >
-                                            <p
-                                                style={{
-                                                    whiteSpace: 'nowrap',
-                                                    marginBottom: '1rem',
-                                                    margin: '0%',
-                                                }}
+                                            <p  className='font-[600]'
+                                                // style={{
+                                                //     whiteSpace: 'nowrap',
+                                                //     marginBottom: '1rem',
+                                                //     margin: '0%',
+                                                // }}
                                             >
                                                 Total Application
                                             </p>
-                                            <div className="P205">
-                                                <h1>{trainingPostDetails?.participantCount}</h1>
+                                            <div className="">
+                                                <h1 className='text-[#2676c2] text-[1.875rem] font-medium '>{trainingPostDetails?.participantCount}</h1>
                                             </div>
-                                            <div
-                                                style={{
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    gap: '1.5rem',
-                                                }}
+                                            <div className='flex items-center justify-center gap-[1.5rem]'
+                                              
                                             >
                                                 <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                                    <p>Mode</p>
-                                                    <h2>{trainingPostDetails?.modeOfTraining}</h2>
+                                                    <p className='font-[600] text-base'>Mode</p>
+                                                    <h2 className='text-[0.9rem]'>{trainingPostDetails?.modeOfTraining}</h2>
                                                 </div>
                                                 <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                                    <p>Location</p>
+                                                    <p className='font-[600] text-base'>Location</p>
+                                                    <h2 className='text-[0.9rem]'>Location</h2>
                                                     {/* <h2>{training.location}</h2> */}
                                                 </div>
                                             </div>
-                                            <div className="DELDIT">
+                                            <div className="">
                                                 {/* <button className="Edt" onClick={togglePopup}>
                                                     Delete
                                                 </button> */}
@@ -165,7 +172,7 @@ const Upcoming = ({ upcomming }) => {
                                                 )}
                                             </div>
                                         </div>
-                                        <div className="Notess">
+                                        <div className="w-[75%] h-[100%] flex flex-col justify-center items-center rounded-[0.5rem] border-[1px] border-[#eee]">
                                             <div className="Step1content">
                                                 {
                                                     trainingPostDetails?.availability === 'availability' ?
@@ -184,7 +191,7 @@ const Upcoming = ({ upcomming }) => {
                         ))}
                     </>
                     :
-                    <div className='flex justify-center items-center h-[300px] w-full bg-slate-300 mt-[30px] rounded-md'>
+                    <div className='flex justify-center items-center h-[300px] w-full bg-[#f4f6f7] mt-[10px] rounded-md'>
                         <h1 className='items-center'>No Completed Trainings Avaiable !</h1>
                     </div>
             }

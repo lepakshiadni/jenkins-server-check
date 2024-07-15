@@ -212,8 +212,11 @@ function TrainerPopUp(props) {
                           cursor: "pointer",
                           backgroundColor: '#2676c2',
                           borderRadius: '5px',
-                          width: '80px',
-                          alignItems: 'center  '
+                          width: '100px',
+                          alignItems: 'center',
+                          display:"flex",
+                          justifyContent: 'center'
+
                         }}
                         onClick={navigatePostRequirement}
                       >
