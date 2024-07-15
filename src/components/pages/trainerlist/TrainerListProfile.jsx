@@ -12,6 +12,7 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import "../../styles/TrainerProfile.css";
 import TrainerPopUp from "./TrainerPopUp";
 import { useNavigate, useParams } from "react-router-dom";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Axios from 'axios'
 
 const TrainerListProfile = () => {
@@ -171,10 +172,11 @@ const TrainerListProfile = () => {
   }
   return (
     <div className="trainerListProfile">
-      <div className="w-full flex items-center justify-start h-[70px] sticky top-0 bg-[#FFF] z-[1000]">
-        <div className="flex items-center cursor-pointer" onClick={handleTrainerList}>
+      <div className="w-full flex items-center justify-start h-[40px] sticky top-0 bg-[white]  z-[1000]">
+        <div className="flex items-center w-[10%] h-[35px] rounded-md  hover:bg-[#f4f6f7] cursor-pointer" onClick={handleTrainerList}>
           <span className="">
-            <svg
+            {/* <svg
+            className=""
               xmlns="http://www.w3.org/2000/svg"
               width="22"
               height="20"
@@ -187,10 +189,12 @@ const TrainerListProfile = () => {
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
+                className=""
               />
-            </svg>
+            </svg> */}
+           <ArrowBackIcon className="text-[#535353]"/>
           </span>
-          <button className="text-[#888] text-[16px] font-[400] pl-[10px]">
+          <button className="text-[#535353] text-[16px]  font-[400] pl-[10px]">
             Back
           </button>
 
@@ -205,12 +209,12 @@ const TrainerListProfile = () => {
                 seletedUser?.basicInfo?.profileBanner ?
                   <img className="w-full h-[90px]" src={seletedUser?.basicInfo?.profileBanner} />
                   :
-                  <div className="w-full h-[90px] bg-slate-300">
+                  <div className="w-full h-[90px] bg-[#f4f6f7]">
                     <span></span>
                   </div>
               }
               <div
-                className="flex items-end relative ms-12 h-[100px] "
+                className="flex items-end relative ms-12 h-[110px] "
                 style={{ top: "-20px" }}
               >
                 {
@@ -225,12 +229,12 @@ const TrainerListProfile = () => {
                     />
 
                     :
-                    <div className="flex justify-center items-center h-[100px] w-[90px] bg-slate-400 rounded-[10px] absolute top-0">
+                    <div className="flex justify-center items-center h-[100px] w-[90px] bg-[#f4f6f7] rounded-[10px] absolute top-0">
                       <span className="capitalize text-3xl">{seletedUser?.fullName?.[0]}</span>
                     </div>
                 }
 
-                <div className="absolute left-[120px]">
+                <div className="absolute left-[120px] ">
                   <h3
                     style={{
                       fontSize: "20px",
@@ -485,6 +489,7 @@ const TrainerListProfile = () => {
                             color: "#535353",
                             fontWeight: "500",
                             marginTop: "10px",
+                            
                           }}
                         >
                           {certificateHead}
@@ -514,7 +519,7 @@ const TrainerListProfile = () => {
                   </>
                   :
                   <div>
-                    <span>
+                    <span className="text-[#535353] text-[15px]">
                       No Certifications
                     </span>
 

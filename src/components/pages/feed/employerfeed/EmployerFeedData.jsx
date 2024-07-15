@@ -6,12 +6,12 @@ import EmployerFeedPopUp from "../../../utils/EmployerFeedPopup";
 import TrainerPopUp from "../../trainerlist/TrainerPopUp";
 
 import { useDispatch, useSelector } from "react-redux";
-import { addBookMarkePost, createConversation, getConversation, employerDetails, getAllRequestedConnection } from "../../../../redux/action/employers.action";
+import { createConversation, getConversation, employerDetails, getAllRequestedConnection } from "../../../../redux/action/employers.action";
 import { Skeleton } from "@mui/material";
-import { addHidePost, addPostTrainerComments, addlikePostTrainer, deletePostTrainerComment, getTrainerCreatePost } from "../../../../redux/action/trainercreatepost.action";
+import { addHidePost, addPostTrainerComments, addlikePostTrainer,addBookMarkPostTrainer, deletePostTrainerComment, getTrainerCreatePost } from "../../../../redux/action/trainercreatepost.action";
 import { toast } from 'react-toastify'
 
-const EmployerFeedData = ({ bookMarkedPost, postrainingData }) => {
+const EmployerFeedData = ({postrainingData }) => {
   const [selectedItems, setSelectedItems] = useState([]);
   const [selectedPost, setSelectedPost] = useState(null)
   const [addNewComment, setAddNewComment] = useState('')
@@ -70,14 +70,10 @@ const EmployerFeedData = ({ bookMarkedPost, postrainingData }) => {
   // }, [requested]);
   // console.log('resquest', requested)
 
-  const handleIconClick = async (index, post) => {
-    await setSelectedPost(post)
-    await dispatch(addBookMarkePost(post?._id, post))
-  };
-
-  // console.log('conversation', conversation)
+  console.log('postrainingData', postrainingData)
 
   const [likedPosts, setLikedPosts] = useState([]);
+  const [bookMarkPost, setBookMarkPost] = useState([])
 
   useEffect(() => {
     if (postrainingData) {
@@ -87,12 +83,20 @@ const EmployerFeedData = ({ bookMarkedPost, postrainingData }) => {
         });
       });
     }
-    if (bookMarkedPost) {
-      const bookmark = bookMarkedPost.postDetails.map((data) => data._id)
-      setSelectedItems(bookmark)
+    if (postrainingData) {
+      postrainingData?.forEach(post => {
+        post?.bookMark?.forEach(book => {
+          setBookMarkPost(prevBookMarkedPosts => [...prevBookMarkedPosts, book._id]);
+        });
+      });
     }
-  }, [postrainingData, bookMarkedPost, dispatch]);
+  }, [postrainingData,dispatch]);
 
+  const handleIconClick = async (postId, currentUserId) => {
+    await dispatch(addBookMarkPostTrainer(postId, currentUserId))
+    setBookMarkPost([...bookMarkPost, postId]);
+
+  };
 
   const handleIconClick2 = async (postId, currentUserId) => {
     try {
@@ -190,7 +194,6 @@ const EmployerFeedData = ({ bookMarkedPost, postrainingData }) => {
       document.removeEventListener("mousedown", handler);
     };
   });
-
 
   const [messageShowMoreBasedOnProfile, setMessageShowMoreBasedOnProfile] = useState([]);
 
@@ -349,9 +352,9 @@ const EmployerFeedData = ({ bookMarkedPost, postrainingData }) => {
                           </div>
 
                           <div className="flex items-center justify-center space-x-5">
-                            <div className='inst' onClick={() => handleIconClick(index, post)}>
+                            <div className='inst' onClick={() => handleIconClick(post._id, currentUserId)}>
 
-                              {selectedItems.includes(post._id) ? (
+                              {bookMarkPost.includes(currentUserId) && post?.bookMark?.some(instId => instId._id === currentUserId) ? (
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 14 18" fill="none" >
                                   <path d="M0 18V2C0 1.45 0.195833 0.979167 0.5875 0.5875C0.979167 0.195833 1.45 0 2 0H12C12.55 0 13.0208 0.195833 13.4125 0.5875C13.8042 0.979167 14 1.45 14 2V18L7 15L0 18Z" fill="#2676C2" />
                                 </svg>
@@ -543,7 +546,7 @@ const EmployerFeedData = ({ bookMarkedPost, postrainingData }) => {
                           </div>
                         </section>
                       </div>
-                      <div style={{ width: "650px" }}>
+                      <div style={{ width: "100%" }}>
                         {!messageShowMoreBasedOnProfile[post._id] ? null : (
                           <div ref={messageref} className="messageFooter">
                             <div className="messageContent">
@@ -640,7 +643,7 @@ const EmployerFeedData = ({ bookMarkedPost, postrainingData }) => {
                                 </div>
                               ) : (
                                 <div>
-                                  {post?.comments?.slice(-numCommentsToShow).map((item, index) => (
+                                  {post?.comments?.slice(0, numCommentsToShow).map((item, index) => (
                                     <div key={index} style={{ display: 'flex', margin: '5px', marginTop: '10px' }}>
                                       {/* <img className='img2' height='40px' width='40px' src={item?.commentedByProfile} alt="" /> */}
                                       {

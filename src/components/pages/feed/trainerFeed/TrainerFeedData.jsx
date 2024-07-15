@@ -3,8 +3,8 @@ import { useEffect, useState, useRef } from 'react';
 import RequestSound from '../../../assets/requestsound.mp3'
 import PopUp from './PopUp';
 import { useDispatch, useSelector } from 'react-redux'
-import { addBookMarkePost, createConversation, getConversation, getAllRequestedConnection } from '../../../../redux/action/trainer.action'
-import { getAllPostTrainingRequirementAction, addPostTrainingComments, addlikePostTraining, deletePostTrainingComment, addHidePost } from '../../../../redux/action/postRequirement.action'
+import {createConversation, getConversation, getAllRequestedConnection } from '../../../../redux/action/trainer.action'
+import { getAllPostTrainingRequirementAction, addPostTrainingComments, addlikePostTraining, deletePostTrainingComment, addHidePost, addBookMarkPostTraining } from '../../../../redux/action/postRequirement.action'
 import TrainerApplyPopup from './../../../utils/TrainerApplyPopUp';
 import ProfileImage from '../../../utils/ProfileImage'
 import Skeleton from '@mui/material/Skeleton';
@@ -13,9 +13,7 @@ import { toast } from 'react-toastify'
 import { S3 } from 'aws-sdk'
 
 
-
-const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
-  const [selectedItems, setSelectedItems] = useState([]);
+const TrainerFeeData = ({ postrainingData }) => {
   const [selectedPost, setSelectedPost] = useState(null)
   const [addNewComment, setAddNewComment] = useState('')
   const [connectSound] = useState(new Audio(RequestSound));
@@ -36,10 +34,6 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
     dispatch(getConversation(currentUserId))
     dispatch(getAllRequestedConnection())
   }, [dispatch, selectedPost])
-
-  // const PostTrainingData = useSelector(({ postRequirement }) => {
-  //   return postRequirement?.postTrainingDetails?.postTrainingDetails
-  // })
 
   const connections = useSelector(({ trainerSignUp }) => {
     return trainerSignUp?.connections?.conversation;
@@ -73,31 +67,44 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
   // console.log('PostTrainingData', PostTrainingData);
 
 
-  const handleIconClick = async (index, post) => {
-    await setSelectedPost(post)
-    await dispatch(addBookMarkePost(post?._id, post))
-  };
-
-
   const [likedPosts, setLikedPosts] = useState([]);
+  const [appliedPost, setAppliedPosts] = useState([])
+  const [bookMarkPost, setBookMarkPost] = useState([])
 
   useEffect(() => {
     if (postrainingData) {
-      postrainingData.forEach(post => {
-        post.likes.forEach(like => {
+      postrainingData?.forEach(post => {
+        post?.likes?.forEach(like => {
           setLikedPosts(prevLikedPosts => [...prevLikedPosts, like._id]);
         });
       });
     }
-    if (bookMarkedPost) {
-      const bookmark = bookMarkedPost.postDetails.map((data) => data._id)
-      setSelectedItems(bookmark)
+    if (postrainingData) {
+      postrainingData?.forEach(post => {
+        post?.bookMark?.forEach(book => {
+          setBookMarkPost(prevBookMarkedPosts => [...prevBookMarkedPosts, book._id]);
+        });
+      });
     }
-  }, [postrainingData, bookMarkedPost, dispatch]);
+    if (postrainingData) {
+      const appliedIds = [];
+      postrainingData.forEach(post => {
+        post?.applicants?.forEach(applicant => {
+          appliedIds.push(applicant.appliedBy);
+        });
+      });
+      setAppliedPosts(prevApply => [...prevApply, ...new Set(appliedIds)]);
+    }
+  }, [postrainingData, dispatch]);
+
+
+  const handleIconClick = async (postId, currentUserId) => {
+    await dispatch(addBookMarkPostTraining(postId, currentUserId))
+    setBookMarkPost([...bookMarkPost, postId]);
+  };
 
   const handleIconClick2 = async (postId, currentUserId) => {
     try {
-      console.log('Liked post:', postId);
       await dispatch(addlikePostTraining(postId, currentUserId));
 
       setLikedPosts([...likedPosts, postId]); // Update likedPosts state
@@ -256,7 +263,7 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
       await dispatch(addPostTrainingComments(postId, comment))
       setAddNewComment('')
     }
-    else{
+    else {
       errorComment = true
       alert('Please enter a comment')
     }
@@ -351,7 +358,7 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
   }
 
   const array = [1, 2, 3]
-  console.log('errormessage',errorComment)
+  console.log('errormessage', errorComment)
   return (
     <section >
 
@@ -365,7 +372,7 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
 
             <>
               {
-                post.hide.some(hide => hide._id === currentUserId) ? null : (
+                post?.hide?.some(hide => hide._id === currentUserId) ? null : (
 
                   <div className='' key={post._id}>
                     <div className='centered-section2'>
@@ -390,7 +397,7 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
                           </div>
                         </div>
                         <div className='flex items-center'>
-                          {
+                          {/* {
                             post?.urgentlyNeedTrainer === 'true' ?
 
                               <div>
@@ -401,10 +408,10 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
                               :
                               null
 
-                          }
-                          <div className='inst me-5' onClick={() => handleIconClick(index, post)}>
+                          } */}
+                          <div className='inst me-5' onClick={() => handleIconClick(post._id, currentUserId)}>
 
-                            {selectedItems.includes(post._id) ? (
+                            {bookMarkPost.includes(currentUserId) && post?.bookMark?.some(instId => instId._id === currentUserId) ? (
                               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 14 18" fill="none" >
                                 <path d="M0 18V2C0 1.45 0.195833 0.979167 0.5875 0.5875C0.979167 0.195833 1.45 0 2 0H12C12.55 0 13.0208 0.195833 13.4125 0.5875C13.8042 0.979167 14 1.45 14 2V18L7 15L0 18Z" fill="#2676C2" />
                               </svg>
@@ -413,7 +420,6 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
                                 <path d="M4.16699 17.5V4.16667C4.16699 3.70833 4.33019 3.31597 4.65658 2.98958C4.98296 2.66319 5.37533 2.5 5.83366 2.5H14.167C14.6253 2.5 15.0177 2.66319 15.3441 2.98958C15.6705 3.31597 15.8337 3.70833 15.8337 4.16667V17.5L10.0003 15L4.16699 17.5ZM5.83366 14.9583L10.0003 13.1667L14.167 14.9583V4.16667H5.83366V14.9583Z" fill="#8D8D8D" className='icon-path' />
                               </svg>
                             )}
-
                           </div>
 
                           <div style={{ position: 'relative', display: 'inline-block' }}>
@@ -472,7 +478,7 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
                                       )
                                   }
                                 </div>
-                                <div onClick={() => handleIconClick3(post._id, currentUserId)} className='option' style={{ padding: '5px', cursor: 'pointer', fontSize: '12px' }}>Not Intrested!</div>
+                                <div onClick={() => handleIconClick3(post._id, currentUserId)} className='option' style={{ padding: '5px', cursor: 'pointer', fontSize: '12px' }}>Not Interested!</div>
                               </div>
                             )}
                           </div>
@@ -481,7 +487,8 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
                       </div>
                       <h5 className='font-[600]' style={{ fontSize: '15px', color: '#535353', marginTop: '10px' }}>{post?.trainingName}</h5>
                       <p
-                        className={showMoreArray[index] ? "show-more2" : "show-less2"} style={{ fontSize: '14px', color: '#535353' }}>
+                        // className={showMoreArray[index] ? "show-more" : "show-less"}
+                        style={{ fontSize: '14px', color: '#535353' }}>
                         {post.description}
                         {/* <hr style={{ margin: '10px 0px' }} /> */}
                         <div className='skilldata'>
@@ -491,17 +498,13 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
                             <button onClick={() => {
                               setApplyPopUp(true);
                               setSelectedPost(post)
-                            }} style={{
+                            }} 
+                              disabled={appliedPost.includes(currentUserId) && post?.applicants?.some(user => user?.appliedBy === currentUserId)}
+                            >
+                              {appliedPost.includes(currentUserId) && post?.applicants?.some(user => user?.appliedBy === currentUserId) ? <span className='text-[white] bg-[green] px-11 py-1.5 rounded-md block'>Applied</span> : <span className='text-[white] bg-[#2676C2] px-11 py-1.5 rounded-md block'>Apply</span>}
 
-                              backgroundColor: '#2676C2',
-                              border: '0px',
-                              color: 'white',
-                              padding: '5px 50px',
-                              borderRadius: '10px',
-                              // marginLeft: '340px',  // Center horizontally
-                              display: 'block', // Make it a block-level element
-                              height: '30px'
-                            }}>Apply</button>
+                            </button>
+
                           </div>
                           <div>
                             {post.topics.map((val, index) => (
@@ -538,7 +541,7 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
                           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                             <h5><span className='skillchild font-[600]' >Mode of Training -</span><span className='skillchild2'>{post?.modeOfTraining}</span></h5>
                             <div className='skillfooter2'>
-                              <h2 className="text-[#2676C2] font-[500]">{post?.likes?.length}</h2>
+                              <h2 className="text-[#2676C2] font-[500] ">{post?.likes?.length}</h2>
                               <div onClick={() => handleIconClick2(post._id, currentUserId)} >
                                 {likedPosts.includes(currentUserId) && post.likes.some(like => like._id === currentUserId) ?
                                   (
@@ -567,7 +570,7 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
                           </div>
                         </div>
                       </p>
-                      <button onClick={() => handleShowMoreClick(index, post)} style={{ background: 'none', border: 'none', color: '#2676C2', cursor: 'pointer', padding: "0px", margin: '0px' }}>
+                      {/* <button onClick={() => handleShowMoreClick(index, post)} style={{ background: 'none', border: 'none', color: '#2676C2', cursor: 'pointer', padding: "0px", margin: '0px' }}>
                         {showMoreArray[index] ? 'Less' : 'more'}
                       </button>
 
@@ -608,11 +611,11 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
                             </div>
                           </div>
                         </section>
-                      )}
+                      )} */}
 
                     </div>
 
-                    <div style={{ width: '650px' }}>
+                    <div style={{ width: '100%' }}>
 
                       {!messageShowMoreBasedOnProfile[post._id] ? null : (
                         <div ref={messageref}>
@@ -637,7 +640,7 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
                                 <form onSubmit={handleAddComment} className='flex items-center justify-center'>
                                   <div>
                                     {
-                                      errorComment ===true ?
+                                      errorComment === true ?
                                         <span className='text-xs text-red-900 flex  items-center'>
                                           Please enter the value
 
@@ -718,12 +721,12 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
 
                               <div>
 
-                                {post?.comments?.slice(-numCommentsToShow).map((item, index) => (
+                                {post?.comments?.slice(0, numCommentsToShow).map((item, index) => (
                                   <div key={index} style={{ display: 'flex', margin: '5px', marginTop: '10px' }}>
                                     {/* <img className='img2' height='40px' width='40px' src={item?.commentedByProfile} alt="" /> */}
                                     {
                                       item?.commentedByProfile ? <>
-                                        <img className='img2 rounded-[50%]' height='30px' width='30px' src={item?.commentedByProfile} alt="" />
+                                        <img className='img2 rounded-full h-[60px] w-[60px]' src={item?.commentedByProfile} alt="" />
                                       </>
                                         :
                                         <div className=' capitalize flex justify-center items-center h-[35px] w-[35px] bg-[#f4f6f7] rounded-full'>
@@ -736,7 +739,7 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
                                     <div style={{ maxWidth: "90%", backgroundColor: '#f0f0f0', padding: '5px', marginLeft: '10px', borderStartEndRadius: '15px', borderEndStartRadius: '15px', borderEndEndRadius: '15px', border: '2px solid #E9E9E9' }}>
                                       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                         <div className='me-5'>
-                                          <h5 style={{ fontSize: '12px', margin: '0px', color: '#333333' }}>{item?.commentedByName}</h5>
+                                          <h5 style={{ fontSize: '14px', margin: '0px', color: '#333333' }}>{item?.commentedByName}</h5>
                                           {/* <p style={{ fontSize: '12px', margin: '0px', color: '#777777' }}>{item.commentedByCompany}</p> */}
                                         </div>
                                         {
@@ -745,7 +748,7 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
                                               <div
 
                                                 onClick={() => toggleDropdown(index)}
-                                                style={{ cursor: 'pointer', fontSize: '14px', fontWeight: 'bolder', color: 'gray' }}
+                                                style={{ cursor: 'pointer', fontSize: '25px', fontWeight: 'bolder', color: 'gray' }}
                                               >
                                                 ⋮
                                               </div>
@@ -763,8 +766,8 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
                                                     width: '100px'
                                                   }}
                                                 >
-                                                  <div className='option' style={{ padding: '5px 30px', cursor: 'pointer', fontSize: '10px' }} onClick={() => deleteComment(post._id, item._id)}>Delete</div>
-                                                  <div className='option' style={{ padding: '5px 30px', cursor: 'pointer', fontSize: '10px' }}>Report</div>
+                                                  <div className='option' style={{ padding: '5px 30px', cursor: 'pointer', fontSize: '12px' }} onClick={() => deleteComment(post._id, item._id)}>Delete</div>
+                                                  <div className='option' style={{ padding: '5px 30px', cursor: 'pointer', fontSize: '12px' }}>Report</div>
                                                 </div>
                                               )}
                                             </div>
@@ -772,7 +775,7 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
                                         }
                                       </div>
                                       <div>
-                                        <p style={{ color: '#888888', fontSize: '10px' }}>{item?.commentText}</p>
+                                        <p style={{ color: '#888888', fontSize: '14px' }}>{item?.commentText}</p>
                                       </div>
                                     </div>
                                   </div>
@@ -784,7 +787,7 @@ const TrainerFeeData = ({ bookMarkedPost, postrainingData }) => {
 
                             {!showAllComments[post._id] && numCommentsToShow < post?.comments?.length && (
                               <h6
-                                style={{ color: '#2676C2', marginTop: '5px', cursor: 'pointer', fontWeight: '500', fontSize: '13px' }}
+                                style={{ color: '#2676C2', marginTop: '5px', cursor: 'pointer', fontWeight: '500' }}
                                 onClick={() => handleViewMoreComments(post._id)}>
                                 View More Comments
                               </h6>

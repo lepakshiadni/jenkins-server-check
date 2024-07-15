@@ -222,7 +222,7 @@ const EmployerMyPosts = () => {
                         {/*                                 
                                   // <img className='img2' height='60px' width='60px' src={post.postedByImg} alt="" />
                                   // :
-                                  // <div className='flex justify-center items-center h-[60px] w-[60px] rounded-full bg-slate-200'>
+                                  // <div className='flex justify-center items-center h-[60px] w-[60px] rounded-full bg-[#f4f6f7]'>
                                   //   <span>
                                   //     {post?.postedByName[0]}
                                   //   </span>
@@ -231,7 +231,7 @@ const EmployerMyPosts = () => {
                       </div>
                     </Link>
                     <div style={{ textAlign: 'start' }}>
-                      <h5 style={{ fontSize: '18px', margin: '0px', color: '#333333' }}>{post.postedByName}</h5>
+                      <h5 style={{ fontSize: '18px', margin: '0px', color: '#333333' }}>{post?.postedByName}</h5>
                       <p style={{ fontSize: '14px', margin: '0px', color: "#535353" }}>{post.postedByCompanyName}</p>
                     </div>
                   </div>
@@ -348,7 +348,7 @@ const EmployerMyPosts = () => {
                             viewBox="0 0 20 19"
                             fill="none"
                             style={{ cursor: "pointer" }}
-                            onClick={() => toggleHandleMessageMore(post._id)}
+                            onClick={() => toggleHandleMessageMore(post?._id)}
                           >
                             <path
                               d="M3.59961 16.9203L5.12357 15.7012L5.13478 15.6926C5.45249 15.4384 5.61281 15.3101 5.79168 15.2188C5.95216 15.1368 6.12328 15.0771 6.2998 15.0408C6.49877 15 6.70603 15 7.12207 15H15.8031C16.921 15 17.4806 15 17.908 14.7822C18.2843 14.5905 18.5905 14.2842 18.7822 13.9079C19 13.4805 19 12.9215 19 11.8036V4.19691C19 3.07899 19 2.5192 18.7822 2.0918C18.5905 1.71547 18.2837 1.40973 17.9074 1.21799C17.4796 1 16.9203 1 15.8002 1H4.2002C3.08009 1 2.51962 1 2.0918 1.21799C1.71547 1.40973 1.40973 1.71547 1.21799 2.0918C1 2.51962 1 3.08009 1 4.2002V15.6712C1 16.7369 1 17.2696 1.21846 17.5433C1.40845 17.7813 1.69644 17.9198 2.00098 17.9195C2.35115 17.9191 2.76744 17.5861 3.59961 16.9203Z"
@@ -472,7 +472,7 @@ const EmployerMyPosts = () => {
                                   </div>
                                 </div>
                                 <div>
-                                  <p style={{ margin: '0px', color: '#888888', fontSize: '14px' }}>{item?.comment}</p>
+                                  <p style={{ margin: '0px', color: '#888888', fontSize: '14px' }}>{item?.commentText}</p>
                                 </div>
                               </div>
                             </div>
@@ -480,7 +480,7 @@ const EmployerMyPosts = () => {
                         </div>
                       ) : (
                         <div>
-                          {post?.comments?.slice(-numCommentsToShow).map((item, index) => (
+                          {post?.comments?.slice(0,numCommentsToShow).map((item, index) => (
                             <div key={index} style={{ display: 'flex', margin: '5px', marginTop: '10px' }}>
                               <img className='img2' height='40px' width='40px' src={item?.commentedByProfile} alt="" />
                               <div style={{ maxWidth: "436px", backgroundColor: '#f0f0f0', padding: '10px', marginLeft: '10px', borderStartEndRadius: '15px', borderEndStartRadius: '15px', borderEndEndRadius: '15px', border: '2px solid #E9E9E9' }}>
@@ -491,7 +491,7 @@ const EmployerMyPosts = () => {
                                   </div>
                                 </div>
                                 <div>
-                                  <p style={{ margin: '0px', color: '#888888', fontSize: '14px' }}>{item?.comment}</p>
+                                  <p style={{ margin: '0px', color: '#888888', fontSize: '14px' }}>{item?.commentText}</p>
                                 </div>
                               </div>
                             </div>

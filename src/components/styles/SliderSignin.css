@@ -90,3 +90,13 @@
   /* margin-top: 20px; */
   background: none;
 }
+
+@media (max-width:768px){
+  .slider-parent{
+    display: flex;
+    flex-direction: column;
+  }
+  .slider-image{
+    margin-top: 20px;
+  }
+}

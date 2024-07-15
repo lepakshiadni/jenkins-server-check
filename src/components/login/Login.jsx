@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo, useRef } from "react";
 // import "../styles/otpverify.css"; // Import your CSS file
 import '../styles/OtpVerify.css'
-import HeaderLogo from "../assets/Header_logo.png";
+import HeaderLogo from "../assets/LOGO.png";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -18,6 +18,8 @@ import CreateSuccessfull from "./Successpage";
 import { strictRouteAction } from "../../redux/action/strictRoute.action";
 import { styled } from "@mui/material";
 import MailRoundedIcon from '@mui/icons-material/MailRounded';
+import { setToken } from "../utils/TokenUtils";
+import HelpPopUp from "./HelpPopUp";
 
 
 const ZoomableMailOutlineIcon = styled(MailRoundedIcon)`
@@ -40,7 +42,7 @@ const Login = () => {
   const contactDetails = useState(Cookies.get("contactDetails"));
   const [selected, setSelected] = useState("");
   const [open, setOpen] = useState(false);
-  const countries = ["French", "English", "Spanish", "German", "Italian"];
+  // const countries = ["French", "English", "Spanish", "German", "Italian"];
   const [initialTimer, setInitialTimer] = useState(120);
   const [disableResend, setDisableResend] = useState(false);
   const navigate = useNavigate();
@@ -140,7 +142,7 @@ const Login = () => {
       user?.message === "verifiedExitingEmployer" &&
       user?.data?.existEmployer?.role === "employer"
     ) {
-      Cookies.set("token", user?.data?.token);
+      setToken(user?.data?.token)
       localStorage.setItem("role", user?.data?.existEmployer?.role);
       navigate('/createsucess')
     }
@@ -148,7 +150,7 @@ const Login = () => {
       user?.message === "verifiedExitingEmployer" &&
       user?.data?.existEmployer2?.role === "employer"
     ) {
-      Cookies.set("token", user?.data?.token);
+      setToken(user?.data?.token)
       localStorage.setItem("role", user?.data?.existEmployer2?.role);
 
       navigate('/createsucess')
@@ -161,7 +163,7 @@ const Login = () => {
       user?.message === "verifiedExitingTrainer" &&
       user?.data?.existTrainer?.role === "trainer"
     ) {
-      Cookies.set("token", user?.data?.token);
+      setToken(user?.data?.token)
       localStorage.setItem("role", user?.data?.existTrainer?.role);
       navigate('/createsucess')
     }
@@ -169,19 +171,19 @@ const Login = () => {
       user?.message === "verifiedExitingTrainer" &&
       user?.data?.existTrainer2?.role === "trainer"
     ) {
-      Cookies.set("token", user?.data?.token);
+      setToken(user?.data?.token)
       localStorage.setItem("role", user?.data?.existTrainer2?.role);
       navigate('/createsucess')
 
     }
     if (user?.message === "New user") {
-      toast.success(user?.message, {
-        style: {
-          backgroundColor: "#ffff",
-          color: "#2676c2",
-          borderColor: "#2676c2",
-        },
-      });
+      // toast.success(user?.message, {
+      //   style: {
+      //     backgroundColor: "#ffff",
+      //     color: "#2676c2",
+      //     borderColor: "#2676c2",
+      //   },
+      // });
       dispatch(strictRouteAction(true))
 
       setTimeout(() => {
@@ -191,18 +193,23 @@ const Login = () => {
   }, [user, navigate]);
 
 
+  const [showHelpPopUp, setShowHelpPopUp] = useState(false);
 
 
 
   return (
     <>
+      <HelpPopUp
+        trigger={showHelpPopUp}
+        setTrigger={setShowHelpPopUp}
+      />
       <div>
         <div className="header h-[100px] px-5 py-3  md:flex md:items-center md:justify-between gap-3 md:px-16 md:py-5">
           <div className="otp-logo h-10 w-24   md:h-[4.5rem] md:w-[12rem]">
             <img className='' src={HeaderLogo} alt="" />
           </div>
           <div className="header-right hidden mr-2 md:flex md:items-center gap-10 ">
-            <div className="">
+            <div className="cursor-pointer" onClick={()=>setShowHelpPopUp(true)}>
               <svg
                 width="32"
                 height="32"
@@ -229,6 +236,7 @@ const Login = () => {
                 ring ring-offset-[-2px]
                 font-normal text-base ring-[#2676c2] 
                 md:leading-6
+                rounded-sm
               
                 flex items-center justify-around
                hover:bg-[#2676c2] hover:text-[#ffff] hover:cursor-pointer 
@@ -285,7 +293,7 @@ const Login = () => {
                   className={`${open && "rotate-180"}`}
                 />
               </div>
-              {open && (
+              {/* {open && (
                 <ul className=" absolute bg-[#2676c2] w-[130px] text-[#ffff] md:w-[190px] z-[3]">
                   {countries?.map((country) => (
                     <li
@@ -303,7 +311,7 @@ const Login = () => {
                     </li>
                   ))}
                 </ul>
-              )}
+              )} */}
 
             </div>
           </div>
@@ -311,7 +319,7 @@ const Login = () => {
 
 
         <div className="otp-body w-full ">
-          <div className="Recieve-page ml-3 p-1 md:ml-16 md:p-5 lg:p-0 lg:w-[90%] lg:h-[24rem] border-0  md:border-2 md:border-gray-200 flex flex-col-reverse  lg:flex lg:flex-row lg:items-center">
+          <div className="Recieve-page ml-3 p-1 md:ml-16 md:p-5 lg:p-0 lg:w-[90%] lg:h-[24rem] border-0  md:border-2 md:border-gray-200 md:rounded-[5px] flex flex-col-reverse  lg:flex lg:flex-row lg:items-center">
             <div className="reciever-left w-[100%] mt-5 md:mt-0 md:w-[40%] ml-4 flex flex-col gap-2">
               <h2 className="reciever-heading text-[#2676C2] text-[23px] font-[600]">
                 Trailblazer or Voyager,
@@ -351,11 +359,12 @@ const Login = () => {
                     <input
                       id={`otp-input-${index}`}
                       key={index}
-                      type="number"
+                      type="text"
+                      pattern="[0-9]*"
                       // max={1}
                       maxLength={1}
                       value={value}
-                      className="text-[#2676C2] text-center font-[1.5rem] ml-2"
+                      className="text-[#2676C2] text-center text-[20px] font-bold ml-2"
                       ref={el => inputRefs.current[index] = el}
                       onChange={event => handleChange(event, index)}
                       onKeyDown={event => handleKeyDown(event, index)}
@@ -369,7 +378,7 @@ const Login = () => {
               <div className="w-full">
                 <button
                   onClick={handleVerifyOTP}
-                  className="verify-otp-btn w-[40%] md:w-[90%] bg-[#2676C2] text-white p-3 rounded-sm"
+                  className="verify-otp-btn w-[40%] md:w-[90%] bg-[#2676C2] text-white p-3 rounded-[3px]"
                 >
                   Verify
                 </button>

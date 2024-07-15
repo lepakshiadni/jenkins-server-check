@@ -317,6 +317,8 @@ function EmployerVisibility() {
                 <div className="visibility-head p-3 h-[50%] flex items">
                   <h3 className="text-[18px] text-[#535353] ">Display</h3>
                 </div>
+                <hr className='border-[0.5px] border-[#eeeeee]' />
+
                 <div
                   onClick={() => {
                     setVisiblity("mode");
@@ -334,12 +336,15 @@ function EmployerVisibility() {
                   </div>
                 </div>
               </div>
+
               <div className="profile-visibility mt-5 border-[0.5px]  border-[#eeeeee]">
                 <div className="profile-head p-3">
                   <h3 className="text-[18px] text-[#535353] ">
                     Visibility of your profile
                   </h3>
                 </div>
+                <hr className='border-[0.5px] border-[#eeeeee]' />
+
                 <div className="profile-settings ">
                   <div
                     onClick={() => {
@@ -360,6 +365,8 @@ function EmployerVisibility() {
                       />
                     </div>
                   </div>
+                  <hr className='border-[0.5px] border-[#eeeeee]' />
+
                   <div
                     onClick={() => {
                       setVisiblity("bannerImg");
@@ -379,6 +386,8 @@ function EmployerVisibility() {
                       />
                     </div>
                   </div>
+                  <hr className='border-[0.5px] border-[#eeeeee]' />
+
                   <div
                     onClick={() => {
                       setVisiblity("certification");
@@ -398,6 +407,8 @@ function EmployerVisibility() {
                       />
                     </div>
                   </div>
+                  <hr className='border-[0.5px] border-[#eeeeee]' />
+
                   <div
                     onClick={() => {
                       setVisiblity("dates");

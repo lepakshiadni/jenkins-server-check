@@ -77,7 +77,7 @@ function EmployerHelpSupport() {
               onChange={(e) => setFilterText(e.target.value)}
               onClick={() => setSearchOpen(!searchOpen)}
             />
-            <div className="absolute w-full top-[51px] z-[1000]">
+            <div onClick={()=>{setSearchOpen(false)}} className="absolute w-full top-[51px] z-[1000]">
               {searchOpen ? (
                 <div
                   className="searchMenu"
@@ -151,6 +151,7 @@ function EmployerHelpSupport() {
           </div>
 
           <div
+          
             style={{
               backgroundColor: "rgba(38, 118, 194, 0.2)",
               width: "259px",
@@ -316,7 +317,7 @@ function EmployerHelpSupport() {
           </div>
         </div>
 
-        <div>
+        <div onClick={()=>{setSearchOpen(false)}}>
           <h3
             style={{
               fontSize: "20px",

@@ -11,6 +11,7 @@ import { BiChevronDown } from "react-icons/bi";
 import { useNavigate, Link } from "react-router-dom";
 import {strictRouteAction } from '../../redux/action/strictRoute.action';
 import { useDispatch } from 'react-redux';
+import HelpPopUp from "./HelpPopUp";
 
 
 
@@ -32,16 +33,22 @@ function RoleSelection() {
     dispatch(strictRouteAction(true))
     navigate('/trainersignup')
   }
+  const [showHelpPopUp, setShowHelpPopUp] = useState(false);
 
-  const countries = ["French", "Spanish", "English", "German", "Italian"];
+  // const countries = ["French", "Spanish", "English", "German", "Italian"];
   return (
     <>
+       <HelpPopUp
+        trigger={showHelpPopUp}
+        setTrigger={setShowHelpPopUp}
+      />
       <div className="Role-selection-section ">
 
         <div className="RSHead flex p-8 items-center justify-between h-[100px]">
-          <img className='h-8 w-24 md:h-[80px] md:w-[190px]' src={HeaderLogo} alt="Header_Logo" />
-          <div className="Help flex gap-10 items-center">
+          <img className='h-[60px] w-[200px]' src={HeaderLogo} alt="Header_Logo" />
+          <div className="Help cursor-pointer flex gap-10 items-center" >
             <svg
+            onClick={()=>{setShowHelpPopUp(true)}}
               width="32"
               height="32"
               viewBox="0 0 32 32"
@@ -49,6 +56,7 @@ function RoleSelection() {
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
+              
                 id="Vector"
                 d="M11.2441 11.1227C11.5288 10.2455 12.0503 9.46494 12.7513 8.86581C13.4524 8.26668 14.3063 7.87297 15.2171 7.72846C16.1279 7.58396 17.0604 7.694 17.9124 8.04671C18.7645 8.39943 19.5024 8.98124 20.0446 9.72721C20.5868 10.4732 20.9115 11.3543 20.9839 12.2736C21.0564 13.1929 20.8731 14.1146 20.4545 14.9364C20.0359 15.7581 19.399 16.4475 18.6127 16.9294C17.8264 17.4112 16.9222 17.6663 16 17.6663V19.3337M16 31C7.71573 31 1 24.2843 1 16C1 7.71573 7.71573 1 16 1C24.2843 1 31 7.71573 31 16C31 24.2843 24.2843 31 16 31ZM16.083 24.3333V24.5L15.917 24.5003V24.3333H16.083Z"
                 stroke="white"
@@ -64,6 +72,7 @@ function RoleSelection() {
                 w-[189px] h-[49px]
                 ring ring-offset-[-2px]
                 font-normal text-base ring-[#ffff] 
+                rounded-sm
                 leading-6
                 flex items-center justify-around
                hover:bg-[#ffff] hover:text-[#2676c2] hover:cursor-pointer 
@@ -117,7 +126,7 @@ function RoleSelection() {
                   : "English"}
                 <BiChevronDown size={30} className={`${open && "rotate-180"}`} />
               </div>
-              {open && (
+              {/* {open && (
                 <ul className="absolute bg-white text-[#7B7B7B] w-[190px]">
                   {countries?.map((country) => (
                     <li
@@ -135,12 +144,12 @@ function RoleSelection() {
                     </li>
                   ))}
                 </ul>
-              )}
+              )} */}
             </div>
           </div>
         </div>
 
-        <div className="roles-selection-body p-3 mt-[40px] justify-center items-center md:p-5 w-[90%]  md:w-[95%] flex flex-col-reverse md:flex md:flex-row md:gap-4 bg-white ml-6  md:ml-8" >
+        <div className="roles-selection-body rounded-[5px] p-3 mt-[40px] justify-center items-center md:p-5 w-[90%]  md:w-[95%] flex flex-col-reverse md:flex md:flex-row md:gap-4 bg-white ml-6  md:ml-8" >
 
           <div className="Select_Role mt-12 w-[90%] md:mt-0 md:w-[38%]">
             <div className="">

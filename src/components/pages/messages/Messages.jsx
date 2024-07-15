@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 const baseUrl = process.env.REACT_APP_API_URL;
 function Messages({unreadMsgValue, messages, own, selecteduser, typingStatus }) {
+  // console.log(unreadMsgValue, "unreadMsgValue")
   const [ownUser, setOwnUser] = useState(null);
   const [timeAgo, setTimeAgo] = useState(Time(messages?.createdAt));
   // // console.log(messages, "messages");
@@ -43,6 +44,7 @@ function Messages({unreadMsgValue, messages, own, selecteduser, typingStatus }) 
     try {
       const response = await axios.put(`${baseUrl}/message/updateMessageStatus/${messageId}`);
       if (response.data.success) {
+        unreadMsgValue(true);
         // console.log('Message status updated successfully', response.data.updatedMessage);
       } else {
         console.error('Failed to update message status');
@@ -53,23 +55,28 @@ function Messages({unreadMsgValue, messages, own, selecteduser, typingStatus }) 
   };
 
   // // console.log(messages.conversationId,"messages")
-  useEffect(() => {
-    if (messages.conversationId && !messages.isRead) {
-      if(markAsReadTimeoutRef.current){
-        clearTimeout(markAsReadTimeoutRef.current);
-      }
-      markAsReadTimeoutRef.current = setTimeout(() => {
-        markMessageAsRead(messages.conversationId);
-      }, 2000);
+  // useEffect(() => {
+  //   if (messages.conversationId && !messages.isRead) {
+  //     if(markAsReadTimeoutRef.current){
+  //       clearTimeout(markAsReadTimeoutRef.current);
+  //     }
+  //     markAsReadTimeoutRef.current = setTimeout(() => {
+  //       markMessageAsRead(messages.conversationId);
+  //     }, 2000);
 
-      return () => {
-        if(markAsReadTimeoutRef.current){
-          clearTimeout(markAsReadTimeoutRef.current);
-        }
-      };
+  //     return () => {
+  //       if(markAsReadTimeoutRef.current){
+  //         clearTimeout(markAsReadTimeoutRef.current);
+  //       }
+  //     };
+  //   }
+  // }, [messages]);
+  useEffect(() => {
+    if (!messages?.isRead) {
+      markMessageAsRead(messages.conversationId);
     }
   }, [messages]);
-
+    console.log(messages, 'messages')
   const markMessageAsRead = async (conversationId) => {
     // console.log(conversationId, 'conversationId');
     if(!conversationId) {
@@ -94,6 +101,7 @@ function Messages({unreadMsgValue, messages, own, selecteduser, typingStatus }) 
         console.error('Error marking message as read:', error);
     }
   };
+  // markMessageAsRead(messages.conversationId)
   
   return (
     <div>

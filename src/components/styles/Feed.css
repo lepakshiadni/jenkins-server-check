@@ -64,7 +64,7 @@
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
   line-height: 1.4;
-  max-height: 140px;
+  max-height: 50px;
   margin: 0px;
 }
 
@@ -147,14 +147,6 @@
   width: 0.5em;
 }
 
-.skillfooter2 {
-  display: flex;
-}
-
-.skillfooter2 svg {
-  margin-left: 30px;
-}
-
 .sendFooter {
   cursor: pointer;
 }
@@ -223,13 +215,18 @@
   border: 1px solid #EEEEEE;
 }
 
-
-
 .no-transition {
   transition: none !important;
   transform: none !important;
 }
 
+.skillfooter2 {
+  display: flex;
+}
+
+.skillfooter2 svg {
+  margin-left: 30px;
+}
 
 .scrollpopUp {
   height: 290px;

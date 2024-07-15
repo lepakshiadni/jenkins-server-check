@@ -7,6 +7,8 @@ import { BiChevronDown } from 'react-icons/bi';
 import { employerSignUpAction } from '../../redux/action/employers.action'
 import { toast } from 'react-toastify'
 import Cookies from 'js-cookie'
+import { setToken } from '../utils/TokenUtils';
+import HelpPopUp from "./HelpPopUp";
 
 function EmployerSignup() {
 
@@ -14,7 +16,7 @@ function EmployerSignup() {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const countries = ["French", "Spanish", "German", "English", "Italian", "Chinese"];
+  // const countries = ["French", "Spanish", "German", "English", "Italian", "Chinese"];
   const [values, setValues] = useState({
     fullName: {
       value: "",
@@ -55,6 +57,25 @@ function EmployerSignup() {
     }));
   };
 
+  const handleCompanyNameChange = (e) => {
+    const { value } = e.target;
+    const maxLength = 32; // Define max length if needed
+    let errorMessage = "";
+
+    if (value.length < 2 || value.length > maxLength) {
+      errorMessage = `Should be between 2 and ${maxLength} characters`;
+    }
+
+    setValues(prevValues => ({
+      ...prevValues,
+      companyName: {
+        value: value,
+        errorMessage: errorMessage
+      }
+    }));
+  };
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const newValues = { ...values };
@@ -88,8 +109,8 @@ function EmployerSignup() {
   useEffect(() => {
     if (employer?.success) {
       toast.success(employer?.message);
-      Cookies.set('token', employer?.token)
-      localStorage.setItem('newUser',true)
+      setToken(employer?.token)
+      localStorage.setItem('newUser', true)
       console.log('Success:', employer?.message);
       navigate('/employerDashboard/feed')
 
@@ -110,15 +131,23 @@ function EmployerSignup() {
       }
     }
   };
+  const [showHelpPopUp, setShowHelpPopUp] = useState(false);
+
 
   return (
+    <>
+     <HelpPopUp
+        trigger={showHelpPopUp}
+        setTrigger={setShowHelpPopUp}
+      />
     <div className=" w-full min-h-screen employerSignupContent">
       <div className="flex flex-col md:flex-row justify-between items-center  md:p-6 lg:px-12 gap-4 md:gap-6 lg:gap-8">
-        <div className="w-[200px] h-[73px]">
+        <div className="w-[200px] h-[60px]">
           <img src={LOGO} alt="Logo" />
         </div>
-        <div className="hidden md:flex gap-10 mr-[15px] ">
+        <div className="hidden md:flex gap-10 mr-[15px] cursor-pointer">
           <svg
+           onClick={()=>setShowHelpPopUp(true)}
             width="32"
             height="32"
             viewBox="0 0 32 32"
@@ -143,6 +172,7 @@ function EmployerSignup() {
                 ring ring-offset-[-2px]
                 font-normal text-base ring-[#ffff] 
                 leading-6
+                rounded-sm
                 flex items-center justify-around
                hover:bg-[#2676c2] hover:text-[#ffff] hover:cursor-pointer hover:ring-[#2676c2] 
                 ${open
@@ -195,7 +225,7 @@ function EmployerSignup() {
                 : "English"}
               <BiChevronDown size={30} className={`${open && "rotate-180"}`} />
             </div>
-            {open && (
+            {/* {open && (
               <ul className="absolute bg-[#2676c2] text-[#ffff] w-[190px]">
                 {countries.map((country) => (
                   <li
@@ -213,14 +243,14 @@ function EmployerSignup() {
                   </li>
                 ))}
               </ul>
-            )}
+            )} */}
           </div>
         </div>
       </div>
       <div className=" 
-       flex justify-center mt-[30px]">
-        <div className="w-[90%] md:w-[80%] lg:w-[90%] h-auto md:h-[23rem] flex flex-col md:flex-row">
-          <div className="w-full md:w-[60%] bg-white p-4">
+       flex justify-center mt-[30px] ">
+        <div className="w-[90%] md:w-[80%] lg:w-[90%] h-auto md:h-[23rem] flex flex-col md:flex-row  ">
+          <div className="w-full md:w-[60%] bg-white rounded-l-[5px] p-4">
             <div className="flex flex-col gap-5 justify-start w-[85%] m-auto mt-[2.3rem]">
               <div className="cursor-pointer" onClick={() => { navigate('/selectrole') }}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="22" viewBox="0 0 26 22" fill="none">
@@ -236,7 +266,7 @@ function EmployerSignup() {
               </div>
             </div>
           </div>
-          <div className="bg-[#2676c2] w-full md:w-[40%] p-4">
+          <div className="bg-[#2676c2] rounded-r-[5px] w-full md:w-[40%] p-4">
             <div className="flex justify-center items-center w-full h-full">
               <form
                 onSubmit={handleSubmit}
@@ -244,12 +274,12 @@ function EmployerSignup() {
               >
                 <div>
                   <label className="text-white font-[300] text-[16px]">
-                    First Name*
+                    Full Name*
                   </label>
                   <input
                     onChange={handleOnChange}
                     onKeyDown={handleEnter}
-                    className="w-full h-[46px] bg-[#ffffff30] rounded-sm text-white placeholder: pl-[10px] placeholder:text-white placeholder:text-sm outline-none"
+                    className="w-full h-[46px] bg-[#ffffff30] rounded-sm text-white placeholder: pl-[10px] placeholder:text-[#CECECE] placeholder:text-sm outline-none"
                     type="text"
                     minLength={2}
                     maxLength={32}
@@ -270,9 +300,9 @@ function EmployerSignup() {
                     Company Name*
                   </label>
                   <input
-                    onChange={handleOnChange}
+                    onChange={handleCompanyNameChange}
                     onKeyDown={handleEnter}
-                    className="w-full h-[46px] bg-[#ffffff30] rounded-sm text-white placeholder: pl-[10px] placeholder:text-white placeholder:text-sm outline-none"
+                    className="w-full  h-[46px] bg-[#ffffff30] rounded-sm text-white placeholder: pl-[10px] placeholder:text-[#CECECE] placeholder:text-sm outline-none"
                     type="text"
                     minLength={2}
                     maxLength={32}
@@ -295,7 +325,7 @@ function EmployerSignup() {
                   <input
                     onChange={handleOnChange}
                     onKeyDown={handleEnter}
-                    className="w-full h-[46px] bg-[#ffffff30] rounded-sm text-white placeholder: pl-[10px] placeholder:text-white placeholder:text-sm outline-none"
+                    className="w-full  h-[46px] bg-[#ffffff30] rounded-sm text-white placeholder: pl-[10px] placeholder:text-[#CECECE] placeholder:text-sm outline-none"
                     type="text"
                     minLength={2}
                     maxLength={32}
@@ -312,8 +342,9 @@ function EmployerSignup() {
                   )} */}
                 </div>
                 <button
+                r
                   type='submit'
-                  className="w-full h-[46px] bg-white text-[#2676c2] font-medium"
+                  className="w-full rounded-sm h-[46px] bg-white text-[#2676c2] font-medium"
                 >
                   Signup
                 </button>
@@ -323,6 +354,7 @@ function EmployerSignup() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

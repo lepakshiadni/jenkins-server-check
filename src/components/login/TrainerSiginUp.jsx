@@ -9,6 +9,8 @@ import Select from 'react-select';
 import { trainerSignUpAction } from '../../redux/action/trainer.action';
 import { toast } from 'react-toastify'
 import Cookies from 'js-cookie'
+import { setToken } from '../utils/TokenUtils';
+import HelpPopUp from "./HelpPopUp";
 
 const baseUrl = process.env.REACT_APP_API_URL;
 function TrainerSignUp() {
@@ -19,7 +21,7 @@ function TrainerSignUp() {
     const [open, setOpen] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const countries = ["French", "English", "Spanish", "German", "Italian", "Chinese"];
+    // const countries = ["French", "English", "Spanish", "German", "Italian", "Chinese"];
 
     const [errorMessage, setErrorMessage] = useState("");
     const trainer = useSelector(({ trainerSignUp }) => trainerSignUp?.trainerDetails, shallowEqual)
@@ -40,7 +42,10 @@ function TrainerSignUp() {
     });
     useMemo(() => {
         Axios.get(`${baseUrl}/trainer/skills`)
-            .then((resp) => setSkillsTopics(resp.data?.skills))
+            .then((resp) => {
+                const sortedSkills = resp.data?.skills.sort((a, b) => a.name.localeCompare(b.name));
+                setSkillsTopics(sortedSkills)
+            })
             .catch((err) => console.log(err))
     }, [])
 
@@ -88,9 +93,11 @@ function TrainerSignUp() {
                 errorMessage = "Should be between 2 and 32 characters";
             }
         } else if (name === "experience") {
-            filteredValue = value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
-            if (filteredValue.length > 2) {
-                errorMessage = "Should be a valid number less than 100";
+            // Allow up to two decimal places, but not exceed 100
+            const regex = /^(?:\d{1,2}(?:\.\d{1,2})?|100(?:\.0{1,2})?)$/;
+            filteredValue = value.replace(/[^0-9.]/g, ""); // Filter only valid numeric and decimal characters
+            if (!regex.test(filteredValue)) {
+                errorMessage = "experience Should be less than 100";
             }
         }
 
@@ -102,6 +109,7 @@ function TrainerSignUp() {
             }
         }));
     };
+
 
 
     const handleSubmit = (e) => {
@@ -116,9 +124,19 @@ function TrainerSignUp() {
             }
         });
 
+        // Validate experience field
+        const experienceValue = newValues.experience.value;
+        const experienceRegex = /^\d{0,2}(\.\d{1,2})?$/;
+        if (!experienceRegex.test(experienceValue) || parseFloat(experienceValue) > 100) {
+            newValues.experience.errorMessage = "Sholud be a valid experience";
+            hasError = true;
+        } else if (experienceValue.length > 2 && !experienceValue.includes(".")) {
+            newValues.experience.errorMessage = "Sholud be a valid experience";
+            hasError = true;
+        }
         // Validate skills separately
-        if (selectedSkills.length < 4) {
-            setErrorMessage("Please select at least 4 skills.");
+        if (selectedSkills.length < 2) {
+            setErrorMessage("Please select at least 2 skills.");
             hasError = true;
         } else {
             setErrorMessage("");
@@ -164,14 +182,22 @@ function TrainerSignUp() {
         }
     };
     console.log('trainer', trainer)
+    const [showHelpPopUp, setShowHelpPopUp] = useState(false);
+
     return (
+        <>
+           <HelpPopUp
+        trigger={showHelpPopUp}
+        setTrigger={setShowHelpPopUp}
+      />
         <div className=" w-full min-h-screen trainerSignupContent">
             <div className="flex flex-col md:flex-row justify-between items-center p-4 md:p-6 lg:px-12 gap-4 md:gap-6 lg:gap-8">
                 <div className="w-[200px] h-[73px]">
                     <img src={LOGO} alt="Logo" />
                 </div>
-                <div className="hidden md:flex gap-10 mr-[15px] ">
+                <div className="hidden md:flex gap-10 mr-[15px] cursor-pointer " >
                     <svg
+                    onClick={()=>{setShowHelpPopUp(true)}}
                         width="32"
                         height="32"
                         viewBox="0 0 32 32"
@@ -196,6 +222,7 @@ function TrainerSignUp() {
                                      ring ring-offset-[-2px]
                                     font-normal text-base ring-[#ffff] 
                                     leading-6
+                                    rounded-sm
                             flex items-center justify-around
                                 hover:bg-[#2676c2] hover:text-[#ffff] hover:cursor-pointer hover:ring-[#2676c2] 
                   ${open
@@ -248,7 +275,7 @@ function TrainerSignUp() {
                                 : "English"}
                             <BiChevronDown size={30} className={`${open && "rotate-180"}`} />
                         </div>
-                        {open && (
+                        {/* {open && (
                             <ul className="absolute bg-[#2676c2] text-[#ffff] w-[190px]">
                                 {countries.map((country) => (
                                     <li
@@ -266,13 +293,13 @@ function TrainerSignUp() {
                                     </li>
                                 ))}
                             </ul>
-                        )}
+                        )} */}
                     </div>
                 </div>
             </div>
             <div className="flex justify-center mt-[30px]">
                 <div className="w-[90%] md:w-[80%] lg:w-[90%] h-auto md:h-[23rem] flex flex-col md:flex-row">
-                    <div className="w-full md:w-[60%] bg-white p-4">
+                    <div className="w-full md:w-[60%] bg-white p-4 rounded-l-[5px]">
                         <div className="flex flex-col gap-5 justify-start w-[85%] m-auto mt-[2.3rem]">
                             <div className="cursor-pointer" onClick={() => { navigate('/selectrole') }}>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="22" viewBox="0 0 26 22" fill="none">
@@ -287,7 +314,7 @@ function TrainerSignUp() {
                             </div>
                         </div>
                     </div>
-                    <div className="bg-[#2676c2] w-full h-auto md:w-[40%] p-4 ">
+                    <div className="bg-[#2676c2] rounded-r-[5px] w-full h-auto md:w-[40%] p-4 ">
                         <div className="flex justify-center items-center w-full h-full ">
                             <form
                                 onSubmit={handleSubmit}
@@ -295,12 +322,12 @@ function TrainerSignUp() {
                             >
                                 <div>
                                     <label className="text-white font-[300] text-[16px]">
-                                        First Name*
+                                        Full Name*
                                     </label>
                                     <input
                                         onChange={handleOnChange}
                                         onKeyDown={handleEnter}
-                                        className="w-full h-[46px] bg-[#ffffff30] rounded-sm text-white placeholder: pl-[10px] placeholder:text-white placeholder:text-sm outline-none"
+                                        className="w-full h-[46px] bg-[#ffffff30] rounded-sm text-white placeholder: pl-[10px] placeholder:text-[#CECECE] placeholder:text-sm outline-none"
                                         type="text"
                                         minLength={2}
                                         maxLength={32}
@@ -318,14 +345,14 @@ function TrainerSignUp() {
                                 </div>
                                 <div className="space-y-3">
                                     <label className="text-white font-[300] text-[16px]">
-                                        Experience*
+                                        Experience (eg : 0-99years)*
                                     </label>
                                     <input
                                         onChange={handleOnChange}
                                         onKeyDown={handleEnter}
-                                        className="w-full h-[46px] bg-[#ffffff30] rounded-sm text-white placeholder: pl-[10px] placeholder:text-white placeholder:text-sm outline-none"
+                                        className="w-full h-[46px] bg-[#ffffff30] rounded-sm text-white placeholder: pl-[10px] placeholder:text-[#CECECE] placeholder:text-sm outline-none"
                                         type="text"
-                                        maxLength={2}
+                                        maxLength={4}
                                         required
                                         value={values.experience.value}
                                         name="experience"
@@ -333,11 +360,11 @@ function TrainerSignUp() {
                                         min="0"
                                         autoComplete='off'
                                     />
-                                    {/* {values.companyName.errorMessage && (
-                            <span className="text-red-700 text-sm">
-                                {values.companyName.errorMessage}
-                            </span>
-                            )} */}
+                                    {values.experience.errorMessage && (
+                                        <span className="text-red-700 text-sm">
+                                            {values.experience.errorMessage}
+                                        </span>
+                                    )}
                                 </div>
                                 <div className="space-y-3 ">
                                     <label className="text-white font-[300] text-[16px]">
@@ -348,14 +375,16 @@ function TrainerSignUp() {
                                             {errorMessage}
                                         </span>
                                     )}
+                                    <>
                                     <Select
-
-                                        className="Multiselector "
+                                        className="MultipleSelector"
                                         value={selectedSkills}
                                         required
                                         onChange={setSelectedSkills}
                                         onKeyDown={handleKeyDown}
                                         placeholder='Enter Your skills'
+                                        inputValue={enteredSkill} // Control the input field value
+                                        onInputChange={(newValue) => setEnteredSkill(newValue)}
                                         defaultValue={[]}
                                         isMulti
                                         name="skills"
@@ -380,13 +409,13 @@ function TrainerSignUp() {
 
                                             placeholder: (provided) => ({
                                                 ...provided,
-                                                color: 'var(--icon-color, #ffff)',
+                                                color: '#CECECE',
                                                 fontFamily: 'Poppins',
                                                 fontSize: '14px',
                                                 fontStyle: 'normal',
                                                 fontWeight: 400,
                                                 lineHeight: 'normal',
-                                                // opacity: 0.3    
+                                                                                             // opacity: 0.3    
                                             }),
                                             control: (provided) => ({
                                                 ...provided,
@@ -473,10 +502,12 @@ function TrainerSignUp() {
                                             }),
                                         }}
                                     />
+                                    </>
+                                 
                                 </div>
                                 <button
                                     type='submit'
-                                    className="w-full h-[46px] bg-white text-[#2676c2] font-medium"
+                                    className="w-full rounded-sm h-[46px] bg-white text-[#2676c2] font-medium"
                                 >
                                     Signup
                                 </button>
@@ -486,7 +517,9 @@ function TrainerSignUp() {
                 </div>
             </div>
         </div>
+        </>
     );
+
 }
 
 export default TrainerSignUp;

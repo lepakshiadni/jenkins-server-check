@@ -46,8 +46,8 @@ const TrainerMyTrainings = () => {
                     trainingPostDetails.endDate >= new Date().toISOString().slice(0, 10);
             }
         })
-        ongoing = appliedTraining?.filter(({ appliedStatus, trainingPostDetails }) => {
-            if (appliedStatus) {
+        ongoing = appliedTraining?.filter(({ appliedStatus,enableTraining, trainingPostDetails }) => {
+            if (appliedStatus &&enableTraining) {
                 // if(trainingPostDetails?.startDate <  new Date().toISOString().slice(0, 10) &&
                 // trainingPostDetails?.endDate >  new Date().toISOString().slice(0, 10)
                 // ) {
@@ -58,8 +58,8 @@ const TrainerMyTrainings = () => {
                     trainingPostDetails.endDate >= new Date().toISOString().slice(0, 10);
             }
         })
-        completed = appliedTraining?.filter(({ appliedStatus, trainingPostDetails }) => {
-            if (appliedStatus) {
+        completed = appliedTraining?.filter(({ appliedStatus,enableTraining, trainingPostDetails }) => {
+            if (appliedStatus && enableTraining) {
                 if (trainingPostDetails?.endDate < new Date().toISOString().slice(0, 10) &&
                     trainingPostDetails?.startDate < new Date().toISOString().slice(0, 10)) {
                     return trainingPostDetails

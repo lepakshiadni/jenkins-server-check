@@ -33,6 +33,52 @@ const TrainerConatctInfo = () => {
     const [website, setWebsite] = useState(trainer?.contactInfo?.website || "");
     const [availableDate, setAvailableDate] = useState(trainer?.contactInfo?.availableDate || "");
 
+    const [isValidEmail, setIsValidEmail] = useState(true);
+    const [isValidPrimaryNumber, setIsValidPrimaryNumber] = useState(true);
+    const [isValidSecondaryNumber, setIsValidSecondaryNumber] = useState(true);
+    const [isValidWebsite, setIsValidWebsite] = useState(true);
+
+    const handleEmailChange = (e) => {
+        const newEmail = e.target.value;
+        setEmail(newEmail);
+        validateEmail(newEmail);
+    };
+
+    const validateEmail = (email) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        setIsValidEmail(emailRegex.test(email));
+    };
+
+    const handlePrimaryNumberChange = (e) => {
+        const newPrimaryNumber = e.target.value.replace(/\D/g, '');
+        setPrimaryNumber(newPrimaryNumber);
+        validatePrimaryNumber(newPrimaryNumber);
+    };
+
+    const validatePrimaryNumber = (number) => {
+        setIsValidPrimaryNumber(number.length === 10);
+    };
+
+    const handleSecondaryNumberChange = (e) => {
+        const newSecondaryNumber = e.target.value.replace(/\D/g, '');
+        setSecondaryNumber(newSecondaryNumber);
+        validateSecondaryNumber(newSecondaryNumber);
+    };
+
+    const validateSecondaryNumber = (number) => {
+        setIsValidSecondaryNumber(number.length === 0 || number.length === 10);
+    };
+
+    const handleWebsiteChange = (e) => {
+        const newWebsite = e.target.value;
+        setWebsite(newWebsite);
+        validateWebsite(newWebsite);
+    };
+
+    const validateWebsite = (website) => {
+        const websiteRegex = /^(https?:\/\/)?([^\s$.?#].[^\s]*)$/i;
+        setIsValidWebsite(websiteRegex.test(website));
+    };
 
     const handleKeyDown = (e) => {
         if (e.key === "Enter") {
@@ -65,31 +111,34 @@ const TrainerConatctInfo = () => {
     const handleCase3Data = (e) => {
         e.preventDefault();
 
-        const contactInfo = {
-            primaryNumber: primaryNumber,
+        const updatedContactInfo = {
+            primaryNumber,
             secondaryNumber: secondaryNumber || null,
-            address: address,
-            email: email,
-            website: website,
-            availableDate: availableDate,
+            address,
+            email,
+            website,
+            availableDate,
             status: true,
         };
 
-        dispatch(trainerContactInfoUpdate(contactInfo));
-        toast.success('Contact Info Update Successfully');
-        navigate('/trainerprofile/profileupdate/experience')
-    };
+        // Check if there are any changes
+        const isContactInfoChanged =
+            primaryNumber !== trainer.contactInfo.primaryNumber ||
+            secondaryNumber !== trainer.contactInfo.secondaryNumber ||
+            address !== trainer.contactInfo.address ||
+            email !== trainer.contactInfo.email ||
+            website !== trainer.contactInfo.website ||
+            availableDate !== trainer.contactInfo.availableDate;
 
-    const handlePrimaryNumberChange = (e) => {
-        const { value } = e.target;
-        const numericValue = value.replace(/\D/g, ''); // Remove non-numeric characters
-        setPrimaryNumber(numericValue);
-    };
+        if (isContactInfoChanged) {
+            dispatch(trainerContactInfoUpdate(updatedContactInfo));
+            toast.success('Contact Info Updated Successfully');
+            navigate('/trainerprofile/profileupdate/experience');
 
-    const handleSecondaryNumberChange = (e) => {
-        const { value } = e.target;
-        const numericValue = value.replace(/\D/g, ''); // Remove non-numeric characters
-        setSecondaryNumber(numericValue);
+        } else {
+            navigate('/trainerprofile/profileupdate/experience');
+        }
+
     };
 
     const getTodayDate = () => {
@@ -124,6 +173,7 @@ const TrainerConatctInfo = () => {
                             <label htmlFor="">Primary Contact *</label>
                             <br />
                             <input
+                                style={{ width: "320px", borderColor: isValidPrimaryNumber ? '#CECECE' : 'red' }}
                                 type="tel"
                                 maxLength="10"
                                 minLength="10"
@@ -133,15 +183,17 @@ const TrainerConatctInfo = () => {
                                 onKeyDown={handleKeyDown}
                                 required
                                 placeholder="Type your mobile number"
-                                disabled
                                 autoComplete="off"
-
                             />
+                            {!isValidPrimaryNumber && (
+                                <p className="text-sm text-[red]">Contact must be 10 digits long.</p>
+                            )}
                         </div>
                         <div>
                             <label htmlFor="">Secondary Contact</label>
                             <br />
                             <input
+                                style={{ width: "320px", borderColor: isValidSecondaryNumber ? '#CECECE' : 'red' }}
                                 type="tel"
                                 maxLength="10"
                                 minLength="10"
@@ -151,8 +203,10 @@ const TrainerConatctInfo = () => {
                                 onKeyDown={handleKeyDown}
                                 placeholder="Type your mobile number"
                                 autoComplete="off"
-
                             />
+                            {!isValidSecondaryNumber && (
+                                <p className="text-sm text-[red]">Contact must be 10 digits long or left empty.</p>
+                            )}
                         </div>
                     </div>
                     <div className="mt-2">
@@ -176,35 +230,39 @@ const TrainerConatctInfo = () => {
                         <label htmlFor="">Email *</label>
                         <br />
                         <input
-                            style={{ width: "690px" }}
+                            style={{ width: '690px', borderColor: isValidEmail ? '#CECECE' : 'red' }}
                             type="email"
                             value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            onChange={handleEmailChange}
                             name="email"
                             onKeyDown={handleKeyDown}
                             required
-                            placeholder="Type your mail address"
+                            placeholder="Type your email address"
                             autoComplete="off"
-
                         />
+                        {!isValidEmail && (
+                            <p className="text-sm text-[red]">Please enter a valid email address.</p>
+                        )}
                     </div>
                     <div className="mt-2">
                         <label htmlFor="">Website </label>
                         <br />
                         <input
-                            style={{ width: "690px" }}
+                            style={{ width: "690px", borderColor: isValidWebsite ? '#CECECE' : 'red' }}
                             type="url"
                             value={website}
-                            onChange={(e) => setWebsite(e.target.value)}
+                            onChange={handleWebsiteChange}
                             name="website"
                             onKeyDown={handleKeyDown}
                             placeholder="Type website link here"
                             autoComplete="off"
-
                         />
+                        {!isValidWebsite && (
+                            <p className="text-sm text-[red]">Please enter a valid website URL.</p>
+                        )}
                     </div>
                     <div className="mt-2">
-                        <label htmlFor="">Availabel On </label>
+                        <label htmlFor="">Available On </label>
                         <br />
                         <input
                             style={{ width: "250px", cursor: "pointer" }}
@@ -224,7 +282,10 @@ const TrainerConatctInfo = () => {
                             color: "white",
                             marginTop: "30px",
                             marginLeft: "490px",
+                            cursor: isValidEmail && isValidPrimaryNumber && isValidSecondaryNumber ? 'pointer' : 'not-allowed',
+                            opacity: isValidEmail && isValidPrimaryNumber && isValidSecondaryNumber ? 1 : 0.5,
                         }}
+                        disabled={!isValidEmail || !isValidPrimaryNumber || !isValidSecondaryNumber}
                     >
                         Update
                     </button>

@@ -68,14 +68,14 @@ const TrainingResources = () => {
           if (appliedStatus) {
             // Check if training is completed
             return trainingPostDetails &&
-              trainingPostDetails.startDate < new Date().toISOString().substr(0, 10) &&
-              trainingPostDetails.endDate < new Date().toISOString().substr(0, 10);
+              trainingPostDetails.startDate <= new Date().toISOString().substr(0, 10) &&
+              trainingPostDetails.endDate <= new Date().toISOString().substr(0, 10);
           }
         })
       };
     });
   }
-  console.log('complete', completed)
+  console.log('complete', appliedTraining)
 
 
   return (
@@ -145,7 +145,7 @@ const TrainingResources = () => {
             }
           </>
           :
-          <div className="h-[300px] w-full flex justify-center items-center bg-slate-300 rounded-md">
+          <div className="h-[300px] w-full flex justify-center items-center bg-[#f4f6f7] rounded-md">
             <span>
               No Training Resources Found!
             </span>

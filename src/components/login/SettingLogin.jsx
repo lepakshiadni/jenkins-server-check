@@ -38,7 +38,7 @@ const SettingLogin = () => {
     const [validotp, setOtp] = useState(["", "", "", ""]);
     const [selected, setSelected] = useState("");
     const [open, setOpen] = useState(false);
-    const countries = ["French", "English", "Spanish", "German", "Italian"];
+    // const countries = ["French", "English", "Spanish", "German", "Italian"];
     const [initialTimer, setInitialTimer] = useState(120);
     const [disableResend, setDisableResend] = useState(false);
     const [otpVerified, setOtpVerified] = useState(false);
@@ -301,7 +301,7 @@ const SettingLogin = () => {
                                     className={`${open && "rotate-180"}`}
                                 />
                             </div>
-                            {open && (
+                            {/* {open && (
                                 <ul className=" absolute bg-[#2676c2] w-[130px] text-[#ffff] md:w-[190px] z-[3]">
                                     {countries?.map((country) => (
                                         <li
@@ -319,7 +319,7 @@ const SettingLogin = () => {
                                         </li>
                                     ))}
                                 </ul>
-                            )}
+                            )} */}
 
                         </div>
                     </div>
@@ -367,7 +367,7 @@ const SettingLogin = () => {
                                         <input
                                             id={`otp-input-${index}`}
                                             key={index}
-                                            type="number"
+                                            type="tel"
                                             // max={1}
                                             maxLength={1}
                                             value={value}

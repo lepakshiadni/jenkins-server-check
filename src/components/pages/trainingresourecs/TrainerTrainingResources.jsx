@@ -125,7 +125,7 @@ const TrainerTrainingResources = () => {
                         }
                     </>
                     :
-                    <div className="h-[300px] w-full flex justify-center items-center bg-slate-300 rounded-md">
+                    <div className="h-[300px] w-full flex justify-center items-center bg-[#f4f6f7] rounded-md">
                     <span>
                       No Training Resources Found!
                     </span>

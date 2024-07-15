@@ -188,11 +188,11 @@ const TrainerMyPosts = () => {
                         {/* <img className='img2' height='60px' width='60px' src={post?.postedByImg} alt="" /> */}
                         {
                           post?.postedByImg ?
-                            <img className='img2' height='60px' width='60px' src={post?.postedByImg} alt="" />
+                            <img className='img2 rounded-full' height='60px' width='60px' src={post?.postedByImg} alt="" />
                             :
-                            <div className='flex justify-center items-center h-[60px] w-[60px] rounded-full bg-slate-200'>
+                            <div className='flex justify-center items-center h-[60px] w-[60px] rounded-full bg-[#f4f6f7]'>
                               <span>
-                                {post?.postedByName[0]}
+                                {post?.postedByName?.[0]}
                               </span>
                             </div>
                         }
@@ -239,7 +239,6 @@ const TrainerMyPosts = () => {
                   {post.postedDescrition}
                 </p>
                 <img width='100%' src={post.postedImg.postImg} alt="" />
-
                 <section>
                   <hr style={{ margin: '10px 0px' }} />
 
@@ -302,16 +301,27 @@ const TrainerMyPosts = () => {
                         <div>
                           {post?.comments?.map((item, index) => (
                             <div className='' key={index} style={{ display: 'flex', margin: '5px', marginTop: '10px' }}>
-                              <img className='img2' height='40px' width='40px' src={item.imageUrl} alt="" />
+                              {/* <img className='img2 rounded-[50%]' height='40px' width='40px' src={item?.commentedByProfile} alt="" /> */}
+                              {
+                                item?.commentedByProfile ?
+                                  <img className='img2 rounded-[50%]' height='40px' width='40px' src={item?.commentedByProfile} alt="" />
+                                  :
+                                  <div className="bg-[#f4f6f7] w-[40px] h-[40px] flex justify-center items-center capitalize">
+                                    <span>
+                                      {item?.commentedByName?.[0]}
+                                    </span>
+                                  </div>
+
+                              }
                               <div style={{ maxWidth: "436px", backgroundColor: '#f0f0f0', padding: '10px', marginLeft: '10px', borderStartEndRadius: '15px', borderEndStartRadius: '15px', borderEndEndRadius: '15px', border: '2px solid #E9E9E9' }}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                   <div>
                                     <h5 style={{ fontSize: '14px', margin: '0px', color: '#333333' }}>{item?.commentedByName}</h5>
-                                    <p style={{ fontSize: '12px', margin: '0px', color: '#777777' }}>{item?.commentBycompany}</p>
+                                    <p style={{ fontSize: '12px', margin: '0px', color: '#777777' }}>{item?.commentedByCompany}</p>
                                   </div>
                                 </div>
                                 <div>
-                                  <p style={{ margin: '0px', color: '#888888', fontSize: '14px' }}>{item?.comment}</p>
+                                  <p style={{ margin: '0px', color: '#888888', fontSize: '14px' }}>{item?.commentText}</p>
                                 </div>
                               </div>
                             </div>
@@ -319,18 +329,28 @@ const TrainerMyPosts = () => {
                         </div>
                       ) : (
                         <div>
-                          {post?.comments?.slice(-numCommentsToShow).map((item, index) => (
+                          {post?.comments?.slice(0,numCommentsToShow).map((item, index) => (
                             <div key={index} style={{ display: 'flex', margin: '5px', marginTop: '10px' }}>
-                              <img className='img2' height='40px' width='40px' src={item?.commentedByProfile} alt="" />
+                              {
+                                item?.commentedByProfile ?
+                                  <img className='img2 rounded-[50%]' height='40px' width='40px' src={item?.commentedByProfile} alt="" />
+                                  :
+                                  <div className="bg-[#f4f6f7] w-[40px] h-[40px] flex justify-center items-center capitalize">
+                                    <span>
+                                      {item?.commentedByName?.[0]}
+                                    </span>
+                                  </div>
+
+                              }
                               <div style={{ maxWidth: "436px", backgroundColor: '#f0f0f0', padding: '10px', marginLeft: '10px', borderStartEndRadius: '15px', borderEndStartRadius: '15px', borderEndEndRadius: '15px', border: '2px solid #E9E9E9' }}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                   <div>
-                                    <h5 style={{ fontSize: '14px', margin: '0px', color: '#333333' }}>{item.commentedByName}</h5>
-                                    <p style={{ fontSize: '12px', margin: '0px', color: '#333333' }}>{item.commentedByCompany}</p>
+                                    <h5 style={{ fontSize: '14px', margin: '0px', color: '#333333' }}>{item?.commentedByName}</h5>
+                                    <p style={{ fontSize: '12px', margin: '0px', color: '#333333' }}>{item?.commentedByCompany}</p>
                                   </div>
                                 </div>
                                 <div>
-                                  <p style={{ margin: '0px', color: '#888888', fontSize: '14px' }}>{item?.comment}</p>
+                                  <p style={{ margin: '0px', color: '#888888', fontSize: '14px' }}>{item?.commentText}</p>
                                 </div>
                               </div>
                             </div>
@@ -359,11 +379,11 @@ const TrainerMyPosts = () => {
         </> :
 
           <>
-           <div className="flex justify-center items-center bg-slate-200 h-[400px] w-full">
-            <span>
-              No Post Yet !
-            </span>
-           </div>
+            <div className="flex justify-center items-center bg-[#f4f6f7] h-[400px] w-full">
+              <span>
+                No Post Yet !
+              </span>
+            </div>
           </>
         }
       </section>

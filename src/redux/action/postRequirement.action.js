@@ -142,6 +142,26 @@ export const addlikePostTraining = (postId, likedBy) => {
             })
     }
 }
+
+export const addBookMarkPostTraining = (postId, bookMarkedBy) => {
+    console.log(bookMarkedBy, postId);
+    return async (dispatch) => {
+        await Axios.put(`${baseUrl}/employerpost/addBookMarkToTrainingPost/${postId}`, { bookMarkedBy })
+            .then((resp) => {
+                dispatch({
+                    type: 'ADD_BOOKMARKPOSTTRAINING_SUCCESS',
+                    payload: resp.data
+                })
+            })
+            .catch((error) => {
+                dispatch({
+                    type: "ADD_BOOKMARKPOSTTRAINING_FAILURE",
+                    payload: error
+                })
+            })
+    }
+}
+
 export const deletePostTrainingRequirement = (postId) => {
     const token = Cookies.get('token')
     console.log(postId)
@@ -166,10 +186,10 @@ export const deletePostTrainingRequirement = (postId) => {
     }
 }
 
-export const updatedApplicationStatus = (trainerId,trainingId,status) => {
+export const updatedApplicationStatus = (trainerId, trainingId, status) => {
     const token = Cookies.get('token')
     return async (dispatch) => {
-        await Axios.put(`${baseUrl}/employerpost/updatedApplicationStatus`,{trainerId,trainingId,status}, {
+        await Axios.put(`${baseUrl}/employerpost/updatedApplicationStatus`, { trainerId, trainingId, status }, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -188,6 +208,32 @@ export const updatedApplicationStatus = (trainerId,trainingId,status) => {
             })
     }
 }
+
+export const enableTrainingStatus = (appliedById, trainingId) => {
+    console.log('from action ids',appliedById, trainingId)
+    const token = Cookies.get('token')
+    return async (dispatch) => {
+        await Axios.put(`${baseUrl}/employerpost/enabletraining`, { appliedById, trainingId }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then((resp) => {
+                dispatch({
+                    type: 'UPDATE_ENABLESTATUS_SUCCESS',
+                    payload: resp.data
+                })
+            })
+            .catch((error) => {
+                dispatch({
+                    type: "UPDATE_ENABLESTATUS_FAILURE",
+                    payload: error
+                })
+            })
+    }
+}
+
+
 export const postJobRequirementAction = (postJobDetails) => {
 
     return async (dispatch) => {

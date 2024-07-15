@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const EMployerExperience = () => {
+const EmployerExperience = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -53,7 +53,15 @@ const EMployerExperience = () => {
         setRoleDescription("");
     };
 
-    const [storedData, setStoredData] = useState([]);
+    const experienceData = employer?.experience || [];
+
+    const [storedData, setStoredData] = useState(experienceData);
+
+    useEffect(() => {
+        setStoredData(experienceData);
+    }, [experienceData]);
+
+    console.log('storedData', storedData);
 
     const handleCase2Data = (e) => {
         e.preventDefault();
@@ -73,9 +81,18 @@ const EMployerExperience = () => {
     };
 
     const handleSubmitExperience = () => {
-        dispatch(employerExperienceInfoUpdate(storedData));
-        toast.success('Experience Updated')
-        navigate('/employerprofile/profileupdate/contact-information')
+        const originalData = employer?.experience || [];
+
+        // Check if data has changed
+        if (JSON.stringify(originalData) !== JSON.stringify(storedData)) {
+            dispatch(employerExperienceInfoUpdate(storedData));
+            toast.success('Experience Updated');
+            navigate('/employerprofile/profileupdate/contact-information');
+        }
+        else {
+            toast.error('Experience Not Added');
+            navigate('/employerprofile/profileupdate/contact-information');
+        }
 
     };
 
@@ -109,8 +126,16 @@ const EMployerExperience = () => {
 
     const handleDelete = (_id) => {
         dispatch(deleteEmployerExperience(_id));
+        toast.success('Experience Data Deleted');
     };
-    console.log('soted', storedData)
+
+
+    const handleDesignationChange = (e) => {
+        const newDesignation = e.target.value.replace(/[^a-zA-Z\s]/g, ''); // Remove non-alphabetical characters
+        setDesignation2(newDesignation);
+    };
+
+
     return (
         <>
             <div className="contactInfo2">
@@ -159,9 +184,8 @@ const EMployerExperience = () => {
                             style={{ width: "690px" }}
                             type="text"
                             value={designation2}
-                            onChange={(e) => setDesignation2(e.target.value)}
+                            onChange={handleDesignationChange}
                             name="designation2"
-                            onKeyDown={handleKeyDown}
                             placeholder="Select your Designation"
                             required
                             maxLength="32"
@@ -249,141 +273,79 @@ const EMployerExperience = () => {
 
                 <div className="ExperiencStore">
 
-                    {
-                        employer?.experience?.length > 0 ? <>
-                            {
-
-                                employer?.experience?.map((exp, index) => {
-                                    return (
-                                        <div key={index}>
-                                            <div
+                    <>
+                        {
+                            storedData?.map((exp, index) => {
+                                return (
+                                    <div key={index}>
+                                        <div
+                                            style={{
+                                                display: "flex",
+                                                justifyContent: "space-between",
+                                                alignItems: "center",
+                                            }}
+                                        >
+                                            <h3
                                                 style={{
-                                                    display: "flex",
-                                                    justifyContent: "space-between",
-                                                    alignItems: "center",
+                                                    color: "#535353",
+                                                    fontWeight: "400",
+                                                    fontSize: "18px",
                                                 }}
                                             >
-                                                <h3
-                                                    style={{
-                                                        color: "#535353",
-                                                        fontWeight: "400",
-                                                        fontSize: "18px",
-                                                    }}
-                                                >
-                                                    Experience
-                                                </h3>
-                                                <span className="delete" onClick={() => handleDelete(exp._id)}>
-                                                    <svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        width="20"
-                                                        height="22"
-                                                        viewBox="0 0 20 22"
-                                                        fill="none"
-                                                    >
-                                                        <path
-                                                            d="M12.1111 8.77778V16.5556M7.66667 8.77778V16.5556M3.22222 4.33333V17.4444C3.22222 18.689 3.22222 19.3109 3.46443 19.7862C3.67748 20.2044 4.01719 20.545 4.43533 20.758C4.91022 21 5.53222 21 6.77434 21H13.0034C14.2456 21 14.8667 21 15.3416 20.758C15.7597 20.545 16.1005 20.2044 16.3136 19.7862C16.5556 19.3113 16.5556 18.69 16.5556 17.4479V4.33333M3.22222 4.33333H5.44444M3.22222 4.33333H1M5.44444 4.33333H14.3333M5.44444 4.33333C5.44444 3.29791 5.44444 2.78045 5.6136 2.37207C5.83914 1.82756 6.27147 1.3947 6.81597 1.16916C7.22435 1 7.74235 1 8.77778 1H11C12.0354 1 12.5531 1 12.9615 1.16916C13.506 1.3947 13.9385 1.82756 14.1641 2.37207C14.3332 2.78045 14.3333 3.29791 14.3333 4.33333M14.3333 4.33333H16.5556M16.5556 4.33333H18.7778"
-                                                            stroke="#2676C2"
-                                                            stroke-width="2"
-                                                            stroke-linecap="round"
-                                                            stroke-linejoin="round"
-                                                        />
-                                                    </svg>
-                                                </span>
-                                            </div>
-                                            <div className="experienceSpan">
-                                                <h3>
-                                                    Compannny Name: <span> {exp.companyName} </span>{" "}
-                                                </h3>
-                                                <h3>
-                                                    Designation: <span>{exp.designation2} </span>{" "}
-                                                </h3>
-                                                <h3>
-                                                    Start Date: <span>{exp.startDate} </span>{" "}
-                                                </h3>
-                                                <h3>
-                                                    End Date: <span>{exp.endDate} </span>{" "}
-                                                </h3>
-                                                <p>{exp.roleDescription}</p>
-                                            </div>
-                                            <hr />
-                                        </div>
-                                    );
-                                })
-                            }
-                        </>
-                            :
-                            <>
-                                {
-                                    storedData?.map((exp, index) => {
-                                        return (
-                                            <div key={index}>
-                                                <div
-                                                    style={{
-                                                        display: "flex",
-                                                        justifyContent: "space-between",
-                                                        alignItems: "center",
-                                                    }}
-                                                >
-                                                    <h3
-                                                        style={{
-                                                            color: "#535353",
-                                                            fontWeight: "400",
-                                                            fontSize: "18px",
-                                                        }}
-                                                    >
-                                                        Experience
-                                                    </h3>
-                                                    <span className="delete"
-                                                        // onClick={() => handleDelete(exp._id)}
-                                                        onClick={() => {
-                                                            const newArray = [...storedData];
-                                                            newArray.splice(index, 1);
-                                                            setStoredData(newArray);
-                                                        }}>
+                                                Experience
+                                            </h3>
+                                            <span className="delete"
+                                                onClick={() => handleDelete(exp._id)}
+                                            // onClick={() => {
+                                            //     const newArray = [...storedData];
+                                            //     newArray.splice(index, 1);
+                                            //     setStoredData(newArray);
+                                            //     handleDelete(exp._id)
+                                            // }}
+                                            >
 
-                                                        <svg
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            width="20"
-                                                            height="22"
-                                                            viewBox="0 0 20 22"
-                                                            fill="none"
-                                                        >
-                                                            <path
-                                                                d="M12.1111 8.77778V16.5556M7.66667 8.77778V16.5556M3.22222 4.33333V17.4444C3.22222 18.689 3.22222 19.3109 3.46443 19.7862C3.67748 20.2044 4.01719 20.545 4.43533 20.758C4.91022 21 5.53222 21 6.77434 21H13.0034C14.2456 21 14.8667 21 15.3416 20.758C15.7597 20.545 16.1005 20.2044 16.3136 19.7862C16.5556 19.3113 16.5556 18.69 16.5556 17.4479V4.33333M3.22222 4.33333H5.44444M3.22222 4.33333H1M5.44444 4.33333H14.3333M5.44444 4.33333C5.44444 3.29791 5.44444 2.78045 5.6136 2.37207C5.83914 1.82756 6.27147 1.3947 6.81597 1.16916C7.22435 1 7.74235 1 8.77778 1H11C12.0354 1 12.5531 1 12.9615 1.16916C13.506 1.3947 13.9385 1.82756 14.1641 2.37207C14.3332 2.78045 14.3333 3.29791 14.3333 4.33333M14.3333 4.33333H16.5556M16.5556 4.33333H18.7778"
-                                                                stroke="#2676C2"
-                                                                stroke-width="2"
-                                                                stroke-linecap="round"
-                                                                stroke-linejoin="round"
-                                                            />
-                                                        </svg>
-                                                    </span>
-                                                </div>
-                                                <div className="experienceSpan">
-                                                    <h3>
-                                                        Compannny Name: <span> {exp.companyName} </span>{" "}
-                                                    </h3>
-                                                    <h3>
-                                                        Designation: <span>{exp.designation2} </span>{" "}
-                                                    </h3>
-                                                    <h3>
-                                                        Start Date: <span>{exp.startDate} </span>{" "}
-                                                    </h3>
-                                                    <h3>
-                                                        End Date: <span>{exp.endDate} </span>{" "}
-                                                    </h3>
-                                                    <p>{exp.roleDescription}</p>
-                                                </div>
-                                                <hr />
-                                            </div>
-                                        );
-                                    })
-                                }
-                            </>
-                    }
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="20"
+                                                    height="22"
+                                                    viewBox="0 0 20 22"
+                                                    fill="none"
+                                                >
+                                                    <path
+                                                        d="M12.1111 8.77778V16.5556M7.66667 8.77778V16.5556M3.22222 4.33333V17.4444C3.22222 18.689 3.22222 19.3109 3.46443 19.7862C3.67748 20.2044 4.01719 20.545 4.43533 20.758C4.91022 21 5.53222 21 6.77434 21H13.0034C14.2456 21 14.8667 21 15.3416 20.758C15.7597 20.545 16.1005 20.2044 16.3136 19.7862C16.5556 19.3113 16.5556 18.69 16.5556 17.4479V4.33333M3.22222 4.33333H5.44444M3.22222 4.33333H1M5.44444 4.33333H14.3333M5.44444 4.33333C5.44444 3.29791 5.44444 2.78045 5.6136 2.37207C5.83914 1.82756 6.27147 1.3947 6.81597 1.16916C7.22435 1 7.74235 1 8.77778 1H11C12.0354 1 12.5531 1 12.9615 1.16916C13.506 1.3947 13.9385 1.82756 14.1641 2.37207C14.3332 2.78045 14.3333 3.29791 14.3333 4.33333M14.3333 4.33333H16.5556M16.5556 4.33333H18.7778"
+                                                        stroke="#2676C2"
+                                                        stroke-width="2"
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                    />
+                                                </svg>
+                                            </span>
+                                        </div>
+                                        <div className="experienceSpan">
+                                            <h3>
+                                                Company Name: <span> {exp.companyName} </span>{" "}
+                                            </h3>
+                                            <h3>
+                                                Designation: <span>{exp.designation2} </span>{" "}
+                                            </h3>
+                                            <h3>
+                                                Start Date: <span>{exp.startDate} </span>{" "}
+                                            </h3>
+                                            <h3>
+                                                End Date: <span>{exp.endDate} </span>{" "}
+                                            </h3>
+                                            <p className="preview-container whitespace-normal break-words overflow-hidden text-ellipsis">{exp.roleDescription}</p>
+                                        </div>
+                                        <hr />
+                                    </div>
+                                );
+                            })
+                        }
+                    </>
                 </div>
             </div>
         </>
     );
 }
 
-export default EMployerExperience;
+export default EmployerExperience;

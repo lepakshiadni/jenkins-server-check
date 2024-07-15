@@ -69,7 +69,7 @@ const SliderSignin = () => {
   };
 
   return (
-    <div className={`w-[100%] h-[100%] bg-[#2676C2] ${rotateDots ? "rotate-dots" : ""}`}>
+    <div className={`w-[100%] rounded-tr-[3px] rounded-tl-[3px] bg-[#2676C2]  ${rotateDots ? "rotate-dots" : ""}`}>
       <Slider {...settings}>
         {data.map((slide) => (
           <div key={slide.id}>

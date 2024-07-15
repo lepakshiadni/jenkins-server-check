@@ -9,8 +9,8 @@ import AppExperience from "./components/utils/AppExperience";
 function App() {
 
   const baseUrl = process.env.REACT_APP_API_URL;
-  console.log('API URL:', baseUrl); 
-  
+  console.log('API URL:', baseUrl);
+
   const [width, setWidth] = React.useState(window.innerWidth)
   React.useEffect(() => {
     const handleResize = () => {
@@ -26,12 +26,8 @@ function App() {
   return (
     <div>
       <Provider store={store}>
-        {
-          width > 1000 ? <RouteCompo />
-            :
-            <AppExperience />
+        <RouteCompo />
 
-        }
       </Provider>
 
     </div>

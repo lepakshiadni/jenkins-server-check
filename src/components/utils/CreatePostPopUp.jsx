@@ -27,6 +27,11 @@ function CreatePostPopup(props) {
     const file = event.target.files[0];
 
     if (file) {
+      const validImageTypes = ['image/jpeg', 'image/png', 'image/svg+xml', 'image/jpg'];
+      if (!validImageTypes.includes(file.type)) {
+        alert('Only image files (jpeg, png, svg, jpg) are allowed.');
+        return;
+      }
       const reader = new FileReader();
       reader.onload = () => {
         setInputImage(reader.result);
@@ -54,7 +59,7 @@ function CreatePostPopup(props) {
     formData.append("postImg", postImg);
     dispatch(trainerCreatePost(formData));
     toast.success('Post Created SucessFully')
-    
+
     await props.setTrigger(false);
   };
 
@@ -73,7 +78,7 @@ function CreatePostPopup(props) {
             {trainer?.basicInfo?.profileImg ? (
               <>
                 <img
-                  src={trainer?.basicInfo?.profileImg }
+                  src={trainer?.basicInfo?.profileImg}
                   alt="xyz"
                   width={50}
                   height={50}
@@ -155,12 +160,11 @@ function CreatePostPopup(props) {
           </Stack>
         </div>{" "}
         <br />
-        <hr  />
+        <hr />
         <Stack className="mt-[10px]">
           <label
-            className={`Radio-labels flex items-center space-x-2 ${
-              postForAllSissoMember ? " accent-[#2676c2]" : " accent-[#8888]"
-            }`}
+            className={`Radio-labels flex items-center space-x-2 ${postForAllSissoMember ? " accent-[#2676c2]" : " accent-[#8888]"
+              }`}
             htmlFor=""
           >
             <input
@@ -182,9 +186,8 @@ function CreatePostPopup(props) {
           </label>{" "}
           <br />
           <label
-            className={`Radio-labels flex items-center space-x-2 ${
-              onlyPostMyConnenctions ? " accent-[#2676c2]" : " accent-[#8888]"
-            }`}
+            className={`Radio-labels flex items-center space-x-2 ${onlyPostMyConnenctions ? " accent-[#2676c2]" : " accent-[#8888]"
+              }`}
             htmlFor=""
           >
             <input
@@ -229,7 +232,7 @@ function CreatePostPopup(props) {
               style: {
                 fontFamily: "Poppins",
                 display: inputImage ? "none" : "block",
-                fontSize:'10px',
+                fontSize: '10px',
               },
             }}
             InputProps={{

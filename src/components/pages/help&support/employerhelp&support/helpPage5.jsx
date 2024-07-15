@@ -181,7 +181,7 @@ const HelpPage5 = () => {
                         <div className={`helpOptions ${selectedOption === 0 ? 'selected' : ''}`} onClick={() => handleOptionClick(0)}>
                             <div className='helpDiv' style={{ height: "60px", width: "7px" }}></div>
                             <div className='divMenu'>
-                                <h3 className='textHelp'>What Is Sissoo, And How Can It Benefit Me?  </h3>
+                                <h3 className='textHelp '>What Is Sissoo, And How Can It Benefit Me?  </h3>
                                 <h3 style={{ fontSize: '22px', marginLeft: '380px', position: 'absolute' }}><ArrowForwardIosIcon /></h3>
                             </div>
                         </div>
@@ -190,7 +190,7 @@ const HelpPage5 = () => {
                         <div className={`helpOptions ${selectedOption === 1 ? 'selected' : ''}`} onClick={() => handleOptionClick(1)}>
                             <div className='helpDiv' style={{ height: "60px", width: "7px" }}></div>
                             <div className='divMenu'>
-                                <h3 className='textHelp'>Is Sissoo Available on Android Devices? </h3>
+                                <h3 className='textHelp '>Is Sissoo Available on Android Devices? </h3>
                                 <h3 style={{ fontSize: '22px', marginLeft: '380px', position: 'absolute' }}><ArrowForwardIosIcon /></h3>
                             </div>
                         </div>
@@ -199,7 +199,7 @@ const HelpPage5 = () => {
                         <div className={`helpOptions ${selectedOption === 2 ? 'selected' : ''}`} onClick={() => handleOptionClick(2)}>
                             <div className='helpDiv' style={{ height: "60px", width: "7px" }}></div>
                             <div className='divMenu'>
-                                <h3 className='textHelp'>What features does Sissoo Offers to users? </h3>
+                                <h3 className='textHelp '>What features does Sissoo Offers to users? </h3>
                                 <h3 style={{ fontSize: '22px', marginLeft: '380px', position: 'absolute' }}><ArrowForwardIosIcon /></h3>
                             </div>
                         </div>
@@ -207,7 +207,7 @@ const HelpPage5 = () => {
                         <div className={`helpOptions ${selectedOption === 3 ? 'selected' : ''}`} onClick={() => handleOptionClick(3)}>
                             <div className='helpDiv' style={{ height: "60px", width: "7px" }}></div>
                             <div className='divMenu'>
-                                <h3 className='textHelp'>How Do I hire trainers from trainer list?  </h3>
+                                <h3 className='textHelp '>How Do I hire trainers from trainer list?  </h3>
                                 <h3 style={{ fontSize: '22px', marginLeft: '380px', position: 'absolute' }}><ArrowForwardIosIcon /></h3>
                             </div>
                         </div>
@@ -215,7 +215,7 @@ const HelpPage5 = () => {
                         <div className={`helpOptions ${selectedOption === 4 ? 'selected' : ''}`} onClick={() => handleOptionClick(4)}>
                             <div className='helpDiv' style={{ height: "60px", width: "7px" }}></div>
                             <div className='divMenu'>
-                                <h3 className='textHelp'>Is My Data Secure On Sissoo?  </h3>
+                                <h3 className='textHelp '>Is My Data Secure On Sissoo?  </h3>
                                 <h3 style={{ fontSize: '22px', marginLeft: '380px', position: 'absolute' }}><ArrowForwardIosIcon /></h3>
                             </div>
                         </div>
@@ -223,7 +223,7 @@ const HelpPage5 = () => {
                         <div className={`helpOptions ${selectedOption === 5 ? 'selected' : ''}`} onClick={() => handleOptionClick(5)}>
                             <div className='helpDiv' style={{ height: "60px", width: "7px" }}></div>
                             <div className='divMenu'>
-                                <h3 className='textHelp'>What is Proposal option in Proposal Management?  </h3>
+                                <h3 className='textHelp  w-[95%]  '>What is Proposal option in Proposal Management?  </h3>
                                 <h3 style={{ fontSize: '22px', marginLeft: '380px', position: 'absolute' }}><ArrowForwardIosIcon /></h3>
                             </div>
                         </div>
@@ -231,7 +231,7 @@ const HelpPage5 = () => {
                         <div className={`helpOptions ${selectedOption === 6 ? 'selected' : ''}`} onClick={() => handleOptionClick(6)}>
                             <div className='helpDiv' style={{ height: "60px", width: "7px" }}></div>
                             <div className='divMenu'>
-                                <h3 className='textHelp'>How to search trainers?   </h3>
+                                <h3 className='textHelp '>How to search trainers?   </h3>
                                 <h3 style={{ fontSize: '22px', marginLeft: '380px', position: 'absolute' }}><ArrowForwardIosIcon /></h3>
                             </div>
                         </div>

@@ -7,6 +7,9 @@ import { employerReducer } from "./employer.reducer";
 import { trainerReducer } from "./trainer.reducer";
 import { postRequirementReducer } from "./postRequirement.reducer";
 import { trainerCreatePostReducer } from "./trainercreatepost.reducer"
+import { employerCreatePostReducer } from './employercreatepost.reducer'
+
+
 import { strictRouteReducer } from "./strictRoute.reducer";
 
 const rootReducer = combineReducers({
@@ -19,6 +22,7 @@ const rootReducer = combineReducers({
   trainerSignUp: trainerReducer,
   postRequirement: postRequirementReducer,
   trainerCreatePost: trainerCreatePostReducer,
+  employerCreatePost: employerCreatePostReducer
 
 });
 export default rootReducer;

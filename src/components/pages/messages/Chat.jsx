@@ -26,6 +26,7 @@ function Chat() {
   const [members, setMembers] = useState([]);
   const [typingStatusConvo,setTypingStatusConvo] = useState(null);
   // console.log(onlineUser, "onlineUser");
+    const [unreadChatCount, setUnreadChatCount] = useState(0);
   const [typingStatus, setTypingStatus] = useState(null);
 
   const fileInputRef = useRef(null);
@@ -38,29 +39,30 @@ function Chat() {
   );
 
 
-  const markMessageAsRead = async (conversationId) => {
-    // console.log(conversationId, 'conversationId');
-    if(!conversationId) {
-        console.error('Invalid conversation ID:', conversationId);
-        return;
-    }
-    try {
-        const response = await Axios.put(
-            `${baseUrl}/conversation/markAsRead/${conversationId}`,
-            {},
-        );
+//   const markMessageAsRead = async (conversationId) => {
+//     // console.log(conversationId, 'conversationId');
+//     if(!conversationId) {
+//         console.error('Invalid conversation ID:', conversationId);
+//         return;
+//     }
+//     try {
+//         const response = await Axios.put(
+//             `${baseUrl}/conversation/markAsRead/${conversationId}`,
+//             {},
+//         );
   
-        if (response.status === 200) {
-            // console.log('Message marked as read:', response.data);
-            // Emit a socket event to notify other users
-            socket.current.emit("readMessage", { conversationId, userId: user?._id });
-        } else {
-            console.error('Failed to mark message as read:', response.data.message);
-        }
-    } catch (error) {
-        console.error('Error marking message as read:', error);
-    }
-  };
+//         if (response.status === 200) {
+//             // console.log('Message marked as read:', response.data);
+//             // Emit a socket event to notify other users
+//             socket.current.emit("readMessage", { conversationId, userId: user?._id });
+//         } else {
+//             console.error('Failed to mark message as read:', response.data.message);
+//         }
+//     } catch (error) {
+//         console.error('Error marking message as read:', error);
+//     }
+//   };
+ 
   
 
   useEffect(() => {
@@ -78,7 +80,7 @@ function Chat() {
   // // console.log("currentChat", currentChat);
 
   useEffect(() => {
-    socket.current = io(`http://localhost:4040`, {
+    socket.current = io(`http://13.200.249.41:4040`, {
       transports: ["websocket"],
       withCredentials: true,
       extraHeaders: {
@@ -170,8 +172,10 @@ function Chat() {
       if (user) {
         await Axios.get(`${baseUrl}/conversation/getConversation/${user?._id}`)
           .then((resp) => {
-            // // console.log(resp.data);
+            console.log(resp.data);
             setConversation(resp.data.conversation);
+            setUnreadChatCount(resp.data.
+                unreadChatsCount);
           })
           .catch((err) => {
             // console.log(err);
@@ -179,7 +183,7 @@ function Chat() {
       }
     };
     getconversation();
-  }, [user]);
+  }, [user, arrivalMessage,unreadChatCount,typingStatusConvo,typingStatus,selectedConversation,selectedUser]);
 
   useEffect(() => {
     const getmessage = async () => {
@@ -194,6 +198,18 @@ function Chat() {
     };
     getmessage();
   }, [arrivalMessage, currentChat]);
+//   useEffect(() => {
+    // const getLastMessage = async () => {
+    //     try {
+    //         const response = await Axios.get(`${baseUrl}/conversation/lastMessage/${currentChat._id}`);
+    //         setLastMessage(response.data?.lastMessage?.lastMessage);
+    //       } catch (error) {
+    //         console.error("Error fetching last message:", error);
+    //       }
+    // };
+    // getLastMessage();
+//   }, []);
+  console.log(lastMessage,"lastMessage")
 
   const handlesubmit = async (event) => {
     event.preventDefault();
@@ -247,15 +263,16 @@ function Chat() {
             setLastMessage(resp.data.updatedConversation?.lastMessage?.text);
           })
           .catch((error) => {
-            // console.log(error);
+            console.log(error);
           });
       } catch (error) {
-        // console.log(error);
+        console.log(error);
       }
     } else {
       alert("Please enter a valid message");
     }
   };
+//   console.log(currentChat._id,"LEastaetea Message")
   //for getting receiver Id
   const getRecipientId = (members) => {
     return members?.find((member) => member?._id !== user?._id)?._id;
@@ -318,13 +335,25 @@ function Chat() {
     };
   }, [user]);
   // // console.log('conversation', user?._id);
-
+//   useEffect(() => {
+//     const getLastMessage = async () => {
+//         try {
+//             const response = await Axios.get(`${baseUrl}/conversation/lastMessage/${currentChat._id}`);
+//             // setLastMessage(response.data?.lastMessage?.lastMessage);
+//             console.log(response)
+//           } catch (error) {
+//             console.error("Error fetching last message:", error);
+//           }
+//     };
+//     getLastMessage();
+//   }, [lastMessage]);
+console.log(hasUnreadMessages, "unreadMsgValue")
   return (
     <div className="Rectangle111  w-[100%] h-[75vh]  bg-white rounded-lg border border-zinc-300 flex gap-[4px]  ">
       <div className="w-4.7/12 ">
         <div className="w-auto h-[70vh]  rounded border ml-[20px] mt-[20px]">
           <div className="Messages40 text-gray-800 text-xl font-medium font-['Poppins'] mt-[10px] ml-[8px]">
-            Messages
+            Messages <span style={{fontWeight:"bolder"}}>({unreadChatCount})</span>
           </div>
           <form>
             <div className="Rectangle49 w-[290px] h-[50px] mt-[10px] ml-[8px] bg-white rounded-[40px] border border-zinc-300 flex  ">
@@ -422,7 +451,7 @@ function Chat() {
                 <p className="text-gray-600 text-sm">
                   {onlineUser.find((user) => user.userId === selectedUser?._id)
                     ? "Online"
-                    : "Offline"}
+                    : ""}
                 </p>
                 {typingStatus == selectedUser?._id && (
                   <p className="text-gray-600 text-sm">Typing...</p>
@@ -438,7 +467,7 @@ function Chat() {
                   return (
                     <div key={index}>
                       <Messages
-                      unreadMsgValue={(value) => setHasUnreadMessages(value)} 
+                        unreadMsgValue={(value) => setHasUnreadMessages(value)} 
                         messages={m}
                         own={m.sender === user?._id}
                         selecteduser={selectedUser}

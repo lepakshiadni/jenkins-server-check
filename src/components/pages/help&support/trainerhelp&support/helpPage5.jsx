@@ -253,7 +253,7 @@ const HelpPage5 = () => {
                         <div className={`helpOptions ${selectedOption === 6 ? 'selected' : ''}`} onClick={() => handleOptionClick(6)}>
                             <div className='helpDiv' style={{ height: "60px", width: "7px" }}></div>
                             <div className='divMenu'>
-                                <h3 className='textHelp'>What are upcoming, Ongoing and Completed training's?</h3>
+                                <h3 className='textHelp w-[95%]'>What are upcoming, Ongoing and Completed training's?</h3>
                                 <ArrowForwardIosIcon className='arrowIcon' style={{ fontSize: '22px' }} />
                             </div>
                         </div>

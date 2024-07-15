@@ -87,7 +87,7 @@ function TrainerPopUp(props) {
             <p style={{ fontSize: "18px", fontWeight: "500px" }}>
               About Trainers
             </p>
-            <div>
+            <div className="hover:bg-[#2677c236] rounded-full mb-1">
               <CloseIcon
                 sx={{
                   position: "relative",
@@ -212,8 +212,11 @@ function TrainerPopUp(props) {
                           cursor: "pointer",
                           backgroundColor: '#2676c2',
                           borderRadius: '5px',
-                          width: '80px',
-                          alignItems: 'center  '
+                          width: '100px',
+                          alignItems: 'center',
+                          display:"flex",
+                          justifyContent: 'center'
+
                         }}
                         onClick={navigatePostRequirement}
                       >

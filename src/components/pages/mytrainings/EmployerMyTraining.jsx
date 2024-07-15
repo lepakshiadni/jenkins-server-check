@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import "../../styles/MyTrainingProgram.css";
-import "../../styles/TrainerProposalManagement.css";
+// import "../../styles/MyTrainingProgram.css";
+// import "../../styles/TrainerProposalManagement.css";
+import '../../styles/EmployerMyTraining.css'
 import EmployerPosted from "./EmployerMyTrainingChilds/EmployerPosted";
 import EmployerOngoing from "./EmployerMyTrainingChilds/EmployerOngoing";
 import EmployerCompleted from "./EmployerMyTrainingChilds/EmployerCompleted";
@@ -12,7 +13,7 @@ const EmployerMyTraining = () => {
   const location = useLocation();
   const [activeSteps] = useState([1]);
   let ongoing;
-  let completed;
+  // let completed;
   const dispatch = useDispatch()
 
   const appliedTraining = useSelector(({ employerSignUp }) => {
@@ -31,10 +32,11 @@ const EmployerMyTraining = () => {
           trainerProfileImg: details.trainerProfileImg,
           trainerName: details.trainerName,
           trainerDesignation: details.trainerDesignation,
-          trainerRating: details.trainerRating
+          trainerSkills: details.trainerSkills,
         },
-        training: details?.trainingDetails?.filter(({ appliedStatus, trainingPostDetails }) => {
-          if (appliedStatus) {
+        training: details?.trainingDetails?.filter(({ appliedStatus, enableTraining, trainingPostDetails }) => {
+          console.log('enableTraining',enableTraining)
+          if (enableTraining) {
             // Check if training is ongoing
             return trainingPostDetails &&
               trainingPostDetails.startDate <= new Date().toISOString().substr(0, 10) &&
@@ -43,30 +45,30 @@ const EmployerMyTraining = () => {
         })
       };
     });
-    completed = appliedTraining?.getAppliedTraining?.map((details) => {
-      return {
-        trainerDetails: {
-          trainerId: details.trainerId,
-          trainerProfileImg: details.trainerProfileImg,
-          trainerName: details.trainerName,
-          trainerDesignation: details.trainerDesignation,
-          trainerRating: details.trainerRating
-        },
-        training: details?.trainingDetails?.filter(({ appliedStatus, trainingPostDetails }) => {
-          if (appliedStatus) {
-            // Check if training is completed
-            return trainingPostDetails &&
-              trainingPostDetails.startDate < new Date().toISOString().substr(0, 10) &&
-              trainingPostDetails.endDate < new Date().toISOString().substr(0, 10);
-          }
-        })
-      };
-    });
+    // completed = appliedTraining?.getAppliedTraining?.map((details) => {
+    //   return {
+    //     trainerDetails: {
+    //       trainerId: details.trainerId,
+    //       trainerProfileImg: details.trainerProfileImg,
+    //       trainerName: details.trainerName,
+    //       trainerDesignation: details.trainerDesignation,
+    //       trainerRating: details.trainerRating
+    //     },
+    //     training: details?.trainingDetails?.filter(({ appliedStatus, trainingPostDetails }) => {
+    //       if (appliedStatus) {
+    //         // Check if training is completed
+    //         return trainingPostDetails &&
+    //           trainingPostDetails.startDate < new Date().toISOString().substr(0, 10) &&
+    //           trainingPostDetails.endDate < new Date().toISOString().substr(0, 10);
+    //       }
+    //     })
+    //   };
+    // });
   }
 
   console.log('ongoing', ongoing)
   // console.log('complted', completed);
-  console.log('acceptedTraiing',appliedTraining)
+  console.log('acceptedTraiing', appliedTraining)
 
   useEffect(() => {
     setActiveOption(getActiveOption(location.pathname));
@@ -91,7 +93,7 @@ const EmployerMyTraining = () => {
           <EmployerPosted
             activeSteps={activeSteps}
             calculateProgressBarWidth={calculateProgressBarWidth}
-            // posted={postDetails}
+          // posted={postDetails}
           />
         );
       case "ongoing":
@@ -107,7 +109,7 @@ const EmployerMyTraining = () => {
           <EmployerCompleted
             activeSteps={activeSteps}
             calculateProgressBarWidth={calculateProgressBarWidth}
-            completed={completed}
+          // completed={completed}
           />
         );
       default:
