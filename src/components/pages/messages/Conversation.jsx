@@ -7,17 +7,17 @@ const baseUrl = process.env.REACT_APP_API_URL;
 console.log('baseUrl',baseUrl)
 function Conversation({ hasUnreadMessages, conversation, currentuser, selectedConversation, lastMessage, onlineUser, typingStatus, members }) {
   const [user, setUser] = useState(null);
-  // console.log(hasUnreadMessages, "hasUnreadMessages")
   const [lastmessage, setLastmessage] = useState("");
   const [timeAgo, setTimeAgo] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [socket, setSocket] = useState(null);
   const [lastMessageStatus, setLastMessageStatus] = useState(null);
   const [unreadMessageCount, setUnreadMessageCount] = useState(0);
-  const [unreadChatCount, setUnreadChatCount] = useState(0);
+  const [x, setX] = useState(0);
+
   const [activeTypingUser, setActiveTypingUser] = useState(null);
   const isFetching = useRef(false);
-  // console.log(lastMessage, "lastMessage");
+
   useEffect(() => {
     if (typingStatus) {
       setActiveTypingUser(typingStatus);
@@ -47,7 +47,7 @@ function Conversation({ hasUnreadMessages, conversation, currentuser, selectedCo
         setLastmessage(response.data?.lastMessage?.lastMessage);
         setUnreadMessageCount(response.data?.unreadCount);
         setLastMessageStatus(response.data);
-        // setUnreadChatCount(response.data?.unreadCount);
+        setX(response.data?.unreadCount);
       } catch (error) {
         console.error("Error fetching last message:", error);
       }
@@ -93,15 +93,9 @@ function Conversation({ hasUnreadMessages, conversation, currentuser, selectedCo
   }, [lastmessage]);
 
   const isUserOnline = onlineUser?.some((u) => u.userId === user?._id);
-  // console.log(hasUnreadMessages, unreadMessageCount, lastmessage.sender, user?._id)
-  // console.log(unreadMessageCount, "unreadMessageCount")
+
   return (
-      {/* <p>
-        {unreadChatCount}
-      </p> */}
-
     <div className={`${selectedConversation ? "Rectangle115 hover:cursor-pointer w-full h-[70px] flex justify-between justify-items-center bg-[#E3E3E3]" : "Rectangle115 hover:cursor-pointer w-[317px] h-[70px] flex justify-between justify-items-center bg-white"} ${(!hasUnreadMessages && (unreadMessageCount != 0) && lastmessage.sender == user?._id) ? "bg-[#2676c2]" : ""}`}>
-
       <div className="flex">
         <div className="mt-[12px] ml-[10px]">
           <div className="Group1189 w-[51px] h-[51px] rounded-[50%] relative">

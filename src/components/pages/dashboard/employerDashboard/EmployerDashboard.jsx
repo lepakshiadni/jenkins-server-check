@@ -665,45 +665,45 @@ const DashboardApp = () => {
 
               </div>
 
-              <div>
-                <div
-                  className={` ${selectedOption === "TrainerList" || location.pathname.startsWith("/employerDashboard/trainerlist/trainerlistprofile/") ? "relative" : "hidden"
-                    }`}
-                >
 
-                  <div className="dropdown-buttons">
-                    <select style={{ backgroundColor: "#f9f9f9", border: "1px solid #dadada", outline: 'none', color: 'gray',borderRadius:'8px',width:'13rem',height:"2rem",cursor:'pointer' }} value={selectedFilter} onChange={(e) => handleFilterChange(e.target.value)} >
-                      <option value="" selected>Select Location</option>
-                      {storeLoc.map((item, index) => (
-                        <option key={index} value={item}>{item}</option>
-                      ))}
-                    </select>
+              <div
+                className={` ${selectedOption === "TrainerList" || location.pathname.startsWith("/employerDashboard/trainerlist/trainerlistprofile/") ? "relative" : "hidden"
+                  }`}
+              >
 
-                    <select style={{ backgroundColor: "#f9f9f9", border: "1px solid #dadada", outline: 'none', color: 'gray',borderRadius:'8px',width:'13rem',height:"2rem",cursor:"pointer" }} value={selectedFilter2} onChange={(e) => handleFilterChange2(e.target.value)} >
-                      <option value="" selected>Select Designation</option>
-                      {storedesignation.map((item, index) => (
-                        <option key={index} value={item}>{item}</option>
-                      ))}
-                    </select>
-                  </div>
+                <div className="dropdown-buttons">
+                  <select style={{ backgroundColor: "#f9f9f9", border: "1px solid #dadada", outline: 'none', color: 'gray', borderRadius: '8px', width: '13rem', height: "2rem", cursor: 'pointer' }} value={selectedFilter} onChange={(e) => handleFilterChange(e.target.value)} >
+                    <option value="" selected>Select Location</option>
+                    {storeLoc.map((item, index) => (
+                      <option key={index} value={item}>{item}</option>
+                    ))}
+                  </select>
 
+                  <select style={{ backgroundColor: "#f9f9f9", border: "1px solid #dadada", outline: 'none', color: 'gray', borderRadius: '8px', width: '13rem', height: "2rem", cursor: "pointer" }} value={selectedFilter2} onChange={(e) => handleFilterChange2(e.target.value)} >
+                    <option value="" selected>Select Designation</option>
+                    {storedesignation.map((item, index) => (
+                      <option key={index} value={item}>{item}</option>
+                    ))}
+                  </select>
                 </div>
+
               </div>
-              <div>
-                <div
-                  className={` ${selectedOption === "Feed" ? "relative" : "hidden"
-                    }`}
+
+
+              <div
+                className={` ${selectedOption === "Feed" ? "relative" : "hidden"
+                  }`}
+              >
+                <button
+                  onClick={() => {
+                    setModel(true);
+                  }}
+                  className="w-[161px] h-[40px] bg-[#2676C2] border rounded-lg text-white text-base font-medium font-['Poppins']"
                 >
-                  <button
-                    onClick={() => {
-                      setModel(true);
-                    }}
-                    className="w-[161px] h-[40px] bg-[#2676C2] border rounded-lg text-white text-base font-medium font-['Poppins']"
-                  >
-                    Create a post +
-                  </button>
-                </div>
+                  Create a post +
+                </button>
               </div>
+
 
 
             </div>
